@@ -31,7 +31,6 @@ class StripController extends Controller {
 	{
 		return View::make('strip.translate');
 	}
-
 }
 
 ?>

@@ -74,6 +74,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+.project
 
 # External tool builders
 .externalToolBuilders/
@@ -101,3 +102,4 @@ composer.phar
 composer.lock
 .env.*.php
 .env.php
+/nbproject/
