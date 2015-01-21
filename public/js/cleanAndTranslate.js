@@ -38,18 +38,18 @@ $(document).ready(function() {
 	}
 
 	TBCanvasParam.prototype.desactivateButton = function(){
-		$('#rect' ).css('border-color', '#379dbf');
+		$('#rect' ).css('border-color', '#fff');
 		this.shape = false;
 		this.allSelectable(true, canvas);
-		$('#viewAll' ).css('border-color', '#379dbf');
+		$('#viewAll' ).css('border-color', '#fff');
 		this.viewAll = false;
 		this.allActive(false, canvas);
-		$('#brush' ).css('border-color', '#379dbf');
+		$('#brush' ).css('border-color', '#fff');
 		canvas.isDrawingMode = false;
-		$('#selectAll' ).css('border-color', '#379dbf');
+		$('#selectAll' ).css('border-color', '#fff');
 		this.selectAll = false;
 		this.allSelected(false, canvas);
-		$('#update' ).css('border-color', '#379dbf');
+		$('#update' ).css('border-color', '#fff');
 		this.update = false;
 	}
 

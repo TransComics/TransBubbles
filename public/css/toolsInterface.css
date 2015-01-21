@@ -162,57 +162,40 @@ ul li{
 	top:1px;
 }
 
+.icon {
+	witdh:20px;
+	height:20px;
+	padding: 5px;
+	border:1px solid #fff;
+}
+
 .icon-update:before {
 	content: url('../images/icons/16/mouse12.png');
-	position: relative;
-	top:3px;
 }
 .icon-brush:before {
 	content: url('../images/icons/16/brush7.png');
-	position: relative;
-	top:3px;
 }
 .icon-text:before {
 	content: url('../images/icons/16/typografic.png');
-	position: relative;
-	top:3px;
 }
 .icon-rect:before {
 	content: url('../images/icons/16/rectangular2.png');
-	position: relative;
-	top:3px;
 }
 .icon-circle:before {
 	content: url('../images/icons/16/circle2.png');
-	position: relative;
-	top:3px;
 }
 .icon-del:before {
 	content: url('../images/icons/16/delete97.png');
-	position: relative;
-	top:3px;
 }
 .icon-viewAll:before {
 	content: url('../images/icons/16/visibility1.png');
-	position: relative;
-	top:3px;
 }
 .icon-selectAll:before {
 	content: url('../images/icons/16/selector.png');
-	position: relative;
-	top:3px;
 }
 .icon-undo:before {
 	content: url('../images/icons/16/undo12.png');
-	position: relative;
-	top:3px;
 }
 .icon-redo:before {
 	content: url('../images/icons/16/redo12.png');
-	position: relative;
-	top:3px;
-}
-
-.zero-padding {
-	padding: 5px 10px;
 }
