@@ -1,7 +1,7 @@
 @extends('layouts.html')
 
-@section('body')
-
-    @yield('content')
+@section('html.content')
+	
+    @yield('master.content')
 
 @stop

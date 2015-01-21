@@ -3,14 +3,11 @@
 		<meta charset="utf-8">
 		
 		<title>@yield('section', 'TransBubbles')</title>
-	
-        <link rel="stylesheet" href="default.css">
 		
-		@yield('styles')
-		
-		@yield('scripts')
+		@yield('html.styles')
+		@yield('html.scripts')
 	</head>
 	<body>
-		@yield('body')
+		@yield('html.content')
 	</body>
 </html>
