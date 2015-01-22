@@ -11,10 +11,16 @@
 |
 */
 
+Route::pattern('id', '[0-9]+');
+
 Route::get('/', 'HomeController@findLangAndRedirect');
 
 Route::group(['prefix' => '/{lang}', 'before' => 'lang'], function() 
 {
+	Route::get('/', [
+		'as' => 'home.index',
+		'uses' => 'HomeController@index'
+	]);
 	Route::get('/clean/{id}', [
 		'as' => 'strip.clean',
 		'uses' => 'StripController@clean'
