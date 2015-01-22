@@ -11,7 +11,20 @@
 |
 */
 
-Route::get('/', function()
+Route::get('/', 'HomeController@findLangAndRedirect');
+
+Route::group(['prefix' => '/{lang}', 'before' => 'lang'], function() 
 {
-	return View::make('hello');
+	Route::get('/clean/{id}', [
+		'as' => 'strip.clean',
+		'uses' => 'StripController@clean'
+	]);
+	Route::get('/translate/{id}', [
+		'as' => 'strip.translate',
+		'uses' => 'StripController@translate'
+	]);
+	Route::get('/import', [
+		'as' => 'strip.import',
+		'uses' => 'StripController@import'
+	]);
 });

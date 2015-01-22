@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController {
+class HomeController extends Controller {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -14,10 +14,9 @@ class HomeController extends BaseController {
 	|	Route::get('/', 'HomeController@showWelcome');
 	|
 	*/
-
-	public function showWelcome()
-	{
-		return View::make('hello');
+	
+	public function findLangAndRedirect() {
+		return Redirect::to('/'.substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2));
 	}
 
 }

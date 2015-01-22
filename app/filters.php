@@ -88,3 +88,22 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Language Selector Filter
+|--------------------------------------------------------------------------
+|
+| The language selector filter allow app to define locales from user.
+|
+*/
+
+Route::filter('lang', function($route)
+{
+	/* Pop lang parameter from $route. */ 
+	$lang = $route->getParameter('lang');
+	$route->forgetParameter('lang');
+	
+	/* Define user locale. */
+	App::setLocale($lang);
+});
