@@ -18,5 +18,9 @@ class HomeController extends Controller {
 	public function findLangAndRedirect() {
 		return Redirect::to('/'.substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2));
 	}
+	
+	public function index() {
+		return View::make('index');
+	}
 
 }
