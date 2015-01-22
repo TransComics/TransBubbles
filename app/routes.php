@@ -11,6 +11,8 @@
 |
 */
 
+Route::pattern('id', '[0-9]+');
+
 Route::get('/', 'HomeController@findLangAndRedirect');
 
 Route::group(['prefix' => '/{lang}', 'before' => 'lang'], function() 
