@@ -5,7 +5,7 @@ class HomeControllerTest extends TestCase {
 	public function testIndex() {
 		
 		$this->client->request('GET', '/');
-		$this->assertTrue($this->client->getResponse()->isOk());
+		$this->assertRedirectedToAction('HomeController@index');
 		
 	}
 	public function testIndexInEn() {
@@ -17,7 +17,7 @@ class HomeControllerTest extends TestCase {
 	public function testIndexInFr() {
 		
 		$this->client->request('GET', '/fr');
-		$this->assertRedirectedToAction('HomeController@index');
+		$this->assertTrue($this->client->getResponse()->isOk());
 		
 	}
 
