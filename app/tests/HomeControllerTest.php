@@ -5,7 +5,7 @@ class HomeControllerTest extends TestCase {
 	public function testIndex() {
 		
 		$this->client->request('GET', '/');
-		$this->assertRedirectedToRoute('home.index', ['lang']);
+		$this->assertRedirectedToRoute('home.index', [], ['lang']);
 		
 	}
 	public function testIndexInEn() {
