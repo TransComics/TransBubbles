@@ -5,19 +5,19 @@ class HomeControllerTest extends TestCase {
 	public function testIndex() {
 		
 		$this->client->request('GET', '/');
-		$this->assertRedirectedToAction('HomeController@index');
+		$this->assertRedirectedToRoute('home.index', ['lang']);
 		
 	}
 	public function testIndexInEn() {
 		
 		$this->client->request('GET', '/en');
-		$this->assertTrue($this->client->getResponse()->isOk());
+		$this->assertResponseOk();;
 		
 	}
 	public function testIndexInFr() {
 		
 		$this->client->request('GET', '/fr');
-		$this->assertTrue($this->client->getResponse()->isOk());
+		 $this->assertResponseOk();
 		
 	}
 
