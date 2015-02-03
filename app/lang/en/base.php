@@ -5,3 +5,5 @@ return array(
 	'welcome'     => 'Wellcome',
 
 );
+
+?>

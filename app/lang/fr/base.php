@@ -2,6 +2,6 @@
 
 return array(
 
-	'welcome'     => 'Bienvenu',
+	'welcome'     => 'Bienvenue',
 
 );

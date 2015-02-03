@@ -58,5 +58,6 @@ Route::group ( [
 
 Route::any ( '{wildcard}', function ($uri) {
 	$lang = substr ( Request::server ( 'HTTP_ACCEPT_LANGUAGE' ), 0, 2 );
-	return Redirect::to ( $lang . '/' . $uri );
+	return Redirect::to ( $lang . '/' . $uri )->withInput()->withErrors(Session::get('errors'));
 } );
+?>
