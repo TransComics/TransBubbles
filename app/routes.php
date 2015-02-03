@@ -29,3 +29,14 @@ Route::get('/import', [
         'as' => 'strip.import',
         'uses' => 'StripController@import'
 ]);
+
+Route::group(['prefix' => '/comics'], function() {
+    Route::get('/add', [
+        'as' => 'comics.add',
+        'uses' => 'ComicsController@getAdd'
+    ]);
+    Route::get('/list', [
+        'as' => 'comics.add',
+        'uses' => 'ComicsController@getList'
+    ]);
+});
