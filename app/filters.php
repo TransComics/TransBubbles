@@ -12,7 +12,17 @@
 */
 
 App::before(function($request) {
-	//
+
+    /* Define language. */
+    if (Session::has('lang')) {
+        $lang = Session::get('lang');
+    } else {
+        $lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+    }
+    /* Define user locale. */
+    App::setLocale('en');
+
+    
 });
 
 
@@ -90,14 +100,3 @@ Route::filter('csrf', function() {
 | The language selector filter allow app to define locales from user.
 |
 */
-
-Route::filter('lang', function($route) {
-    if (Session::has('lang')) {
-        $lang = Session::get('lang');
-    } else {
-        $lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
-    }
-
-    /* Define user locale. */
-    App::setLocale($lang);
-});

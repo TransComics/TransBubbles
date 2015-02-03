@@ -13,22 +13,19 @@
 
 Route::pattern('id', '[0-9]+');
 
-Route::group(['before' => 'lang'], function() {
-    Route::get('/', [
-            'as' => 'home.index',
-            'uses' => 'HomeController@index'
-    ]);
-    Route::get('/clean/{id}', [
-            'as' => 'strip.clean',
-            'uses' => 'StripController@clean'
-    ]);
-    Route::get('/translate/{id}', [
-            'as' => 'strip.translate',
-            'uses' => 'StripController@translate'
-    ]);
-    Route::get('/import', [
-            'as' => 'strip.import',
-            'uses' => 'StripController@import'
-    ]);
-
-});
+Route::get('/', [
+        'as' => 'home.index',
+        'uses' => 'HomeController@index'
+]);
+Route::get('/clean/{id}', [
+        'as' => 'strip.clean',
+        'uses' => 'StripController@clean'
+]);
+Route::get('/translate/{id}', [
+        'as' => 'strip.translate',
+        'uses' => 'StripController@translate'
+]);
+Route::get('/import', [
+        'as' => 'strip.import',
+        'uses' => 'StripController@import'
+]);
