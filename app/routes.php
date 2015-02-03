@@ -17,8 +17,7 @@ Route::pattern('wildcard', '.*');
 
 Route::get('/', 'HomeController@findLangAndRedirect');
 
-Route::group(['prefix' => '/{lang}', 'before' => 'lang'], function() 
-{
+Route::group(['prefix' => '/{lang}', 'before' => 'lang'], function() {
     Route::get('/', [
             'as' => 'home.index',
             'uses' => 'HomeController@index'
