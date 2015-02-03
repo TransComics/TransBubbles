@@ -9,7 +9,7 @@
 			<div class="panel-title">@lang('login.sign_in')</div>
 			<div
 				style="float: right; font-size: 80%; position: relative; top: -10px">
-				<a href="#">@lang('login.forgot_password')</a>
+				<a href="{{ URL::to('login') }}">@lang('login.forgot_password')</a>
 			</div>
 		</div>
 

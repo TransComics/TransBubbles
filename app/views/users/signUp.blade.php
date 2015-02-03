@@ -1,8 +1,7 @@
 @extends('users.loginout') @section('loginout.sign')
 
-@if(Session::has('message'))
-<p class="alert">{{ Session::get('message') }}</p>
-@endif
+
+
 
 <div id="signupbox" style="margin-top: 50px"
 	class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -11,16 +10,15 @@
 			<div class="panel-title">Sign Up</div>
 			<div
 				style="float: right; font-size: 85%; position: relative; top: -10px">
-				<a id="signinlink" href="#"
-					onclick="$('#signupbox').hide(); $('#loginbox').show()">Sign In</a>
+				<a id="signinlink" href="{{ URL::to('login') }}">Sign In</a>
 			</div>
 		</div>
 		<div class="panel-body">
 
 			{{ Form::open(array('url'=>'signup', 'class'=>'form-horizontal')) }}
 
-			<div id="signupalert" style="display: none"
-				class="alert alert-danger">
+			@if($errors->has())
+			<div id="signupalert" class="alert alert-danger">
 				<ul>
 					@foreach($errors->all() as $error)
 					<li>{{ $error }}</li> 
@@ -28,6 +26,8 @@
 				</ul>
 				<span></span>
 			</div>
+			@endif
+			
 			<div class="form-group">
 				<label for="firstname" class="col-md-3 control-label">@lang('login.login')</label>
 				<div class="col-md-9">{{ Form::text('login', null,
