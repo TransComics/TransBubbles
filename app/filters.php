@@ -92,9 +92,11 @@ Route::filter('csrf', function() {
 */
 
 Route::filter('lang', function($route) {
-    /* Pop lang parameter from $route. */ 
-    $lang = $route->getParameter('lang');
-    $route->forgetParameter('lang');
+    if (Session::has('lang')) {
+        $lang = Session::get('lang');
+    } else {
+        $lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+    }
 
     /* Define user locale. */
     App::setLocale($lang);
