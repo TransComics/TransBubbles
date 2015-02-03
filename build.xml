@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="YourProject" default="build" basedir=".">
+<project name="Transcomics-groux" default="build" basedir=".">
 
     <target name="build"
-        depends="build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb" />
+        depends="build-common,pdepend" />
 
-    <target name="build-clean"
-        depends="clean,build-common,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb" />
+    <target name="tools-parallel" description="Run tools in parallel">
+        <parallel threadCount="2">
+            <sequential>
+                <antcall target="pdepend" />
+            </sequential>
+            <antcall target="phpdox" />
+        </parallel>
+    </target>
+
+    <target name="clean" depends="clean-build,clean-composer" description="Cleanup build and composer artifacts" />
+        <target name="build-clean"
+        depends="clean,build-common,pdepend" />
 
     <target name="build-dox"
-        depends="build-common,phpdox,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb" />
+        depends="build-common,phpdox,pdepend" />
 
     <target name="build-dox-clean"
-        depends="clean,build-common,phpdox,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpcb" />
-
+        depends="clean,build-common,phpdox,pdepend" />
     <target name="build-parallel"
         depends="build-common,tools-parallel" />
 
@@ -21,23 +30,6 @@
         depends="clean,build-common,tools-parallel" />
 
     <target name="build-common" depends="lint,prepare,storage-permissions,composer,phpunit" />
-
-    <target name="tools-parallel" description="Run tools in parallel">
-        <parallel threadCount="2">
-            <sequential>
-                <antcall target="pdepend" />
-                <antcall target="phpcs-ci" />
-                <antcall target="phpmd-ci" />
-            </sequential>
-            <antcall target="phpcb" />
-            <antcall target="phpcpd" />
-            <antcall target="phpdox" />
-            <antcall target="phploc" />
-        </parallel>
-    </target>
-
-    <target name="clean" depends="clean-build,clean-composer" description="Cleanup build and composer artifacts" />
- 
     <target name="clean-build" description="Cleanup build artifacts">
         <echo>Cleaning out the build artifacts</echo>
         <delete dir="${basedir}/build/api" />
@@ -46,33 +38,34 @@
         <delete dir="${basedir}/build/logs" />
         <delete dir="${basedir}/build/pdepend" />
     </target>
- 
     <target name="clean-composer" description="Cleanup composer artifacts">
         <echo>Cleaning out the composer artifacts</echo>
         <delete dir="${basedir}/vendor" />
         <delete file="${basedir}/composer.lock" />
     </target>
 
-    <target name="composer" depends="composer-install,composer-update" description="Install or update dependencies" />
+    <target name="composer" depends="get-composer,composer-install,composer-update" description="Install or update dependencies" />
+     <target name="get-composer" description="Get Composer">
+        <exec executable="/bin/bash">
+            <arg value="-c" />
+            <arg value="curl -s https://getcomposer.org/installer | php" />
+        </exec>
+</target>
 
-    <!--// Check to see it the vendor folder already exist, if so, then no reason to run //-->
-    <target name="composer.check">
-        <condition property="composer.exist">
-            <available file="${basedir}/vendor" type="dir" />
-        </condition>
-    </target>
-
-    <target name="composer-install" depends="composer.check" unless="composer.exist" description="Installing dependencies">
+    <target name="composer-install" depends="get-composer" unless="composer.exist" description="Installing dependencies">
         <echo>Installing dependencies</echo>
-        <exec executable="composer" failonerror="true">
+        <exec executable="${basedir}/composer.phar" failonerror="true">
             <arg value="install" />
+            <arg value="--dev" />
         </exec>
     </target>
 
-    <target name="composer-update" depends="composer.check" if="composer.exist" description="Updating dependencies">
+    <target name="composer-update" depends="composer-install" description="Updating dependencies">
         <echo>Updating dependencies</echo>
-        <exec executable="composer" failonerror="true">
-            <arg value="update" />
+         <delete dir="${basedir}/vendor"/>
+        <exec executable="${basedir}/composer.phar" failonerror="true">
+            <arg value="install" />
+            <arg value="--optimize-autoloader" />
         </exec>
     </target>
 
@@ -94,73 +87,10 @@
             <arg path="${basedir}/app" />
         </exec>
     </target>
-
-    <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-        <exec executable="phpcb">
-            <arg value="--log" />
-            <arg path="${basedir}/build/logs" />
-            <arg value="--source" />
-            <arg path="${basedir}/app" />
-            <arg value="--output" />
-            <arg path="${basedir}/build/code-browser" />
-        </exec>
-    </target>
-
-     <target name="phpcpd" description="Find duplicate code using PHPCPD">
-        <exec executable="phpcpd">
-            <arg value="--log-pmd" />
-            <arg value="${basedir}/build/logs/pmd-cpd.xml" />
-            <arg path="${basedir}/app" />
-        </exec>
-    </target>
-
-    <target name="phpcs"
-         description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="phpcs">
-            <arg value="--standard=${basedir}/build/phpcs.xml" />
-            <arg path="${basedir}/app" />
-        </exec>
-    </target>
-
-    <target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
-        <exec executable="phpcs" output="/dev/null">
-            <arg value="--report=checkstyle" />
-            <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
-            <arg value="--standard=${basedir}/build/phpcs.xml" />
-            <arg path="${basedir}/app" />
-        </exec>
-    </target>
-
     <target name="phpdox" description="Generate API documentation using phpDox">
         <exec executable="phpdox">
             <arg value="-f" />
             <arg value="${basedir}/build/phpdox.xml" />
-        </exec>
-    </target>
-
-    <target name="phploc" description="Measure project size using PHPLOC">
-        <exec executable="phploc">
-           <arg value="--log-csv" />
-           <arg value="${basedir}/build/logs/phploc.csv" />
-           <arg path="${basedir}/app" />
-        </exec>
-    </target>
-
-     <target name="phpmd" description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-        <exec executable="phpmd">
-            <arg path="${basedir}/app" />
-            <arg value="text" />
-            <arg value="${basedir}/build/phpmd.xml" />
-        </exec>
-    </target>
-
-    <target name="phpmd-ci" description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
-        <exec executable="phpmd">
-            <arg path="${basedir}/app" />
-            <arg value="xml" />
-            <arg value="${basedir}/build/phpmd.xml" />
-            <arg value="--reportfile" />
-            <arg value="${basedir}/build/logs/pmd.xml" />
         </exec>
     </target>
 

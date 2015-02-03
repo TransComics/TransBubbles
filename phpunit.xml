@@ -7,7 +7,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false"
+         stopOnFailure="true"
          syntaxCheck="false"
 >
     <testsuites>
@@ -15,4 +15,9 @@
             <directory>./app/tests/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory>./app/</directory>
+        </whitelist>
+    </filter>
 </phpunit>
