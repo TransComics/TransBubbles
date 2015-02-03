@@ -30,13 +30,16 @@ Route::get('/import', [
         'uses' => 'StripController@import'
 ]);
 
-Route::group(['prefix' => '/comics'], function() {
+Route::get('comics/list', [
+    'as' => 'comics.list',
+    'uses' => 'ComicsController@getList'
+]);
+
+Route::group(['prefix' => '/comic'], function() {
     Route::get('/add', [
-        'as' => 'comics.add',
-        'uses' => 'ComicsController@getAdd'
+        'as' => 'comic.add',
+        'uses' => 'ComicController@getAdd'
     ]);
-    Route::get('/list', [
-        'as' => 'comics.add',
-        'uses' => 'ComicsController@getList'
-    ]);
+    
+    Route::put('/add', 'ComicController@putAdd');
 });
