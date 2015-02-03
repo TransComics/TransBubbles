@@ -7,13 +7,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	 *
 	 * @return \Symfony\Component\HttpKernel\HttpKernelInterface
 	 */
-	public function createApplication()
-	{
-		$unitTesting = true;
-
-		$testEnvironment = 'testing';
+	public function createApplication() {
 
 		return require __DIR__.'/../../bootstrap/start.php';
+
 	}
 
 }
