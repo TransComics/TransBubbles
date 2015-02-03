@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('content')
+@section('tool.content')
 
 <h1> import</h1>
 

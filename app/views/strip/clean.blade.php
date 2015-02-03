@@ -1,6 +1,6 @@
 @extends('layouts.tool')
 
-@section('content')
+@section('tool.content')
 <div id="main">
 	<table id="paint">
 		<tr>

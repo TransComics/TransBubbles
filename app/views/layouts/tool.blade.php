@@ -1,25 +1,27 @@
 @extends('layouts.html')
 
-@section('styles')
+@section('html.styles')
 	{{ HTML::style('css/toolsInterface.css') }}
 @stop
 
-@section('scripts')
-	{{ HTML::script('js/lib/jquery-2.1.1.min.js') }}
+@section('html.scripts')
+	{{ HTML::script('js/lib/jquery-2.1.3.min.js') }}
 	{{ HTML::script('js/lib/fabric.js') }}
+	{{ HTML::script('js/zoom.js') }}
 	{{ HTML::script('js/cleanAndTranslate.js') }}
 @stop
 
-@section('body')
+@section('html.content')
 <div id='top-line'>
 </div>
 <header id='header'>
 		<h1>Trans<span class="cyan-text">Bubbles</span> - Interface d'import</h1>
 </header>
 <nav id='nav'>
-	<ul>
+	<ul id="origin-remote">
 		<li><a class='button' href="" id="hidden-origin">Cacher</a></li>
-		<li><span class='espace'></span></li>
+	</ul>
+	<ul id="delivered-remote">
 		<li><a class='icon icon-update zero-padding' href="" id="update"></a></li>
 		<li><a class='icon icon-text zero-padding' href="" id="text"></a></li>
 		<li><a class='icon icon-del zero-padding' href="" id="del"></a></li>
@@ -27,13 +29,18 @@
 		<li><a class='icon icon-rect zero-padding' href="" id="rect"></a></li>
 		<li><a class='icon icon-circle zero-padding' href="" id="circle"></a></li>
 		<li><a class='icon icon-viewAll zero-padding' href="" id="viewAll"></a></li>
-		<li><a class='icon icon-selectAll zero-padding' href="" id="selectAll"></a></li>
+		<li><span class='icon icon-selectAll zero-padding' href="" id="selectAll"></span></li>
+		
+		<li><a class='icon icon-zoomm zero-padding' href="" id="btnZoomOut"></a></li>
+		<li><a class='icon icon-zoomp zero-padding' href="" id="btnZoomIn"></a></li>
+		<li><a class='icon icon-zoom zero-padding' href="" id="btnResetZoom"></a></li>
+			
 		<li><a class='icon icon-undo zero-padding' href="" id="undo"></a></li>
 		<li><a class='icon icon-redo zero-padding' href="" id="redo"></a></li>
 	</ul>
 </nav>
 
-	@yield('content')
+	@yield('tool.content')
 
 <nav id="remote">
 		<ul>
