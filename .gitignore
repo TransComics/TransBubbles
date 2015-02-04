@@ -103,3 +103,7 @@ composer.lock
 .env.*.php
 .env.php
 /nbproject/
+
+
+# Custom
+/public/images/strips/
