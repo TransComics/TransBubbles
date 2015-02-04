@@ -4,7 +4,6 @@ $(document).ready(function() {
 	 * *********************************** Canvas handler ******************************************** *
 	 * ********************************************************************************************** */
 
-<<<<<<< HEAD
 	var canvas = new fabric.Canvas('c');
 	var color = $('#colorPicker').val();
 	var size = $('#sizePicker').val();
@@ -12,13 +11,6 @@ $(document).ready(function() {
 
 	canvas.freeDrawingBrush.width = size; // default brush size
 	canvas.freeDrawingBrush.color = color; // default brush color
-=======
-	var canvas = new fabric.Canvas('c')
-	var background = null; // we need to keep an reference for background because it neet to stay unselectable
-
-	canvas.freeDrawingBrush.width = 20; // default brush size
-	canvas.freeDrawingBrush.color = '#fff'; // default brush color
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 	canvas.renderAll();
 
 	function initCanvas() {
@@ -87,10 +79,7 @@ $(document).ready(function() {
 
 	TBCanvasParam.prototype.desactivateButton = function(){
 		$('#rect' ).css('border', '1px solid #379dbf');
-<<<<<<< HEAD
 		$('#circle' ).css('border', '1px solid #379dbf');
-=======
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 		this.shape = false;
 		this.allSelectable(true, canvas);
 		$('#viewAll' ).css('border', '1px solid #379dbf');
@@ -356,11 +345,8 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
+
 	$('#viewAll' ).click(function() {
 		if(!param.viewAll) {
 			param.desactivateButton();
@@ -374,7 +360,6 @@ $(document).ready(function() {
 		return false;
 	});
 
-<<<<<<< HEAD
 	$('#colorPicker' ).change(function() {
 		color = $('#colorPicker' ).val();
 		canvas.freeDrawingBrush.color = color;
@@ -387,8 +372,6 @@ $(document).ready(function() {
 		canvas.freeDrawingBrush.width = size;
 	});
 
-=======
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 	$('#selectAll' ).click(function() {
 		if(!param.selectAll) {
 			param.desactivateButton();
@@ -543,7 +526,6 @@ $(document).ready(function() {
 				height: 0, 
 				left: param.x, 
 				top: param.y, 
-<<<<<<< HEAD
 				fill: color
 			});
 		}
@@ -557,9 +539,6 @@ $(document).ready(function() {
 				left: param.x, 
 				top: param.y, 
 				fill: color
-=======
-				fill: '#fff'
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 			});
 		}
 		else {
@@ -607,15 +586,11 @@ $(document).ready(function() {
 			return false;
 		}
 
-<<<<<<< HEAD
 		if(param.shape == 'circle')
 			fshape.set('rx', w).set('ry', h);
 		else if(param.shape == 'rect')
 			fshape.set('width', w).set('height', h);
-=======
 
-		fshape.set('width', w).set('height', h);
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 		canvas.renderAll(true); 
 	}
 
