@@ -12,7 +12,6 @@
 */
 
 Route::when('*', 'csrf', array('post', 'put', 'delete'));
-
 Route::pattern('id', '[0-9]+');
 
 Route::get('/', [
@@ -52,4 +51,11 @@ Route::group(['prefix' => '/comic'], function() {
         'as' => 'comic.delete',
         'uses' => 'ComicController@delete',
     ]);
+});
+
+Route::group(['prefix' => '/ws'], function () {
+   Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
+   Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
+   Route::get('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@getInfos')->where('idStrip', '[0-9]+');
+   Route::post('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@setInfos')->where('idStrip', '[0-9]+');
 });
