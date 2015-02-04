@@ -91,12 +91,4 @@ Route::filter('csrf', function() {
         throw new Illuminate\Session\TokenMismatchException;
     }
 });
-
-/*
-|--------------------------------------------------------------------------
-| Language Selector Filter
-|--------------------------------------------------------------------------
-|
-| The language selector filter allow app to define locales from user.
-|
-*/
+?>

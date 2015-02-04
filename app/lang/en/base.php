@@ -1,10 +1,10 @@
 <?php
 
 return array(
-
-    'welcome'   => 'Wellcome',
+    'welcome'   => 'Welcome',
     'title'     => 'Title',
     'add'       => 'Add',
     'update'    => 'Update',
-
 );
+
+?>

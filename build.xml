@@ -1,147 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?>
 
-<project name="TransBubbles" default="build" basedir=".">
-
-    <target name="build"
-        depends="build-common,pdepend" />
-
-    <target name="tools-parallel" description="Run tools in parallel">
-        <parallel threadCount="2">
-            <sequential>
-                <antcall target="pdepend" />
-            </sequential>
-            <antcall target="phpdox" />
-        </parallel>
-    </target>
-
-    <target name="clean" depends="clean-build,clean-composer" description="Cleanup build and composer artifacts" />
-        <target name="build-clean"
-        depends="clean,build-common,pdepend" />
-
-    <target name="build-dox"
-        depends="build-common,phpdox,pdepend" />
-
-    <target name="build-dox-clean"
-        depends="clean,build-common,phpdox,pdepend" />
-    <target name="build-parallel"
-        depends="build-common,tools-parallel" />
-
-    <target name="build-parallel-clean"
-        depends="clean,build-common,tools-parallel" />
-
-    <target name="build-common" depends="lint,prepare,storage-permissions,composer,phpunit" />
-    <target name="clean-build" description="Cleanup build artifacts">
-        <echo>Cleaning out the build artifacts</echo>
-        <delete dir="${basedir}/build/api" />
-        <delete dir="${basedir}/build/code-browser" />
-        <delete dir="${basedir}/build/coverage" />
-        <delete dir="${basedir}/build/logs" />
-        <delete dir="${basedir}/build/pdepend" />
-    </target>
-    <target name="clean-composer" description="Cleanup composer artifacts">
-        <echo>Cleaning out the composer artifacts</echo>
-        <delete dir="${basedir}/vendor" />
-        <delete file="${basedir}/composer.lock" />
-    </target>
-
-    <target name="composer" depends="get-composer,composer-install,composer-update" description="Install or update dependencies" />
-     <target name="get-composer" description="Get Composer">
-        <exec executable="/bin/bash">
-            <arg value="-c" />
-            <arg value="curl -s https://getcomposer.org/installer | php" />
-        </exec>
+}/build/logs/jdepend.xml" />
+<arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
+<arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
+<arg path="${basedir}/app" />
+</exec>
 </target>
-
-    <target name="composer-install" depends="get-composer" unless="composer.exist" description="Installing dependencies">
-        <echo>Installing dependencies</echo>
-        <exec executable="${basedir}/composer.phar" failonerror="true">
-            <arg value="install" />
-            <arg value="--dev" />
-        </exec>
-    </target>
-
-    <target name="composer-update" depends="composer-install" description="Updating dependencies">
-        <echo>Updating dependencies</echo>
-         <delete dir="${basedir}/vendor"/>
-        <exec executable="${basedir}/composer.phar" failonerror="true">
-            <arg value="install" />
-            <arg value="--optimize-autoloader" />
-        </exec>
-    </target>
-
-    <target name="lint" description="Perform syntax check of sourcecode files">
-        <apply executable="php" failonerror="false">
-            <arg value="-l" />
-            <fileset dir="${basedir}/app">
-                <include name="**/*.php" />
-                <modified />
-            </fileset>
-        </apply>
-    </target>
-
-    <target name="pdepend" description="Calculate software metrics using PHP_Depend">
-        <exec executable="pdepend">
-            <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
-            <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
-            <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
-            <arg path="${basedir}/app" />
-        </exec>
-    </target>
-    <target name="phpdox" description="Generate API documentation using phpDox">
-        <exec executable="phpdox">
-            <arg value="-f" />
-            <arg value="${basedir}/build/phpdox.xml" />
-        </exec>
-    </target>
-
-    <target name="phpunit" description="Run unit tests with PHPUnit">
-        <exec executable="phpunit" failonerror="true">
-            <arg value="-c" />
-            <arg value="${basedir}/phpunit.xml.dist" />
-            <arg value="--coverage-html" />
-            <arg value="${basedir}/build/coverage" />
-        </exec>
-    </target>
-
-    <target name="storage-permissions" depends="storage-permissions.unix,storage-permissions.windows" description="Setting storage permissions" />
-
-    <target name="storage-permissions.unix" depends="storage.unix.check" if="storage.unix.exist" description="Setting storage permissions on unix">
-        <echo>Setting app/storage to 777</echo>
-        <chmod file="${basedir}/app/storage/**" perm="777" type="dir" failonerror="false" />
-    </target>
-
-    <target name="storage-permissions.windows" depends="storage.windows.check" if="storage.windows.exist" description="Setting storage permissions on windows">
-        <echo>Setting app/storage to writable</echo>
-        <attrib file="${basedir}/app/storage/**" perm="+R" failonerror="false" />
-    </target>
-
-    <!--// Check to see it the app/storage folder exist, if so, then can change permissions //-->
-    <target name="storage.unix.check" description="Check for app/storage on unix">
-        <condition property="storage.unix.exist">
-            <and>
-                <available file="${basedir}/app/storage" type="dir" />
-                <os family="unix" />
-            </and>
-        </condition>
-    </target>
-
-    <!--// Check to see it the app/storage folder exist, if so, then can change permissions //-->
-    <target name="storage.windows.check" description="Check for app/storage on windows">
-        <condition property="storage.windows.exist">
-            <and>
-                <available file="${basedir}/app/storage" type="dir" />
-                <os family="windows" />
-            </and>
-        </condition>
-    </target>
-
-     <target name="prepare" depends="clean-build" description="Prepare for build">
-        <echo>Making the build artifact folders</echo>
-        <mkdir dir="${basedir}/build/api" />
-        <mkdir dir="${basedir}/build/code-browser" />
-        <mkdir dir="${basedir}/build/coverage" />
-        <mkdir dir="${basedir}/build/logs" />
-        <mkdir dir="${basedir}/build/pdepend" />
-    </target>
-
+<target name="phpdox" description="Generate API documentation using phpDox">
+	<exec executable="phpdox">
+		<arg value="-f" />
+		<arg value="${basedir}/build/phpdox.xml" />
+	</exec>
+</target>
+<target name="phpunit" description="Run unit tests with PHPUnit">
+	<exec executable="phpunit" failonerror="true">
+		<arg value="-c" />
+		<arg value="${basedir}/phpunit.xml.dist" />
+		<arg value="--coverage-html" />
+		<arg value="${basedir}/build/coverage" />
+	</exec>
+</target>
+<target name="storage-permissions"
+	depends="storage-permissions.unix,storage-permissions.windows"
+	description="Setting storage permissions" />
+<target name="storage-permissions.unix" depends="storage.unix.check"
+	if="storage.unix.exist" description="Setting storage permissions on unix">
+	<echo>Setting app/storage to 777</echo>
+	<chmod file="${basedir}/app/storage/**" perm="777" type="dir"
+		failonerror="false" />
+</target>
+<target name="storage-permissions.windows" depends="storage.windows.check"
+	if="storage.windows.exist" description="Setting storage permissions on windows">
+	<echo>Setting app/storage to writable</echo>
+	<attrib file="${basedir}/app/storage/**" perm="+R" failonerror="false" />
+</target>
+<!--// Check to see it the app/storage folder exist, if so, then can change 
+	permissions // -->
+<target name="storage.unix.check" description="Check for app/storage on unix">
+	<condition property="storage.unix.exist">
+		<and>
+			<available file="${basedir}/app/storage" type="dir" />
+			<os family="unix" />
+		</and>
+	</condition>
+</target>
+<!--// Check to see it the app/storage folder exist, if so, then can change 
+	permissions // -->
+<target name="storage.windows.check" description="Check for app/storage on windows">
+	<condition property="storage.windows.exist">
+		<and>
+			<available file="${basedir}/app/storage" type="dir" />
+			<os family="windows" />
+		</and>
+	</condition>
+</target>
+<target name="prepare" depends="clean-build" description="Prepare for build">
+	<echo>Making the build artifact folders</echo>
+	<mkdir dir="${basedir}/build/api" />
+	<mkdir dir="${basedir}/build/code-browser" />
+	<mkdir dir="${basedir}/build/coverage" />
+	<mkdir dir="${basedir}/build/logs" />
+	<mkdir dir="${basedir}/build/pdepend" />
+</target>
 </project>

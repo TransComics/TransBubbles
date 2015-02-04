@@ -1,5 +1,4 @@
 <?php
-
 return array(
 
     /*
@@ -19,29 +18,28 @@ return array(
     */
 
     'connections' => array(
-
         'mysql' => array(
-            'driver'    => 'mysql',
-            'host'      => getenv("HOST_DB"),
-            'database'  => getenv("NAME_DB"),
-            'username'  => getenv("USER_DB"),
-            'password'  => getenv("PASSWORD_DB"),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-        ),
-
-        'pgsql' => array(
-            'driver'   => 'pgsql',
-            'host'     => getenv("HOST_DB"),
+            'driver' => 'mysql',
+            'host' => getenv("HOST_DB"),
             'database' => getenv("NAME_DB"),
             'username' => getenv("USER_DB"),
             'password' => getenv("PASSWORD_DB"),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-            'schema'   => 'public',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => ''
         ),
-
-    ),
-
-);
+        
+        'pgsql' => array(
+            'driver' => 'pgsql',
+            'host' => getenv("HOST_DB"),
+            'database' => getenv("NAME_DB"),
+            'username' => getenv("USER_DB"),
+            'password' => getenv("PASSWORD_DB"),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public'
+        )
+    )
+    
+)
+;
