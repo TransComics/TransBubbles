@@ -4,7 +4,6 @@ $(document).ready(function() {
 	 * *********************************** Canvas handler ******************************************** *
 	 * ********************************************************************************************** */
 
-<<<<<<< HEAD
 	var canvas = new fabric.Canvas('c');
 	var color = $('#colorPicker').val();
 	var size = $('#sizePicker').val();
@@ -12,13 +11,6 @@ $(document).ready(function() {
 
 	canvas.freeDrawingBrush.width = size; // default brush size
 	canvas.freeDrawingBrush.color = color; // default brush color
-=======
-	var canvas = new fabric.Canvas('c')
-	var background = null; // we need to keep an reference for background because it neet to stay unselectable
-
-	canvas.freeDrawingBrush.width = 20; // default brush size
-	canvas.freeDrawingBrush.color = '#fff'; // default brush color
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 	canvas.renderAll();
 
 	function initCanvas() {
@@ -87,10 +79,7 @@ $(document).ready(function() {
 
 	TBCanvasParam.prototype.desactivateButton = function(){
 		$('#rect' ).css('border', '1px solid #379dbf');
-<<<<<<< HEAD
 		$('#circle' ).css('border', '1px solid #379dbf');
-=======
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 		this.shape = false;
 		this.allSelectable(true, canvas);
 		$('#viewAll' ).css('border', '1px solid #379dbf');
