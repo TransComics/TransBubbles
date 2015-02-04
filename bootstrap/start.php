@@ -25,7 +25,9 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(array(
-	'local' => array('VM2','amasline'),
+
+	'local' => array('VM2', 'genesis', 'amasline'),
+
 ));
 
 /*

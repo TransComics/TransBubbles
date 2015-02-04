@@ -7,9 +7,9 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="true"
+         stopOnFailure="false"
          syntaxCheck="false"
->
+        >
     <testsuites>
         <testsuite name="Application Test Suite">
             <directory>./app/tests/</directory>
@@ -20,4 +20,9 @@
             <directory>./app/</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="junit" target="./build/logs/junit.xml"
+             logIncompleteSkipped="false"/>
+    </logging>
 </phpunit>
