@@ -1,17 +1,36 @@
 <?php
 
-class StripController extends Controller {
+class StripController extends BaseController {
 
-	public function clean() {
-		return "clean()";
+	/**
+	 * import strip used by the controller.
+	 *
+	 * @return void
+	 */
+	protected function import()
+	{
+		return View::make('strip.import');
 	}
 	
-	public function import() {
-		return "import()";
+	/**
+	 * clean strip used by the controller.
+	 *
+	 * @return void
+	 */
+	protected function clean()
+	{
+		return View::make('strip.clean');
 	}
 	
-	public function translate() {
-		return "translate()";
+	/**
+	 * translate strip used by the controller.
+	 *
+	 * @return void
+	 */
+	protected function translate()
+	{
+		return View::make('strip.translate');
 	}
-
 }
+
+?>

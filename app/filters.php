@@ -11,14 +11,22 @@
 |
 */
 
-App::before(function($request)
-{
-	//
+App::before(function($request) {
+
+    /* Define language. */
+    if (Session::has('lang')) {
+        $lang = Session::get('lang');
+    } else {
+        $lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
+    }
+    /* Define user locale. */
+    App::setLocale('en');
+
+    
 });
 
 
-App::after(function($request, $response)
-{
+App::after(function($request, $response) {
 	//
 });
 
@@ -33,25 +41,21 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('login');
-		}
-	}
+Route::filter('auth', function() {
+    if (Auth::guest()) {
+        if (Request::ajax()) {
+                return Response::make('Unauthorized', 401);
+        }
+        else
+        {
+                return Redirect::guest('login');
+        }
+    }
 });
 
 
-Route::filter('auth.basic', function()
-{
-	return Auth::basic();
+Route::filter('auth.basic', function() {
+    return Auth::basic();
 });
 
 /*
@@ -65,9 +69,10 @@ Route::filter('auth.basic', function()
 |
 */
 
-Route::filter('guest', function()
-{
-	if (Auth::check()) return Redirect::to('/');
+Route::filter('guest', function() {
+    if (Auth::check()) {
+        return Redirect::to('/');
+    }
 });
 
 /*
@@ -81,12 +86,10 @@ Route::filter('guest', function()
 |
 */
 
-Route::filter('csrf', function()
-{
-	if (Session::token() !== Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
-	}
+Route::filter('csrf', function() {
+    if (Session::token() !== Input::get('_token')) {
+        throw new Illuminate\Session\TokenMismatchException;
+    }
 });
 
 /*
@@ -97,13 +100,3 @@ Route::filter('csrf', function()
 | The language selector filter allow app to define locales from user.
 |
 */
-
-Route::filter('lang', function($route)
-{
-	/* Pop lang parameter from $route. */ 
-	$lang = $route->getParameter('lang');
-	$route->forgetParameter('lang');
-	
-	/* Define user locale. */
-	App::setLocale($lang);
-});
