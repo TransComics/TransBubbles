@@ -2,6 +2,9 @@
 
 return array(
 
-	'welcome'     => 'Bienvenu',
-
+    'welcome'   => 'Bienvenu',
+    'title'     => 'Titre',
+    'add'       => 'Ajouter',
+    'update'    => 'Met à Jour',
+    
 );
