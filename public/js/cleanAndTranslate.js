@@ -345,11 +345,8 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
+
 	$('#viewAll' ).click(function() {
 		if(!param.viewAll) {
 			param.desactivateButton();
@@ -363,7 +360,6 @@ $(document).ready(function() {
 		return false;
 	});
 
-<<<<<<< HEAD
 	$('#colorPicker' ).change(function() {
 		color = $('#colorPicker' ).val();
 		canvas.freeDrawingBrush.color = color;
@@ -376,8 +372,6 @@ $(document).ready(function() {
 		canvas.freeDrawingBrush.width = size;
 	});
 
-=======
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 	$('#selectAll' ).click(function() {
 		if(!param.selectAll) {
 			param.desactivateButton();
@@ -532,7 +526,6 @@ $(document).ready(function() {
 				height: 0, 
 				left: param.x, 
 				top: param.y, 
-<<<<<<< HEAD
 				fill: color
 			});
 		}
@@ -546,9 +539,6 @@ $(document).ready(function() {
 				left: param.x, 
 				top: param.y, 
 				fill: color
-=======
-				fill: '#fff'
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 			});
 		}
 		else {
@@ -596,15 +586,11 @@ $(document).ready(function() {
 			return false;
 		}
 
-<<<<<<< HEAD
 		if(param.shape == 'circle')
 			fshape.set('rx', w).set('ry', h);
 		else if(param.shape == 'rect')
 			fshape.set('width', w).set('height', h);
-=======
 
-		fshape.set('width', w).set('height', h);
->>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 		canvas.renderAll(true); 
 	}
 
