@@ -21,13 +21,16 @@ class ComicController extends Controller {
             $comic->page = Input::get('page');
             $comic->save();
             
-            return Redirect::route('comic.add');
+            return Redirect::route('comic.add')
+                ->withMessage(Lang::get('comic.added', [
+                    'title' => $comic->title,
+                ]));
         }
         
         return Redirect::route('comic.add')
             ->withInput()
             ->withErrors($v)
-            ->withMessage(Lang::get('error'));
+            ->withMessage(Lang::get('comic.errorMessage'));
     }
 
 }
