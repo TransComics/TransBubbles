@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Transcomics-groux" default="build" basedir=".">
+<project name="TransBubbles" default="build" basedir=".">
 
     <target name="build"
         depends="build-common,pdepend" />
@@ -23,7 +23,6 @@
 
     <target name="build-dox-clean"
         depends="clean,build-common,phpdox,pdepend" />
-
     <target name="build-parallel"
         depends="build-common,tools-parallel" />
 
@@ -39,7 +38,6 @@
         <delete dir="${basedir}/build/logs" />
         <delete dir="${basedir}/build/pdepend" />
     </target>
-
     <target name="clean-composer" description="Cleanup composer artifacts">
         <echo>Cleaning out the composer artifacts</echo>
         <delete dir="${basedir}/vendor" />
@@ -89,7 +87,6 @@
             <arg path="${basedir}/app" />
         </exec>
     </target>
-
     <target name="phpdox" description="Generate API documentation using phpDox">
         <exec executable="phpdox">
             <arg value="-f" />
@@ -97,13 +94,12 @@
         </exec>
     </target>
 
-
     <target name="phpunit" description="Run unit tests with PHPUnit">
         <exec executable="phpunit" failonerror="true">
             <arg value="-c" />
-            <arg value="${basedir}/phpunit.xml" />
-            <arg value="--coverage-clover" />
-            <arg value="${basedir}/build/coverage.xml" />
+            <arg value="${basedir}/phpunit.xml.dist" />
+            <arg value="--coverage-html" />
+            <arg value="${basedir}/build/coverage" />
         </exec>
     </target>
 

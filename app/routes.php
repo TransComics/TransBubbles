@@ -11,26 +11,51 @@
 |
 */
 
+Route::when('*', 'csrf', array('post', 'put', 'delete'));
 Route::pattern('id', '[0-9]+');
 
-Route::get('/', 'HomeController@findLangAndRedirect');
+Route::get('/', [
+        'as' => 'home.index',
+        'uses' => 'HomeController@index'
+]);
+Route::get('/clean/{id}', [
+        'as' => 'strip.clean',
+        'uses' => 'StripController@clean'
+]);
+Route::get('/translate/{id}', [
+        'as' => 'strip.translate',
+        'uses' => 'StripController@translate'
+]);
+Route::get('/import', [
+        'as' => 'strip.import',
+        'uses' => 'StripController@import'
+]);
 
-Route::group(['prefix' => '/{lang}', 'before' => 'lang'], function() 
-{
-	Route::get('/', [
-		'as' => 'home.index',
-		'uses' => 'HomeController@index'
-	]);
-	Route::get('/clean/{id}', [
-		'as' => 'strip.clean',
-		'uses' => 'StripController@clean'
-	]);
-	Route::get('/translate/{id}', [
-		'as' => 'strip.translate',
-		'uses' => 'StripController@translate'
-	]);
-	Route::get('/import', [
-		'as' => 'strip.import',
-		'uses' => 'StripController@import'
-	]);
+Route::get('comics/list', [
+    'as' => 'comics.list',
+    'uses' => 'ComicsController@getList'
+]);
+
+Route::group(['prefix' => '/comic'], function() {
+    Route::get('/add', [
+        'as' => 'comic.add',
+        'uses' => 'ComicController@addForm',
+    ]);    
+    Route::get('/update/{id}', [
+        'as' => 'comic.update',
+        'uses' => 'ComicController@updateForm',
+    ]);
+    Route::put('/add', 'ComicController@add');
+    Route::post('/update/{id}', 'ComicController@update');
+    Route::delete( '/delete/{id}', [
+        'as' => 'comic.delete',
+        'uses' => 'ComicController@delete',
+    ]);
+});
+
+Route::group(['prefix' => '/ws'], function () {
+   Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
+   Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
+   Route::get('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@getInfos')->where('idStrip', '[0-9]+');
+   Route::post('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@setInfos')->where('idStrip', '[0-9]+');
 });

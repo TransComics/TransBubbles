@@ -1,6 +1,6 @@
 <?php
 
-class StripController extends Controller {
+class StripController extends BaseController {
 
 	/**
 	 * import strip used by the controller.
