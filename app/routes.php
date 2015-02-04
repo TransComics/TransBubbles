@@ -38,8 +38,16 @@ Route::get('comics/list', [
 Route::group(['prefix' => '/comic'], function() {
     Route::get('/add', [
         'as' => 'comic.add',
-        'uses' => 'ComicController@getAdd'
+        'uses' => 'ComicController@addForm',
+    ]);    
+    Route::get('/update/{id}', [
+        'as' => 'comic.update',
+        'uses' => 'ComicController@updateForm',
     ]);
-    
-    Route::put('/add', 'ComicController@putAdd');
+    Route::put('/add', 'ComicController@add');
+    Route::post('/update/{id}', 'ComicController@update');
+    Route::delete( '/delete/{id}', [
+        'as' => 'comic.delete',
+        'uses' => 'ComicController@delete',
+    ]);
 });

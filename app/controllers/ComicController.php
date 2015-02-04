@@ -3,34 +3,84 @@
 class ComicController extends Controller {
 	
     public function __construct() {
-        $this->beforeFilter('csrf', ['on' => ['post', 'put', 'patch', 'delete']]);
+        $this->beforeFilter('csrf', ['on' => ['post', 'put', 'delete']]);
     }
         
+    public function addForm() {
+        return View::make('comic.update', [
+            'comic' => new Comic(),
+            'isAdd' => true,
+        ]);
+    }
     
-    public function getAdd() {
-        return View::make('comic.add');
+    public function updateForm($id) {
+        $c = Comic::find($id);
+        if ($c == null) {
+            return Redirect::route('comic.add');
+        }
+        
+        return View::make('comic.update', [
+            'comic' => $c,
+            'isAdd' => false,
+        ]);
     }
 
-    public function putAdd() {
+    public function add() {
+        
+        return $this->checkAndSave(new Comic(), function($c, $v) {
+            
+            if ($v->passes()) {
+                return Redirect::route('comic.update', [$c->id])
+                    ->withMessage(Lang::get('comic.added', [
+                        'title' => $c->title,
+                    ]));
+            }
+            return Redirect::route('comic.add')
+                ->withInput()
+                ->withErrors($v)
+                ->withMessage(Lang::get('comic.errorMessage'));
+        });
+        
+    }
+    
+    public function update($id) {
+        
+        return $this->checkAndSave(Comic::find($id), function($c, $v) {
+            
+            if ($v->passes()) {
+                return Redirect::route('comic.update', [$c->id])
+                    ->withMessage(Lang::get('comic.updated', [
+                        'title' => $c->title,
+                ]));
+            }
+        
+            return Redirect::route('comic.update', [$c->id])
+                ->withInput()
+                ->withErrors($v)
+                ->withMessage(Lang::get('comic.errorMessage'));
+
+        });
+    }
+    
+    private function checkAndSave($comic, $return) {
         
         $v = Validator::make(Input::all(), Comic::$rules);
         
         if($v->passes()) {
-            $comic = new Comic();
             $comic->title = Input::get('title');
-            $comic->page = Input::get('page');
+            $comic->author = Input::get('author');
+            $comic->description = Input::get('description');
             $comic->save();
-            
-            return Redirect::route('comic.add')
-                ->withMessage(Lang::get('comic.added', [
-                    'title' => $comic->title,
-                ]));
         }
         
-        return Redirect::route('comic.add')
-            ->withInput()
-            ->withErrors($v)
-            ->withMessage(Lang::get('comic.errorMessage'));
+        return $return($comic, $v);
+        
+    }
+    
+    public function delete($id) {
+        Comic::destroy($id);
+        
+        return Redirect::route('comics.list');
     }
 
 }

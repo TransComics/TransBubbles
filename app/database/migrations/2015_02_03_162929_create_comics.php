@@ -13,8 +13,9 @@ class CreateComics extends Migration {
     {
         Schema::create('comics', function($table) {
             $table->increments('id');
-            $table->string('title');
-            $table->smallInteger('page');
+            $table->string('title',63);
+            $table->string('author',63);
+            $table->text('description');
             $table->timestamps();
         });
     }

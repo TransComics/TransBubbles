@@ -6,11 +6,13 @@ class ComicsTableSeeder extends Seeder {
         DB::table('comics')->insert([
             [
                 'title' => 'Spiderman I',
-                'page' => 1,
+                'author' => 'gbergere',
+                'description' => 'Description SI',
             ],
             [
                 'title' => 'Spiderman II',
-                'page' => 2,
+                'author' => 'gbergereI',
+                'description' => 'Description SII',
             ]
         ]);
     }
