@@ -186,6 +186,10 @@ ul li{
 	padding:10px;
 }
 
+.colorpicker {
+	width:38px;height:38px; padding:5px;
+}
+
 .icon-update:before {
 	content: url('../images/icons/16/mouse12.png');
 }

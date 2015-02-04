@@ -4,11 +4,12 @@ $(document).ready(function() {
 	 * *********************************** Canvas handler ******************************************** *
 	 * ********************************************************************************************** */
 
-	var canvas = new fabric.Canvas('c')
+	var canvas = new fabric.Canvas('c');
+	var color = $('#colorPicker').val();
 	var background = null; // we need to keep an reference for background because it neet to stay unselectable
 
 	canvas.freeDrawingBrush.width = 20; // default brush size
-	canvas.freeDrawingBrush.color = '#fff'; // default brush color
+	canvas.freeDrawingBrush.color = color; // default brush color
 	canvas.renderAll();
 
 	function initCanvas() {
@@ -343,7 +344,7 @@ $(document).ready(function() {
 		}
 		return false;
 	});
-
+	
 	$('#viewAll' ).click(function() {
 		if(!param.viewAll) {
 			param.desactivateButton();
@@ -355,6 +356,11 @@ $(document).ready(function() {
 			param.desactivateButton();
 		}
 		return false;
+	});
+
+	$('#colorPicker' ).change(function() {
+		color = $('#colorPicker' ).val();
+		canvas.freeDrawingBrush.color = color;
 	});
 
 	$('#selectAll' ).click(function() {
@@ -511,7 +517,7 @@ $(document).ready(function() {
 				height: 0, 
 				left: param.x, 
 				top: param.y, 
-				fill: '#fff'
+				fill: color
 			});
 		}
 		else if(param.shape == 'circle'){
@@ -523,7 +529,7 @@ $(document).ready(function() {
 			    ry: 0,
 				left: param.x, 
 				top: param.y, 
-				fill: '#fff'
+				fill: color
 			});
 		}
 		else {

@@ -7,7 +7,10 @@
 @section('tool.items')
 	<li><a class='icon icon-update zero-padding' href="" id="update"></a></li>
 	<li><a class='icon icon-del zero-padding' href="" id="del"></a></li>
+	
+	<li><input class="icon zero-padding colorpicker" type="color" name="colorPicker" id="colorPicker" value="#ffffff"/></li>
 	<li><a class='icon icon-brush zero-padding' href="" id="brush"></a></li>
+	
 	<li><a class='icon icon-rect zero-padding' href="" id="rect"></a></li>
 	<li><a class='icon icon-circle zero-padding' href="" id="circle"></a></li>
 	
