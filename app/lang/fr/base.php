@@ -2,7 +2,7 @@
 
 return array(
 
-    'welcome'   => 'Bienvenu',
+    'welcome'   => 'Bienvenue',
     'title'     => 'Titre',
     'add'       => 'Ajouter',
     'update'    => 'Met à Jour',

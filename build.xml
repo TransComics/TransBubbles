@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Transcomics-groux" default="build" basedir=".">
+<project name="TransBubbles" default="build" basedir=".">
 
     <target name="build"
         depends="build-common,pdepend" />
