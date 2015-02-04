@@ -1,6 +1,6 @@
 <?php
 
-class ComicsController extends Controller {
+class ComicsController extends BaseController {
 	
     public function getAdd() {
         return View::make('comics.add');

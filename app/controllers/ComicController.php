@@ -1,11 +1,7 @@
 <?php
 
-class ComicController extends Controller {
+class ComicController extends BaseController {
 	
-    public function __construct() {
-        $this->beforeFilter('csrf', ['on' => ['post', 'put', 'delete']]);
-    }
-        
     public function addForm() {
         return View::make('comic.update', [
             'comic' => new Comic(),

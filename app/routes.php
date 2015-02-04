@@ -11,6 +11,8 @@
 |
 */
 
+Route::when('*', 'csrf', array('post', 'put', 'delete'));
+
 Route::pattern('id', '[0-9]+');
 
 Route::get('/', [

@@ -1,6 +1,6 @@
 <?php
 
-class ErrorsController extends Controller {
+class ErrorsController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

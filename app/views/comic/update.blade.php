@@ -27,7 +27,6 @@
     {{ Form::text('author', $comic->author); }}
     {{ Form::label('description', Lang::get('comic.description')); }}
     {{ Form::text('description', $comic->description); }}
-    {{ Form::token(); }}
     
     @if ($isAdd) 
         {{ Form::submit(Lang::get('base.add')); }}
