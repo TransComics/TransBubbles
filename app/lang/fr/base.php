@@ -1,7 +1,8 @@
 <?php
 
 return array(
-
-	'welcome'     => 'Bienvenue',
-
+    'welcome'   => 'Bienvenue',
+    'title'     => 'Titre',
+    'add'       => 'Ajouter',
+    'update'    => 'Met à Jour',
 );

@@ -25,8 +25,14 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(array(
+<<<<<<< HEAD
 		
 	'local' => array('VM2','genesis','CSCFRAAE690662')
+=======
+
+    'local' => array('MacBook-Geo.*', 'genesis', 'amasline'),
+
+>>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
 ));
 
 /*

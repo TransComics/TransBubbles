@@ -71,7 +71,7 @@ Route::filter('auth.basic', function() {
 
 Route::filter('guest', function() {
     if (Auth::check()) {
-        return Redirect::to('login');
+        return Redirect::to('/');
     }
 });
 
@@ -91,3 +91,4 @@ Route::filter('csrf', function() {
         throw new Illuminate\Session\TokenMismatchException;
     }
 });
+?>

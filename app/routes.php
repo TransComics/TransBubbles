@@ -11,6 +11,11 @@
  * |
  */
 Route::pattern('id', '[0-9]+');
+Route::when('*', 'csrf', array(
+    'post',
+    'put',
+    'delete'
+));
 
 Route::get('/', [
     'as' => 'home.index',
@@ -64,3 +69,37 @@ Route::get('password/reset/{token}', [
 Route::post('password/reset/', [
     'uses' => 'RemindersController@postReset'
 ]);
+
+Route::get('comics/list', [
+    'as' => 'comics.list',
+    'uses' => 'ComicsController@getList'
+]);
+
+Route::group([
+    'prefix' => '/comic'
+], function () {
+    Route::get('/add', [
+        'as' => 'comic.add',
+        'uses' => 'ComicController@addForm'
+    ]);
+    Route::get('/update/{id}', [
+        'as' => 'comic.update',
+        'uses' => 'ComicController@updateForm'
+    ]);
+    Route::put('/add', 'ComicController@add');
+    Route::post('/update/{id}', 'ComicController@update');
+    Route::delete('/delete/{id}', [
+        'as' => 'comic.delete',
+        'uses' => 'ComicController@delete'
+    ]);
+});
+
+Route::group([
+    'prefix' => '/ws'
+], function () {
+    Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
+    Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
+    Route::get('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@getInfos')->where('idStrip', '[0-9]+');
+    Route::post('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@setInfos')->where('idStrip', '[0-9]+');
+});
+?>

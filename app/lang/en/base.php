@@ -1,9 +1,10 @@
 <?php
 
 return array(
-
-	'welcome'     => 'Welcome',
-
+    'welcome'   => 'Welcome',
+    'title'     => 'Title',
+    'add'       => 'Add',
+    'update'    => 'Update',
 );
 
 ?>
