@@ -10,12 +10,13 @@
  * | and give it the Closure to execute when that URI is requested.
  * |
  */
+
 Route::pattern('id', '[0-9]+');
-Route::when('*', 'csrf', array(
+Route::when('*', 'csrf', [
     'post',
     'put',
     'delete'
-));
+]);
 
 Route::get('/', [
     'as' => 'home.index',
@@ -41,43 +42,32 @@ Route::get('/logout/', [
     'as' => 'users.signIn',
     'uses' => 'UsersController@getLogout'
 ]);
-Route::post('/login/', [
-    'as' => 'users.signIn',
-    'uses' => 'UsersController@postLogin'
-]);
+Route::post('/login/', 'UsersController@postLogin');
 Route::get('/signup/', [
     'as' => 'users.signUp',
     'uses' => 'UsersController@getRegister'
 ]);
-Route::post('/signup/', [
-    'as' => 'users.signUp',
-    'uses' => 'UsersController@postCreate'
-]);
+Route::post('/signup/', 'UsersController@postCreate');
 
-Route::get('password/remind', [
-    'uses' => 'RemindersController@getRemind',
-    'as' => 'password.remind'
-]);
-Route::post('password/remind', [
-    'uses' => 'RemindersController@postRemind',
-    'as' => 'password.remind'
-]);
-Route::get('password/reset/{token}', [
-    'uses' => 'RemindersController@getReset',
-    'as' => 'password.reset'
-]);
-Route::post('password/reset/', [
-    'uses' => 'RemindersController@postReset'
-]);
+Route::group(['prefix' => '/password'], function() {
+    Route::get('/remind', [
+        'uses' => 'RemindersController@getRemind',
+        'as' => 'password.remind'
+    ]);
+    Route::post('/remind', 'RemindersController@postRemind');
+    Route::get('/reset/{token}', [
+        'uses' => 'RemindersController@getReset',
+        'as' => 'password.reset'
+    ]);
+    Route::post('/reset', 'RemindersController@postReset');
+});
 
 Route::get('comics/list', [
     'as' => 'comics.list',
     'uses' => 'ComicsController@getList'
 ]);
 
-Route::group([
-    'prefix' => '/comic'
-], function () {
+Route::group(['prefix' => '/comic'], function () {
     Route::get('/add', [
         'as' => 'comic.add',
         'uses' => 'ComicController@addForm'
@@ -94,12 +84,10 @@ Route::group([
     ]);
 });
 
-Route::group([
-    'prefix' => '/ws'
-], function () {
+Route::group(['prefix' => '/ws'], function () {
     Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
     Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
-    Route::get('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@getInfos')->where('idStrip', '[0-9]+');
-    Route::post('/strip/{idStrip}/bubble/{id}/{lang}', 'BubbleController@setInfos')->where('idStrip', '[0-9]+');
+    Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
+    Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
 });
 ?>
