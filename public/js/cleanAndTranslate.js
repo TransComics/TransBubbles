@@ -77,6 +77,7 @@ $(document).ready(function() {
 
 	TBCanvasParam.prototype.desactivateButton = function(){
 		$('#rect' ).css('border', '1px solid #379dbf');
+		$('#circle' ).css('border', '1px solid #379dbf');
 		this.shape = false;
 		this.allSelectable(true, canvas);
 		$('#viewAll' ).css('border', '1px solid #379dbf');
@@ -294,11 +295,24 @@ $(document).ready(function() {
 	});
 
 	$('#rect' ).click(function() {
-		if(!param.shape) {
+		if(!param.shape != "rect") {
 			param.desactivateButton();
 			param.shape = "rect";
 			param.allSelectable(false, canvas);
 			param.activateButton('#rect');
+		}
+		else {
+			param.desactivateButton();
+		}
+		return false;
+	});
+	
+	$('#circle' ).click(function() {
+		if(param.shape != "circle") {
+			param.desactivateButton();
+			param.shape = "circle";
+			param.allSelectable(false, canvas);
+			param.activateButton('#circle');
 		}
 		else {
 			param.desactivateButton();
@@ -500,6 +514,18 @@ $(document).ready(function() {
 				fill: '#fff'
 			});
 		}
+		else if(param.shape == 'circle'){
+			fshape = new fabric.Ellipse({
+				selectable: false,
+				originX: 'left',
+				originY: 'top',
+				rx: 0,
+			    ry: 0,
+				left: param.x, 
+				top: param.y, 
+				fill: '#fff'
+			});
+		}
 		else {
 			fshape = new fabric.IText('Nouveau texte', { 
 				selectable: true,
@@ -545,8 +571,10 @@ $(document).ready(function() {
 			return false;
 		}
 
-
-		fshape.set('width', w).set('height', h);
+		if(param.shape == 'circle')
+			fshape.set('rx', w).set('ry', h);
+		else if(param.shape == 'rect')
+			fshape.set('width', w).set('height', h);
 		canvas.renderAll(true); 
 	}
 
