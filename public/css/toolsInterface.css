@@ -137,8 +137,11 @@ ul li{
 }
 
 .espace {
+	display:block;
 	content: ' ';
-	padding: 0 20px;
+	width:16px;
+	height:16px;
+	padding:10px;
 }
 
 .cyan-text{
