@@ -6,9 +6,10 @@ $(document).ready(function() {
 
 	var canvas = new fabric.Canvas('c');
 	var color = $('#colorPicker').val();
+	var size = $('#sizePicker').val();
 	var background = null; // we need to keep an reference for background because it neet to stay unselectable
 
-	canvas.freeDrawingBrush.width = 20; // default brush size
+	canvas.freeDrawingBrush.width = size; // default brush size
 	canvas.freeDrawingBrush.color = color; // default brush color
 	canvas.renderAll();
 
@@ -295,8 +296,8 @@ $(document).ready(function() {
 		return false;
 	});
 
-	$('#rect' ).click(function() {
-		if(!param.shape != "rect") {
+	$('#rect').click(function() {
+		if(param.shape != "rect") {
 			param.desactivateButton();
 			param.shape = "rect";
 			param.allSelectable(false, canvas);
@@ -308,7 +309,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-	$('#circle' ).click(function() {
+	$('#circle').click(function() {
 		if(param.shape != "circle") {
 			param.desactivateButton();
 			param.shape = "circle";
@@ -361,6 +362,13 @@ $(document).ready(function() {
 	$('#colorPicker' ).change(function() {
 		color = $('#colorPicker' ).val();
 		canvas.freeDrawingBrush.color = color;
+	});
+	
+	$('#sizePicker' ).change(function() {
+		size = $('#sizePicker' ).val();
+		if(size > 999) $('#sizePicker' ).val('999');
+		if(size < 1) $('#sizePicker' ).val('1');
+		canvas.freeDrawingBrush.width = size;
 	});
 
 	$('#selectAll' ).click(function() {

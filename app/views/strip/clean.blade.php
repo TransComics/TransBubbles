@@ -8,7 +8,8 @@
 	<li><a class='icon icon-update zero-padding' href="" id="update"></a></li>
 	<li><a class='icon icon-del zero-padding' href="" id="del"></a></li>
 	
-	<li><input class="icon zero-padding colorpicker" type="color" name="colorPicker" id="colorPicker" value="#ffffff"/></li>
+	<li><input class="icon zero-padding colorPicker" type="color" name="colorPicker" id="colorPicker" value="#ffffff" /></li>
+	<li><input class="icon zero-padding sizePicker" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999" /></li>
 	<li><a class='icon icon-brush zero-padding' href="" id="brush"></a></li>
 	
 	<li><a class='icon icon-rect zero-padding' href="" id="rect"></a></li>

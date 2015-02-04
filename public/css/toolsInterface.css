@@ -186,8 +186,17 @@ ul li{
 	padding:10px;
 }
 
-.colorpicker {
-	width:38px;height:38px; padding:5px;
+.colorPicker {
+	width:38px;
+	height:38px;
+	padding:5px;
+}
+
+.sizePicker {
+	width:48px;
+	height:38px;
+	padding:5px;
+	font-size:0.8em;
 }
 
 .icon-update:before {
