@@ -23,7 +23,7 @@ Route::get('/', [
 
 /* Authentification */
 Route::get('/login/', [
-    'as' => 'user.signIn',
+    'as' => 'user.signin',
     'uses' => 'UsersController@getLogin'
 ]);
 Route::get('/logout/', [
@@ -32,7 +32,7 @@ Route::get('/logout/', [
 ]);
 Route::post('/login/', 'UsersController@postLogin');
 Route::get('/signup/', [
-    'as' => 'users.signUp',
+    'as' => 'users.signup',
     'uses' => 'UsersController@getRegister'
 ]);
 Route::post('/signup/', 'UsersController@postCreate');

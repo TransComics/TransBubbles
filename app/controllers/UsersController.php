@@ -9,11 +9,11 @@ class UsersController extends Controller {
     }
 
     public function getLogin() {
-        return View::make('users.signIn');
+        return View::make('user.signin');
     }
 
     public function getRegister() {
-        return View::make('users.signUp');
+        return View::make('user.signup');
     }
 
     public function postCreate() {
