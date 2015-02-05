@@ -26,6 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
     'local' => array('VM2', 'MacBook-Geo.*', 'genesis', 'amasline','CSCFRAAE690662'),
+    'test' => array(''), // empty is used when called trought artisan
 ));
 
 /*
