@@ -30,7 +30,7 @@ class UsersController extends Controller {
             return Redirect::route('home')->with('message', Lang::get('login.registration_succes'));
         } else {
             // validation has failed, display error messages
-            return Redirect::route('users.signUp')->with('message', Lang::get('login.message_errors'))
+            return Redirect::back()->with('message', Lang::get('login.message_errors'))
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -44,7 +44,7 @@ class UsersController extends Controller {
             // Login has passed
             return Redirect::route('home')->with('message', Lang::get('login.logged_in'));
         } else {
-            return Redirect::route('users.signIn')->with('message', Lang::get('login.error_post_login'))->withInput();
+            return Redirect::back()->with('message', Lang::get('login.error_post_login'))->withInput();
         }
     }
 
