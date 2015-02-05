@@ -60,7 +60,7 @@ class ComicController extends BaseController {
     
     private function checkAndSave($comic, $return) {
         
-        $v = Validator::make(Input::all(), Comic::$rules);
+        $v = Validator::make(Input::all(), Comic::rules());
         
         if($v->passes()) {
             $comic->title = Input::get('title');
