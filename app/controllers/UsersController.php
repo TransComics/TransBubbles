@@ -27,7 +27,7 @@ class UsersController extends Controller {
             $user->password = Hash::make(Input::get('password'));
             $user->save();
             
-            return Redirect::route('home.index')->with('message', Lang::get('login.registration_succes'));
+            return Redirect::route('home')->with('message', Lang::get('login.registration_succes'));
         } else {
             // validation has failed, display error messages
             return Redirect::route('users.signUp')->with('message', Lang::get('login.message_errors'))
@@ -42,7 +42,7 @@ class UsersController extends Controller {
             'password' => Input::get('password')
         ), Input::has('remember'))) {
             // Login has passed
-            return Redirect::route('home.index')->with('message', Lang::get('login.logged_in'));
+            return Redirect::route('home')->with('message', Lang::get('login.logged_in'));
         } else {
             return Redirect::route('users.signIn')->with('message', Lang::get('login.error_post_login'))->withInput();
         }
@@ -50,7 +50,7 @@ class UsersController extends Controller {
 
     public function getLogout() {
         Auth::logout();
-        return Redirect::route('home.index')->with('message', Lang::get('login.logged_out'));
+        return Redirect::route('home')->with('message', Lang::get('login.logged_out'));
     }
 }
 ?>
