@@ -14,6 +14,7 @@ class AddStrips extends Migration {
         Schema::create('strips', function($table) {
             $table->increments('id');
             $table->string('title',64);
+            $table->string('path', 64);
             $table->integer('page');
             $table->timestamps();
         });
