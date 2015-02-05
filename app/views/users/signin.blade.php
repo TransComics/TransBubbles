@@ -26,7 +26,7 @@
 			</div>
 			@endif
 			<div style="margin-bottom: 25px" class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 				{{ Form::text('email', null, array('class'=>'form-control',
 				'placeholder'=> Lang::get('login.email_adress'))) }}
 			</div>

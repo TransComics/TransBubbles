@@ -27,7 +27,7 @@ class UsersController extends Controller {
             $user->password = Hash::make(Input::get('password'));
             $user->save();
             
-            return Redirect::route('home')->with('message', Lang::get('login.registration_succes'));
+            return Redirect::back()->with('success', Lang::get('login.registration_succes'));
         } else {
             // validation has failed, display error messages
             return Redirect::back()->with('message', Lang::get('login.message_errors'))
