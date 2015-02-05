@@ -60,7 +60,7 @@ class ComicController extends BaseController {
     
     private function checkAndSave($comic, $return) {
         
-        $v = Validator::make(Input::all(), Comic::$rules);
+        $v = Validator::make(Input::all(), Comic::rules());
         
         if($v->passes()) {
             $comic->title = Input::get('title');
@@ -74,9 +74,10 @@ class ComicController extends BaseController {
     }
     
     public function delete($id) {
-        Comic::destroy($id);
         
-        return Redirect::route('comics.list');
+        Comic::destroy($id);
+        return Redirect::back();
+        
     }
 
 }

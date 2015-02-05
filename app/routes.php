@@ -11,29 +11,17 @@
  * |
  */
 
+/* Constraint */
 Route::pattern('id', '[0-9]+');
-Route::when('*', 'csrf', [
-    'post',
-    'put',
-    'delete'
-]);
+Route::when('*', 'csrf', ['post', 'put', 'delete']);
 
+/* Home Page */
 Route::get('/', [
     'as' => 'home',
     'uses' => 'HomeController@home'
 ]);
-Route::get('/clean/{id}', [
-    'as' => 'strip.clean',
-    'uses' => 'StripController@clean'
-]);
-Route::get('/translate/{id}', [
-    'as' => 'strip.translate',
-    'uses' => 'StripController@translate'
-]);
-Route::get('/import', [
-    'as' => 'strip.import',
-    'uses' => 'StripController@import'
-]);
+
+/* Authentification */
 Route::get('/login/', [
     'as' => 'user.signIn',
     'uses' => 'UsersController@getLogin'
@@ -60,6 +48,21 @@ Route::group(['prefix' => '/password'], function() {
         'as' => 'password.reset'
     ]);
     Route::post('/reset', 'RemindersController@postReset');
+});
+
+Route::group(['prefix' => '/strip'], function(){
+    Route::get('/clean/{id}', [
+        'as' => 'strip.clean',
+        'uses' => 'StripController@clean'
+    ]);
+    Route::get('/translate/{id}', [
+        'as' => 'strip.translate',
+        'uses' => 'StripController@translate'
+    ]);
+    Route::get('/import', [
+        'as' => 'strip.import',
+        'uses' => 'StripController@import'
+    ]);
 });
 
 Route::get('comics/list', [
