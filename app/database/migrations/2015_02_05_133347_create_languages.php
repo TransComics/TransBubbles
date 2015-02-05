@@ -11,11 +11,10 @@ class CreateLanguages extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('languages', function($table) {
-            $table->char('id', 4);
-            $table->char('label', 32);
+    Schema::create('languages', function($table) {
+            $table->char('id', 2);
+            $table->char('label', 32)->unique();
             $table->primary('id');
-            $table->unique('label');
         });
     }
 
