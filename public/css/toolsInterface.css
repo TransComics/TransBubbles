@@ -188,13 +188,13 @@ ul li{
 
 .colorPicker {
 	width:38px;
-	height:38px;
+	height:42px;
 	padding:5px;
 }
 
 .sizePicker {
-	width:48px;
-	height:38px;
+	width:35px;
+	height:30px;
 	padding:5px;
 	font-size:0.8em;
 }
