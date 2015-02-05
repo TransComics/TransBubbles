@@ -12,7 +12,7 @@ class HomeController extends BaseController {
      * | get you started. To route to this controller, just add the route:
      * |
      */
-    public function index() {
-        return View::make('index');
+    public function home() {
+        return View::make('home');
     }
 }

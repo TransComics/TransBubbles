@@ -19,8 +19,8 @@ Route::when('*', 'csrf', [
 ]);
 
 Route::get('/', [
-    'as' => 'home.index',
-    'uses' => 'HomeController@index'
+    'as' => 'home',
+    'uses' => 'HomeController@home'
 ]);
 Route::get('/clean/{id}', [
     'as' => 'strip.clean',
@@ -35,11 +35,11 @@ Route::get('/import', [
     'uses' => 'StripController@import'
 ]);
 Route::get('/login/', [
-    'as' => 'users.signIn',
+    'as' => 'user.signIn',
     'uses' => 'UsersController@getLogin'
 ]);
 Route::get('/logout/', [
-    'as' => 'users.signIn',
+    'as' => 'user.logout',
     'uses' => 'UsersController@getLogout'
 ]);
 Route::post('/login/', 'UsersController@postLogin');

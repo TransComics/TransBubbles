@@ -1,0 +1,79 @@
+/*
+ * Style tweaks
+ * --------------------------------------------------
+ */
+html,
+body {
+  padding-top: 40px;
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+  background-color: #3D4549;
+  color:#FBFCF4;
+}
+
+.navbar-inverse {
+    background-image: linear-gradient(to bottom, #2B3034 0%, #222 100%);
+    background-repeat: repeat-x;
+    background-color: #222;
+    border-bottom: 1px solid #080808;
+    border-top: 4px solid #00C8E1;
+}
+
+.navbar-theme-default {
+    background-image: linear-gradient(to bottom, #00C8E1 0%, #22a7bf 100%);
+    background-repeat: repeat-x;
+    background-color: #222;
+    border-top: 1px solid #2B3034;
+}
+
+.navbar-inverse .navbar-nav > li > a,.navbar-inverse .navbar-brand {
+    color: #FBFCF4;
+}
+
+footer {
+  padding: 30px 0;
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+         -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+  }
+
+  .row-offcanvas-right {
+    right: 0;
+  }
+
+  .row-offcanvas-left {
+    left: 0;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -50%; /* 6 columns */
+  }
+
+  .row-offcanvas-right.active {
+    right: 50%; /* 6 columns */
+  }
+
+  .row-offcanvas-left.active {
+    left: 50%; /* 6 columns */
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%; /* 6 columns */
+  }
+}
