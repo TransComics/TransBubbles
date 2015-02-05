@@ -74,9 +74,10 @@ class ComicController extends BaseController {
     }
     
     public function delete($id) {
-        Comic::destroy($id);
         
-        return Redirect::route('comics.list');
+        Comic::destroy($id);
+        return Redirect::back();
+        
     }
 
 }
