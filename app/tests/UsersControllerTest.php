@@ -34,13 +34,14 @@ class UsersControllerTest extends TestCase {
      * @test Testing login form with success
      */
     public function testLoginFormSuccess() {
-        
-        $result = $this->action('POST', 'UsersController@postCreate', null, [
+        $result = $this->action('POST', 'UsersController@postCreate', [
             'username' => 'fooo',
             'email' => 'fooo@bar.com',
             'password' => 'password',
             'password_confirmation' => 'password',
             '_token' => Session::token()
+        ], [], [], [
+            'HTTP_REFERER' => route('home')
         ]);
         
         $crawler = $this->client->request('GET', '/login');
