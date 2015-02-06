@@ -27,19 +27,16 @@
     </div><!-- /.container -->
 </nav><!-- /.navbar -->
 
-<nav class="navbar-fixed-top navbar-seconde-top">
-	<ul>
-		<li><a class='button' href="" id="hidden-origin">Cacher</a></li>
-		
-		@yield('tool.items')
-		
-	</ul>
+<nav class="navbar-fixed-top navbar-seconde-top" style="padding:10px 50px 0 50px">
+	<div class="btn-group" role="group">
+            <a class='btn btn-lg btn-primary' href="" id="hidden-origin">Cacher</a>
+        </div>
+        @yield('tool.items')
 </nav>
-
 
 	@yield('tool.content')
 
-<nav class="navbar navbar-fixed-bottom navbar-seconde-bottom" style="padding:0 50px 0 0">
+<nav class="navbar navbar-fixed-bottom navbar-seconde-bottom" style="padding:0 50px 0 50px">
     <div class="btn-group pull-right" role="group">
         <a class='btn btn-lg btn-primary' href='' id='addText'>Quitter</a>
         <a class='btn btn-lg btn-primary' href='' id='del'>Terminer</a>
