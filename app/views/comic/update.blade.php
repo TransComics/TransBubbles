@@ -2,36 +2,41 @@
 
 @section('master.content')
 
-    <h1>{{($isAdd)? '@lang(comic.addTitle)' : '@lang(comic.updateTitle)'}}</h1>
+    <h1>{{($isAdd) ? Lang::get('comic.addTitle') : Lang::get('comic.updateTitle');}}</h1>
     
     @if(Session::has('message'))
         <p>{{ Session::get('message') }}</p>
     @endif
-    
-    @foreach($errors->all() as $error)
-        <p>{{ $error }}</p>
-    @endforeach
 
     @if ($isAdd) 
-        {{ Form::open(['method' => 'put']); }}
+        {{ Form::open(['method' => 'put'], ['class'=>'form', 'files' => true]); }}
     @else 
-        {{ Form::open(['route' => ['comic.update', $comic->id], 'method' => 'post']); }}
+        {{ Form::open(['route' => ['comic.update', $comic->id], 'method' => 'post'], ['class'=>'form', 'files' => true]); }}
     @endif
-    
-    <div class="form-group">
-        {{ Form::label('title', Lang::get('base.title')); }}
-        {{ Form::text('title', $comic->title, ['class'=>'form-control']); }}
-    </div>
-    <div class="form-group">
-        {{ Form::label('author', Lang::get('comic.author')); }}
-        {{ Form::text('author', $comic->author,['class'=>'form-control']); }}
-    </div>
-    <div class="form-group">
-        {{ Form::label('description', Lang::get('comic.description')); }}
-        {{ Form::textarea('description', $comic->description, ['class'=>'form-control']); }}
-    </div>
-    
-    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-default']); }}
+   
+    {{ Form::label('title', Lang::get('base.title'), ['class'=>'sr-only']); }}
+    {{ Form::text('title', $comic->title, ['class'=>'form-control', 'placeholder' => Lang::get('base.title')]); }}
+    {{ $errors->first('title', '<div class="bg-danger">:message</div>'); }}
+    <br />
+    {{ Form::label('description', Lang::get('comic.description'), ['class'=>'sr-only']); }}
+    {{ Form::textarea('description', $comic->description, ['class'=>'form-control', 'placeholder' => Lang::get('comic.description')]); }}
+    {{ $errors->first('description', '<p class="alert alert-error">:message</p>'); }}
+    <br />
+    {{ Form::label('author', Lang::get('comic.author'), ['class'=>'sr-only']); }}
+    {{ Form::text('author', $comic->author,['class'=>'form-control', 'placeholder' => Lang::get('comic.author')]); }}
+    {{ $errors->first('author', '<p class="alert alert-error">:message</p>'); }}
+    <br />
+        <label>
+        {{ Form::checkbox('authorApproval', true); }}
+        {{ Form::label('authorApproval', 'Je certifie être l\'auteur de cette bande dessinée ou bien, possèder l\'accord de son auteur.'); }}
+        {{ $errors->first('authorApproval', '<p class="alert alert-error">:message</p>'); }}
+        </label>
+    <br />
+    {{ Form::label('cover', Lang::get('comic.cover')); }}
+    {{ Form::file('cover', ['class'=>'filestyle']); }}
+    {{ $errors->first('cover', '<p class="alert alert-error">:message</p>'); }}
+    <br />
+    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-lg btn-primary']); }}
  
     {{ Form::close(); }}
     
