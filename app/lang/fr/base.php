@@ -5,4 +5,5 @@ return array(
     'title'     => 'Titre',
     'add'       => 'Ajouter',
     'update'    => 'Met à Jour',
+    'delete'    => 'Supprimer',
 );

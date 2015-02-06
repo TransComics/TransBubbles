@@ -9,8 +9,10 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
         Eloquent::unguard();
+        $this->call('FontsTableSeeder');
+        $this->call('LanguagesTableSeeder');
+    
         $this->call('UserTableSeeder');
         $this->call('ComicsTableSeeder');
-        $this->call('LanguagesTableSeeder');
     }
 }

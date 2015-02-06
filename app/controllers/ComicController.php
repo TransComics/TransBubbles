@@ -3,10 +3,7 @@
 class ComicController extends BaseController {
 	
     public function addForm() {
-        return View::make('comic.update', [
-            'comic' => new Comic(),
-            'isAdd' => true,
-        ]);
+        return $this->form(new Comic(), true);
     }
     
     public function updateForm($id) {
@@ -15,9 +12,14 @@ class ComicController extends BaseController {
             return Redirect::route('comic.add');
         }
         
+        return $this->form($c, false);
+    }
+    
+    private function form($comic, $isAdd) {
         return View::make('comic.update', [
-            'comic' => $c,
-            'isAdd' => false,
+            'fonts' => Font::all()->lists('name', 'id'),
+            'comic' => $comic,
+            'isAdd' => $isAdd,
         ]);
     }
 
@@ -66,6 +68,9 @@ class ComicController extends BaseController {
             $comic->title = Input::get('title');
             $comic->author = Input::get('author');
             $comic->description = Input::get('description');
+            $comic->authorApproval = Input::get('authorApproval');
+            $comic->cover = Input::get('cover');
+            $comic->font_id = Input::get('font_id');
             $comic->save();
         }
         

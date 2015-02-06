@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLanguages extends Migration {
+class CreateFonts extends Migration {
 
     /**
      * Run the migrations.
@@ -11,10 +11,12 @@ class CreateLanguages extends Migration {
      * @return void
      */
     public function up() {
-    Schema::create('languages', function(Blueprint $table) {
-            $table->char('id', 2);
-            $table->char('label', 32)->unique();
-            $table->primary('id');
+        Schema::create('fonts', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('name',63);
+            $table->string('file',127)->nullable();
+            
+            $table->engine = 'InnoDB';
         });
     }
 
@@ -24,7 +26,7 @@ class CreateLanguages extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('languages');
+        Schema::dropIfExists('fonts');
     }
 
 }

@@ -5,6 +5,7 @@ return array(
     'title'     => 'Title',
     'add'       => 'Add',
     'update'    => 'Update',
+    'delete'    => 'Delete',
 );
 
 ?>
