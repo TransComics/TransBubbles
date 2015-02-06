@@ -39,8 +39,11 @@
     {{ Form::select('font_id', $fonts, $comic->font_id,['class'=>'form-control selectpicker']); }}
     {{ $errors->first('font_id', '<p class="alert alert-danger">:message</p>'); }}
     <br />
-    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-lg btn-primary']); }}
-    
+    <div class="btn-group" role="group">
+        <a href="" class="btn btn-lg btn-primary"> @lang('base.delete') </a>
+        <a href="{{ URL::route('home') }}" class="btn btn-lg btn-primary"> @lang('base.cancel') </a>
+        {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-lg btn-primary']); }}
+    </div>
     {{ Form::close(); }}
     
 @stop
