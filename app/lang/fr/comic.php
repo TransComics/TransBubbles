@@ -3,6 +3,7 @@
 return array(
 
     'added'         => 'La BD :title à bien été ajoutée.',
+    'updated'       => 'La BD :title à bien été modifié.',
     'errorMessage'  => 'Les erreurs suivante se sont produites.',
     'author'        => 'Auteur',
     'description'   => 'Description',
