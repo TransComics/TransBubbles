@@ -25,7 +25,7 @@
         @if(Auth::check())
             <a href="{{URL::route('user.logout')}}" class="list-group-item" >@lang('user.logout')</a>
         @else
-            <a href="{{URL::route('user.signIn')}}" class="list-group-item" >@lang('user.signIn')</a>
+            <a href="{{URL::route('user.signin')}}" class="list-group-item" >@lang('user.signIn')</a>
         @endif
         <a href="{{URL::route('comic.add')}}" class="list-group-item" >@lang('comic.addLink')</a>
         <a href="{{URL::route('comics.list')}}" class="list-group-item" >@lang('comics.listLink')</a>

@@ -6,4 +6,5 @@ return array(
     'cancel'       => 'Retour',
     'add'       => 'Ajouter',
     'update'    => 'Met à Jour',
+    'delete'    => 'Supprimer',
 );

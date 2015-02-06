@@ -6,6 +6,7 @@ return array(
     'cancel'       => 'Cancel',
     'add'       => 'Add',
     'update'    => 'Update',
+    'delete'    => 'Delete',
 );
 
 ?>
