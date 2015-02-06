@@ -18,7 +18,7 @@
 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#" >Trans<span class="themeColor">Bubbles<span></a>
+            <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
