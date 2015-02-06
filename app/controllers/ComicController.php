@@ -4,6 +4,7 @@ class ComicController extends BaseController {
 	
     public function addForm() {
         return View::make('comic.update', [
+            'fonts' => Font::all(),
             'comic' => new Comic(),
             'isAdd' => true,
         ]);
