@@ -20,7 +20,7 @@ App::before(function($request) {
         $lang = substr(Request::server('HTTP_ACCEPT_LANGUAGE'), 0, 2);
     }
     /* Define user locale. */
-    App::setLocale('en');
+    App::setLocale($lang);
 
     
 });
