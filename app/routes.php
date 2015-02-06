@@ -26,6 +26,10 @@ Route::get('/clean/{id}', [
     'as' => 'strip.clean',
     'uses' => 'StripController@clean'
 ]);
+Route::get('/ocr', [
+    'as' => 'OCR',
+    'uses' => 'OCRController@performOCR'
+]);
 Route::get('/translate/{id}', [
     'as' => 'strip.translate',
     'uses' => 'StripController@translate'
