@@ -25,35 +25,31 @@
 			</div>
 			@endif
 
-			<div class="form-group">
-				<label for="username" class="col-md-3 control-label">@lang('login.login')</label>
-				<div class="col-md-9">{{ Form::text('username', null,
-					array('class'=>'form-control', 'placeholder'=>
-					Lang::get('login.login'))) }}</div>
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				{{ Form::text('username', null, array('class'=>'form-control',
+				'placeholder'=> Lang::get('login.login'))) }}
 			</div>
 
-			<div class="form-group">
-				<label for="email" class="col-md-3 control-label">@lang('login.email')</label>
-				<div class="col-md-9">{{ Form::text('email', null,
-					array('class'=>'form-control', 'placeholder'=>
-					Lang::get('login.email_adress'))) }}</div>
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i
+					class="glyphicon glyphicon-envelope"></i></span>{{
+				Form::text('email', null, array('class'=>'form-control',
+				'placeholder'=> Lang::get('login.email_adress'))) }}
 			</div>
 
-			<div class="form-group">
-				<label for="password" class="col-md-3 control-label">@lang('login.password')</label>
-				<div class="col-md-9">{{ Form::password('password',
-					array('class'=>'form-control', 'placeholder'=>
-					Lang::get('login.password'))) }}</div>
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{{
+				Form::password('password', array('class'=>'form-control',
+				'placeholder'=> Lang::get('login.password'))) }}
 			</div>
 
-			<div class="form-group">
-				<label for="password" class="col-md-3 control-label">Confirm
-					Password</label>
-				<div class="col-md-9">{{ Form::password('password_confirmation',
-					array('class'=>'form-control', 'placeholder'=>'Confirm Password'))
-					}}</div>
+			<div style="margin-bottom: 25px" class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{{
+				Form::password('password_confirmation',
+				array('class'=>'form-control', 'placeholder'=>'Confirm Password'))
+				}}
 			</div>
-
 
 			<div class="form-group">
 				<!-- Button -->
