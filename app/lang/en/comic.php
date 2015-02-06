@@ -6,4 +6,7 @@ return array(
     'errorMessage' => 'Following errors have been occured.',
     'author'       => 'Author',
     'description'  => 'Description',
+    'addLink'        => 'Add comics',
+    'addTitle'        => 'Add comics',
+    'updateTitle'        => 'Update comics',
 );

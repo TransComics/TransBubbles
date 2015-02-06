@@ -1,11 +1,8 @@
 @extends('layouts.master')
 
 @section('master.content')
-    @if ($isAdd) 
-        <h1>add()</h1>
-    @else 
-        <h1>update()</h1>
-    @endif
+
+    <h1>{{($isAdd)? '@lang(comic.addTitle)' : '@lang(comic.updateTitle)'}}</h1>
     
     @if(Session::has('message'))
         <p>{{ Session::get('message') }}</p>
@@ -21,19 +18,21 @@
         {{ Form::open(['route' => ['comic.update', $comic->id], 'method' => 'post']); }}
     @endif
     
-    {{ Form::label('title', Lang::get('base.title')); }}
-    {{ Form::text('title', $comic->title); }}
-    {{ Form::label('author', Lang::get('comic.author')); }}
-    {{ Form::text('author', $comic->author); }}
-    {{ Form::label('description', Lang::get('comic.description')); }}
-    {{ Form::text('description', $comic->description); }}
+    <div class="form-group">
+        {{ Form::label('title', Lang::get('base.title')); }}
+        {{ Form::text('title', $comic->title, ['class'=>'form-control']); }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('author', Lang::get('comic.author')); }}
+        {{ Form::text('author', $comic->author,['class'=>'form-control']); }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('description', Lang::get('comic.description')); }}
+        {{ Form::textarea('description', $comic->description, ['class'=>'form-control']); }}
+    </div>
     
-    @if ($isAdd) 
-        {{ Form::submit(Lang::get('base.add')); }}
-    @else 
-        {{ Form::submit(Lang::get('base.update')); }}
-    @endif
+    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-default']); }}
+ 
     {{ Form::close(); }}
     
-    <a href="{{URL::route('comics.list')}}" title="comics.list">List</a>
 @stop

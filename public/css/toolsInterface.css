@@ -187,14 +187,14 @@ ul li{
 }
 
 .colorPicker {
-	width:38px;
+	width:42px;
 	height:42px;
 	padding:5px;
 }
 
 .sizePicker {
 	width:35px;
-	height:30px;
+	height:35px;
 	padding:5px;
 	font-size:0.8em;
 }
