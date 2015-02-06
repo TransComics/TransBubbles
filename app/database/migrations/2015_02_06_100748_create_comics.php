@@ -17,7 +17,7 @@ class CreateComics extends Migration {
             $table->string('author',63);
             $table->text('description');
             $table->boolean('authorApproval');
-            $table->string('cover',128);
+            $table->string('cover',127)->nullable();
             $table->integer('font_id')->unsigned()->nullable();
             $table->timestamps();
             

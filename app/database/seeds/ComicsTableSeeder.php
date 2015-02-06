@@ -8,11 +8,13 @@ class ComicsTableSeeder extends Seeder {
                 'title' => 'Spiderman I',
                 'author' => 'gbergere',
                 'description' => 'Description SI',
+                'authorApproval' => 1,
             ],
             [
                 'title' => 'Spiderman II',
                 'author' => 'gbergereI',
                 'description' => 'Description SII',
+                'authorApproval' => 1,
             ]
         ]);
     }
