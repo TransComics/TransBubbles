@@ -29,5 +29,8 @@
         @endif
         <a href="{{URL::route('comic.add')}}" class="list-group-item" >@lang('comic.addLink')</a>
         <a href="{{URL::route('comics.list')}}" class="list-group-item" >@lang('comics.listLink')</a>
+        <a href="{{URL::route('strip.import', ['id' => 3])}}" class="list-group-item" >@lang('strip.importLink')</a>
+        <a href="{{URL::route('strip.clean', ['id' => 3])}}" class="list-group-item" >@lang('strip.cleanLink')</a>
+        <a href="{{URL::route('strip.translate', ['id' => 3])}}" class="list-group-item" >@lang('strip.translateLink')</a>
     </div>
 @stop

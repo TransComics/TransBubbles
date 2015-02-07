@@ -11,6 +11,16 @@ body {
   color:#FBFCF4;
 }
 
+.navbar-seconde-top {
+    padding-top: 10px;
+    top: 55px;
+}
+
+.navbar-seconde-bottom {
+    padding: 10px 0;
+    bottom: 95px;
+}
+
 .navbar-inverse {
     background-image: linear-gradient(to bottom, #2B3034 0%, #222 100%);
     background-repeat: repeat-x;
