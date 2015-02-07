@@ -1,22 +1,23 @@
 <?php
 
-use Illuminate\Filesystem\Filesystem;
-
 trait UploadFile {
     
-    public static function upload($file) {
-        $dir = public_path().'/uploads/';
-        $filename = md5(time().$file->getClientOriginalName());
-        $fs = new Filesystem();
+    public static function uploadFile($file) {
+        $path = '/uploads';
+        $fullpath = public_path().'/uploads';
+        $filename = md5(time().$file->getClientOriginalName()); //.'.'.$file->guessClientExtension();
         
-        $index = count(File::directories($dir));
-        if ($fs->exists($dir.'/'.$index) && count(File::files($dir.'/'.$index)) < 2000) {
-            $dir .= '/'.$index;
-        } else {
-            $fs->makeDirectory($dir.'/'.++$index);
-            $dir .= '/'.$index;
+        $index = count(File::directories($fullpath));
+        if (!File::exists($fullpath.'/'.$index) || count(File::files($fullpath.'/'.$index)) >= 2000) {
+            File::makeDirectory($fullpath.'/'.++$index);
         }
-        $file->move($dir, $filename);
+        $file->move($fullpath.'/'.$index, $filename);
+        
+        return $path.'/'.$index.'/'.$filename;
+    }
+    
+    public static function dropFile($filepath) {
+        return File::delete(public_path().$filepath);
     }
     
 }

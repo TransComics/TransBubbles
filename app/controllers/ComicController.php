@@ -70,7 +70,8 @@ class ComicController extends BaseController {
             $comic->description = Input::get('description');
             $comic->authorApproval = Input::get('authorApproval');
             if (Input::hasFile('cover')) {
-                $comic->cover = Comic::upload(Input::file('cover'));
+                Comic::dropFile($comic->cover);
+                $comic->cover = Comic::uploadFile(Input::file('cover'));
             }
             $comic->font_id = Input::get('font_id');
             $comic->save();
