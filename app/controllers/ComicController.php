@@ -84,7 +84,11 @@ class ComicController extends BaseController {
     
     public function delete($id) {
         
-        Comic::destroy($id);
+        $comic = Comic::find($id);
+        
+        Comic::dropFile($comic->cover);
+        $comic->delete();
+        
         return Redirect::back();
         
     }
