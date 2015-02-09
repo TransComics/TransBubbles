@@ -8,7 +8,7 @@ class StripsController extends BaseController {
      * @return Response
      */
     public function index() {
-        return View::make('strips.import');
+        return View::make('strip.import');
     }
 
     /**
@@ -35,9 +35,9 @@ class StripsController extends BaseController {
             //$extension =$file->getClientOriginalExtension(); 
             $upload_success = Input::file('strip')->move($destinationPath, $filename);
             if ($upload_success) {
-                return Redirect::back()->with('success', Lang::get('strips.uploadComplete'));
+                return Redirect::back()->with('success', Lang::get('strip.uploadComplete'));
             } else {
-                return Redirect::back()->with('message', Lang::get('strips.uploadFailed'))->withInput();
+                return Redirect::back()->with('message', Lang::get('strip.uploadFailed'))->withInput();
             }
         } else {
             return Redirect::back()->with('message', Lang::get('CHOISI UN FICHIER'))->withInput();
