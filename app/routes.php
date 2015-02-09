@@ -30,10 +30,6 @@ Route::get('/translate/{id}', [
     'as' => 'strip.translate',
     'uses' => 'StripController@translate'
 ]);
-Route::get('/import', [
-    'as' => 'strip.import',
-    'uses' => 'StripController@import'
-]);
 Route::get('/login/', [
     'as' => 'user.signIn',
     'uses' => 'UsersController@getLogin'
@@ -90,4 +86,5 @@ Route::group(['prefix' => '/ws'], function () {
     Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
 });
-?>
+
+Route::resource('strips', 'StripsController');
