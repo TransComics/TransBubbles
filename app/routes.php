@@ -11,35 +11,20 @@
  * |
  */
 
+/* Constraint */
 Route::pattern('id', '[0-9]+');
-Route::when('*', 'csrf', [
-    'post',
-    'put',
-    'delete'
-]);
+Route::when('*', 'csrf', ['post', 'put', 'delete']);
 
+/* Home Page */
 Route::get('/', [
     'as' => 'home',
     'uses' => 'HomeController@home'
 ]);
-Route::get('/clean/{id}', [
-    'as' => 'strip.clean',
-    'uses' => 'StripController@clean'
-]);
-Route::get('/ocr', [
-    'as' => 'OCR',
-    'uses' => 'OCRController@performOCR'
-]);
-Route::get('/translate/{id}', [
-    'as' => 'strip.translate',
-    'uses' => 'StripController@translate'
-]);
-Route::get('/import', [
-    'as' => 'strip.import',
-    'uses' => 'StripController@import'
-]);
+
+
+/* Authentification */
 Route::get('/login/', [
-    'as' => 'user.signIn',
+    'as' => 'user.signin',
     'uses' => 'UsersController@getLogin'
 ]);
 Route::get('/logout/', [
@@ -48,7 +33,7 @@ Route::get('/logout/', [
 ]);
 Route::post('/login/', 'UsersController@postLogin');
 Route::get('/signup/', [
-    'as' => 'users.signUp',
+    'as' => 'users.signup',
     'uses' => 'UsersController@getRegister'
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
@@ -66,9 +51,29 @@ Route::group(['prefix' => '/password'], function() {
     Route::post('/reset', 'RemindersController@postReset');
 });
 
+Route::group(['prefix' => '/strip'], function(){
+    Route::get('/clean/{id}', [
+        'as' => 'strip.clean',
+        'uses' => 'StripController@clean'
+    ]);
+    Route::get('/translate/{id}', [
+        'as' => 'strip.translate',
+        'uses' => 'StripController@translate'
+    ]);
+    Route::get('/import', [
+        'as' => 'strip.import',
+        'uses' => 'StripController@import'
+    ]);
+});
+
 Route::get('comics/list', [
     'as' => 'comics.list',
     'uses' => 'ComicsController@getList'
+]);
+
+Route::get('/ocr', [
+'as' => 'OCR',
+'uses' => 'OCRController@performOCR'
 ]);
 
 Route::group(['prefix' => '/comic'], function () {
