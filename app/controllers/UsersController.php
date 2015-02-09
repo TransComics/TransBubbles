@@ -9,11 +9,11 @@ class UsersController extends Controller {
     }
 
     public function getLogin() {
-        return View::make('users.signIn');
+        return View::make('users.signin');
     }
 
     public function getRegister() {
-        return View::make('users.signUp');
+        return View::make('users.signup');
     }
 
     public function postCreate() {
@@ -27,10 +27,10 @@ class UsersController extends Controller {
             $user->password = Hash::make(Input::get('password'));
             $user->save();
             
-            return Redirect::route('home')->with('message', Lang::get('login.registration_succes'));
+            return Redirect::back()->with('success', Lang::get('login.registration_succes'));
         } else {
             // validation has failed, display error messages
-            return Redirect::route('users.signUp')->with('message', Lang::get('login.message_errors'))
+            return Redirect::back()->with('message', Lang::get('login.message_errors'))
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -44,7 +44,7 @@ class UsersController extends Controller {
             // Login has passed
             return Redirect::route('home')->with('message', Lang::get('login.logged_in'));
         } else {
-            return Redirect::route('users.signIn')->with('message', Lang::get('login.error_post_login'))->withInput();
+            return Redirect::back()->with('message', Lang::get('login.error_post_login'))->withInput();
         }
     }
 
