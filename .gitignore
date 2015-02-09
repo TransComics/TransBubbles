@@ -109,3 +109,5 @@ composer.lock
 /public/images/strips/
 =======
 >>>>>>> 349880946c767d98e2f4b35cd68838a0c3cf024d
+/build/
+/cache.properties
