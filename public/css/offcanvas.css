@@ -20,10 +20,6 @@ small, .small,h1 small,h2 small,h3 small,h4 small,h5 small,h6 small, .help-block
     color: #999;
 }
 
-.form-group {
-    padding-bottom: 5px;
-}
-
 .navbar-seconde-top {
     padding-top: 10px;
     top: 55px;
@@ -75,7 +71,6 @@ footer {
 }
 
 .thumbnail-comic {
-    width : 700px;
     padding: 0 10px 10px 10px;
 }
 
