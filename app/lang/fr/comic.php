@@ -10,5 +10,7 @@ return array(
     'addLink'       => 'Ajouter une Bande Dessinée',
     'addTitle'      => 'Ajouter une bande dessinée',
     'updateTitle'   => 'Modifier une bande dessinée',
-    'cover'         => 'Image de couverture (taille recommandé 700x200)',
+    'cover'         => 'Image de couverture',
+    'helpCover'    => 'taille recommandée 846x170',
+    'font'         => 'Police par défaut'
 );

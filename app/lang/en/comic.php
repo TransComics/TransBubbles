@@ -10,5 +10,7 @@ return array(
     'addLink'      => 'Add comics',
     'addTitle'     => 'Add comics',
     'updateTitle'  => 'Update comics',
-    'cover'        => 'Cover image (recommended size 700x200)',
+    'cover'        => 'Cover image',
+    'helpCover'    => 'Recommended size 846x170',
+    'font'         => 'Default font'
 );

@@ -13,7 +13,7 @@
             </span>
             {{ Form::close(); }}
         </h2>
-        {{ HTML::image($comic->cover, 'cover', array('width' => '700', 'height' => '200')) }}
+        {{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170')) }}
     </div>
     <br/>
     @endforeach
