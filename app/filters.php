@@ -22,7 +22,8 @@ App::before(function($request) {
     /* Define user locale. */
     App::setLocale($lang);
 
-    
+    /* Give languages to View. */
+    View::share('languages', Language::all());
 });
 
 
