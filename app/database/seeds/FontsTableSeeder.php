@@ -1,17 +1,43 @@
 <?php
 
 class FontsTableSeeder extends Seeder {
-    
-    public function run () {
+
+    public function run() {
         DB::table('fonts')->insert([
-            ['name' => 'Arial Black'],
-            ['name' => 'Calibri'],
-            ['name' => 'Calibri Light'],
-            ['name' => 'Cambria'],
-            ['name' => 'Comics Sans Ms'],
-            ['name' => 'Time New Roman'],
-            ['name' => 'Trebuchet'],
-            ['name' => 'Verdana'],
+            [
+                'id' => 1, 
+                'name' => 
+                'Arial Black'
+            ],
+            [
+                'id' => 2, 
+                'name' => 'Calibri'
+            ],
+            [
+                'id' => 3, 
+                'name' => 'Calibri Light'
+            ],
+            [
+                'id' => 4, 
+                'name' => 'Cambria'
+            ],
+            [
+                'id' => 5, 
+                'name' => 'Comics Sans Ms'
+            ],
+            [
+                'id' => 6, 
+                'name' => 'Time New Roman'
+            ],
+            [
+                'id' => 7, 
+                'name' => 'Trebuchet'
+            ],
+            [
+                'id' => 8, 
+                'name' => 'Verdana'
+            ],
         ]);
     }
+
 }
