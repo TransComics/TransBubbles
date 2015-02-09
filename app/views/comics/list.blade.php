@@ -2,7 +2,7 @@
 
 @section('master.content')
     @foreach($comics as $comic)
-    <div class="thumbnail thumbnail-comic" title='{{ $comic->description }}'>
+    <div class="thumbnail thumbnail-comic" @if ($comic->cover) title="{{$comic->description}}" @endif >
         <h2>
             {{ Form::open(['route' => ['comic.delete', $comic->id], 'method' => 'delete', 'id' => $comic->id]); }}
             <a href="#">{{$comic->title}} <small>({{$comic->author}})</small></a>
@@ -13,8 +13,14 @@
             </span>
             {{ Form::close(); }}
         </h2>
-        {{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }}
+        @if ($comic->cover)
+            {{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }}
+        @else
+            {{ $comic->description }}
+        @endif
     </div>
-    <br/>
     @endforeach
+    <div class="text-center">
+    {{ $comics->links(); }}
+    </div>
 @stop

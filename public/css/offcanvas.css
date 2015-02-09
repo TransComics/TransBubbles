@@ -20,6 +20,17 @@ small, .small,h1 small,h2 small,h3 small,h4 small,h5 small,h6 small, .help-block
     color: #999;
 }
 
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover,
+.pagination > .active > span:hover, .pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #00C8E1;
+    border-color: #00C8E1;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #00C8E1;
+}
+
 .navbar-seconde-top {
     padding-top: 10px;
     top: 55px;
