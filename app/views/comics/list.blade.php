@@ -2,7 +2,7 @@
 
 @section('master.content')
     @foreach($comics as $comic)
-    <div class="thumbnail thumbnail-comic">
+    <div class="thumbnail thumbnail-comic" title='{{ $comic->description }}'>
         <h2>
             {{ Form::open(['route' => ['comic.delete', $comic->id], 'method' => 'delete', 'id' => $comic->id]); }}
             <a href="#">{{$comic->title}} <small>({{$comic->author}})</small></a>
