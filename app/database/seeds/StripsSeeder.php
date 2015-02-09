@@ -7,12 +7,12 @@ class StripSeeder extends Seeder {
             [
                 'title' => 'Tintin',
                 'path' => '/usr/books/tintin/page1.png',
-                'page' => 1,
+                'pageNumber' => 1,
             ],
             [
                 'title' => 'Tintin',
                 'path' => '/usr/books/tintin/page2.png',
-                'page' => 2,
+                'pageNumber' => 2,
             ]
         ]);
     }
