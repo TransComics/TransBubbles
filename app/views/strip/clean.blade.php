@@ -44,7 +44,7 @@
 		<tr>
 			<td class="origin-td">
 				<div class='origin'>
-					{{ HTML::image('images/strips/stripFile2.jpg', 'strip', array('id' => 'i')) }}
+					{{ HTML::image('upload/0/stripFile2.jpg', 'strip', array('id' => 'i')) }}
 				</div>
 			</td>
 			<td id="delivered">
