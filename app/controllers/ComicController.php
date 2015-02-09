@@ -25,9 +25,9 @@ class ComicController extends BaseController {
 
     public function add() {
         
-        return $this->checkAndSave(new Comic(), function($c, $v) {
+        return $this->checkAndSave(new Comic(), function($c, $v, $isOk) {
             
-            if ($v->passes()) {
+            if ($isOk) {
                 return Redirect::route('comic.update', [$c->id])
                     ->withMessage(Lang::get('comic.added', [
                         'title' => $c->title,
@@ -43,9 +43,9 @@ class ComicController extends BaseController {
     
     public function update($id) {
         
-        return $this->checkAndSave(Comic::find($id), function($c, $v) {
+        return $this->checkAndSave(Comic::find($id), function($c, $v, $isOk) {
             
-            if ($v->passes()) {
+            if ($isOk) {
                 return Redirect::route('comic.update', [$c->id])
                     ->withMessage(Lang::get('comic.updated', [
                         'title' => $c->title,
@@ -64,23 +64,31 @@ class ComicController extends BaseController {
         
         $v = Validator::make(Input::all(), Comic::rules());
         
-        if($v->passes()) {
+        $isOk = $v->passes();
+        if($isOk) {
             $comic->title = Input::get('title');
             $comic->author = Input::get('author');
             $comic->description = Input::get('description');
             $comic->authorApproval = Input::get('authorApproval');
-            $comic->cover = Input::get('cover');
+            if (Input::hasFile('cover')) {
+                Comic::dropFile($comic->cover);
+                $comic->cover = Comic::uploadFile(Input::file('cover'));
+            }
             $comic->font_id = Input::get('font_id');
             $comic->save();
         }
         
-        return $return($comic, $v);
+        return $return($comic, $v, $isOk);
         
     }
     
     public function delete($id) {
         
-        Comic::destroy($id);
+        $comic = Comic::find($id);
+        
+        Comic::dropFile($comic->cover);
+        $comic->delete();
+        
         return Redirect::back();
         
     }

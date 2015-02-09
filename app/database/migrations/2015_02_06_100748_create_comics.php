@@ -13,7 +13,7 @@ class CreateComics extends Migration {
     public function up() {
         Schema::create('comics', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('title',63);
+            $table->string('title',63)->unique();
             $table->string('author',63);
             $table->text('description');
             $table->boolean('authorApproval');
