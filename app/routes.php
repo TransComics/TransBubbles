@@ -102,9 +102,7 @@ Route::group(['prefix' => '/ws'], function () {
 Route::group(['before' => 'auth', 'prefix' => '/strips'], function() {
     Route::get('/pending', [
         'as' => 'strips.pending',
-        'uses' => function() {
-            return 'strips.pending';
-        }
+        'uses' => 'StripsController@listPending'
     ]);
 });
 
