@@ -8,7 +8,9 @@ class Strips extends Eloquent {
         'insertion_date', 'path'];
     public static $rules = [
         'pageNumber' => 'numeric',
-        'strip' => 'required|mimes:jpeg,bmp,png,gif|max:1024'
+        'strip' => 'required|mimes:jpeg,bmp,png,gif,jpg|max:4096'
     ];
+    
+    public static $updateRules = [];
 
 }
