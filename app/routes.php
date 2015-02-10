@@ -1,4 +1,4 @@
-<?php
+o<?php
 
 /*
  * |--------------------------------------------------------------------------
@@ -21,10 +21,13 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
+<<<<<<< HEAD
+=======
 Route::post('/lang', [
     'as' => 'language.select',
     'uses' => 'LanguageController@select'
 ]);
+>>>>>>> develop
 
 /* Authentification */
 Route::get('/login/', [
@@ -75,7 +78,16 @@ Route::get('comics/list', [
     'uses' => 'ComicsController@getList'
 ]);
 
+<<<<<<< HEAD
+Route::get('/ocr', [
+'as' => 'OCR',
+'uses' => 'OCRController@performLocalOCR'
+]);
+
+Route::group(['prefix' => '/comic'], function () {
+=======
 Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
+>>>>>>> develop
     Route::get('/add', [
         'as' => 'comic.add',
         'uses' => 'ComicController@addForm'

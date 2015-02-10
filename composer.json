@@ -9,6 +9,7 @@
         "phpunit/phpunit": "4.4.5",
         "phploc/phploc": "2.0.6",
         "mayflower/php-codebrowser": "~1.1",
+        "ddeboer/tesseract": "1.0"
         "mockery/mockery": "dev-master@dev"
     },
 
