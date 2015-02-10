@@ -103,4 +103,5 @@ Route::group(['prefix' => '/ws'], function () {
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
 });
 
-Route::resource('strips', 'StripsController');
+Route::resource('strips', 'StripsController', 
+        ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
