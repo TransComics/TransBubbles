@@ -10,6 +10,7 @@ return array(
     'uploadFailed' => 'Your image have not been transfered',
     'addTitle' => 'Add a Strip',
     'stripFileSelector' => 'Choose the strip to share',
+    'updateTitle' => 'Update',
     'unvalidFile' => 'Unvalid file',
     'updateFailure' => 'Failed to update the Strip',
     'editComplete' => 'Editing completed',
