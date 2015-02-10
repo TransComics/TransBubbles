@@ -47,7 +47,7 @@
         <span class="col-sm-2 control-label"></span>
         <div class="col-sm-10">
             {{ Form::checkbox('authorApproval', true, $comic->authorApproval); }}
-            {{ Form::label('authorApproval', 'Je certifie être l\'auteur de cette bande dessinée ou bien, possèder l\'accord de son auteur.'); }}
+            {{ Form::label('authorApproval', Lang::get('comic.authorApproval')); }}
             {{ $errors->first('authorApproval', '<p class="alert alert-danger">:message</p>'); }}
         </div>
     </div>

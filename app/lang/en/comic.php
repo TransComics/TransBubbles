@@ -12,5 +12,6 @@ return array(
     'updateTitle'  => 'Update comics',
     'cover'        => 'Cover image',
     'helpCover'    => 'Recommended size 846x170',
-    'font'         => 'Default font'
+    'font'         => 'Default font',
+    'authorApproval' => 'I certifie to be the comics author or get right to publish it.'
 );
