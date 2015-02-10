@@ -10,10 +10,7 @@ class CreateStripsTable extends Migration {
 		Schema::create('strips', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('title', 64);
-			$table->string('author', 255);
-			$table->date('insertion_date');
 			$table->string('path', 64);
-			$table->integer('pageNumber');
 			$table->timestamps();
 		});
 	}
