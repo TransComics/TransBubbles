@@ -59,12 +59,6 @@ class StripsController extends BaseController {
      * @return Response
      */
     public function update($id) {
-
-        // If the button we press to get here is delete, we redirect to delete
-        if (Input::get('delete')) {
-            return $this->destroy($id);
-        }
-
         $v = Validator::make(['title' => Input::get('title')], Strips::$updateRules);
         if ($v->passes()) {
             $strip = Strips::find($id);
@@ -78,7 +72,6 @@ class StripsController extends BaseController {
                             ->withErrors($v)
                             ->withInput();
         }
-
         return Redirect::back()->with('message', Lang::get('strips.editComplete'));
     }
 
@@ -97,4 +90,5 @@ class StripsController extends BaseController {
         $strip->delete();
         return Redirect::route('strips.index')->with('message', Lang::get('strips.deleteSucceded'));
     }
+
 }

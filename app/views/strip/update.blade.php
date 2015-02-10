@@ -11,9 +11,10 @@
 <!-- We make the difference between an update form and an add form with isAdd-->
 <!-- We choose the correct route, regarding if we are in addition or edition -->
 @if ($isAdd) 
-{{ Form::open(['method' => 'post', 'files' => true], ['class'=>'form-horizontal']); }}
+{{ Form::open(['method' => 'post', 'files' => true, 'class'=>'form-horizontal', 'id' => 'stripForm']); }}
 @else 
-{{ Form::open(['method' => 'put', 'files' => true], ['class'=>'form-horizontal']); }}
+{{ Form::open(['method' => 'put', 'files' => true, 'class'=>'form-horizontal', 'id' => 'stripForm']); }}
+{{ Form::hidden('_method', 'put', ['id' => '_method']); }}
 @endif
 
 {{ Form::label('title', Lang::get('strips.title'), ['class'=>'sr-only']); }}
@@ -32,14 +33,13 @@
 <br />
 
 <!-- We show the delete button only if we are in edition -->
-<!-- Here it's a little tricky, we have two buttons and we have the same route for the form -->
-<!-- We will treat if we delete of update on the controller later -->
 <div class="btn-group" role="group">
     @if (!$isAdd)
-    {{ Form::submit(Lang::get('base.delete'),['name' => 'delete', 'class'=>'btn btn-lg btn-primary']); }}
+    <span class="btn btn-lg btn-primary" onclick="$('#_method').val('DELETE'); $('#stripForm').attr('action',
+          '{{ URL::route('strips.destroy', [$strips->id]) }}'); $('#stripForm').submit();"> @lang('base.delete') </span>
     @endif
     <a href="{{ URL::route('home') }}" class="btn btn-lg btn-primary"> @lang('base.cancel') </a>
-    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['name' => 'add', 'class'=>'btn btn-lg btn-primary']); }}
+    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-lg btn-primary']); }}
 </div>
 {{ Form::close(); }}
 
