@@ -26,6 +26,7 @@
                 <li @if(Route::currentRouteName() == "about")class="active" @endif><a href="#about" >À propos</a></li>
                 <li @if(Route::currentRouteName() == "contact")class="active" @endif><a href="#contact" >Nous contacter</a></li>
             </ul>
+            @include('common.lang_selector')
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
 </nav><!-- /.navbar -->

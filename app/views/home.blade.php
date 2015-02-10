@@ -16,7 +16,4 @@
     @else
         <p>@lang('base.welcome')</p>
     @endif 
-
-    @include('common.lang_selector')
-    
 @stop
