@@ -14,7 +14,6 @@
     {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap-filestyle.min.js') }}
 	{{ HTML::script('js/lib/fabric.js') }}
 	{{ HTML::script('js/cleanAndTranslate.js') }}
-	{{ HTML::script('js/lib/jquery.ajaxLoader.js') }} 
 	{{ HTML::script('js/lib/json-jquery.js') }} 
 @stop
 

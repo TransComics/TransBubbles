@@ -1,4 +1,6 @@
-@extends('layouts.tool') @section('tool.title') Interface de traduction
+@extends('layouts.tool') 
+@section('tool.title') 
+Interface de traduction
 @stop @section('tool.items')
 <div class="btn-group pull-right" role="group">
 	<a class='btn btn-lg btn-primary icon-undo' href="" id="undo"></a> <a
