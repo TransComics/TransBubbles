@@ -1,4 +1,4 @@
-<?php
+o<?php
 
 /*
  * |--------------------------------------------------------------------------
@@ -73,7 +73,7 @@ Route::get('comics/list', [
 
 Route::get('/ocr', [
 'as' => 'OCR',
-'uses' => 'OCRController@performOCR'
+'uses' => 'OCRController@performLocalOCR'
 ]);
 
 Route::group(['prefix' => '/comic'], function () {

@@ -1,10 +1,13 @@
 @extends('layouts.master')
 
 @section('master.content')
-    <img src="images/ocrtemp/test2.jpg" alt="image" />
-    <!-- {{ Session::get('text') }} -->     
-    <textarea style="color:black"	 rows="4" cols="50">
-    <?php echo $text; ?>	
-    </textarea> 
+	<div style="width: 50%;float:left">
+	<img style="width: 100%" src="{{ $image }}" alt="image" />
+	</div>
+	<div style="width: 50%;float:right">
+	<textarea style="color:black" cols="50" rows="10">
+    {{ $text }}
+    </textarea>
+	</div>
     	
 	@stop
