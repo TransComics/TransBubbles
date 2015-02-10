@@ -55,7 +55,7 @@ Route::group(['prefix' => '/password'], function() {
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group(['prefix' => '/strip'], function(){
+Route::group(['prefix' => '/strip'], function() {
     Route::get('/clean/{id}', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -99,5 +99,16 @@ Route::group(['prefix' => '/ws'], function () {
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
 });
 
-Route::resource('strips', 'StripsController', 
-        ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+
+Route::group(['prefix' => '/strips'], function() {
+    Route::get('/pending', [
+        'as' => 'strips.pending',
+        'uses' => function() {
+            return 'strips.pending';
+        }
+    ]);
+});
+
+Route::resource('strips', 'StripsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+
+
