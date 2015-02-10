@@ -93,7 +93,9 @@ footer {
  * icon-lang
  * --------------------------------------------------
  */
-
+.icon-lang{
+    cursor:pointer;
+}
 
 .icon-lang-16-fr:before {
     content: url('../images/flags/16/fr.png');

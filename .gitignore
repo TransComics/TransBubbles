@@ -104,6 +104,5 @@ composer.lock
 /nbproject/
 
 # Custom
-/public/images/strips/
-/build/
-/cache.properties
+/public/uploads/*
+!/public/uploads/0

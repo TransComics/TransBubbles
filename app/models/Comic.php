@@ -6,9 +6,9 @@ class Comic extends Eloquent {
     
     protected $guarded = ['id'];
     
-    public static function rules() {
+    public static function rules($id = 0) {
         return [
-            'title' => 'required|between:4,63|unique:comics',
+            'title' => 'required|between:4,63|unique:comics,title,'.$id,
             'author' => 'required|between:4,63',
             'description' => 'max:2000',
             'authorApproval' => 'required|boolean',
