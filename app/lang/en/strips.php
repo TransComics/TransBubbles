@@ -13,6 +13,5 @@ return array(
     'unvalidFile' => 'Unvalid file',
     'updateFailure' => 'Failed to update the Strip',
     'editComplete' => 'Editing completed',
-    //CORRIGER !!!
-    'deleteSucceded' => 'The strip have been deleted'
+    'deleteSucceded' => 'The strip has been removed'
 );
