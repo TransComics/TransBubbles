@@ -6,25 +6,35 @@
 
 @section('tool.items')
     <div class="btn-group pull-right" role="group">
-	<a class='btn btn-lg btn-primary icon-undo' href="" id="undo"></a>
-	<a class='btn btn-lg btn-primary icon-redo' href="" id="redo"></a>
+	<a class='btn btn-primary icon-undo' href="" id="undo"></a>
+	<a class='btn btn-primary icon-redo' href="" id="redo"></a>
     </div>
 
     <div class="btn-group pull-right" role="group">
-	<a class='btn btn-lg btn-primary icon-zoomm' href="" id="btnZoomOut"></a>
-	<a class='btn btn-lg btn-primary icon-zoomp' href="" id="btnZoomIn"></a>
-        <a class='btn btn-lg btn-primary icon-zoom' href="" id="btnResetZoom"></a>
+	<a class='btn btn-primary glyphicon glyphicon-zoom-out' href="" id="btnZoomOut"></a>
+	<a class='btn btn-primary glyphicon glyphicon-zoom-in' href="" id="btnZoomIn"></a>
+        <a class='btn btn-primary glyphicon glyphicon-search' href="" id="btnResetZoom"></a>
     </div>
     
     <div class="btn-group pull-right" role="group">
-	<a class='btn btn-lg btn-primary icon-viewAll' href="" id="viewAll"></a>
-	<span class='btn btn-lg btn-primary icon-selectAll' href="" id="selectAll"></span>
+	<a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="viewAll"></a>
+	<span class='btn btn-primary icon-selectAll' href="" id="selectAll"></span>
     </div>
 
     <div class="btn-group pull-right" role="group">
-	<a class='btn btn-lg btn-primary icon-update' href="" id="update"></a>
-	<a class='btn btn-lg btn-primary icon-text' href="" id="text"></a>
-	<a class='btn btn-lg btn-primary icon-del' href="" id="del"></a>
+	<a class='btn btn-primary icon-update' href="" id="update"></a>
+	<a class='btn btn-primary glyphicon glyphicon-trash' href="" id="del"></a>
+	<a class='btn btn-primary icon-text' href="" id="text"></a>
+        <input class="btn btn-primary" style="height:34px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" />
+	<input class="btn btn-primary" style="height:34px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
+        <input class="btn btn-primary" style="width:65px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
+        
+        {{ Form::select('fontPicker', $fonts, 1,['class'=>'btn btn-primary', 'id'=>'fontPicker']); }}
+        
+        <span class='btn btn-primary glyphicon glyphicon-bold' id="textBold"></span>
+        <span class='btn btn-primary glyphicon glyphicon-italic' id="textItalic"></span>
+        <span class='btn btn-primary' id="textUnderline">Underline</span>
+        <span class='btn btn-primary' id="textLineThrough">Line-Through</span>
     </div>
 @stop
 
