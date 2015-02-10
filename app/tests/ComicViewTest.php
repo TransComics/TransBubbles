@@ -1,3 +1,4 @@
+
 <?php
 
 class ComicViewTest extends TestCase {

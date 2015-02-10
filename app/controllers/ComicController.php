@@ -84,8 +84,10 @@ class ComicController extends BaseController {
     }
     
     public function delete($id) {
-        
         $comic = Comic::find($id);
+        if ($comic == null) {
+            return Redirect::route('home');
+        }
         
         Comic::dropFile($comic->cover);
         $comic->delete();
