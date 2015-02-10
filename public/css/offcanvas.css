@@ -5,9 +5,40 @@
 html,
 body {
   padding-top: 40px;
+  padding-bottom: 70px;
   overflow-x: hidden; /* Prevent scroll on narrow devices */
   background-color: #3D4549;
   color:#FBFCF4;
+}
+
+a {
+    color: #00C8E1;
+    text-decoration: none;
+}
+
+small, .small,h1 small,h2 small,h3 small,h4 small,h5 small,h6 small, .help-block {
+    color: #999;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover,
+.pagination > .active > span:hover, .pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #00C8E1;
+    border-color: #00C8E1;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #00C8E1;
+}
+
+.navbar-seconde-top {
+    padding-top: 10px;
+    top: 55px;
+}
+
+.navbar-seconde-bottom {
+    padding: 10px 0;
+    bottom: 95px;
 }
 
 .navbar-inverse {
@@ -32,6 +63,63 @@ body {
 footer {
   padding: 30px 0;
 }
+
+.btn-primary {
+    background-image: linear-gradient(to bottom, #00C8E1 0%, #22a7bf 100%);
+    background-repeat: repeat-x;
+    border-color: #222;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
+    background-image: linear-gradient(to bottom, #00C8E1 0%, #22a7bf 100%);
+    background-repeat: repeat-x;
+    border-color: #222;
+}
+
+.thumbnail {
+    background-color: #3D4549;
+    border:1px solid #999;
+}
+
+.thumbnail-comic {
+    padding: 0 10px 10px 10px;
+}
+
+.lang-selector {
+    margin: 6px;
+}
+
+/*
+ * icon-lang
+ * --------------------------------------------------
+ */
+
+
+.icon-lang-16-fr:before {
+    content: url('../images/flags/16/fr.png');
+}
+
+.icon-lang-32-fr:before {
+    content: url('../images/flags/32/fr.png');
+}
+
+.icon-lang-16-de:before {
+    content: url('../images/flags/16/de.png');
+}
+
+.icon-lang-32-de:before {
+    content: url('../images/flags/32/de.png');
+}
+
+.icon-lang-16-en:before {
+    content: url('../images/flags/16/uk.png');
+}
+
+.icon-lang-32-en:before {
+    content: url('../images/flags/32/uk.png');
+}
+
+
 
 /*
  * Off Canvas

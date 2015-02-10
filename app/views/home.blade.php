@@ -16,17 +16,4 @@
     @else
         <p>@lang('base.welcome')</p>
     @endif 
-
-@stop
-
-
-@section('master.nav')
-    <div class="list-group">
-        @if(Auth::check())
-            <a href="{{URL::route('user.logout')}}" class="list-group-item" >Déconnexion</a>
-        @else
-            <a href="{{URL::route('user.signin')}}" class="list-group-item" >Connexion</a>
-        @endif
-        <a href="{{URL::route('comic.add')}}" class="list-group-item" >Ajouter une Bande Dessinée</a>
-    </div>
 @stop

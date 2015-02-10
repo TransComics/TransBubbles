@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 class TestCase extends Illuminate\Foundation\Testing\TestCase {
 
     /**
@@ -9,7 +7,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
      */
     public function setUp() {
         parent::setUp();
-        $this->prepareForTests();
+        Artisan::call('migrate');
+        Session::start();
+        Mail::pretend(true);
+        Route::enableFilters();
+    }
+    
+    public function tearDown() {
+        parent::tearDown();
+        Artisan::call('migrate:reset');
     }
 
     /**
@@ -22,15 +28,5 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         $testEnvironment = 'testing';
         return require __DIR__ . '/../../bootstrap/start.php';
     }
-
-    /**
-     * Migrate the database
-     */
-    private function prepareForTests() {
-        Artisan::call('migrate');
-        Session::start();
-        Mail::pretend(true);
-        Route::enableFilters();
-    }
+    
 }
-?>
