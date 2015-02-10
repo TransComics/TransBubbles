@@ -26,6 +26,9 @@ Route::post('/lang', [
     'uses' => 'LanguageController@select'
 ]);
 
+/* Translate test */
+Route::resource('translatetest', 'TranslatorController',array('only' => array('index', 'show')));
+
 /* Authentification */
 Route::get('/login/', [
     'as' => 'user.signin',
