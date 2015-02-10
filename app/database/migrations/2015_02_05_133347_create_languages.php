@@ -12,9 +12,10 @@ class CreateLanguages extends Migration {
      */
     public function up() {
     Schema::create('languages', function(Blueprint $table) {
-            $table->char('id', 2);
+            $table->increments('id');
+            $table->char('shortcode', 2);
+            $table->char('code', 5)->unique();
             $table->char('label', 32)->unique();
-            $table->primary('id');
         });
     }
 

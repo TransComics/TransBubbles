@@ -21,13 +21,9 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
-Route::get('/clean/{id}', [
-    'as' => 'strip.clean',
-    'uses' => 'StripController@clean'
-]);
-Route::get('/translate/{id}', [
-    'as' => 'strip.translate',
-    'uses' => 'StripController@translate'
+Route::post('/lang', [
+    'as' => 'language.select',
+    'uses' => 'LanguageController@select'
 ]);
 
 /* Authentification */
@@ -79,7 +75,7 @@ Route::get('comics/list', [
     'uses' => 'ComicsController@getList'
 ]);
 
-Route::group(['prefix' => '/comic'], function () {
+Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
     Route::get('/add', [
         'as' => 'comic.add',
         'uses' => 'ComicController@addForm'

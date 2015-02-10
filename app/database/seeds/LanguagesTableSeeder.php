@@ -5,15 +5,21 @@ class LanguagesTableSeeder extends Seeder {
     public function run () {
         DB::table('languages')->insert([
             [
-                'id' => 'EN',
+                'id'        => 1,
+                'shortcode' => 'en',
+                'code'      => 'en-UK',
                 'label' => 'English',
             ],
             [
-                'id' => 'FR',
+                'id'        => 2,
+                'shortcode' => 'fr',
+                'code'      => 'fr-FR',
                 'label' => 'Français',
             ],
             [
-                'id' => 'DE',
+                'id'        => 3,
+                'shortcode' => 'de',
+                'code'      => 'de-DE',
                 'label' => 'German',
             ]
         ]);

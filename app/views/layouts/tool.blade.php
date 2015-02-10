@@ -24,6 +24,9 @@
             <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
             <span class="navbar-brand">- @yield('tool.title')</span>
         </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            @include('common.lang_selector')
+        </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
 </nav><!-- /.navbar -->
 
