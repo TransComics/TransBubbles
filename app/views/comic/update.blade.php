@@ -7,9 +7,10 @@
     @endif
     
     @if ($isAdd) 
-        {{ Form::open(['method' => 'put', 'files' => true, 'class'=>'form-horizontal']); }}
+        {{ Form::open(['method' => 'put', 'files' => true, 'class'=>'form-horizontal', 'id' => 'comicForm']); }}
     @else 
-        {{ Form::open(['route' => ['comic.update', $comic->id], 'method' => 'post', 'files' => true, 'class'=>'form-horizontal']); }}
+        {{ Form::open(['route' => ['comic.update', $comic->id], 'method' => 'post', 'files' => true, 'class'=>'form-horizontal', 'id' => 'comicForm']); }}
+        {{ Form::hidden('_method', 'POST', ['id' => '_method']); }}
     @endif
     
     <div class="form-group text-center">
@@ -66,7 +67,9 @@
         </div>
     </div>
     <div class="btn-group pull-right" role="group">
-        <a href="" class="btn btn-lg btn-primary"> @lang('base.delete') </a>
+         @if (!$isAdd) 
+        <span class="btn btn-lg btn-primary" onclick="$('#_method').val('DELETE'); $('#comicForm').attr('action', '{{ URL::route('comic.delete', [$comic->id]) }}'); $('#comicForm').submit();"> @lang('base.delete') </span>
+        @endif
         <a href="{{ URL::route('home') }}" class="btn btn-lg btn-primary"> @lang('base.cancel') </a>
         {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-lg btn-primary']); }}
     </div>
