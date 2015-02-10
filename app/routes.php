@@ -84,8 +84,8 @@ Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
         'as' => 'comic.update',
         'uses' => 'ComicController@updateForm'
     ]);
-    Route::put('/add', 'ComicController@add');
-    Route::post('/update/{id}', 'ComicController@update');
+    Route::post('/add', 'ComicController@add');
+    Route::put('/update/{id}', 'ComicController@update');
     Route::delete('/delete/{id}', [
         'as' => 'comic.delete',
         'uses' => 'ComicController@delete'
