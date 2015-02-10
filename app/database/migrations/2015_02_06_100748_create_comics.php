@@ -19,11 +19,19 @@ class CreateComics extends Migration {
             $table->boolean('authorApproval');
             $table->string('cover',127)->nullable();
             $table->integer('font_id')->unsigned()->nullable();
+            $table->integer('created_by')->unsigned()->nullable();
             $table->timestamps();
         });
         
         Schema::table('comics', function(Blueprint $table) {
             $table->foreign('font_id')->references('id')->on('fonts')
+                ->onUpdate('cascade')
+                ->onDelete('set null');
+        });
+        
+        
+        Schema::table('comics', function(Blueprint $table) {
+            $table->foreign('created_by')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
         });
@@ -37,6 +45,7 @@ class CreateComics extends Migration {
     public function down() {
         Schema::table('comics', function(Blueprint $table) {
             $table->dropForeign('comics_font_id_foreign');
+            $table->dropForeign('comics_created_by_foreign');
         });
         Schema::dropIfExists('comics');
     }
