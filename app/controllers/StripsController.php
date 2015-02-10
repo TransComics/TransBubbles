@@ -24,17 +24,13 @@ class StripsController extends BaseController {
             return Redirect::back()->withInput()->withErrors($v);
         } else {
             $file = Input::file('strip');
-            if ($file->isValid()) {
-                $fileLocation = UploadFile::uploadFile($file);
+            $fileLocation = UploadFile::uploadFile($file);
 
-                $strip = new Strips();
-                $strip->title = Input::get('title');
-                $strip->path = $fileLocation;
-                $strip->save();
-                return Redirect::back()->with('message', Lang::get('strips.uploadComplete'));
-            } else {
-                return Redirect::back()->with('message', Lang::get('strip.unvalidFile'))->withInput();
-            }
+            $strip = new Strips();
+            $strip->title = Input::get('title');
+            $strip->path = $fileLocation;
+            $strip->save();
+            return Redirect::route('strips.pending');
         }
     }
 
@@ -60,11 +56,13 @@ class StripsController extends BaseController {
      */
     public function update($id) {
         $v = Validator::make(['title' => Input::get('title')], Strips::$updateRules);
+
+        $strip = Strips::find($id);
+        if ($strip == null) {
+            return Redirect::back()->withInput()->withErrors($v);
+        }
+
         if ($v->passes()) {
-            $strip = Strips::find($id);
-            if ($strip == null) {
-                return Redirect::route('strips.index');
-            }
             $strip->title = Input::get('title');
             $strip->save();
         } else {
