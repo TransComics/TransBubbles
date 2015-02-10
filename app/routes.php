@@ -13,13 +13,20 @@
 
 /* Constraint */
 Route::pattern('id', '[0-9]+');
-Route::when('*', 'csrf', ['post', 'put', 'delete']);
+Route::when('*', 'csrf', [
+    'post',
+    'put',
+    'delete'
+]);
 
 /* Home Page */
 Route::get('/', [
     'as' => 'home',
     'uses' => 'HomeController@home'
 ]);
+
+/* Translate test */
+Route::resource('translatetest', 'TranslatorController',array('only' => array('index', 'show')));
 
 /* Authentification */
 Route::get('/login/', [
@@ -37,7 +44,9 @@ Route::get('/signup/', [
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
 
-Route::group(['prefix' => '/password'], function() {
+Route::group([
+    'prefix' => '/password'
+], function () {
     Route::get('/remind', [
         'uses' => 'RemindersController@getRemind',
         'as' => 'password.remind'
@@ -50,7 +59,9 @@ Route::group(['prefix' => '/password'], function() {
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group(['prefix' => '/strip'], function(){
+Route::group([
+    'prefix' => '/strip'
+], function () {
     Route::get('/clean/{id}', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -70,7 +81,9 @@ Route::get('comics/list', [
     'uses' => 'ComicsController@getList'
 ]);
 
-Route::group(['prefix' => '/comic'], function () {
+Route::group([
+    'prefix' => '/comic'
+], function () {
     Route::get('/add', [
         'as' => 'comic.add',
         'uses' => 'ComicController@addForm'
@@ -87,10 +100,13 @@ Route::group(['prefix' => '/comic'], function () {
     ]);
 });
 
-Route::group(['prefix' => '/ws'], function () {
+Route::group([
+    'prefix' => '/ws'
+], function () {
     Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
     Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
     Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
 });
+
 ?>

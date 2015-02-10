@@ -6,21 +6,14 @@
 			<div class="panel-title">Complete this form to reset your password</div>
 		</div>
 		<div style="padding-top: 30px" class="panel-body">
-			<div style="display: none" id="login-alert"
-				class="alert alert-danger col-sm-12"></div>
-			{{ Form::open(array('url'=>'login', 'class'=>'form-horizontal')) }}
-
 			@if(Session::has('error'))
 			<div id="signupalert" class="alert alert-danger">
 				<ul>
-					<li>{{ Session::get('message') }}</li>
+					<li>{{ Session::get('error') }}</li>
 				</ul>
 				<span></span>
 			</div>
-			elseif(Session::has('success'))
-			<div class="alert alert-success" role="alert">{{
-				trans(Session::get('success')) }}</div>
-			@endif
+			@endif 
 			
 			{{ Form::open(array('url'=>'password/reset','method' => 'post')) }} 
 			{{ Form::hidden('token', $token) }}
@@ -30,7 +23,6 @@
 				'placeholder'=> Lang::get('login.email_adress'))) }}
 			</div>
 			{{ $errors->first("email") }}
-
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 				{{ Form::password('password', array('class'=>'form-control',
@@ -44,9 +36,7 @@
 				array('class'=>'form-control', 'placeholder'=>'Confirm Password'))
 				}}
 			</div>
-
 			{{ $errors->first("password_confirmation") }}
-
 			<div class="form-group">
 				<!-- Button -->
 				<div class="col-md-offset-3 col-md-9">

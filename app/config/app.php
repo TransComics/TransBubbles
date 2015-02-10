@@ -121,7 +121,7 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+	    'Transcomics\BingTranslation\ServiceProvider\BingTranslationServiceProvider'
 	),
 
 	/*
@@ -188,6 +188,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+	    'BingTranslation'   => 'Transcomics\BingTranslation\Facades\BingFacade'
 
 	),
 

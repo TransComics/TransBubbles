@@ -23,7 +23,10 @@
 				</ul>
 				<span></span>
 			</div>
-			@endif
+			@elseif(Session::has('status'))
+			<div class="alert alert-success" role="alert">{{
+				trans(Session::get('status')) }}</div>
+			@endif 
 
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
