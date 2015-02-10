@@ -8,9 +8,9 @@
     
     @if ($isAdd) 
         {{ Form::open(['method' => 'post', 'files' => true, 'class'=>'form-horizontal', 'id' => 'comicForm']); }}
-        {{ Form::hidden('_method', 'POST', ['id' => '_method']); }}
     @else 
         {{ Form::open(['route' => ['comic.update', $comic->id], 'method' => 'put', 'files' => true, 'class'=>'form-horizontal', 'id' => 'comicForm']); }}
+        {{ Form::hidden('_method', 'put', ['id' => '_method']); }}
     @endif
     
     <div class="form-group text-center">
