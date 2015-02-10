@@ -8,16 +8,7 @@ class StripsController extends BaseController {
      * @return Response
      */
     public function index() {
-        return View::make('strip.import');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create() {
-        
+        return View::make('strip.update', [ 'isAdd' => true, 'strips' => new Strips()]);
     }
 
     /**
@@ -28,19 +19,22 @@ class StripsController extends BaseController {
      */
     public function store() {
 
-        $file = Input::file('strip');
-        if ($file->isValid()) {
-            $destinationPath = 'uploads';
-            // TODO : The method to choose wich name we are gonna choose
-            //$extension =$file->getClientOriginalExtension(); 
-            $upload_success = Input::file('strip')->move($destinationPath, $filename);
-            if ($upload_success) {
-                return Redirect::back()->with('success', Lang::get('strip.uploadComplete'));
-            } else {
-                return Redirect::back()->with('message', Lang::get('strip.uploadFailed'))->withInput();
-            }
+        $v = Validator::make(Input::all(), Strips::$rules);
+        if ($v->fails()) {
+            return Redirect::back()->withInput()->withErrors($v);
         } else {
-            return Redirect::back()->with('message', Lang::get('CHOISI UN FICHIER'))->withInput();
+            $file = Input::file('strip');
+            if ($file->isValid()) {
+                $fileLocation = UploadFile::uploadFile($file);
+
+                $strip = new Strips();
+                $strip->title = Input::get('title');
+                $strip->path = $fileLocation;
+                $strip->save();
+                return Redirect::back()->with('message', Lang::get('strips.uploadComplete'));
+            } else {
+                return Redirect::back()->with('message', Lang::get('strip.unvalidFile'))->withInput();
+            }
         }
     }
 
@@ -51,17 +45,11 @@ class StripsController extends BaseController {
      * @return Response
      */
     public function show($id) {
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id) {
-        
+        $s = Strips::find($id);
+        if ($s == null) {
+            return Redirect::route('strips.index');
+        }
+        return View::make('strip.update', ['isAdd' => false, 'strips' => $s]);
     }
 
     /**
@@ -71,7 +59,27 @@ class StripsController extends BaseController {
      * @return Response
      */
     public function update($id) {
-        
+
+        // If the button we press to get here is delete, we redirect to delete
+        if (Input::get('delete')) {
+            return $this->destroy($id);
+        }
+
+        $v = Validator::make(['title' => Input::get('title')], Strips::$updateRules);
+        if ($v->passes()) {
+            $strip = Strips::find($id);
+            if ($strip == null) {
+                return Redirect::route('strips.index');
+            }
+            $strip->title = Input::get('title');
+            $strip->save();
+        } else {
+            return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
+                            ->withErrors($v)
+                            ->withInput();
+        }
+
+        return Redirect::back()->with('message', Lang::get('strips.editComplete'));
     }
 
     /**
@@ -81,9 +89,12 @@ class StripsController extends BaseController {
      * @return Response
      */
     public function destroy($id) {
-        
+        $strip = Strips::find($id);
+        if ($strip == null) {
+            return Redirect::route('strips.index');
+        }
+        UploadFile::dropFile($strip->path);
+        $strip->delete();
+        return Redirect::route('strips.index')->with('message', Lang::get('strips.deleteSucceded'));
     }
-
 }
-
-?>
