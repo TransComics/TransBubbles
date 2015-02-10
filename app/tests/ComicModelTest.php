@@ -2,6 +2,12 @@
 
 class ComicModelTest extends TestCase {
     
+    public function setUp() {
+        parent::setUp();
+        
+        Comic::unguard();
+    }
+    
     public function testCreate() {
         
         $this->assertEquals(0, Comic::all()->count());

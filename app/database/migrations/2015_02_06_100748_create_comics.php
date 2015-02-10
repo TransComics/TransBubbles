@@ -20,8 +20,6 @@ class CreateComics extends Migration {
             $table->string('cover',127)->nullable();
             $table->integer('font_id')->unsigned()->nullable();
             $table->timestamps();
-            
-            $table->engine = 'InnoDB';
         });
         
         Schema::table('comics', function(Blueprint $table) {
