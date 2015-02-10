@@ -36,6 +36,7 @@ class StripsController extends BaseController {
             $strip = new Strips();
             $strip->title = Input::get('title');
             $strip->path = $fileLocation;
+            $strip->validated_at = NULL;
             $strip->save();
             return Redirect::route('strips.pending');
         }
@@ -94,6 +95,12 @@ class StripsController extends BaseController {
         UploadFile::dropFile($strip->path);
         $strip->delete();
         return Redirect::route('strips.index')->with('message', Lang::get('strips.deleteSucceded'));
+    }
+    
+    public function listPending() {
+        $strips = Strips::whereNull('validated_at')->get();
+        return View::make('strip.pending', ['strips' => $strips]);
+        //return $strips->toJson();
     }
 
 }
