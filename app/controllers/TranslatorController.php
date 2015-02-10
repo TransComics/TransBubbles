@@ -26,15 +26,9 @@ class TranslatorController extends \BaseController {
         $to = Input::get('to');
         switch ($id) {
             case 'google':
-                $tr = new GoogleTranslate("en", $to);
-                return Response::json(array(
-                    'translation' => $tr->translate($textotranslate)
-                ));
+                return $translatedText = GoogleTranslation::translate($textotranslate, 'en', $to);
             case 'bing':
-                    \Log::info('controller :');
-                  $translatedText = BingTranslation::translate($textotranslate,'en',$to);
-                  return Response::json(array(
-                      'translation' => $translatedText));
+                return $translatedText = BingTranslation::translate($textotranslate, 'en', $to);
             default:
                 return Response::json(array(
                     'errorReason' => 'Invalid url api name'

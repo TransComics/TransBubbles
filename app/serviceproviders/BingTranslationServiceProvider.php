@@ -15,8 +15,7 @@ class BingTranslationServiceProvider extends ServiceProvider {
         $this->app['bingTranslation'] = $this->app->share(function ($app) {
             $clientID = getenv("BING_CLIENT_ID");
             $clientSecret = getenv("BING_CLIENT_SECRET");
-            
-            \Log::info('register :' . $clientID .' ' . $clientSecret);
+
             $translator = new \Transcomics\BingTranslation\BingTranslation($clientID, $clientSecret);
             return $translator;
         });

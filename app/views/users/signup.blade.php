@@ -23,9 +23,9 @@
 				</ul>
 				<span></span>
 			</div>
-			@elseif(Session::has('status'))
+			@elseif(Session::has('success'))
 			<div class="alert alert-success" role="alert">{{
-				trans(Session::get('status')) }}</div>
+				trans(Session::get('success')) }}</div>
 			@endif 
 
 			<div style="margin-bottom: 25px" class="input-group">
