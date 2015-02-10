@@ -7,21 +7,12 @@ class TranslatorController extends \BaseController {
     protected static $restful = true;
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index() {
-        return View::make('translate.translatetest');
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param int $id            
      * @return Response
      */
-    public function show($id) {
+    public function update($id) {
         $textotranslate = Input::get('text');
         $to = Input::get('to');
         switch ($id) {
