@@ -75,6 +75,7 @@ class ComicController extends BaseController {
                 $comic->cover = Comic::uploadFile(Input::file('cover'));
             }
             $comic->font_id = Input::get('font_id');
+            $comic->created_by = Auth::id();
             $comic->save();
         }
         

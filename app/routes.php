@@ -70,7 +70,7 @@ Route::get('comics/list', [
     'uses' => 'ComicsController@getList'
 ]);
 
-Route::group(['prefix' => '/comic'], function () {
+Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
     Route::get('/add', [
         'as' => 'comic.add',
         'uses' => 'ComicController@addForm'
