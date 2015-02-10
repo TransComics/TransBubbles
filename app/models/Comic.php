@@ -8,8 +8,8 @@ class Comic extends Eloquent {
     
     public static function rules() {
         return [
-            'title' => 'required|between:4,62',
-            'author' => 'required|between:4,62',
+            'title' => 'required|between:4,63|unique:comics',
+            'author' => 'required|between:4,63',
             'description' => 'max:2000',
             'authorApproval' => 'required|boolean',
             'cover' => 'image|mimes:png,jpeg|between:40,4096',

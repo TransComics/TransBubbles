@@ -8,7 +8,7 @@ class ComicsController extends BaseController {
 
     public function getList() {
         return View::make('comics.list', [
-            'comics' => Comic::all(),
+            'comics' => Comic::paginate(Session::has('paginate')? Session::get('paginate') : 10),
         ]);
     }
 

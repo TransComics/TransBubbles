@@ -7,8 +7,12 @@ class UserTableSeeder extends Seeder {
             array(
                 'email' => 'admin@transcomics.com',
                 'username' => 'admin',
-                'password' => Hash::make('password'),
-                'created_at' => '2015-02-03 18:08:56'
+                'password' => Hash::make('password')
+            ),
+            array(
+                'email' => 'amc@transcomics.com',
+                'username' => 'amc',
+                'password' => Hash::make('amc')
             )
         ));
     }
