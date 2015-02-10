@@ -16,5 +16,4 @@
     @else
         <p>@lang('base.welcome')</p>
     @endif 
-
 @stop

@@ -21,6 +21,11 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
+Route::post('/lang', [
+    'as' => 'language.select',
+    'uses' => 'LanguageController@select'
+]);
+
 /* Authentification */
 Route::get('/login/', [
     'as' => 'user.signin',
