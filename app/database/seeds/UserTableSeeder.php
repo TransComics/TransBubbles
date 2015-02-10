@@ -13,6 +13,11 @@ class UserTableSeeder extends Seeder {
                 'email' => 'amc@transcomics.com',
                 'username' => 'amc',
                 'password' => Hash::make('amc')
+            ),
+            array(
+                'email' => 'gbt',
+                'username' => 'gbergere',
+                'password' => Hash::make('gbt')
             )
         ));
     }
