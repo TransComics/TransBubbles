@@ -2,6 +2,13 @@
 
 class StripsController extends BaseController {
 
+     /**
+     * Instantiate a new UserController instance.
+     */
+    public function __construct() {
+        $this->beforeFilter('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *

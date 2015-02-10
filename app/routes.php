@@ -99,8 +99,7 @@ Route::group(['prefix' => '/ws'], function () {
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
 });
 
-
-Route::group(['prefix' => '/strips'], function() {
+Route::group(['before' => 'auth', 'prefix' => '/strips'], function() {
     Route::get('/pending', [
         'as' => 'strips.pending',
         'uses' => function() {
