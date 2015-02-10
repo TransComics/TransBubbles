@@ -3,14 +3,26 @@
 class UserTableSeeder extends Seeder {
 
     public function run() {
-        DB::table('users')->insert(array(
-            array(
+        User::unguard();
+        
+        User::create([
+                'id'    => 1,
                 'email' => 'admin@transcomics.com',
                 'username' => 'admin',
-                'password' => Hash::make('password'),
-                'created_at' => '2015-02-03 18:08:56'
-            )
-        ));
+                'password' => Hash::make('password')
+        ]);
+        User::create([
+            'id'    => 2,
+            'email' => 'amc@transcomics.com',
+            'username' => 'amc',
+            'password' => Hash::make('amc')
+        ]);
+        User::create([
+            'id'    => 3,
+            'email' => 'gbt',
+            'username' => 'gbergere',
+            'password' => Hash::make('gbt')
+        ]);
     }
 }
 

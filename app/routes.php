@@ -13,16 +13,17 @@
 
 /* Constraint */
 Route::pattern('id', '[0-9]+');
-Route::when('*', 'csrf', [
-    'post',
-    'put',
-    'delete'
-]);
+Route::when('*', 'csrf', ['post', 'put', 'delete']);
 
 /* Home Page */
 Route::get('/', [
     'as' => 'home',
     'uses' => 'HomeController@home'
+]);
+
+Route::post('/lang', [
+    'as' => 'language.select',
+    'uses' => 'LanguageController@select'
 ]);
 
 /* Translate test */
@@ -44,9 +45,7 @@ Route::get('/signup/', [
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
 
-Route::group([
-    'prefix' => '/password'
-], function () {
+Route::group(['prefix' => '/password'], function() {
     Route::get('/remind', [
         'uses' => 'RemindersController@getRemind',
         'as' => 'password.remind'
@@ -59,9 +58,7 @@ Route::group([
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group([
-    'prefix' => '/strip'
-], function () {
+Route::group(['prefix' => '/strip'], function(){
     Route::get('/clean/{id}', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -81,9 +78,7 @@ Route::get('comics/list', [
     'uses' => 'ComicsController@getList'
 ]);
 
-Route::group([
-    'prefix' => '/comic'
-], function () {
+Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
     Route::get('/add', [
         'as' => 'comic.add',
         'uses' => 'ComicController@addForm'
@@ -92,21 +87,18 @@ Route::group([
         'as' => 'comic.update',
         'uses' => 'ComicController@updateForm'
     ]);
-    Route::put('/add', 'ComicController@add');
-    Route::post('/update/{id}', 'ComicController@update');
+    Route::post('/add', 'ComicController@add');
+    Route::put('/update/{id}', 'ComicController@update');
     Route::delete('/delete/{id}', [
         'as' => 'comic.delete',
         'uses' => 'ComicController@delete'
     ]);
 });
 
-Route::group([
-    'prefix' => '/ws'
-], function () {
+Route::group(['prefix' => '/ws'], function () {
     Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
     Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
     Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
 });
-
 ?>
