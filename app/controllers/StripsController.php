@@ -95,7 +95,7 @@ class StripsController extends BaseController {
         }
         UploadFile::dropFile($strip->path);
         $strip->delete();
-        return Redirect::route('strips.index')->with('message', Lang::get('strips.deleteSucceded'));
+        return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
     }
 
     public function listPending() {
