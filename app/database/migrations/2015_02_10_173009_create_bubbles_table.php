@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateBubblesTable extends Migration {
 
-    private $tabe = 'bubbles';
+    private $table = 'bubbles';
     /**
      * Run the migrations.
      *
