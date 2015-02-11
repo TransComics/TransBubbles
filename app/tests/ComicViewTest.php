@@ -1,27 +1,35 @@
+
 <?php
 
 class ComicViewTest extends TestCase {
     
     public function setUp() {
         parent::setUp();
-        Comic::unguard();
+        
+        Artisan::call('db:seed');
     }
     
-    public function testComicAddForm() {
+    public function testComicAddFormAsUser() {
+        Auth::loginUsingId(1);
+        
         $this->client->request('GET', '/comic/add');
         $this->assertResponseOk();
     }
     
-    public function testComicUpdateForm() {
-        Comic::create([
-            'id' => 2,
-            'title' => 'Comics2', 
-            'author' =>  'AMC',
-            'description' => 'DESC2',
-            'authorApproval' => true
-        ]);
+    public function testComicAddFormAsGuest() {
+        $this->client->request('GET', '/comic/add');
+        $this->assertRedirectedToRoute('user.signin');
+    }
+    
+    public function testComicUpdateFormAsUser() {
+        Auth::loginUsingId(1);
         
         $this->client->request('GET', '/comic/update/2');
         $this->assertResponseOk();
+    }
+
+    public function testComicUpdateFormAsGuest() {
+        $this->client->request('GET', '/comic/update/2');
+        $this->assertRedirectedToRoute('user.signin');
     }
 }

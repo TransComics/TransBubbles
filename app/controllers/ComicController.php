@@ -75,6 +75,7 @@ class ComicController extends BaseController {
                 $comic->cover = Comic::uploadFile(Input::file('cover'));
             }
             $comic->font_id = Input::get('font_id');
+            $comic->created_by = Auth::id();
             $comic->save();
         }
         
@@ -83,8 +84,10 @@ class ComicController extends BaseController {
     }
     
     public function delete($id) {
-        
         $comic = Comic::find($id);
+        if ($comic == null) {
+            return Redirect::route('home');
+        }
         
         Comic::dropFile($comic->cover);
         $comic->delete();
