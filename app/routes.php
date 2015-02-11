@@ -92,14 +92,6 @@ Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
     ]);
 });
 
-Route::group(['prefix' => '/ws'], function () {
-    Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
-    Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
-    Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
-    Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
-});
-
-
 Route::group(['prefix' => '/strips'], function() {
     Route::get('/pending', [
         'as' => 'strips.pending',
