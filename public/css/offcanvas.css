@@ -81,8 +81,32 @@ footer {
     border:1px solid #999;
 }
 
+.border .img-rounded {
+    padding: 0 10px 10px 10px;
+}
+
+.border h3 {
+    margin-top: 5px;
+}
+
 .thumbnail-comic {
     padding: 0 10px 10px 10px;
+}
+
+.border {
+    border:1px solid #999;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.one-line {
+    white-space:nowrap;
+    width: 100%; /* à modifier selon vos besoins */
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 
 .lang-selector {
