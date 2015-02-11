@@ -26,6 +26,7 @@ Route::post('/lang', [
     'uses' => 'LanguageController@select'
 ]);
 
+
 /* Authentification */
 Route::get('/login/', [
     'as' => 'user.signin',
@@ -101,6 +102,9 @@ Route::group(['prefix' => '/strips'], function() {
     ]);
 });
 
-Route::resource('strips', 'StripsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
+Route::group(['prefix' => '/ws'], function () {
+    Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
+});
 
+Route::resource('strips', 'StripsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
