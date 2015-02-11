@@ -53,7 +53,7 @@ class StripsController extends BaseController {
         if ($s == null) {
             return Redirect::route('strips.index');
         }
-        return View::make('strips.update', ['isAdd' => false, 'strips' => $s]);
+        return View::make('strip.update', ['isAdd' => false, 'strips' => $s]);
     }
 
     /**
