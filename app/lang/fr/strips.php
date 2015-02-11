@@ -19,5 +19,6 @@ return array(
     'pendingClean' => 'Nettoyer',
     'pendingDelete' => 'Supprimer',
     'approved' => 'The strip has been approved',
-    'pendingTitle' => 'En attente'
+    'pendingTitle' => 'En attente',
+    'pending' => 'Planche en attente'
 );

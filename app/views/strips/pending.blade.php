@@ -20,10 +20,10 @@
             </div>
             {{ HTML::image($strip->path, 'strip', ['class' => 'img-responsive img-rounded', 'style' => 'overflow:hidden; width:250px; height:250px; display:block; margin:0 auto;']) }}
             <div class="caption">
-                <p class="btn-group-justified">
-                    <a class='btn btn-sm btn-primary glyphicon glyphicon-edit' href=""> @lang('strips.pendingApprobation')</a>
-                    <a class='btn btn-sm btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.clean', ['id' => $strip->id])}}"> @lang('strips.pendingClean')</a>
-                    <a class='btn btn-sm btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.translate', ['id' => $strip->id])}}"> @lang('strips.pendingTranslate')</a>
+                <p class="text-center">
+                    <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href=""> @lang('strips.pendingApprobation')</a>
+                    <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.clean', ['id' => $strip->id])}}"> @lang('strips.pendingClean')</a>
+                    <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.translate', ['id' => $strip->id])}}"> @lang('strips.pendingTranslate')</a>
                 </p>
                     <!--{{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id' => 'stripForm'.$strip->id]); }}
                         {{ Form::hidden('_method', 'put', ['id' => '_method']); }}

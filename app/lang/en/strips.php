@@ -19,5 +19,6 @@ return array(
     'pendingClean' => 'Clean',
     'pendingDelete' => 'Delete',
     'approved' => 'The strip has been approved',
-    'pendingTitle' => 'Pending'
+    'pendingTitle' => 'Pending',
+    'pending' => 'Pending strips'
 );
