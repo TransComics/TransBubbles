@@ -26,6 +26,7 @@ Route::post('/lang', [
     'uses' => 'LanguageController@select'
 ]);
 
+
 /* Authentification */
 Route::get('/login/', [
     'as' => 'user.signin',
@@ -97,5 +98,6 @@ Route::group(['prefix' => '/ws'], function () {
     Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
     Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
+    Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
 });
 ?>

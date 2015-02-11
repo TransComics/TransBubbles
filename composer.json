@@ -9,7 +9,8 @@
         "phpunit/phpunit": "4.4.5",
         "phploc/phploc": "2.0.6",
         "mayflower/php-codebrowser": "~1.1",
-        "mockery/mockery": "dev-master@dev"
+        "mockery/mockery": "dev-master@dev",
+        "stichoza/google-translate-php": "~2.0"
     },
 
     "autoload": {
@@ -17,6 +18,8 @@
             "app/commands",
             "app/controllers",
             "app/models",
+            "app/facades",
+            "app/serviceproviders",
             "app/database/migrations",
             "app/database/seeds",
             "app/tests/TestCase.php"
