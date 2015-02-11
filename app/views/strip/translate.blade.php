@@ -1,7 +1,8 @@
-@extends('layouts.tool') 
-@section('tool.title') 
-Interface de traduction
-@stop @section('tool.items')
+@extends('layouts.tool') @section('tool.scripts')
+{{HTML::script('js/lib/json-jquery.js') }} @stop 
+@section('tool.title')
+Interface de traduction @stop 
+@section('tool.items')
 <div class="btn-group pull-right" role="group">
 	<a class='btn btn-lg btn-primary icon-undo' href="" id="undo"></a> <a
 		class='btn btn-lg btn-primary icon-redo' href="" id="redo"></a>
@@ -30,8 +31,7 @@ Interface de traduction
 	<table id="paint">
 		<tr>
 			<td class="origin-td">
-				<div class='origin'>{{
-					HTML::image('uploads/0/d9480b185525ee7711522b34544fb0f6', 'strip', array('id' => 'i')) }}</div>
+				<div class='origin'>{{HTML::image('uploads/0/d9480b185525ee7711522b34544fb0f6','strip',array('id' => 'i')) }}</div>
 			</td>
 			<td id="delivered">
 				<canvas id="c" width="706" height="283"></canvas>
@@ -39,7 +39,10 @@ Interface de traduction
 		</tr>
 	</table>
 </div>
+
+<br/>
+<!-- Button trigger modal -->
+<button id="getdata" type="button" class="btn btn-primary btn-lg"
+	data-toggle="modal" data-target="#myModal">Launch demo popup</button>
 @include('translate.popup')
 @stop
-
-
