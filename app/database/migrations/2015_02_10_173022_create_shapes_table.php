@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateShapesTable extends Migration {
 
-    private $tabe = 'shapes';
+    private $table = 'shapes';
     /**
      * Run the migrations.
      *
