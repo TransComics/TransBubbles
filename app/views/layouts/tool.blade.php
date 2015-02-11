@@ -6,7 +6,6 @@
         <!-- Custom styles for this template -->
         {{ HTML::style('css/offcanvas.css') }}
 	    {{ HTML::style('css/toolsInterface.css') }}
-	    {{ HTML::style('css/magnific-popup.css') }}
 @stop
 
 @section('html.scripts')
