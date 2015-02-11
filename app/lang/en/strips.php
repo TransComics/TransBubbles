@@ -14,5 +14,9 @@ return array(
     'unvalidFile' => 'Unvalid file',
     'updateFailure' => 'Failed to update the Strip',
     'editComplete' => 'Editing completed',
-    'deleteSucceded' => 'The strip has been removed'
+    'deleteSucceded' => 'The strip has been removed',
+    'pendingApprobation' => 'Approve',
+    'pendingDelete' => 'Delete',
+    'approved' => 'The strip has been approved',
+    'pendingTitle' => 'Pending'
 );
