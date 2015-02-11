@@ -5,6 +5,7 @@ $(document).ready(function() {
 	 * ********************************************************************************************** */
 
 	var canvas = new fabric.Canvas('c');
+        canvas.includeDefaultValues = false;
 	var color = $('#colorPicker').val();
 	var size = $('#sizePicker').val();
         var textSize = $('#sizePickerText').val();
@@ -111,8 +112,11 @@ $(document).ready(function() {
 	function updateModifications() {
             if (updateActivate) {
                     myjson = JSON.stringify(canvas);
+                    //myjson = canvas.toJSON();
                     state.push(myjson);
                     //console.log("Update : state.length : " +state.length + " / mods : " +mods);
+                    //console.log(canvas.toString());
+                    //console.log(canvas.toJSON());
                     for (var i in state) {
                         console.log("i : "+i+" => "+state[i]);
                     }
@@ -415,6 +419,8 @@ $(document).ready(function() {
             var o = canvas.getActiveObject();
             if(o.type == 'i-text'){
                 o.set('textAlign', 'left');
+                o.set('__uidblabla', 2);
+                
             }
             return false;
 	});
@@ -423,6 +429,9 @@ $(document).ready(function() {
             var o = canvas.getActiveObject()
             if(o.type == 'i-text'){
                 o.set('textAlign', 'right');
+                alert(o.__uidblabla);
+                console.log(o.__uidblabla);
+                 console.log(o.toJSON('__uidblabla'));
             }
             return false;
 	});
