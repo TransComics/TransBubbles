@@ -385,7 +385,7 @@ $(document).ready(function() {
 	});
         
         $('#fontPicker' ).change(function() {
-		font = $('#fontPicker' ).val();
+		font = $('#fontPicker').val();
 		if(size > 999) $('#fontPicker' ).val('999');
 		if(size < 1) $('#fontPicker' ).val('1');
 	});

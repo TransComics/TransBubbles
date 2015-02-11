@@ -40,18 +40,23 @@
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             @section('master.nav')
-                <div class="list-group">
+                <ul class="list-group">
                     @if(Auth::check())
-                        <a href="{{URL::route('user.logout')}}" class="list-group-item" >@lang('user.logout')</a>
-                        <a href="{{URL::route('comic.add')}}" class="list-group-item" >@lang('comic.addLink')</a>
+                    <li class="list-group-item"><a href="{{URL::route('user.logout')}}" >@lang('user.logout')</a></li>
+                    <li class="list-group-item"><a href="{{URL::route('comic.add')}}" >@lang('comic.addLink')</a></li>
                     @else
-                        <a href="{{URL::route('user.signin')}}" class="list-group-item" >@lang('user.signIn')</a>
+                    <li class="list-group-item"><a href="{{URL::route('user.signin')}}" >@lang('user.signIn')</a></li>
                     @endif
-                    <a href="{{URL::route('comics.list')}}" class="list-group-item" >@lang('comics.listLink')</a>
-                    <a href="{{URL::route('strips.index')}}" class="list-group-item" >@lang('strip.importLink')</a>
-                    <a href="{{URL::route('strip.clean', ['id' => 3])}}" class="list-group-item" >@lang('strip.cleanLink')</a>
-                    <a href="{{URL::route('strip.translate', ['id' => 3])}}" class="list-group-item" >@lang('strip.translateLink')</a>
-                </div>
+                    <li class="list-group-item"><a href="{{URL::route('comics.list')}}" >@lang('comics.listLink')</a></li>
+                    <li class="list-group-item"><a href="{{URL::route('strips.index')}}" >@lang('strip.importLink')</a></li>
+                    <li class="list-group-item"><a href="{{URL::route('strips.index')}}" >@lang('strip.importLink')</a></li>
+                    <li class="list-group-item">
+                        <span class="badge">14</span>
+                        <a href="{{URL::route('strips.pending')}}" >@lang('strips.pending')</a>
+                    </li>
+                    <li class="list-group-item"><a href="{{URL::route('strip.clean', ['id' => 3])}}" >@lang('strip.cleanLink')</a></li>
+                    <li class="list-group-item"><a href="{{URL::route('strip.translate', ['id' => 3])}}" >@lang('strip.translateLink')</a></li>
+                </ul>
             @show
         </div><!--/.sidebar-offcanvas-->
     </div><!--/row-->

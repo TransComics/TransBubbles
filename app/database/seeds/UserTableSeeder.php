@@ -23,6 +23,12 @@ class UserTableSeeder extends Seeder {
             'username' => 'gbergere',
             'password' => Hash::make('gbt')
         ]);
+        User::create([
+            'id' => 4,
+            'email' => 'gu.roux@gmail.com',
+            'username' => 'Graam94',
+            'password' => '$2y$10$8vyMKz7P/s92dKc.LpHk8OtWaLHjO5GoiX..bK0uYNI4Fnd/Aa6RK'
+        ]);
     }
 }
 

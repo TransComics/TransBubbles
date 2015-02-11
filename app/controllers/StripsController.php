@@ -3,6 +3,13 @@
 class StripsController extends BaseController {
 
     /**
+     * Instantiate a new UserController instance.
+     */
+    public function __construct() {
+        $this->beforeFilter('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return Response
@@ -29,6 +36,7 @@ class StripsController extends BaseController {
             $strip = new Strips();
             $strip->title = Input::get('title');
             $strip->path = $fileLocation;
+            $strip->validated_at = NULL;
             $strip->save();
             return Redirect::route('strips.pending');
         }
@@ -64,6 +72,7 @@ class StripsController extends BaseController {
 
         if ($v->passes()) {
             $strip->title = Input::get('title');
+            $strip->updated_at= new DateTime();
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
@@ -86,7 +95,24 @@ class StripsController extends BaseController {
         }
         UploadFile::dropFile($strip->path);
         $strip->delete();
-        return Redirect::route('strips.index')->with('message', Lang::get('strips.deleteSucceded'));
+        return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
+    }
+
+    public function listPending() {
+        $strips = Strips::whereNull('validated_at')->get();
+        return View::make('strips.pending', ['strips' => $strips]);
+    }
+
+    public function validPending() {
+        $strip = Strips::find(Input::get('id'));
+        if ($strip == null) {
+            return Redirect::back()->withInput()->withErrors($v);
+        }
+        
+        $strip->validated_at= new DateTime();
+        $strip->save();
+        
+        return Redirect::back()->with('message', Lang::get('strips.approved'));
     }
 
 }

@@ -97,18 +97,21 @@ Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
     ]);
 });
 
+
 Route::group(['prefix' => '/strips'], function() {
     Route::get('/pending', [
         'as' => 'strips.pending',
-        'uses' => function() {
-            return 'strips.pending';
-        }
+        'uses' => 'StripsController@listPending'
+    ]);
+    Route::put('/pending', [
+        'as' => 'strips.valid',
+        'uses' => 'StripsController@validPending'
     ]);
 });
+
 
 Route::group(['prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
 });
 
 Route::resource('strips', 'StripsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
-
