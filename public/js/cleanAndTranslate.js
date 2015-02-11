@@ -7,6 +7,8 @@ $(document).ready(function() {
 	var canvas = new fabric.Canvas('c');
 	var color = $('#colorPicker').val();
 	var size = $('#sizePicker').val();
+        var textSize = $('#sizePickerText').val();
+        var font = $('#fontPicker').val();
 	var background = null; // we need to keep an reference for background because it neet to stay unselectable
 
 	canvas.freeDrawingBrush.width = size; // default brush size
@@ -107,57 +109,57 @@ $(document).ready(function() {
 	var updateActivate = true;
 
 	function updateModifications() {
-		if (updateActivate) {
-			myjson = JSON.stringify(canvas);
-			state.push(myjson);
-			//console.log("Update : state.length : " +state.length + " / mods : " +mods);
-			/*for (var i in state) {
-			    console.log("i : "+i+" => "+state[i]);
-			}*/
-		}
+            if (updateActivate) {
+                    myjson = JSON.stringify(canvas);
+                    state.push(myjson);
+                    //console.log("Update : state.length : " +state.length + " / mods : " +mods);
+                    for (var i in state) {
+                        console.log("i : "+i+" => "+state[i]);
+                    }
+            }
 	}
 
 	function undo() {
-		if (mods < state.length) {
-			updateActivate = false;
-			console.log("Undo => OK");
-			//console.log("undo : state.length : " +state.length + " / mods : " +mods);
-			canvas.clear();
-			var i = state.length - mods -1;
-			canvas.loadFromJSON(state[i],function(){
-				canvas.renderAll(true);
-				updateActivate = true;
-				param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-				mods += 1;
-			});
-			//console.log("index " + (state.length - mods -1));
-			//console.log("state " + state.length);
-			//console.log("mods " + mods);
-		}else {
-			console.log("Undo => KO");
-		}
-		//console.log("Undo : state.length : "+state.length+ " / mods : "+mods);
+            if (mods < state.length) {
+                    updateActivate = false;
+                    console.log("Undo => OK");
+                    //console.log("undo : state.length : " +state.length + " / mods : " +mods);
+                    canvas.clear();
+                    var i = state.length - mods -1;
+                    canvas.loadFromJSON(state[i],function(){
+                            canvas.renderAll(true);
+                            updateActivate = true;
+                            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                            mods += 1;
+                    });
+                    //console.log("index " + (state.length - mods -1));
+                    //console.log("state " + state.length);
+                    //console.log("mods " + mods);
+            }else {
+                    console.log("Undo => KO");
+            }
+            //console.log("Undo : state.length : "+state.length+ " / mods : "+mods);
 	}
 
 	function redo() {
-		if (mods > 1) {
-			updateActivate = false;
-			console.log("Redo => OK");
-			canvas.clear();
-			var i = state.length - mods +1;
-			canvas.loadFromJSON(state[i],function(){
-				canvas.renderAll(true);
-				updateActivate = true;
-				param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-				mods -= 1;
-			});
-			//console.log("index " + (state.length - mods +1));
-			//console.log("state " + state.length);
-			//console.log("mods " + mods);
-		}else {
-			console.log("Redo => KO");
-		}
-		//console.log("Redo : state.length : "+state.length+ " / mods : "+mods);
+            if (mods > 1) {
+                    updateActivate = false;
+                    console.log("Redo => OK");
+                    canvas.clear();
+                    var i = state.length - mods +1;
+                    canvas.loadFromJSON(state[i],function(){
+                            canvas.renderAll(true);
+                            updateActivate = true;
+                            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                            mods -= 1;
+                    });
+                    //console.log("index " + (state.length - mods +1));
+                    //console.log("state " + state.length);
+                    //console.log("mods " + mods);
+            }else {
+                    console.log("Redo => KO");
+            }
+            //console.log("Redo : state.length : "+state.length+ " / mods : "+mods);
 	}
 
 	function clearcan() {
@@ -364,12 +366,24 @@ $(document).ready(function() {
 		color = $('#colorPicker' ).val();
 		canvas.freeDrawingBrush.color = color;
 	});
-	
+        
+        $('#sizePickerText' ).change(function() {
+		textSize = $('#sizePickerText' ).val();
+		if(textSize > 999) $('#sizePickerText' ).val('999');
+		if(textSize < 1) $('#sizePickerText' ).val('1');
+	});
+
 	$('#sizePicker' ).change(function() {
 		size = $('#sizePicker' ).val();
 		if(size > 999) $('#sizePicker' ).val('999');
 		if(size < 1) $('#sizePicker' ).val('1');
 		canvas.freeDrawingBrush.width = size;
+	});
+        
+        $('#fontPicker' ).change(function() {
+		font = $('#fontPicker' ).val();
+		if(size > 999) $('#fontPicker' ).val('999');
+		if(size < 1) $('#fontPicker' ).val('1');
 	});
 
 	$('#selectAll' ).click(function() {
@@ -395,6 +409,38 @@ $(document).ready(function() {
 			param.desactivateButton();
 		}
 		return false;
+	});
+        
+        $('#alignLeft' ).click(function() {
+            var o = canvas.getActiveObject();
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'left');
+            }
+            return false;
+	});
+        
+        $('#alignRight' ).click(function() {
+            var o = canvas.getActiveObject()
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'right');
+            }
+            return false;
+	});
+        
+        $('#alignCenter' ).click(function() {
+            var o = canvas.getActiveObject()
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'center');
+            }
+            return false;
+	});
+        
+        $('#alignJustify' ).click(function() {
+            var o = canvas.getActiveObject()
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'justify');
+            }
+            return false;
 	});
 
 	$('#magnifier' ).click(function() {
@@ -545,12 +591,16 @@ $(document).ready(function() {
 			fshape = new fabric.IText('Nouveau texte', { 
 				selectable: true,
 				hasControls: true,
-				fontFamily: 'arial',
+                                hasRotatingPoint: true,
+                                lockScalingX: true,
+                                lockScalingY: true,
+				fontFamily: font,
+                                textAlign : 'center',
 				left: param.x, 
 				top: param.y,
 				width: 0, 
 				height: 0, 
-				fontSize: 12
+				fontSize: textSize
 			});
 			param.shape = false;
 			param.started = false;
@@ -603,4 +653,71 @@ $(document).ready(function() {
 			canvas.renderAll(true);
 		}
 	}
+    /* ********************************************************************************************** *
+    * ********************************** Text Edit Handler ****************************************** *
+    * *********************************************************************************************** */
+
+    function setStyle(object, styleName, value) {
+      if (object.setSelectionStyles && object.isEditing) {
+        var style = { };
+        style[styleName] = value;
+        object.setSelectionStyles(style);
+      }
+      else {
+        object[styleName] = value;
+      }
+    }
+    function getStyle(object, styleName) {
+      return (object.getSelectionStyles && object.isEditing)
+        ? object.getSelectionStyles()[styleName]
+        : object[styleName];
+    }
+
+    function addHandler(id, fn, eventName) {
+        document.getElementById(id)[eventName || 'onclick'] = function() {
+            var el = this;
+            if (obj = canvas.getActiveObject()) {
+                fn.call(el, obj);
+                canvas.renderAll();
+            }
+        };
+    }
+    
+    addHandler('textBold', function(obj) {
+      var isBold = getStyle(obj, 'fontWeight') === 'bold';
+      setStyle(obj, 'fontWeight', isBold ? '' : 'bold');
+    });
+
+    addHandler('textItalic', function() {
+      var isItalic = getStyle(obj, 'fontStyle') === 'italic';
+      setStyle(obj, 'fontStyle', isItalic ? '' : 'italic');
+    });
+
+    addHandler('textUnderline', function(obj) {
+      var isUnderline = (getStyle(obj, 'textDecoration') || '').indexOf('underline') > -1;
+      setStyle(obj, 'textDecoration', isUnderline ? '' : 'underline');
+    });
+
+    addHandler('textLineThrough', function(obj) {
+      var isLinethrough = (getStyle(obj, 'textDecoration') || '').indexOf('line-through') > -1;
+      setStyle(obj, 'textDecoration', isLinethrough ? '' : 'line-through');
+    });
+    
+    addHandler('colorPickerText', function(obj) {
+      setStyle(obj, 'fill', this.value);
+    }, 'onchange');
+    
+    addHandler('colorPickerBackground', function(obj) {
+      setStyle(obj, 'textBackgroundColor', this.value);
+    }, 'onchange');
+    
+    addHandler('sizePickerText', function(obj) {
+      setStyle(obj, 'fontSize', parseInt(this.value, 10));
+    }, 'onchange');
+    
+    addHandler('fontPicker', function(obj) {
+      setStyle(obj, 'fontFamily', this.value);
+    }, 'onchange');
+    
 });
+
