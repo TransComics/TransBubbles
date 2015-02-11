@@ -81,6 +81,14 @@ footer {
     border:1px solid #999;
 }
 
+.border .img-rounded {
+    padding: 0 10px 10px 10px;
+}
+
+.border h3 {
+    margin-top: 5px;
+}
+
 .thumbnail-comic {
     padding: 0 10px 10px 10px;
 }
