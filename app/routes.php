@@ -104,6 +104,10 @@ Route::group(['before' => 'auth', 'prefix' => '/strips'], function() {
         'as' => 'strips.pending',
         'uses' => 'StripsController@listPending'
     ]);
+    Route::put('/pending', [
+        'as' => 'strips.valid',
+        'uses' => 'StripsController@validPending'
+    ]);
 });
 
 Route::resource('strips', 'StripsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
