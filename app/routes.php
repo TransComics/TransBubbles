@@ -57,11 +57,15 @@ Route::group(['prefix' => '/password'], function() {
 });
 
 Route::group(['prefix' => '/strip'], function() {
-    Route::get('/clean/{id}', [
+    Route::get('/{id}/clean', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
     ]);
-    Route::get('/translate/{id}', [
+    Route::put('/{id}/saveClean', [
+        'as' => 'strip.saveClean',
+        'uses' => 'StripController@saveClean'
+    ]);
+    Route::get('/{id}/translate', [
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
     ]);

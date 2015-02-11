@@ -18,6 +18,7 @@ class CreateBubblesTable extends Migration {
             $table->integer('original_id')->unsigned();
             $table->integer('lang_id')->unsigned();
             $table->integer('strip_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->text('value');
             $table->timestamps();
         });
@@ -39,6 +40,10 @@ class CreateBubblesTable extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
         });
     }
 
@@ -53,6 +58,7 @@ class CreateBubblesTable extends Migration {
             $table->dropForeign($this->table.'_original_id_foreign');
             $table->dropForeign($this->table.'_lang_id_foreign');
             $table->dropForeign($this->table.'_strip_id_foreign');
+            $table->dropForeign($this->table.'_user_id_foreign');
         });
         Schema::dropIfExists($this->table);
     }
