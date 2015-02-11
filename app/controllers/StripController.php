@@ -7,9 +7,8 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function import()
-    {
-            return View::make('strip.import');
+    protected function import() {
+        return View::make('strip.import');
     }
 
     /**
@@ -17,9 +16,8 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function clean()
-    {
-            return View::make('strip.clean');
+    protected function clean() {
+        return View::make('strip.clean');
     }
 
     /**
@@ -27,10 +25,10 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function translate()
-    {
+    protected function translate() {
         return View::make('strip.translate', [
-            'fonts' => Font::all()->lists('name', 'name')
+                'fonts' => Font::all()->lists('name', 'name')
         ]);
     }
+
 }
