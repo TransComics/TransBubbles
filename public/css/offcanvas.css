@@ -85,6 +85,22 @@ footer {
     padding: 0 10px 10px 10px;
 }
 
+.border {
+    border:1px solid #999;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+.one-line {
+    white-space:nowrap;
+    width: 100%; /* à modifier selon vos besoins */
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
 .lang-selector {
     margin: 6px;
 }
