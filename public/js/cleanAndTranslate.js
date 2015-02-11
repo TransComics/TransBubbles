@@ -563,6 +563,7 @@ $(document).ready(function() {
                                 lockScalingX: true,
                                 lockScalingY: true,
 				fontFamily: font,
+                                textAlign : 'justify',
 				left: param.x, 
 				top: param.y,
 				width: 0, 

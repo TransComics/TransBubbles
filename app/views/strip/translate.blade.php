@@ -22,6 +22,20 @@
     </div>
 
     <div class="btn-group pull-right" role="group">
+        <span class='btn btn-primary glyphicon glyphicon-align-left' id="alignLeft"></span>
+        <span class='btn btn-primary glyphicon glyphicon-align-center' id="alignCenter"></span>
+        <span class='btn btn-primary glyphicon glyphicon-align-right' id="alignRight"></span>
+        <span class='btn btn-primary glyphicon glyphicon-align-justify' id="alignJustify"></span>
+    </div>
+
+    <div class="btn-group pull-right" role="group">
+        <span class='btn btn-primary glyphicon glyphicon-bold' id="textBold"></span>
+        <span class='btn btn-primary glyphicon glyphicon-italic' id="textItalic"></span>
+        <span class='btn btn-primary' id="textUnderline">Underline</span>
+        <span class='btn btn-primary' id="textLineThrough">Line-Through</span>
+    </div>
+
+    <div class="btn-group pull-right" role="group">
 	<a class='btn btn-primary icon-update' href="" id="update"></a>
 	<a class='btn btn-primary glyphicon glyphicon-trash' href="" id="del"></a>
 	<a class='btn btn-primary icon-text' href="" id="text"></a>
@@ -30,11 +44,6 @@
         <input class="btn btn-primary" style="width:65px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
         
         {{ Form::select('fontPicker', $fonts, 1,['class'=>'btn btn-primary', 'id'=>'fontPicker']); }}
-        
-        <span class='btn btn-primary glyphicon glyphicon-bold' id="textBold"></span>
-        <span class='btn btn-primary glyphicon glyphicon-italic' id="textItalic"></span>
-        <span class='btn btn-primary' id="textUnderline">Underline</span>
-        <span class='btn btn-primary' id="textLineThrough">Line-Through</span>
     </div>
 @stop
 
