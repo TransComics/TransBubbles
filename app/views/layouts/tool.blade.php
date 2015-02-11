@@ -10,10 +10,11 @@
 
 @section('html.scripts')
 	{{ HTML::script('js/lib/jquery-2.1.3.min.js') }}
-        {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap.min.js') }}
-        {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap-filestyle.min.js') }}
+    {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap.min.js') }}
+    {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap-filestyle.min.js') }}
 	{{ HTML::script('js/lib/fabric.js') }}
 	{{ HTML::script('js/cleanAndTranslate.js') }}
+	{{ HTML::script('js/lib/json-jquery.js') }} 
 @stop
 
 @section('html.content')

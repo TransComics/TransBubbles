@@ -93,8 +93,8 @@ footer {
  * icon-lang
  * --------------------------------------------------
  */
-.glyphicon {
-    top:0;
+.icon-lang{
+    cursor:pointer;
 }
 
 .icon-lang-16-fr:before {

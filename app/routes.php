@@ -26,6 +26,7 @@ Route::post('/lang', [
     'uses' => 'LanguageController@select'
 ]);
 
+
 /* Authentification */
 Route::get('/login/', [
     'as' => 'user.signin',
@@ -84,8 +85,8 @@ Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
         'as' => 'comic.update',
         'uses' => 'ComicController@updateForm'
     ]);
-    Route::put('/add', 'ComicController@add');
-    Route::post('/update/{id}', 'ComicController@update');
+    Route::post('/add', 'ComicController@add');
+    Route::put('/update/{id}', 'ComicController@update');
     Route::delete('/delete/{id}', [
         'as' => 'comic.delete',
         'uses' => 'ComicController@delete'
@@ -97,5 +98,6 @@ Route::group(['prefix' => '/ws'], function () {
     Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
     Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
+    Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
 });
 ?>
