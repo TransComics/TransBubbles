@@ -18,7 +18,8 @@ return array(
     'logged_in' => 'You are now logged in!',
     'message_errors' => 'The following errors occurred',
     'logged_in' => 'You are now logged in!',
-    'registration_succes' => 'Thanks for registering!'
+    'registration_succes' => 'Thanks for registering!',
+    'reset_success' => 'Password changed correctly'
     
 )
 ;
