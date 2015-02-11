@@ -109,57 +109,57 @@ $(document).ready(function() {
 	var updateActivate = true;
 
 	function updateModifications() {
-		if (updateActivate) {
-			myjson = JSON.stringify(canvas);
-			state.push(myjson);
-			//console.log("Update : state.length : " +state.length + " / mods : " +mods);
-			/*for (var i in state) {
-			    console.log("i : "+i+" => "+state[i]);
-			}*/
-		}
+            if (updateActivate) {
+                    myjson = JSON.stringify(canvas);
+                    state.push(myjson);
+                    //console.log("Update : state.length : " +state.length + " / mods : " +mods);
+                    for (var i in state) {
+                        console.log("i : "+i+" => "+state[i]);
+                    }
+            }
 	}
 
 	function undo() {
-		if (mods < state.length) {
-			updateActivate = false;
-			console.log("Undo => OK");
-			//console.log("undo : state.length : " +state.length + " / mods : " +mods);
-			canvas.clear();
-			var i = state.length - mods -1;
-			canvas.loadFromJSON(state[i],function(){
-				canvas.renderAll(true);
-				updateActivate = true;
-				param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-				mods += 1;
-			});
-			//console.log("index " + (state.length - mods -1));
-			//console.log("state " + state.length);
-			//console.log("mods " + mods);
-		}else {
-			console.log("Undo => KO");
-		}
-		//console.log("Undo : state.length : "+state.length+ " / mods : "+mods);
+            if (mods < state.length) {
+                    updateActivate = false;
+                    console.log("Undo => OK");
+                    //console.log("undo : state.length : " +state.length + " / mods : " +mods);
+                    canvas.clear();
+                    var i = state.length - mods -1;
+                    canvas.loadFromJSON(state[i],function(){
+                            canvas.renderAll(true);
+                            updateActivate = true;
+                            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                            mods += 1;
+                    });
+                    //console.log("index " + (state.length - mods -1));
+                    //console.log("state " + state.length);
+                    //console.log("mods " + mods);
+            }else {
+                    console.log("Undo => KO");
+            }
+            //console.log("Undo : state.length : "+state.length+ " / mods : "+mods);
 	}
 
 	function redo() {
-		if (mods > 1) {
-			updateActivate = false;
-			console.log("Redo => OK");
-			canvas.clear();
-			var i = state.length - mods +1;
-			canvas.loadFromJSON(state[i],function(){
-				canvas.renderAll(true);
-				updateActivate = true;
-				param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-				mods -= 1;
-			});
-			//console.log("index " + (state.length - mods +1));
-			//console.log("state " + state.length);
-			//console.log("mods " + mods);
-		}else {
-			console.log("Redo => KO");
-		}
-		//console.log("Redo : state.length : "+state.length+ " / mods : "+mods);
+            if (mods > 1) {
+                    updateActivate = false;
+                    console.log("Redo => OK");
+                    canvas.clear();
+                    var i = state.length - mods +1;
+                    canvas.loadFromJSON(state[i],function(){
+                            canvas.renderAll(true);
+                            updateActivate = true;
+                            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                            mods -= 1;
+                    });
+                    //console.log("index " + (state.length - mods +1));
+                    //console.log("state " + state.length);
+                    //console.log("mods " + mods);
+            }else {
+                    console.log("Redo => KO");
+            }
+            //console.log("Redo : state.length : "+state.length+ " / mods : "+mods);
 	}
 
 	function clearcan() {
@@ -410,6 +410,38 @@ $(document).ready(function() {
 		}
 		return false;
 	});
+        
+        $('#alignLeft' ).click(function() {
+            var o = canvas.getActiveObject();
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'left');
+            }
+            return false;
+	});
+        
+        $('#alignRight' ).click(function() {
+            var o = canvas.getActiveObject()
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'right');
+            }
+            return false;
+	});
+        
+        $('#alignCenter' ).click(function() {
+            var o = canvas.getActiveObject()
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'center');
+            }
+            return false;
+	});
+        
+        $('#alignJustify' ).click(function() {
+            var o = canvas.getActiveObject()
+            if(o.type == 'i-text'){
+                o.set('textAlign', 'justify');
+            }
+            return false;
+	});
 
 	$('#magnifier' ).click(function() {
 		//test1234();
@@ -563,7 +595,7 @@ $(document).ready(function() {
                                 lockScalingX: true,
                                 lockScalingY: true,
 				fontFamily: font,
-                                textAlign : 'justify',
+                                textAlign : 'center',
 				left: param.x, 
 				top: param.y,
 				width: 0, 
