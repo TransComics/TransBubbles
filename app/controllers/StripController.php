@@ -1,7 +1,7 @@
 <?php
 
 class StripController extends BaseController {
-    
+
     /**
      * show strip used by the controller.
      *
@@ -14,33 +14,32 @@ class StripController extends BaseController {
         }
         return View::make('strip.show', ['strips' => $strip]);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() { // modifier une fois comics implémenté : Guillaume
-        return View::make('strip.index', ['strips' => Strip::all()]);
+    public function index($comic_id) {
+        return View::make('strip.index', ['strips' => Strip::where('comic_id', 'LIKE', $comic_id)->get()]);
     }
-    
-    
+
     public function edit($id) {
         $this->beforeFilter('auth');
-        
+
         $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
         }
         return View::make('strip.edit', ['strips' => $strip]);
-    } 
-    
+    }
+
     public function create() {
         $this->beforeFilter('auth');
-        
+
         return View::make('strip.create', ['strips' => new Strip()]);
-    } 
-    
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -49,7 +48,7 @@ class StripController extends BaseController {
      */
     public function update($id) {
         $this->beforeFilter('auth');
-        
+
         $valid = Validator::make(['title' => Input::get('title')], Strip::$updateRules);
 
         $strip = Strip::find($id);
@@ -77,7 +76,7 @@ class StripController extends BaseController {
      */
     public function store() {
         $this->beforeFilter('auth');
-        
+
         $valid = Validator::make(Input::all(), Strip::$rules);
         if ($valid->fails()) {
             return Redirect::back()->withInput()->withErrors($v);
@@ -102,7 +101,7 @@ class StripController extends BaseController {
      */
     public function destroy($id) {
         $this->beforeFilter('auth');
-        
+
         $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
@@ -131,34 +130,34 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('home');
         }
-        
+
         View::share([
             'shape' => Shape::where('strip_id', '=', $strip->id)->get()->first(),
             'strip' => $strip,
         ]);
-        
+
         return View::make('strip.clean');
     }
-    
+
     protected function saveClean($strip_id) {
         if (!Strip::exists($strip_id)) {
             return Redirect::route('home');
         }
-        
+
         $shape = Shape::find(Input::get('id'));
         if ($shape == null) {
             $shape = new Shape();
         } else if (Auth::check() && $shape->user_id != Auth::user()->id) {
             return Redirect::route('home');
         }
-        
+
         $shape->strip_id = $strip_id;
         $shape->value = Input::get('value');
         if (Auth::check()) {
             $shape->user_id = Auth::user()->id;
         }
         $shape->save();
-        
+
         return Redirect::route('strip.clean', [$strip_id]);
     }
 
@@ -172,21 +171,21 @@ class StripController extends BaseController {
                     'fonts' => Font::all()->lists('name', 'name')
         ]);
     }
-    
-    /*public function listPending() {
-        $strips = Strips::whereNull('validated_at')->get();
-        return View::make('strips.list', ['strips' => $strips]);
-    }
 
-    public function validPending() {
-        $strip = Strips::find(Input::get('id'));
-        if ($strip == null) {
-            return Redirect::back()->withInput()->withErrors($v);
-        }
-        $strip->updated_at = new DateTime();
-        $strip->validated_at = new DateTime();
-        $strip->save();
+    /* public function listPending() {
+      $strips = Strips::whereNull('validated_at')->get();
+      return View::make('strips.list', ['strips' => $strips]);
+      }
 
-        return Redirect::back()->with('message', Lang::get('strips.approved'));
-    }*/
+      public function validPending() {
+      $strip = Strips::find(Input::get('id'));
+      if ($strip == null) {
+      return Redirect::back()->withInput()->withErrors($v);
+      }
+      $strip->updated_at = new DateTime();
+      $strip->validated_at = new DateTime();
+      $strip->save();
+
+      return Redirect::back()->with('message', Lang::get('strips.approved'));
+      } */
 }
