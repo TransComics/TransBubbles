@@ -1,8 +1,6 @@
 @extends('layouts.master')
 @section('master.content')
 
-<h1>{{($isAdd) ? Lang::get('strips.addTitle') : Lang::get('strips.updateTitle');}}</h1>
-
 @if(Session::has('message'))
 <p class="alert alert-info">{{ Session::get('message') }}</p>
 @endif
@@ -14,21 +12,35 @@
 {{ Form::hidden('_method', 'put', ['id' => '_method']); }}
 @endif
 
-{{ Form::label('title', Lang::get('strips.title'), ['class'=>'sr-only']); }}
-{{ Form::text('title', $strips->title, ['class'=>'form-control', 'placeholder' => Lang::get('strips.title')]); }}
-{{ $errors->first('title', '<p class="alert alert-danger">:message</p>'); }}
-<br />
+<div class="form-group text-center">
+    <h1>{{($isAdd) ? Lang::get('strips.addTitle') : Lang::get('strips.updateTitle');}}</h1>
+</div>
+
+<div class="form-group">
+{{ Form::label('title', Lang::get('strips.title'), ['class'=>'col-sm-2 control-label']); }}
+    <div class="col-sm-10">
+    {{ Form::text('title', $strips->title, ['class'=>'form-control', 'placeholder' => Lang::get('strips.title')]); }}
+    {{ $errors->first('title', '<p class="alert alert-danger">:message</p>'); }}
+    </div>
+</div>
 
 @if ($isAdd)
-{{ Form::label('strip', Lang::get('strips.stripFileSelector')); }}
-{{ Form::file('strip', ['class'=>'filestyle']); }}
-{{ $errors->first('strip', '<p class="alert alert-danger">:message</p>'); }}
+    <div class="form-group">
+    {{ Form::label('strip', Lang::get('strips.stripFileSelector'), ['class'=>'col-sm-2 control-label']); }}
+        <div class="col-sm-10">
+        {{ Form::file('strip', ['class'=>'filestyle']); }}
+        {{ $errors->first('strip', '<p class="alert alert-danger">:message</p>'); }}
+        </div>
+    </div>
 @else
-{{ HTML::image($strips->path, '', array('class' => 'thumbnail','style'=>"width: 500px" )) }}
+<div class="form-group text-center">
+       {{ HTML::image($strips->path, '', array('class' => 'thumbnail')) }}
+</div>
+
 @endif
 <br />
 
-<div class="btn-group" role="group">
+<div class="btn-group pull-right" role="group">
     @if (!$isAdd)
     <span class="btn btn-lg btn-primary" onclick="$('#_method').val('DELETE'); $('#stripForm').attr('action',
           '{{ URL::route('strips.destroy', [$strips->id]) }}'); $('#stripForm').submit();"> @lang('base.delete') </span>

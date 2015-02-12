@@ -25,18 +25,20 @@
                     <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.clean', ['id' => $strip->id])}}"> @lang('strips.pendingClean')</a>
                     <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.translate', ['id' => $strip->id])}}"> @lang('strips.pendingTranslate')</a>
                 </p>
-                    <!--{{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id' => 'stripForm'.$strip->id]); }}
+                <p class="text-center">
+                    {{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id' => 'stripForm'.$strip->id]); }}
                         {{ Form::hidden('_method', 'put', ['id' => '_method']); }}
                         {{ Form::hidden('id', $strip->id, ['id' => $strip->id]); }}
 
-
-                        {{ Form::submit(Lang::get('strips.pendingApprobation'),['class'=>'btn btn-lg btn-primary']); }}
-                        <span class="btn btn-lg btn-primary" id ="{{$strip->id}}" onclick="$('#_method').val('DELETE');
+                        {{ Form::submit(Lang::get('strips.pendingApprobation'),['class'=>'btn btn-xs  btn-primary']); }}
+                        <a href="{{URL::route('strip.update', [$strip->id])}}" title="strip.update" class='btn btn-xs btn-primary glyphicon glyphicon-pencil'></a>
+                        <span class="btn btn-xs  btn-primary" id ="{{$strip->id}}" onclick="$('#_method').val('DELETE');
                                     $('#stripForm{{$strip->id}}').attr('action',
                               '{{ URL::route('strips.destroy', [$strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit();"> @lang('strips.pendingDelete') 
                         </span>
 
-                        {{ Form::close(); }}-->
+                    {{ Form::close(); }}
+                </p>
             </div>
         </div>
     </div>
