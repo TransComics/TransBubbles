@@ -36,6 +36,9 @@
         <a class='btn btn-primary icon-update' href="" id="update"></a>
 	<a class='btn btn-primary glyphicon glyphicon-trash' href="" id="del"></a>
     </div>
+    	<div class="btn-group" role="group">
+            <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="hidden-origin"> Cacher</a>
+     </div>
 @stop
 
 @section('tool.content')
