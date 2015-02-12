@@ -78,7 +78,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.edit',
         'uses' => 'StripController@edit'
     ]);
-    Route::get('/', [
+    Route::get('/create', [
         'as' => 'strip.create',
         'uses' => 'StripController@create'
     ]);

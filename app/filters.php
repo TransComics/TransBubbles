@@ -22,9 +22,10 @@ App::before(function ($request) {
     App::setLocale($lang);
     
     /* Give languages to View. */
-    View::share('languages', Language::all([
-        'shortcode'
-    ]));
+    View::share([
+        'languages' => Language::all(['shortcode']),
+        'pendingStrips' => Strip::whereNull('validated_at')->count(),
+    ]);
 });
 
 App::after(function ($request, $response) {
