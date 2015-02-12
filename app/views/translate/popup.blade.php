@@ -9,8 +9,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel" style="color: black;">Translation
-					list</h4>
+				<h4 class="modal-title" id="myModalLabel" style="color: black;">@Lang('popup.title')</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -48,9 +47,8 @@
 								<div class="checkbox">
 									<a href="" class="list-group-item"> <label> <input type="radio"
 											name="optionsRadios" id="optionsRadios2" value="option2">
-											<h4 class="list-group-item-heading">History translation</h4>
+											<h4 class="list-group-item-heading">History translation from </h4>
 											<p class="list-group-item-text">
-											
 											<div id="ajax-content-history">translations..</div>
 											</p>
 									</label>
