@@ -40,22 +40,6 @@
                     </ul>
                 </div>
             </div>
-            <!--<div class="caption">
-                <p class="text-center">
-                    <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href=""> @lang('strips.pendingApprobation')</a>
-                    <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.clean', ['id' => $strip->id])}}"> @lang('strips.pendingClean')</a>
-                    <a class='btn btn-xs btn-primary glyphicon glyphicon-edit' href="{{URL::route('strip.translate', ['id' => $strip->id])}}"> @lang('strips.pendingTranslate')</a>
-                </p>
-                <p class="text-center">
-                    
-
-                        
-                        <a href="{{URL::route('strip.edit', [$strip->comic->id, $strip->id])}}" title="@lang('strip.edit')" class='btn btn-xs btn-primary glyphicon glyphicon-pencil'></a>
-                        <span class="btn btn-xs  btn-primary" id ="{{$strip->id}}" onclick="$('#_method').val('DELETE'); $('#stripForm{{$strip->id}}').attr('action', '{{ URL::route('strip.destroy', [$strip->comic->id, $strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit();"> @lang('strips.pendingDelete') </span>
-
-                    {{ Form::close(); }}
-                </p>
-            </div>-->
         </div>
     </div>
     @endforeach
