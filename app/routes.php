@@ -66,8 +66,8 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.index',
         'uses' => 'StripController@index'
     ]);
-    
-    
+
+
     Route::get('/clean/{id}', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -81,6 +81,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'uses' => 'StripController@import'
     ]);
 });
+
 Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
     Route::post('/store', [
         'as' => 'strip.store',
@@ -98,46 +99,26 @@ Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
         'as' => 'strip.destroy',
         'uses' => 'StripController@destroy'
     ]);
-    
-    /*Route::put('/pending/{id}', [
-        'as' => 'strip.validStrip',
-        'uses' => 'StripsController@validPending'
-    ]);
-    Route::put('/pending/{id}', [
-        'as' => 'strip.validClean',
-        'uses' => 'StripsController@validPending'
-    ]);
-    Route::put('/pending/{id}', [
-        'as' => 'strip.validImportText',
-        'uses' => 'StripsController@validPending'
-    ]);
-    Route::put('/pending/{id}', [
-        'as' => 'strip.validTraduction',
-        'uses' => 'StripsController@validPending'
-    ]);*/
+
+    /* Route::put('/pending/{id}', [
+      'as' => 'strip.validStrip',
+      'uses' => 'StripsController@validPending'
+      ]);
+      Route::put('/pending/{id}', [
+      'as' => 'strip.validClean',
+      'uses' => 'StripsController@validPending'
+      ]);
+      Route::put('/pending/{id}', [
+      'as' => 'strip.validImportText',
+      'uses' => 'StripsController@validPending'
+      ]);
+      Route::put('/pending/{id}', [
+      'as' => 'strip.validTraduction',
+      'uses' => 'StripsController@validPending'
+      ]); */
 });
 
-Route::get('comics/list', [
-    'as' => 'comics.list',
-    'uses' => 'ComicsController@getList'
-]);
-
-Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
-    Route::get('/add', [
-        'as' => 'comic.add',
-        'uses' => 'ComicController@addForm'
-    ]);
-    Route::get('/update/{id}', [
-        'as' => 'comic.update',
-        'uses' => 'ComicController@updateForm'
-    ]);
-    Route::post('/add', 'ComicController@add');
-    Route::put('/update/{id}', 'ComicController@update');
-    Route::delete('/delete/{id}', [
-        'as' => 'comic.delete',
-        'uses' => 'ComicController@delete'
-    ]);
-});
+Route::resource('/comic', 'ComicController', ['before' => 'auth', 'except' => 'show']);
 
 Route::group(['prefix' => '/ws'], function () {
     Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
