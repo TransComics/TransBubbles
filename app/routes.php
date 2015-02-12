@@ -138,7 +138,7 @@ Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
       ]); */
 });
 
-Route::resource('/comic', 'ComicController', ['before' => 'auth', 'except' => 'show']);
+Route::resource('/comic', 'ComicController', ['before' => 'auth']);
 
 Route::group(['prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController',array('only' => array('update')));

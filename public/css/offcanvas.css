@@ -191,3 +191,11 @@ footer {
     width: 50%; /* 6 columns */
   }
 }
+
+#imageThumb{
+    width: 240px;
+    height: 210px;
+    border-color: white;
+    border-style: solid;
+}
+

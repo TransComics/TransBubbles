@@ -5,7 +5,7 @@
     <div class="thumbnail thumbnail-comic" @if ($comic->cover) title="{{$comic->description}}" @endif >
         <h2>
             {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => $comic->id]); }}
-            <a href="#">{{$comic->title}} <small>({{$comic->author}})</small></a>
+            <a href={{ URL::route('comic.show',['id' => $comic->id] )}}>{{$comic->title}} <small>({{$comic->author}})</small></a>
             @if (Auth::check())
             <span class="btn-group pull-right" role="group">
                 <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>

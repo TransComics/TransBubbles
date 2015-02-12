@@ -1,0 +1,41 @@
+@extends('layouts.master') @section('master.content')
+<div class="page-header">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>
+				{{$comic->title}} <small>{{ Lang::get('comic.created',['created' =>
+					$comic->author]) }}</small>
+			</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2 col-md-offset-10">{{Lang::get('comic.imported',['imported'
+			=> User::find($comic->authorApproval)->username]) }}</div>
+	</div>
+</div>
+@if($comic->cover)
+<div>
+{{ HTML::image($comic->cover, 'cover', array('width' => '846',
+	'height' => '170', 'class' => 'img-thumbnail')) }}
+</div>
+</br>
+@endif
+<div class="border padding-10">
+	<h4>{{$comic->description}}</h4>
+</div>
+</br>
+<div class="page-header">
+	<h1>@lang('comic.lastStrip')</h1>
+</div>
+<div class="row">
+	@foreach($strips as $strip)
+	<div class="col-sm-6 col-md-4">
+		<a href="{{URL::route('strip.show') }}" class="thumbnail"> {{
+			HTML::image($strip->path, $strip->title,['id' => 'imageThumb']) }} </a>
+		<div class="caption">
+			<h3>{{ $strip->title }}</h3>
+		</div>
+	</div>
+	@endforeach
+</div>
+@stop
