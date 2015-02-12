@@ -3,7 +3,6 @@
 class Strips extends Eloquent {
 
     protected $table = 'strips';
-    protected $touches = array('title');
     public $timestamps = true;
     protected $guarded = [ 'id', 'updated_at', 'created_at',
         'insertion_date', 'path', 'validated_at'];

@@ -72,7 +72,7 @@ class StripsController extends BaseController {
 
         if ($v->passes()) {
             $strip->title = Input::get('title');
-            $strip->updated_at= new DateTime();
+            $strip->updated_at = new DateTime();
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
@@ -100,7 +100,7 @@ class StripsController extends BaseController {
 
     public function listPending() {
         $strips = Strips::whereNull('validated_at')->get();
-        return View::make('strips.pending', ['strips' => $strips]);
+        return View::make('strips.list', ['strips' => $strips]);
     }
 
     public function validPending() {
@@ -108,10 +108,10 @@ class StripsController extends BaseController {
         if ($strip == null) {
             return Redirect::back()->withInput()->withErrors($v);
         }
-        
-        $strip->validated_at= new DateTime();
+        $strip->updated_at = new DateTime();
+        $strip->validated_at = new DateTime();
         $strip->save();
-        
+
         return Redirect::back()->with('message', Lang::get('strips.approved'));
     }
 
