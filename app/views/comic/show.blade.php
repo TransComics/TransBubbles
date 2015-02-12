@@ -25,15 +25,14 @@
 </div>
 </br>
 <div class="page-header">
-	<h1>@lang('comic.lastStrip')</h1>
+	<h3>@lang('comic.lastStrip')</h3>
 </div>
 <div class="row">
 	@foreach($strips as $strip)
 	<div class="col-sm-6 col-md-4">
-		<a href="{{URL::route('strip.show') }}" class="thumbnail"> {{
-			HTML::image($strip->path, $strip->title,['id' => 'imageThumb']) }} </a>
+	   <a href="{{ route('strip.show',[ $comic->id, $strip->id]) }}" class="thumbnail">{{HTML::image($strip->path, $strip->title,['id' => 'imageThumb'])}}</a>
 		<div class="caption">
-			<h3>{{ $strip->title }}</h3>
+			<h4>{{ $strip->title }}</h4>
 		</div>
 	</div>
 	@endforeach
