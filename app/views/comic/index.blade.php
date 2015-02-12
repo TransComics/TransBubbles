@@ -8,6 +8,7 @@
             <a href="#">{{$comic->title}} <small>({{$comic->author}})</small></a>
             @if (Auth::check())
             <span class="btn-group pull-right" role="group">
+                <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
                 <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
                 <span title="base.delete" class='btn btn-sm btn-primary glyphicon glyphicon-remove' onclick="$('#{{$comic->id}}').submit();"></span>
 
