@@ -91,13 +91,33 @@ Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
         'as' => 'strip.update',
         'uses' => 'StripController@update'
     ]);
-    Route::put('/{id}/edit/', [
+    Route::get('/{id}/edit/', [
         'as' => 'strip.edit',
         'uses' => 'StripController@edit'
+    ]);
+    Route::get('/', [
+        'as' => 'strip.create',
+        'uses' => 'StripController@create'
     ]);
     Route::delete('/{id}', [
         'as' => 'strip.destroy',
         'uses' => 'StripController@destroy'
+    ]);
+    Route::get('/clean/{id}', [
+        'as' => 'strip.clean',
+        'uses' => 'StripController@clean'
+    ]);
+    Route::put('/{id}/saveClean', [
+        'as' => 'strip.saveClean',
+        'uses' => 'StripController@saveClean'
+    ]);
+    Route::get('/{id}/translate', [
+        'as' => 'strip.translate',
+        'uses' => 'StripController@translate'
+    ]);
+    Route::get('/import/{id}', [
+        'as' => 'strip.import',
+        'uses' => 'StripController@import'
     ]);
 
     /* Route::put('/pending/{id}', [
@@ -121,10 +141,5 @@ Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
 Route::resource('/comic', 'ComicController', ['before' => 'auth', 'except' => 'show']);
 
 Route::group(['prefix' => '/ws'], function () {
-    Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
-    Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
-    Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
-    Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
-    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
+    Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
 });
-?>

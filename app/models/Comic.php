@@ -16,5 +16,9 @@ class Comic extends Eloquent {
             'font_id' => 'required|numeric'
         ];
     }
+    
+    public function strips () {
+        return $this->hasMany('Strip');
+    }
 
 }
