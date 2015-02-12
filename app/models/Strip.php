@@ -1,6 +1,6 @@
 <?php
 
-class Strips extends Eloquent {
+class Strip extends Eloquent {
 
     protected $table = 'strips';
     public $timestamps = true;
@@ -15,5 +15,9 @@ class Strips extends Eloquent {
     public static $updateRules = [
         'title' => 'max:64'
     ];
+    
+    public function comic () {
+        return $this->belongsTo('Comic');
+    }
 
 }

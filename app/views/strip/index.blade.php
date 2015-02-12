@@ -31,10 +31,10 @@
                         {{ Form::hidden('id', $strip->id, ['id' => $strip->id]); }}
 
                         {{ Form::submit(Lang::get('strips.pendingApprobation'),['class'=>'btn btn-xs  btn-primary']); }}
-                        <a href="{{URL::route('strip.edit', [$strip->comic->id, $strip->id])}}" title="strip.update" class='btn btn-xs btn-primary glyphicon glyphicon-pencil'></a>
+                        <a href="{{URL::route('strip.edit', [$strip->comic->id, $strip->id])}}" title="@lang('strip.edit')" class='btn btn-xs btn-primary glyphicon glyphicon-pencil'></a>
                         <span class="btn btn-xs  btn-primary" id ="{{$strip->id}}" onclick="$('#_method').val('DELETE');
                                     $('#stripForm{{$strip->id}}').attr('action',
-                              '{{ URL::route('strip.destroy', [$comic->id, $strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit();"> @lang('strips.pendingDelete') 
+                              '{{ URL::route('strip.destroy', [$strip->comic->id, $strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit();"> @lang('strips.pendingDelete') 
                         </span>
 
                     {{ Form::close(); }}

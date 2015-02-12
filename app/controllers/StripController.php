@@ -8,7 +8,7 @@ class StripController extends BaseController {
      * @return void
      */
     protected function show($id) {
-        $strip = Strips::find($id);
+        $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
         }
@@ -21,14 +21,14 @@ class StripController extends BaseController {
      * @return Response
      */
     public function index() { // modifier une fois comics implémenté : Guillaume
-        return View::make('strip.index', ['strips' => Strips::all()]);
+        return View::make('strip.index', ['strips' => Strip::all()]);
     }
     
     
     public function edit($id) {
         $this->beforeFilter('auth');
         
-        $strip = Strips::find($id);
+        $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
         }
@@ -38,7 +38,7 @@ class StripController extends BaseController {
     public function create() {
         $this->beforeFilter('auth');
         
-        return View::make('strip.create', ['strip' => new Strips()]);
+        return View::make('strip.create', ['strips' => new Strip()]);
     } 
     
     /**
@@ -50,9 +50,9 @@ class StripController extends BaseController {
     public function update($id) {
         $this->beforeFilter('auth');
         
-        $valid = Validator::make(['title' => Input::get('title')], Strips::$updateRules);
+        $valid = Validator::make(['title' => Input::get('title')], Strip::$updateRules);
 
-        $strip = Strips::find($id);
+        $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::back()->withInput()->withErrors($v);
         }
@@ -78,14 +78,14 @@ class StripController extends BaseController {
     public function store() {
         $this->beforeFilter('auth');
         
-        $valid = Validator::make(Input::all(), Strips::$rules);
+        $valid = Validator::make(Input::all(), Strip::$rules);
         if ($valid->fails()) {
             return Redirect::back()->withInput()->withErrors($v);
         } else {
             $file = Input::file('strip');
             $fileLocation = UploadFile::uploadFile($file);
 
-            $strip = new Strips();
+            $strip = new Strip();
             $strip->title = Input::get('title');
             $strip->path = $fileLocation;
             $strip->validated_at = NULL;
@@ -103,7 +103,7 @@ class StripController extends BaseController {
     public function destroy($id) {
         $this->beforeFilter('auth');
         
-        $strip = Strips::find($id);
+        $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
         }
@@ -127,7 +127,7 @@ class StripController extends BaseController {
      * @return void
      */
     protected function clean($strip_id) {
-        $strip = Strips::find($strip_id);
+        $strip = Strip::find($strip_id);
         if ($strip == null) {
             return Redirect::route('home');
         }
@@ -141,7 +141,7 @@ class StripController extends BaseController {
     }
     
     protected function saveClean($strip_id) {
-        if (!Strips::exists($strip_id)) {
+        if (!Strip::exists($strip_id)) {
             return Redirect::route('home');
         }
         
