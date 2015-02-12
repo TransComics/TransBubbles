@@ -19,10 +19,11 @@
 								<div class="input-group">
 									<div class="checkbox">
 										<a class="list-group-item"> <label> <input type="radio"
-												name="optionsRadios" id="optionsRadios0" value="option0" checked>
+												name="optionsRadios" id="optionsRadios0" value="option0"
+												checked>
 												<h4 class="list-group-item-heading">Original translation</h4>
-												<p id="originalTranslation" class="list-group-item-text">Ever heard the trolley
-													problem?</p>
+												<p id="originalTranslation" class="list-group-item-text">Ever
+													heard the trolley problem?</p>
 										</label>
 										</a>
 									</div>
@@ -32,9 +33,10 @@
 						<div class="col-xs-3 col-md-4 col-xs-height col-center">
 							<div class="form-group">
 								{{ Form::text('text','Ever heard the trolley problem?',
-								array('class'=>'form-control', 'placeholder'=>
-								'Demo text to translate', 'id' => 'texttotranslate' )) }}
-								<button id="textButton" type="button" class="btn btn-primary">Demo button</button>
+								array('class'=>'form-control', 'placeholder'=> 'Demo text to
+								translate', 'id' => 'texttotranslate' )) }}
+								<button id="textButton" type="button" class="btn btn-primary">Demo
+									button</button>
 							</div>
 						</div>
 					</div>
@@ -97,3 +99,4 @@
 			</div>
 		</div>
 	</div>
+</div>
