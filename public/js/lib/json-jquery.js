@@ -41,7 +41,7 @@ $(document).ready(function() {
 		ajaxTranslate();
 	});
 	$('#getdata').on('click', function() {
-		$('#texttotranslate').val("Ever heard the trolley problem?");
+		$('#texttotranslate').val("Ever heard of the trolley problem?");
 		ajaxTranslate();
 	});
 	$('#textButton').on('click', function() {
