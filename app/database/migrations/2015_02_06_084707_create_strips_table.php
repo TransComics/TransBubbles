@@ -11,7 +11,7 @@ class CreateStripsTable extends Migration {
             $table->string('title', 64);
             $table->string('path');
             $table->text('cleanning')->nullable();
-        $table->timestamp('validated_at')->nullable();
+            $table->timestamp('validated_at')->nullable();
             $table->timestamps();
         });
     }

@@ -3,8 +3,10 @@ $(document).ready(function() {
 	/* ********************************************************************************************** *
 	 * *********************************** Canvas handler ******************************************** *
 	 * ********************************************************************************************** */
-
+        
 	var canvas = new fabric.Canvas('c');
+        canvas.setHeight($('#i').height());
+        canvas.setWidth($('#i').width());
         canvas.includeDefaultValues = false;
 	var color = $('#colorPicker').val();
 	var size = $('#sizePicker').val();

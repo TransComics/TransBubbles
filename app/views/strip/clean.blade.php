@@ -48,7 +48,7 @@ Interface de nettoyage
                 </div>
             </td>
             <td id="delivered">
-                <canvas id="c" width="650" height="1192"></canvas>
+                <canvas id="c"></canvas>
             </td>
         </tr>
     </table>
