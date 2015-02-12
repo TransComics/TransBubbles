@@ -25,7 +25,11 @@ class StripController extends BaseController {
      * @return Response
      */
     public function index($comic_id) {
-        return View::make('strip.index', ['strips' => Strip::where('comic_id', 'LIKE', $comic_id)->get()]);
+        $comic = Comic::find($comic_id);
+        if ($comic == null) {
+            return Redirect::route('strip.index');
+        }
+        return View::make('strip.index', ['strips' => $comic->strips]);
     }
 
     public function edit($id) {
