@@ -13,7 +13,7 @@ class StripController extends BaseController {
      */
     protected function show($comic_id, $id) {
         $comic = Comic::find($comic_id);
-        if ($strip == null) {
+        if ($comic == null) {
             return Redirect::route('comic.index');
         }
         
