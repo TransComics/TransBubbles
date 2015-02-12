@@ -1,6 +1,3 @@
-@extends('layouts.master')
-@section('master.content')
-
 @if(Session::has('message'))
 <p class="alert alert-info">{{ Session::get('message') }}</p>
 @endif
@@ -49,5 +46,3 @@
     {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-lg btn-primary']); }}
 </div>
 {{ Form::close(); }}
-
-@stop

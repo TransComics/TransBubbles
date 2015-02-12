@@ -32,13 +32,13 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('strip.index');
         }
-        return View::make('strip.create_edit', ['strips' => $strip]);
+        return View::make('strip.edit', ['strips' => $strip]);
     } 
     
     public function create() {
         $this->beforeFilter('auth');
         
-        return View::make('strip.create_edit', ['strip' => new Strips()]);
+        return View::make('strip.create', ['strip' => new Strips()]);
     } 
     
     /**

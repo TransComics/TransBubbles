@@ -66,22 +66,6 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.index',
         'uses' => 'StripController@index'
     ]);
-    
-    
-    Route::get('/clean/{id}', [
-        'as' => 'strip.clean',
-        'uses' => 'StripController@clean'
-    ]);
-    Route::get('/translate/{id}', [
-        'as' => 'strip.translate',
-        'uses' => 'StripController@translate'
-    ]);
-    Route::get('/import/{id}', [
-        'as' => 'strip.import',
-        'uses' => 'StripController@import'
-    ]);
-});
-Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
     Route::post('/store', [
         'as' => 'strip.store',
         'uses' => 'StripController@store'
@@ -97,6 +81,18 @@ Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
     Route::delete('/{id}', [
         'as' => 'strip.destroy',
         'uses' => 'StripController@destroy'
+    ]);
+    Route::get('/clean/{id}', [
+        'as' => 'strip.clean',
+        'uses' => 'StripController@clean'
+    ]);
+    Route::get('/translate/{id}', [
+        'as' => 'strip.translate',
+        'uses' => 'StripController@translate'
+    ]);
+    Route::get('/import/{id}', [
+        'as' => 'strip.import',
+        'uses' => 'StripController@import'
     ]);
     
     /*Route::put('/pending/{id}', [
