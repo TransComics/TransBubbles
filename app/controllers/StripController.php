@@ -50,7 +50,7 @@ class StripController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
+    public function update($id_comic, $id) {
         $valid = Validator::make(['title' => Input::get('title')], Strip::$updateRules);
 
         $strip = Strip::find($id);
