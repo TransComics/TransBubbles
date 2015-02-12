@@ -57,8 +57,6 @@ Route::group(['prefix' => '/password'], function() {
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-/*Route::resource('comic.strip', 'ComicStripController',['only' => [ 'show']]);*/
-
 Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
     Route::get('/{id}', [
         'as' => 'strip.show',
