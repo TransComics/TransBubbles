@@ -7,28 +7,28 @@ class StripViewTest extends TestCase {
         Artisan::call('db:seed');
     }
 
-    public function testStripsAddNoLogin() {
-        $this->client->request('GET', 'comic/1/strip/create');
+    public function testStripAddNoLogin() {
+        $this->client->request('GET', '/comic/1/strip/create');
         
         $this->assertRedirectedToRoute('user.signin');
     }
 
-    public function testStripsAddLogin() {
+    public function testStripAddLogin() {
         Auth::loginUsingId(1);
 
-        $this->client->request('GET', 'comic/1/strip/create');
+        $this->client->request('GET', '/comic/1/strip/create');
         $this->assertResponseOk();
     }
 
     public function testEditFirstStripNoLogin() {
-        $this->client->request('GET', 'comic/1/strip/1/edit');
-        $this->assertRedirectedTo('user.signin');
+        $this->client->request('GET', '/comic/1/strip/1/edit');
+        $this->assertRedirectedToRoute('user.signin');
     }
 
     public function testEditFirstStripLogin() {
         Auth::loginUsingId(1);
 
-        $this->client->request('GET', 'comic/1/strip/1/edit');
+        $this->client->request('GET', '/comic/1/strip/1/edit');
         $this->assertResponseOk();
     }
 }
