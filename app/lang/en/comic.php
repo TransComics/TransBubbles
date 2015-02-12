@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'added' => 'Comic :title has been added.',
     'updated' => 'Comic :title has been updated.',
@@ -14,4 +13,7 @@ return array(
     'font' => 'Default font',
     'authorApproval' => 'I certifie to be the comics author or get right to publish it.',
     'listLink' => 'Comics list',
+    'created' => 'created by :created',
+    'imported' => 'imported by :imported',
+    'lastStrip' => 'Latest addition'
 );
