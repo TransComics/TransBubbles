@@ -12,10 +12,16 @@ class StripController extends BaseController {
      * @return void
      */
     protected function show($comic_id, $id) {
-        $strip = Strip::find($id);
+        $comic = Comic::find($comic_id);
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
+        
+        $strip = $comic->strip->find($id);
+        if ($strip == null) {
+            return Redirect::route('comic.index');
+        }
+        
         return View::make('strip.show', ['strips' => $strip]);
     }
 
@@ -40,8 +46,8 @@ class StripController extends BaseController {
         return View::make('strip.edit', ['strips' => $strip]);
     }
 
-    public function create() {
-        return View::make('strip.create', ['strips' => new Strip()]);
+    public function create($comic_id) {
+        return View::make('strip.create', ['strips' => new Strip(), ['comic_id' => $comic_id]]);
     }
 
     /**
@@ -76,7 +82,7 @@ class StripController extends BaseController {
      * @param Request $request 
      * @return Response
      */
-    public function store() {
+    public function store($comic_id) {
         $valid = Validator::make(Input::all(), Strip::$rules);
         if ($valid->fails()) {
             return Redirect::back()->withInput()->withErrors($v);
