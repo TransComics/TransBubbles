@@ -123,7 +123,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
       ]); */
 });
 
-Route::resource('/comic', 'ComicController', ['except' => 'show']);
+Route::resource('/comic', 'ComicController', ['before' => 'auth']);
 
 Route::group(['prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
