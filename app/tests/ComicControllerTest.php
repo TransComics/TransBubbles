@@ -11,24 +11,24 @@ class ComicControllerTest extends TestCase {
     public function testComicDeleteIdNotFoundAsUser() {
         Auth::loginUsingId(1);
         
-        $this->client->request('DELETE', '/comic/delete/100', ['_token' => csrf_token()]);
+        $this->client->request('DELETE', '/comic/100', ['_token' => csrf_token()]);
         $this->assertRedirectedToRoute('home');
     }
     
     public function testComicDeleteIdNotFoundAsGuest() {
-        $this->client->request('DELETE', '/comic/delete/100', ['_token' => csrf_token()]);
+        $this->client->request('DELETE', '/comic/100', ['_token' => csrf_token()]);
         $this->assertRedirectedToRoute('user.signin');
     }
     
     public function testComicUpdateIdNotFoundAsUser() {
         Auth::loginUsingId(1);
         
-        $this->client->request('GET', '/comic/update/100');
-        $this->assertRedirectedToRoute('comic.add');
+        $this->client->request('GET', '/comic/100/edit');
+        $this->assertRedirectedToRoute('comic.create');
     }
 
     public function testComicUpdateIdNotFoundAsGuest() {
-        $this->client->request('GET', '/comic/update/100');
+        $this->client->request('GET', '/comic/100/edit');
         $this->assertRedirectedToRoute('user.signin');
     }
 }
