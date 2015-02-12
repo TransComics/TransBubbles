@@ -1,8 +1,9 @@
 <?php
 
 return array(
-    'importLink'     => 'Import strip',
+    'importLink'     => 'Import strips',
     'cleanLink'     => 'Clean strip',
+    'editLink'     => 'Edit',
     'translateLink' => 'Translate strip',
     'send' => 'Send',
     'title' => 'Title',
@@ -11,7 +12,8 @@ return array(
     'uploadComplete' => 'Your image has been transferred',
     'uploadFailed' => 'Your image have not been transfered',
     'addTitle' => 'Add Strips',
-    'stripFileSelector' => 'Choose the strip to share',
+    'stripFileSelector' => 'Strip',
+    'stripFileSelectorTitle' => 'Choose the strip to share',
     'updateTitle' => 'Update',
     'unvalidFile' => 'Unvalid file',
     'updateFailure' => 'Failed to update the Strip',
@@ -23,5 +25,5 @@ return array(
     'pendingDelete' => 'Delete',
     'approved' => 'The strip has been approved',
     'pendingTitle' => 'Pending',
-    'pending' => 'Pending strips'
+    'pending' => 'Strip pending for cleaning'
 );
