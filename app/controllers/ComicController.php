@@ -2,6 +2,10 @@
 
 class ComicController extends BaseController {
 
+    public function __construct() {
+        $this->beforeFilter('auth', ['except' => ['index']]);
+    }
+    
     public function index() {
         return View::make('comic.index', [
                 'comics' => Comic::paginate(Session::has('paginate') ? Session::get('paginate') : 10),

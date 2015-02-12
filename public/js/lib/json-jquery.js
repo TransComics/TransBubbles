@@ -1,70 +1,53 @@
-$(document).ready(
-		function() {
-			// alert(document.getElementById('txtLang').value);
-			// attach a jQuery live event to the button
-			// $('#loader').ajaxLoader();
-			$('#getdata-button').bind(
-					'click',
-					function() {
+function ajaxTranslate() {
+	var texttotranslate = document.getElementById('texttotranslate').value;
+	var from = document.getElementById('from').value;
+	var to = document.getElementById('to').value;
+	var api = document.getElementById('api').value;
 
-						var text = document.getElementById('txtString').value
-						var lang = document.getElementById('txtLang').value;
-						var api = document.getElementById('api').value;
+	console.log(api);
+	console.log(texttotranslate);
+	switch (api) {
+	case 'google':
+		$('#apiName').text("Google Translate");
+		break;
+	case 'bing':
+		$('#apiName').text("Bing Translate");
+		break;
+	default:
+		break;
+	}
+	var json_url = '../../ws/translate/' + api + '?text=' + texttotranslate
+			+ '&from=' + from + '&to=' + to;
 
-						var json_url = '../../ws/translate/' + api + '?text='
-								+ text + '&to=' + lang;
+	$.ajax({
+		url : encodeURI(json_url),
+		type : 'PUT',
+		headers : {
+			'X-CSRF-Token' : $('meta[name="_token"]').attr('content')
+		},
+		success : function(data) {
+			if (data.translation)
+				$('#ajax-content').html(data.translation);
+			else
+				$('#ajax-content').html(
+						"<div id=\"signupalert\" class=\"alert alert-danger\">Errors = "
+								+ data.errorReason + "</div>");
+		},
+		error : function(data) {
+			console.log('error json');
+		}
+	});
+}
 
-						$.ajax({
-							url : json_url,
-							type : 'PATCH',
-							success : function(data) {
-								// alert(data); //uncomment this for debug
-								// alert (data.item1+" "+data.item2+"
-								// "+data.item3);
-								// //further debug
-								if (data.translation)
-									$('#showdata').html(
-											"<div class=\"alert alert-info\" role=\"alert\">"
-													+ data.translation
-													+ "</div>");
-								else
-									$('#showdata').html(
-											"<div id=\"signupalert\" class=\"alert alert-danger\">Errors = "
-													+ data.errorReason
-													+ "</div>");
-							}
-						});
-					});
-
-			$("#api").bind(
-					"change",
-					function() {
-
-						var text = document.getElementById('txtString').value
-						var lang = document.getElementById('txtLang').value;
-						var api = document.getElementById('api').value;
-
-						var json_url = '../../ws/translate/' + api + '?text='
-								+ text + '&to=' + lang;
-						$.ajax({
-							url : json_url,
-							type : 'PATCH',
-							success : function(data) {
-								// alert(data); //uncomment this for debug
-								// alert (data.item1+" "+data.item2+"
-								// "+data.item3);
-								// //further debug
-								if (data.translation)
-									$('#showdata').html(
-											"<div class=\"alert alert-info\" role=\"alert\">"
-													+ data.translation
-													+ "</div>");
-								else
-									$('#showdata').html(
-											"<div id=\"signupalert\" class=\"alert alert-danger\">Errors = "
-													+ data.errorReason
-													+ "</div>");
-							}
-						});
-					});
-		});
+$(document).ready(function() {
+	$("#api").on("change", function() {
+		ajaxTranslate();
+	});
+	$('#getdata').on('click', function() {
+		$('#texttotranslate').val("Ever heard of the trolley problem?");
+		ajaxTranslate();
+	});
+	$('#textButton').on('click', function() {
+		ajaxTranslate();
+	});
+});

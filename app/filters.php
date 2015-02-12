@@ -23,7 +23,7 @@ App::before(function ($request) {
     
     /* Give languages to View. */
     View::share([
-        'languages' => Language::all(['shortcode']),
+        'languages' => Language::all(['shortcode','label']),
         'pendingStrips' => Strip::whereNull('validated_at')->count(),
     ]);
 });
@@ -86,8 +86,8 @@ Route::filter('guest', function () {
  */
 
 Route::filter('csrf', function () {
-    if (Session::token() !== Input::get('_token')) {
+    $token = Request::ajax() ? Request::header('X-CSRF-Token') : Input::get('_token');
+    if (Session::token() !== $token) {
         throw new Illuminate\Session\TokenMismatchException();
     }
 });
-?>
