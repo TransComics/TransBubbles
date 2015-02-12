@@ -40,23 +40,7 @@
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             @section('master.nav')
-                <ul class="list-group">
-                    @if(Auth::check())
-                    <li class="list-group-item"><a href="{{URL::route('user.logout')}}" >@lang('user.logout')</a></li>
-                    <li class="list-group-item"><a href="{{URL::route('comic.add')}}" >@lang('comic.addLink')</a></li>
-                    @else
-                    <li class="list-group-item"><a href="{{URL::route('user.signin')}}" >@lang('user.signIn')</a></li>
-                    @endif
-                    <li class="list-group-item"><a href="{{URL::route('comics.list')}}" >@lang('comics.listLink')</a></li>
-                    <li class="list-group-item"><a href="{{URL::route('strips.index')}}" >@lang('strip.importLink')</a></li>
-                    <li class="list-group-item"><a href="{{URL::route('strips.index')}}" >@lang('strip.importLink')</a></li>
-                    <li class="list-group-item">
-                        <span class="badge">14</span>
-                        <a href="{{URL::route('strips.pending')}}" >@lang('strips.pending')</a>
-                    </li>
-                    <li class="list-group-item"><a href="{{URL::route('strip.clean', ['id' => 3])}}" >@lang('strip.cleanLink')</a></li>
-                    <li class="list-group-item"><a href="{{URL::route('strip.translate', ['id' => 3])}}" >@lang('strip.translateLink')</a></li>
-                </ul>
+                @include('common.navbar')
             @show
         </div><!--/.sidebar-offcanvas-->
     </div><!--/row-->

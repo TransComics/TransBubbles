@@ -3,6 +3,9 @@
 @section('tool.title')
 	Interface de traduction
 @stop
+@section('tool.scripts')
+{{HTML::script('js/lib/json-jquery.js') }} 
+@stop 
 
 @section('tool.items')
     <div class="btn-group pull-right" role="group">
@@ -62,7 +65,10 @@
 		</tr>
 	</table>
 </div>
+
+<br/>
+<!-- Button trigger modal -->
+<button id="getdata" type="button" class="btn btn-primary btn-lg"
+	data-toggle="modal" data-target="#myModal">Launch demo popup</button>
 @include('translate.popup')
 @stop
-
-

@@ -6,6 +6,7 @@ class ComicsTableSeeder extends Seeder {
         Comic::unguard();
         
         Comic::create([
+            'id' => 1,
             'title' => 'Strumph',
             'author' => 'AMC',
             'description' => 'Description Strumph',
@@ -15,6 +16,7 @@ class ComicsTableSeeder extends Seeder {
             'created_by' => 2
         ]);
         Comic::create([
+            'id' => 2,
             'title' => 'Spiderman II',
             'author' => 'gbergereI',
             'description' => 'Description SII',

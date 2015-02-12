@@ -11,11 +11,23 @@ class CreateStripsTable extends Migration {
             $table->string('title', 64);
             $table->string('path');
             $table->timestamp('validated_at')->nullable();
+            $table->integer('comic_id')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('strips', function(Blueprint $table) {
+            $table->foreign('comic_id')->references('id')->on('comics')
+                    ->onUpdate('cascade')
+                    ->onDelete('restrict');
         });
     }
 
     public function down() {
-        Schema::dropIfExists('strips');
+        Schema::table('strips', function(Blueprint $table) {
+            $table->dropForeign('strips_comic_id_foreign');
+        });
+
+        Schema::drop('strips');
     }
+
 }

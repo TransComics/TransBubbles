@@ -1,9 +1,8 @@
 <?php
 
-class Strips extends Eloquent {
+class Strip extends Eloquent {
 
     protected $table = 'strips';
-    protected $touches = array('title');
     public $timestamps = true;
     protected $guarded = [ 'id', 'updated_at', 'created_at',
         'insertion_date', 'path', 'validated_at'];
@@ -16,5 +15,9 @@ class Strips extends Eloquent {
     public static $updateRules = [
         'title' => 'max:64'
     ];
+    
+    public function comic () {
+        return $this->belongsTo('Comic');
+    }
 
 }

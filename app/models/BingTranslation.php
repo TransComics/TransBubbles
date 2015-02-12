@@ -41,13 +41,11 @@ class BingTranslation extends \AbstractTranslator {
         
         // Execute the cURL session.
         $strResponse = curl_exec($ch);
-        \Log::info('get_access_token()  strre:' . $strResponse);
         
         $encoding = mb_detect_encoding($strResponse);
         
         if ($encoding == 'UTF-8') {
             $result = preg_replace('/[^(\x20-\x7F)]*/', '', $strResponse);
-            \Log::info('get_access_token()  -> encoding UTF8');
         } else {
             $result = preg_replace('!,+!', ',', $strResponse);
         }
@@ -60,14 +58,9 @@ class BingTranslation extends \AbstractTranslator {
         }
         // Close the Curl Session.
         curl_close($ch);
-        
-        \Log::debug('get_access_token()  strResponse :' . $strResponse);
-        \Log::debug('get_access_token()  result      :' . $result);
-        
+
         $result = str_replace('&quot;', '"', $result);
         $result = str_replace('\\', '', $result);
-        
-        \Log::debug('get_access_token()  result2     :' . $result);
         
         // This will remove unwanted characters.
         // Check http://www.php.net/chr for details
@@ -82,8 +75,6 @@ class BingTranslation extends \AbstractTranslator {
         if (0 === strpos(bin2hex($result), 'efbbbf')) {
             $result = substr($result, 3);
         }
-        
-        \Log::info('get_access_token()  result3     :' . $result);
         // Decode the returned JSON string.
         
         $objResponse = json_decode($result);
@@ -93,22 +84,22 @@ class BingTranslation extends \AbstractTranslator {
                 \Log::debug(' - No errors');
                 break;
             case JSON_ERROR_DEPTH:
-                \Log::info(' - Maximum stack depth exceeded');
+                \Log::error(' - Maximum stack depth exceeded');
                 break;
             case JSON_ERROR_STATE_MISMATCH:
-                \Log::info(' - Underflow or the modes mismatch');
+                \Log::error(' - Underflow or the modes mismatch');
                 break;
             case JSON_ERROR_CTRL_CHAR:
-                \Log::info(' - Unexpected control character found');
+                \Log::error(' - Unexpected control character found');
                 break;
             case JSON_ERROR_SYNTAX:
-                \Log::info(' - Syntax error, malformed JSON');
+                \Log::error(' - Syntax error, malformed JSON');
                 break;
             case JSON_ERROR_UTF8:
-                \Log::info(' - Malformed UTF-8 characters, possibly incorrectly encoded');
+                \Log::error(' - Malformed UTF-8 characters, possibly incorrectly encoded');
                 break;
             default:
-                \Log::info(' - Unknown error');
+                \Log::error(' - Unknown error');
                 break;
         }
         
@@ -147,4 +138,5 @@ class BingTranslation extends \AbstractTranslator {
         ));
     }
 }
+
 ?>
