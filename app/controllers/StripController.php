@@ -126,8 +126,27 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function clean() {
+    protected function clean($strip_id) {
+        $strip = Strips::find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('home');
+        }
+
+        View::share(['strip' => $strip]);
+        
         return View::make('strip.clean');
+    }
+    
+    protected function saveClean($strip_id) {
+        $strip = Strips::find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('home');
+        }
+        
+        $strip->cleanning = Input::get('cleanning');
+        $strip->save();
+        
+        return Redirect::route('strip.clean', [$strip->id]);
     }
 
     /**
@@ -158,5 +177,3 @@ class StripController extends BaseController {
         return Redirect::back()->with('message', Lang::get('strips.approved'));
     }*/
 }
-
-?>

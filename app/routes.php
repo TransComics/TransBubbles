@@ -86,7 +86,11 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
     ]);
-    Route::get('/translate/{id}', [
+    Route::put('/{id}/saveClean', [
+        'as' => 'strip.saveClean',
+        'uses' => 'StripController@saveClean'
+    ]);
+    Route::get('/{id}/translate', [
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
     ]);
@@ -136,10 +140,5 @@ Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
 });
 
 Route::group(['prefix' => '/ws'], function () {
-    Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
-    Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
-    Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
-    Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
-    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
+    Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
 });
-?>
