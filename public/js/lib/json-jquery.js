@@ -3,7 +3,7 @@ function ajaxTranslate() {
 	var from = document.getElementById('from').value;
 	var to = document.getElementById('to').value;
 	var api = document.getElementById('api').value;
-	
+
 	console.log(api);
 	console.log(texttotranslate);
 	switch (api) {
@@ -19,10 +19,12 @@ function ajaxTranslate() {
 	var json_url = '../../ws/translate/' + api + '?text=' + texttotranslate
 			+ '&from=' + from + '&to=' + to;
 
-	
 	$.ajax({
 		url : encodeURI(json_url),
-		type : 'PATCH',
+		type : 'PUT',
+		headers : {
+			'X-CSRF-Token' : $('meta[name="_token"]').attr('content')
+		},
 		success : function(data) {
 			if (data.translation)
 				$('#ajax-content').html(data.translation);
