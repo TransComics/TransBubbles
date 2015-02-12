@@ -55,7 +55,8 @@ Interface de nettoyage
 </div>
 
 {{ Form::open(['route' => ['strip.saveClean', $strip->id], 'method' => 'put', 'class'=>'form-horizontal']) }}
-{{ Form::text('cleanning', $strip->cleanning) }}
+{{ Form::hidden('id', $shape->id) }}
+{{ Form::text('value', $shape->value) }}
 {{ Form::close() }}
 
 @stop

@@ -10,7 +10,6 @@ class CreateStripsTable extends Migration {
             $table->increments('id');
             $table->string('title', 64);
             $table->string('path', 64);
-            $table->text('cleanning')->nullable();
             $table->timestamps();
         });
     }

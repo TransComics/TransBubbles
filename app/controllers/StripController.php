@@ -21,22 +21,35 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('home');
         }
-
-        View::share(['strip' => $strip]);
+        
+        View::share([
+            'shape' => Shape::where('strip_id', '=', $strip->id)->get()->first(),
+            'strip' => $strip,
+        ]);
         
         return View::make('strip.clean');
     }
     
     protected function saveClean($strip_id) {
-        $strip = Strips::find($strip_id);
-        if ($strip == null) {
+        if (!Strips::exists($strip_id)) {
             return Redirect::route('home');
         }
         
-        $strip->cleanning = Input::get('cleanning');
-        $strip->save();
+        $shape = Shape::find(Input::get('id'));
+        if ($shape == null) {
+            $shape = new Shape();
+        } else if (Auth::check() && $shape->user_id != Auth::user()->id) {
+            return Redirect::route('home');
+        }
         
-        return Redirect::route('strip.clean', [$strip->id]);
+        $shape->strip_id = $strip_id;
+        $shape->value = Input::get('value');
+        if (Auth::check()) {
+            $shape->user_id = Auth::user()->id;
+        }
+        $shape->save();
+        
+        return Redirect::route('strip.clean', [$strip_id]);
     }
 
     /**
