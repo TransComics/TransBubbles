@@ -34,7 +34,7 @@
                         <a href="{{URL::route('strip.update', [$strip->id])}}" title="strip.update" class='btn btn-xs btn-primary glyphicon glyphicon-pencil'></a>
                         <span class="btn btn-xs  btn-primary" id ="{{$strip->id}}" onclick="$('#_method').val('DELETE');
                                     $('#stripForm{{$strip->id}}').attr('action',
-                              '{{ URL::route('strips.destroy', [$strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit();"> @lang('strips.pendingDelete') 
+                              '{{ URL::route('strip.destroy', [$strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit();"> @lang('strips.pendingDelete') 
                         </span>
 
                     {{ Form::close(); }}

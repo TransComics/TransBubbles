@@ -13,6 +13,7 @@
 
 /* Constraint */
 Route::pattern('id', '[0-9]+');
+Route::pattern('comic_id', '[0-9]+');
 Route::when('*', 'csrf', ['post', 'put', 'delete']);
 
 /* Home Page */
@@ -56,7 +57,17 @@ Route::group(['prefix' => '/password'], function() {
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group(['prefix' => '/strip'], function() {
+Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
+    Route::get('/{id}', [
+        'as' => 'strip.show',
+        'uses' => 'StripController@show'
+    ]);
+    Route::get('/', [
+        'as' => 'strip.index',
+        'uses' => 'StripController@index'
+    ]);
+    
+    
     Route::get('/clean/{id}', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -65,10 +76,45 @@ Route::group(['prefix' => '/strip'], function() {
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
     ]);
-    Route::get('/import', [
+    Route::get('/import/{id}', [
         'as' => 'strip.import',
         'uses' => 'StripController@import'
     ]);
+});
+Route::group(['before' => 'auth', 'prefix' => '/strip'], function() {
+    Route::post('/store', [
+        'as' => 'strip.store',
+        'uses' => 'StripController@store'
+    ]);
+    Route::put('/{id}', [
+        'as' => 'strip.update',
+        'uses' => 'StripController@update'
+    ]);
+    Route::put('/{id}/edit/', [
+        'as' => 'strip.edit',
+        'uses' => 'StripController@edit'
+    ]);
+    Route::delete('/{id}', [
+        'as' => 'strip.destroy',
+        'uses' => 'StripController@destroy'
+    ]);
+    
+    /*Route::put('/pending/{id}', [
+        'as' => 'strip.validStrip',
+        'uses' => 'StripsController@validPending'
+    ]);
+    Route::put('/pending/{id}', [
+        'as' => 'strip.validClean',
+        'uses' => 'StripsController@validPending'
+    ]);
+    Route::put('/pending/{id}', [
+        'as' => 'strip.validImportText',
+        'uses' => 'StripsController@validPending'
+    ]);
+    Route::put('/pending/{id}', [
+        'as' => 'strip.validTraduction',
+        'uses' => 'StripsController@validPending'
+    ]);*/
 });
 
 Route::get('comics/list', [
@@ -100,17 +146,4 @@ Route::group(['prefix' => '/ws'], function () {
     Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
     Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
 });
-
-Route::group(['before' => 'auth', 'prefix' => '/strips'], function() {
-    Route::get('/pending', [
-        'as' => 'strips.pending',
-        'uses' => 'StripsController@listPending'
-    ]);
-    Route::put('/pending', [
-        'as' => 'strips.valid',
-        'uses' => 'StripsController@validPending'
-    ]);
-});
-
-Route::resource('strips', 'StripsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 ?>

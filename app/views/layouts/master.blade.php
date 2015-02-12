@@ -48,14 +48,13 @@
                     <li class="list-group-item"><a href="{{URL::route('user.signin')}}" >@lang('user.signIn')</a></li>
                     @endif
                     <li class="list-group-item"><a href="{{URL::route('comics.list')}}" >@lang('comics.listLink')</a></li>
-                    <li class="list-group-item"><a href="{{URL::route('strips.index')}}" >@lang('strip.importLink')</a></li>
-                    <li class="list-group-item"><a href="{{URL::route('strips.index')}}" >@lang('strip.importLink')</a></li>
+                    <li class="list-group-item"><a href="{{URL::route('strip.index', ['comic_id' => 1])}}" >@lang('strip.importLink')</a></li>
                     <li class="list-group-item">
                         <span class="badge">14</span>
-                        <a href="{{URL::route('strips.pending')}}" >@lang('strips.pending')</a>
+                        <a href="{{URL::route('strip.index', ['comic_id' => 1])}}" >@lang('strips.pending')</a>
                     </li>
-                    <li class="list-group-item"><a href="{{URL::route('strip.clean', ['id' => 3])}}" >@lang('strip.cleanLink')</a></li>
-                    <li class="list-group-item"><a href="{{URL::route('strip.translate', ['id' => 3])}}" >@lang('strip.translateLink')</a></li>
+                    <li class="list-group-item"><a href="{{URL::route('strip.clean', ['comic_id' => 1, 'id' => 3])}}" >@lang('strip.cleanLink')</a></li>
+                    <li class="list-group-item"><a href="{{URL::route('strip.translate', ['comic_id' => 1, 'id' => 3])}}" >@lang('strip.translateLink')</a></li>
                 </ul>
             @show
         </div><!--/.sidebar-offcanvas-->
