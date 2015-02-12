@@ -32,7 +32,7 @@ class StripController extends BaseController {
         return View::make('strip.index', ['strips' => $comic->strips]);
     }
 
-    public function edit($id) {
+    public function edit($comic_id, $id) {
         $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
@@ -99,7 +99,7 @@ class StripController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy($comic_id, $id) {
         $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
