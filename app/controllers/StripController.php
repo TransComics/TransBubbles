@@ -3,7 +3,7 @@
 class StripController extends BaseController {
     
     public function __construct() {
-        $this->beforeFilter('auth', ['except' => ['index']]);
+        $this->beforeFilter('auth', ['except' => ['index', 'show', 'clean', 'import', 'translate']]);
     }
     
     /**
@@ -130,9 +130,10 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('home');
         }
-        
+
+        $shape = Shape::where('strip_id', '=', $strip->id)->get()->first();
         View::share([
-            'shape' => Shape::where('strip_id', '=', $strip->id)->get()->first(),
+            'shape' =>  $shape != null ? $shape :  new Shape(),
             'strip' => $strip,
         ]);
         
