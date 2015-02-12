@@ -5,16 +5,16 @@
         {{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap-theme.css') }}
         <!-- Custom styles for this template -->
         {{ HTML::style('css/offcanvas.css') }}
-	{{ HTML::style('css/toolsInterface.css') }}
+	    {{ HTML::style('css/toolsInterface.css') }}
 @stop
 
 @section('html.scripts')
 	{{ HTML::script('js/lib/jquery-2.1.3.min.js') }}
-    {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap.min.js') }}
+	{{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap.min.js') }}
     {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap-filestyle.min.js') }}
 	{{ HTML::script('js/lib/fabric.js') }}
 	{{ HTML::script('js/cleanAndTranslate.js') }}
-	{{ HTML::script('js/lib/json-jquery.js') }} 
+	@yield('tool.scripts')
 @stop
 
 @section('html.content')
@@ -32,9 +32,9 @@
 </nav><!-- /.navbar -->
 
 <nav class="navbar-fixed-top navbar-seconde-top" style="padding:10px 50px 0 50px">
-	<div class="btn-group" role="group">
-            <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="hidden-origin"> Cacher</a>
-        </div>
+        {{ Form::select('from', ['en' => 'English'], 1,['class'=>'btn btn-primary glyphicon glyphicon-globev', 'id'=>'from'])}}
+        <a class='glyphicon glyphicon-arrow-right'></a>
+        {{ Form::select('fontPicker', $languages->lists('label','shortcode') ,1,['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'to']) }}
         @yield('tool.items')
 </nav>
 

@@ -64,9 +64,9 @@
 </div>
 <div class="btn-group pull-right" role="group">
     @if (!$isAdd) 
-    <span class="btn btn-lg btn-primary" onclick="$('#_method').val('DELETE'); $('#comicForm').attr('action', '{{ URL::route('comic.destroy', [$comic->id]) }}'); $('#comicForm').submit();"> @lang('base.delete') </span>
+    <span class="btn btn-primary" onclick="$('#_method').val('DELETE'); $('#comicForm').attr('action', '{{ URL::route('comic.destroy', [$comic->id]) }}'); $('#comicForm').submit();"> @lang('base.delete') </span>
     @endif
-    <a href="{{ URL::route('home') }}" class="btn btn-lg btn-primary"> @lang('base.cancel') </a>
-    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-lg btn-primary']); }}
+    <a href="{{ URL::route('home') }}" class="btn btn-primary"> @lang('base.cancel') </a>
+    {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-primary']); }}
 </div>
 {{ Form::close(); }}

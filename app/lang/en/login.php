@@ -21,6 +21,5 @@ return array(
     'registration_succes' => 'Thanks for registering!',
     'reset_success' => 'Password changed correctly'
     
-)
-;
+);
 ?>
