@@ -100,7 +100,7 @@ class StripsController extends BaseController {
 
     public function listPending() {
         $strips = Strips::whereNull('validated_at')->get();
-        return View::make('strips.pending', ['strips' => $strips]);
+        return View::make('strips.list', ['strips' => $strips]);
     }
 
     public function validPending() {
