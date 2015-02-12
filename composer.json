@@ -10,7 +10,8 @@
         "phploc/phploc": "2.0.6",
         "mayflower/php-codebrowser": "~1.1",
         "mockery/mockery": "dev-master@dev",
-        "stichoza/google-translate-php": "~2.0"
+        "stichoza/google-translate-php": "~2.0",
+        "ryannielson/shareable": "1.0.*"
     },
 
     "autoload": {
@@ -34,7 +35,7 @@
             "php artisan clear-compiled",
             "php artisan optimize"
         ],
-        "post-create-project-cmd": [
+        "post-create-project-cmd": [    
             "php artisan key:generate"
         ]
     },

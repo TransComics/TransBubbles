@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,7 +122,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 	    'Transcomics\BingTranslation\ServiceProvider\BingTranslationServiceProvider',
-	    'Transcomics\GoogleTranslation\ServiceProvider\GoogleTranslationServiceProvider'
+	    'Transcomics\GoogleTranslation\ServiceProvider\GoogleTranslationServiceProvider',
+        'RyanNielson\Shareable\ShareableServiceProvider'
 	),
 
 	/*
@@ -190,7 +191,8 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 	    'BingTranslation'   => 'Transcomics\BingTranslation\Facades\BingFacade',
-	    'GoogleTranslation'   => 'Transcomics\GoogleTranslation\Facades\GoogleFacade'
+	    'GoogleTranslation'   => 'Transcomics\GoogleTranslation\Facades\GoogleFacade',
+        'Shareable' => 'RyanNielson\Shareable\Facades\Shareable'
 
 	),
 
