@@ -1,3 +1,21 @@
 .themeColor {
-    color: #00C8E1;
+	color: #00C8E1;
+}
+
+/* vertical alignment styles */
+.col-top {
+	vertical-align: top;
+}
+
+.col-middle {
+	vertical-align: middle;
+}
+
+.col-bottom {
+	vertical-align: bottom;
+}
+
+.col-xs-height {
+	display: table-cell;
+	float: none !important;
 }
