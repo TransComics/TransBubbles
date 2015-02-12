@@ -2,8 +2,8 @@ function ajaxTranslate() {
 	var texttotranslate = document.getElementById('texttotranslate').value;
 	var from = document.getElementById('from').value;
 	var to = document.getElementById('to').value;
-	;
 	var api = document.getElementById('api').value;
+	
 	console.log(api);
 	console.log(texttotranslate);
 	switch (api) {
@@ -18,7 +18,8 @@ function ajaxTranslate() {
 	}
 	var json_url = '../../ws/translate/' + api + '?text=' + texttotranslate
 			+ '&from=' + from + '&to=' + to;
-	console.log(encodeURI(json_url));
+
+	
 	$.ajax({
 		url : encodeURI(json_url),
 		type : 'PATCH',
