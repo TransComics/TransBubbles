@@ -11,10 +11,10 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function show($id) {
+    protected function show($comic_id, $id) {
         $strip = Strip::find($id);
         if ($strip == null) {
-            return Redirect::route('strip.index');
+            return Redirect::route('comic.index');
         }
         return View::make('strip.show', ['strips' => $strip]);
     }
@@ -27,7 +27,7 @@ class StripController extends BaseController {
     public function index($comic_id) {
         $comic = Comic::find($comic_id);
         if ($comic == null) {
-            return Redirect::route('strip.index');
+            return Redirect::route('comic.index');
         }
         return View::make('strip.index', ['strips' => $comic->strips]);
     }
@@ -35,7 +35,7 @@ class StripController extends BaseController {
     public function edit($comic_id, $id) {
         $strip = Strip::find($id);
         if ($strip == null) {
-            return Redirect::route('strip.index');
+            return Redirect::route('comic.index');
         }
         return View::make('strip.edit', ['strips' => $strip]);
     }
@@ -102,7 +102,7 @@ class StripController extends BaseController {
     public function destroy($comic_id, $id) {
         $strip = Strip::find($id);
         if ($strip == null) {
-            return Redirect::route('strip.index');
+            return Redirect::route('comic.index');
         }
         UploadFile::dropFile($strip->path);
         $strip->delete();
