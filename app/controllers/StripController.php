@@ -2,6 +2,10 @@
 
 class StripController extends BaseController {
 
+    public function __construct() {
+        $this->beforeFilter('auth', ['except' => ['index']]);
+    }
+
     /**
      * show strip used by the controller.
      *
@@ -25,8 +29,6 @@ class StripController extends BaseController {
     }
 
     public function edit($id) {
-        $this->beforeFilter('auth');
-
         $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
@@ -35,8 +37,6 @@ class StripController extends BaseController {
     }
 
     public function create() {
-        $this->beforeFilter('auth');
-
         return View::make('strip.create', ['strips' => new Strip()]);
     }
 
@@ -47,8 +47,6 @@ class StripController extends BaseController {
      * @return Response
      */
     public function update($id) {
-        $this->beforeFilter('auth');
-
         $valid = Validator::make(['title' => Input::get('title')], Strip::$updateRules);
 
         $strip = Strip::find($id);
@@ -75,8 +73,6 @@ class StripController extends BaseController {
      * @return Response
      */
     public function store() {
-        $this->beforeFilter('auth');
-
         $valid = Validator::make(Input::all(), Strip::$rules);
         if ($valid->fails()) {
             return Redirect::back()->withInput()->withErrors($v);
@@ -100,8 +96,6 @@ class StripController extends BaseController {
      * @return Response
      */
     public function destroy($id) {
-        $this->beforeFilter('auth');
-
         $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('strip.index');
