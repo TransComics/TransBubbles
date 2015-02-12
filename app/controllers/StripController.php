@@ -29,7 +29,9 @@ class StripController extends BaseController {
 	 */
 	protected function translate()
 	{
-		return View::make('strip.translate');
+            return View::make('strip.translate', [
+                'fonts' => Font::all()->lists('name', 'name')
+            ]);
 	}
 }
 
