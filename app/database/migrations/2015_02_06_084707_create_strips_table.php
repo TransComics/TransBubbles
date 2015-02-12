@@ -9,7 +9,8 @@ class CreateStripsTable extends Migration {
         Schema::create('strips', function(Blueprint $table) {
             $table->increments('id');
             $table->string('title', 64);
-            $table->string('path', 64);
+            $table->string('path');
+            $table->timestamp('validated_at')->nullable();
             $table->timestamps();
         });
     }

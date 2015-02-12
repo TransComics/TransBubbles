@@ -2,6 +2,7 @@
 
 class StripController extends BaseController {
 
+
     /**
      * import strip used by the controller.
      *

@@ -3,8 +3,10 @@ $(document).ready(function() {
 	/* ********************************************************************************************** *
 	 * *********************************** Canvas handler ******************************************** *
 	 * ********************************************************************************************** */
-
+        
 	var canvas = new fabric.Canvas('c');
+        canvas.setHeight($('#i').height());
+        canvas.setWidth($('#i').width());
         canvas.includeDefaultValues = false;
 	var color = $('#colorPicker').val();
 	var size = $('#sizePicker').val();
@@ -385,7 +387,7 @@ $(document).ready(function() {
 	});
         
         $('#fontPicker' ).change(function() {
-		font = $('#fontPicker' ).val();
+		font = $('#fontPicker').val();
 		if(size > 999) $('#fontPicker' ).val('999');
 		if(size < 1) $('#fontPicker' ).val('1');
 	});
