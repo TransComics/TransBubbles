@@ -32,9 +32,9 @@
 </nav><!-- /.navbar -->
 
 <nav class="navbar-fixed-top navbar-seconde-top" style="padding:10px 50px 0 50px">
-	<div class="btn-group" role="group">
-            <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="hidden-origin"> Cacher</a>
-        </div>
+        {{ Form::select('from', ['en' => 'English'], 1,['class'=>'btn btn-primary glyphicon glyphicon-globev', 'id'=>'from'])}}
+        <a class='glyphicon glyphicon-arrow-right'></a>
+        {{ Form::select('fontPicker', $languages->lists('label','shortcode') ,1,['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'to']) }}
         @yield('tool.items')
 </nav>
 

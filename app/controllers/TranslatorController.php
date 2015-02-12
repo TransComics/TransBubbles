@@ -18,7 +18,7 @@ class TranslatorController extends \BaseController {
         \Log::info('into update');
         $textotranslate = Input::get('text');
         $to = Input::get('to');
-        $from = 'en';
+        $from = Input::get('from');
         
         $md5Text = md5($textotranslate);
         $strKey = $id . '_' . $from . '-' . $to . '_' . $md5Text;

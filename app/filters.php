@@ -23,7 +23,7 @@ App::before(function ($request) {
     
     /* Give languages to View. */
     View::share('languages', Language::all([
-        'shortcode'
+        'shortcode','label'
     ]));
 });
 

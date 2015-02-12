@@ -14,14 +14,42 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="row-same-height">
+						<div class="col-xs-12 col-md-12 col-xs-height">
+							<div class="radio">
+								<div class="input-group">
+									<div class="checkbox">
+										<a class="list-group-item"> <label> <input type="radio"
+												name="optionsRadios" id="optionsRadios0" value="option0" checked>
+												<h4 class="list-group-item-heading">Original translation</h4>
+												<p id="originalTranslation" class="list-group-item-text">Ever heard the trolley
+													problem?</p>
+										</label>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-3 col-md-4 col-xs-height col-center">
+							<div class="form-group">
+								{{ Form::text('text','Ever heard the trolley problem?',
+								array('class'=>'form-control', 'placeholder'=>
+								'Demo text to translate', 'id' => 'texttotranslate' )) }}
+								<button id="textButton" type="button" class="btn btn-primary">Demo button</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="row-same-height">
 						<div class="col-xs-9 col-md-8 col-xs-height">
 							<div class="radio">
 								<div class="input-group">
 									<div class="checkbox">
 										<a href="" class="list-group-item"> <label> <input
 												type="radio" name="optionsRadios" id="optionsRadios1"
-												value="option1" checked>
-												<h4 id="apiName" class="list-group-item-heading">Google Translate</h4>
+												value="option1">
+												<h4 id="apiName" class="list-group-item-heading">Google
+													Translate</h4>
 												<div id="ajax-content"></div>
 										</label>
 										</a>
@@ -41,14 +69,18 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-xs-12 col-md-12">
 						<div class="radio">
 							<div class="input-group">
 								<div class="checkbox">
 									<a href="" class="list-group-item"> <label> <input type="radio"
 											name="optionsRadios" id="optionsRadios2" value="option2">
-											<h4 class="list-group-item-heading">History translation from </h4>
+											<h4 class="list-group-item-heading">History translation from
+											</h4>
 											<p class="list-group-item-text">
+											
 											<div id="ajax-content-history">translations..</div>
 											</p>
 									</label>
@@ -58,11 +90,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Confirm</button>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Confirm</button>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
