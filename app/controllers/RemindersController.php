@@ -1,6 +1,10 @@
 <?php
 
 class RemindersController extends Controller {
+    
+    public function __construct() {
+        $this->beforeFilter('guest');
+    }
 
     /**
      * Display the password reminder view.
