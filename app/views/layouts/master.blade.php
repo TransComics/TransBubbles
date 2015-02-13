@@ -19,7 +19,7 @@
 <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
+            <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles</span></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -51,6 +51,15 @@
                     <a href="{{URL::route('strip.import', ['id' => 3])}}" class="list-group-item" >@lang('strip.importLink')</a>
                     <a href="{{URL::route('strip.clean', ['id' => 3])}}" class="list-group-item" >@lang('strip.cleanLink')</a>
                     <a href="{{URL::route('strip.translate', ['id' => 3])}}" class="list-group-item" >@lang('strip.translateLink')</a>
+                </div>
+                <div>
+                    <h3>@lang('social.shareSite1') <span class="themeColor">@lang('social.shareSite2')</span></h3>
+                        {{ Shareable::facebook($options = array('url'=>URL::route('home'))) }}
+                        <br>
+                        {{ Shareable::googlePlus($options = array('url'=>URL::route('home'))) }}
+                        <br>
+                        {{ Shareable::twitter($options = array('url'=>URL::route('home'))) }}
+                    </div>
                 </div>
             @show
         </div><!--/.sidebar-offcanvas-->
