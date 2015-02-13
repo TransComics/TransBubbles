@@ -28,7 +28,7 @@ Mis à jour le {{ $strips->updated_at   }}
      <a class='btn btn-primary glyphicon glyphicon-chevron-left' href=""></a>
     <a class='btn btn-primary glyphicon glyphicon-random' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$strips->id))}}" id="btnRandom"></a>
      <a class='btn btn-primary glyphicon glyphicon-chevron-right' href=""></a>
-    <a class='btn btn-primary glyphicon glyphicon-fast-forward' href=""></a>l
+    <a class='btn btn-primary glyphicon glyphicon-fast-forward' href=""></a>
 </div>
 
 @stop
