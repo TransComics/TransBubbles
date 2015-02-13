@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('master.content')
 
-<h1>{{ Lang::get('strips.pendingTitle')}}</h1>
+<h1>{{ Lang::get('strip.pendingTitle')}}</h1>
 <a href="{{URL::route('strip.create', [$comic_id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
 
 <br/>

@@ -2,7 +2,7 @@
 return array(
     'added' => 'Comic :title has been added.',
     'updated' => 'Comic :title has been updated.',
-    'errorMessage' => 'Following errors have been occured.',
+    'errorMessage' => 'The following errors occured:',
     'author' => 'Author',
     'description' => 'Description',
     'addLink' => 'Add comics',
@@ -11,7 +11,7 @@ return array(
     'cover' => 'Cover image',
     'helpCover' => 'Recommended size 846x170',
     'font' => 'Default font',
-    'authorApproval' => 'I certifie to be the comics author or get right to publish it.',
+    'authorApproval' => 'I certified to be the comics author, or to own the rights to publish it.',
     'listLink' => 'Comics list',
     'created' => 'created by :created',
     'imported' => 'imported by :imported',
