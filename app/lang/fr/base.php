@@ -5,6 +5,6 @@ return array(
     'title'     => 'Titre',
     'cancel'       => 'Annuler',
     'add'       => 'Ajouter',
-    'update'    => 'Met à Jour',
+    'update'    => 'Mettre à Jour',
     'delete'    => 'Supprimer',
 );
