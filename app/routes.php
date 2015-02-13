@@ -66,10 +66,20 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.index',
         'uses' => 'StripController@index'
     ]);
-    Route::post('/store', [
+    /*
+     * Fix en mode dégueu, corriger !
+      Route::post('/store', [
+      'as' => 'strip.store',
+      'uses' => 'StripController@store'
+      ]);
+     * 
+     */
+    // Fix maison à modifier
+    Route::post('/create', [
         'as' => 'strip.store',
         'uses' => 'StripController@store'
     ]);
+    // Fix maison, à modifier
     Route::put('/{id}/edit', [
         'as' => 'strip.update',
         'uses' => 'StripController@update'
@@ -86,7 +96,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.destroy',
         'uses' => 'StripController@destroy'
     ]);
-    
+
     Route::get('/{id}/clean', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -95,7 +105,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.saveClean',
         'uses' => 'StripController@saveClean'
     ]);
-    
+
     Route::get('/{id}/translate', [
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
@@ -126,5 +136,5 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
 Route::resource('/comic', 'ComicController', ['before' => 'auth']);
 
 Route::group(['prefix' => '/ws'], function () {
-    Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
+    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
 });

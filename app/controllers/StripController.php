@@ -3,7 +3,7 @@
 class StripController extends BaseController {
 
     public function __construct() {
-        $this->beforeFilter('auth', ['except' => ['index']]);
+        $this->beforeFilter('auth', ['except' => ['index', 'show', 'clean', 'import', 'translate']]);
     }
 
     /**
@@ -35,14 +35,26 @@ class StripController extends BaseController {
         if ($comic == null) {
             return Redirect::route('comic.index');
         }
+        
+        $strip = $comic->strips->find($id);
+        if ($strip == null) {
+            return Redirect::route('comic.index');
+        }
+        
         return View::make('strip.index', ['strips' => $comic->strips]);
     }
 
     public function edit($comic_id, $id) {
-        $strip = Strip::find($id);
+        $comic = Comic::find($comic_id);
+        if ($comic == null) {
+            return Redirect::route('comic.index');
+        }
+        
+        $strip = $comic->strips->find($id);
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
+        
         return View::make('strip.edit', ['strips' => $strip]);
     }
 
@@ -56,12 +68,17 @@ class StripController extends BaseController {
      * @param  int  $id
      * @return Response
      */
-    public function update($id_comic, $id) {
+    public function update($comic_id, $id) {
         $valid = Validator::make(['title' => Input::get('title')], Strip::$updateRules);
 
-        $strip = Strip::find($id);
+        $comic = Comic::find($comic_id);
+        if ($comic == null) {
+            return Redirect::route('comic.index');
+        }
+        
+        $strip = $comic->strips->find($id);
         if ($strip == null) {
-            return Redirect::back()->withInput()->withErrors($v);
+            return Redirect::route('comic.index');
         }
 
         if ($valid->passes()) {
@@ -79,13 +96,13 @@ class StripController extends BaseController {
     /**
      * Add a newly created resource in storage.
      *
-     * @param Request $request 
+     * @param Request $comic_id 
      * @return Response
      */
-    public function store($comic_id) {
+    public function store($comic_id, $id) {
         $valid = Validator::make(Input::all(), Strip::$rules);
         if ($valid->fails()) {
-            return Redirect::back()->withInput()->withErrors($v);
+            return Redirect::back()->withInput()->withErrors($valid);
         } else {
             $file = Input::file('strip');
             $fileLocation = UploadFile::uploadFile($file);
@@ -94,6 +111,7 @@ class StripController extends BaseController {
             $strip->title = Input::get('title');
             $strip->path = $fileLocation;
             $strip->validated_at = NULL;
+            $strip->comic_id = $comic_id;
             $strip->save();
             return Redirect::route('strip.index');
         }
@@ -129,21 +147,22 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function clean($strip_id) {
+    protected function clean($comic_id, $strip_id) {
         $strip = Strip::find($strip_id);
         if ($strip == null) {
             return Redirect::route('home');
         }
 
+        $shape = $strip->shapes->first();
         View::share([
-            'shape' => Shape::where('strip_id', '=', $strip->id)->get()->first(),
+            'shape' => $shape != null ? $shape :  new Shape(),
             'strip' => $strip,
         ]);
 
         return View::make('strip.clean');
     }
 
-    protected function saveClean($strip_id) {
+    protected function saveClean($comic_id, $strip_id) {
         if (!Strip::exists($strip_id)) {
             return Redirect::route('home');
         }
@@ -162,7 +181,7 @@ class StripController extends BaseController {
         }
         $shape->save();
 
-        return Redirect::route('strip.clean', [$strip_id]);
+        return Redirect::route('strip.clean', [$comic_id, $strip_id]);
     }
 
     /**
