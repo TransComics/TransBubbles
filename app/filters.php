@@ -22,6 +22,7 @@ App::before(function ($request) {
     App::setLocale($lang);
     
     /* Give languages to View. */
+
     View::share([
         'languages' => Language::all(['shortcode','label']),
         'pendingStrips' => Strip::whereNull('validated_at')->count(),
