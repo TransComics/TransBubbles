@@ -19,5 +19,9 @@ class Strip extends Eloquent {
     public function comic () {
         return $this->belongsTo('Comic');
     }
+    
+    public function shapes() {
+        return $this->hasMany('Shape');
+    }
 
 }

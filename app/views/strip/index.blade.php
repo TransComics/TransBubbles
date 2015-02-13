@@ -34,8 +34,8 @@
                         <li><a href="{{URL::route('strip.clean', ['id' => $strip->id])}}"> @lang('strip.pendingClean')</a></li>
                         <li><a href="{{URL::route('strip.translate', ['id' => $strip->id])}}"> @lang('strip.pendingTranslate')</a></li>
                         <li class="divider"></li>
-                        <li><a onclick="$('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('strip.pendingApprobation') </a></li>
-                        <li><a onclick="$('#_method').val('DELETE'); $('#stripForm{{$strip->id}}').attr('action', '{{ URL::route('strip.destroy', [$strip->comic->id, $strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('base.delete') </a></li>
+                        <li><a href="" onclick="$('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('strip.pendingApprobation') </a></li>
+                        <li><a href="" onclick="$('#_method').val('DELETE'); $('#stripForm{{$strip->id}}').attr('action', '{{ URL::route('strip.destroy', [$strip->comic->id, $strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('base.delete') </a></li>
                         <li><a href="{{URL::route('strip.edit', [$strip->comic->id, $strip->id])}}" title="@lang('strip.editLink')" >@lang('strip.editLink')</a></li>
                     </ul>
                 </div>

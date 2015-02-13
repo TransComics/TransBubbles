@@ -11,7 +11,6 @@
     <div class="text-center">
         <h1>@lang('strip.updateTitle')</h1>
     </div>
-    
     <br />
     
     <div class="form-group">
@@ -29,7 +28,7 @@
     <div class="btn-group pull-right" role="group">
         <span class="btn btn-primary" onclick="$('#_method').val('DELETE'); $('#stripForm').attr('action', '{{ URL::route('strip.destroy', [$strips->id]) }}'); $('#stripForm').submit();"> @lang('base.delete') </span>
         <a href="{{ URL::route('home') }}" class="btn btn-primary"> @lang('base.cancel') </a>
-        {{ Form::submit(Lang::get((Route::currentRouteName() == "strip.create")? 'base.add' : 'base.update'),['class'=>'btn btn-primary']); }}
+        {{ Form::submit(Lang::get('base.update'),['class'=>'btn btn-primary']); }}
     </div>
     {{ Form::close(); }}
 @stop

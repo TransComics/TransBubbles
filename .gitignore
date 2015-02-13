@@ -106,3 +106,4 @@ composer.lock
 # Custom
 /public/uploads/*
 !/public/uploads/0
+_ide_helper.php

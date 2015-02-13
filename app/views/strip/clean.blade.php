@@ -41,8 +41,6 @@ Interface de nettoyage
         <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="hidden-origin"> Cacher</a>
     </div>
 @stop
-
-@section('tool.content')
     <div id="main">
         <table id="paint">
             <tr>
@@ -57,7 +55,6 @@ Interface de nettoyage
             </tr>
         </table>
     </div>
-
     {{ Form::open(['route' => ['strip.saveClean', $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
     {{ Form::hidden('id', $shape->id) }}
     {{ Form::text('value', $shape->value, ['id' => 'cleanSave']) }}
