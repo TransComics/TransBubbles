@@ -70,11 +70,11 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.store',
         'uses' => 'StripController@store'
     ]);
-    Route::put('/{id}', [
+    Route::put('/{id}/edit', [
         'as' => 'strip.update',
         'uses' => 'StripController@update'
     ]);
-    Route::get('/{id}/edit/', [
+    Route::get('/{id}/edit', [
         'as' => 'strip.edit',
         'uses' => 'StripController@edit'
     ]);
@@ -123,7 +123,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
       ]); */
 });
 
-Route::resource('/comic', 'ComicController', ['except' => 'show']);
+Route::resource('/comic', 'ComicController', ['before' => 'auth']);
 
 Route::group(['prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController',array('only' => array('update')));

@@ -101,6 +101,18 @@ footer {
     padding: 10px;
 }
 
+.padding-20 {
+    padding: 10px;
+}
+
+.margin-10 {
+    margin: 10px;
+}
+
+.margin-20 {
+    margin: 10px;
+}
+
 .one-line {
     white-space:nowrap;
     width: 100%; /* à modifier selon vos besoins */
@@ -191,3 +203,11 @@ footer {
     width: 50%; /* 6 columns */
   }
 }
+
+#imageThumb{
+    width: 240px;
+    height: 210px;
+    border-color: white;
+    border-style: solid;
+}
+
