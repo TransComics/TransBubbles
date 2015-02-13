@@ -11,7 +11,7 @@ class Strip extends Eloquent {
     public static $rules = [
         'pageNumber' => 'numeric',
         'title' => 'max:64',
-        'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|max:4096|image'
+        'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|between:40,4096|image'
     ];
     
     public static $updateRules = [
