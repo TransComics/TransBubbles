@@ -140,8 +140,28 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function import() {
-        return View::make('strip.import');
+    protected function import($comic_id, $strip_id) {
+        $strip = Strip::find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('home');
+        }
+        
+        $shape = Shape::find($strip_id);
+        if ($shape == null) {
+            $shape = new Shape();
+        } else if (Auth::check() && $shape->user_id != Auth::user()->id) {
+            return Redirect::route('home');
+        }
+        
+        View::share([
+            'fonts' => Font::all()->lists('name', 'name'),
+            'strip' => $strip,
+            'shape' => $shape
+        ]);
+        
+        return View::make('strip.import', [
+                'fonts' => Font::all()->lists('name', 'name')
+        ]);
     }
 
     /**
@@ -183,22 +203,38 @@ class StripController extends BaseController {
         }
         $shape->save();
         
-        if (Input::exists('saveClean')) {
+        if (Input::get('action') == "saveClean") {
             return Redirect::route('strip.index', [$comic_id]);
         }
 
         return Redirect::route('strip.import', [$comic_id, $strip_id]);
     }
-
+    
+    protected function saveImport($comic_id, $strip_id) {
+        if (!Strip::exists($strip_id)) {
+            return Redirect::route('home');
+        }
+        
+        return Redirect::route('strip.index', [$comic_id, $strip_id]);
+    }
     /**
      * translate strip used by the controller.
      *
      * @return void
      */
-    protected function translate() {
-        return View::make('strip.translate', [
-                'fonts' => Font::all()->lists('name', 'name')
+    protected function translate($comic_id, $strip_id) {
+        $strip = Strip::find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('home');
+        }
+
+        $shape = $strip->shapes->first();
+        View::share([
+            'shape' => $shape != null ? $shape : new Shape(),
+            'strip' => $strip,
+            'fonts' => Font::all()->lists('name', 'name')
         ]);
+        return View::make('strip.translate');
     }
 
     /* public function listPending() {

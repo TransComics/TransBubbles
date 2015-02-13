@@ -114,6 +114,10 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.import',
         'uses' => 'StripController@import'
     ]);
+    Route::put('/{id}/saveImport', [
+        'as' => 'strip.saveImport',
+        'uses' => 'StripController@saveImport'
+    ]);
 
     /* Route::put('/pending/{id}', [
       'as' => 'strip.validStrip',

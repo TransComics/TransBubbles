@@ -314,6 +314,22 @@ $(document).ready(function() {
         // handling to save the cleaning
 	$('#saveClean' ).click(function() {
 		myjson = JSON.stringify(canvas);
+                $('#saveCleanAction').val("saveClean");
+                $('#cleanSave').val(myjson);
+                $('#saveCleanForm').submit();
+		return false;
+	});
+        
+         // handling to save the cleaning
+	$('#saveImport' ).click(function() {
+                $('#saveImportForm').submit();
+		return false;
+	});
+        
+        // handling to save the cleaning
+	$('#nextStep' ).click(function() {
+		myjson = JSON.stringify(canvas);
+                $('#saveCleanAction').val("nextStep");
                 $('#cleanSave').val(myjson);
                 $('#saveCleanForm').submit();
 		return false;
