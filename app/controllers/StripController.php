@@ -182,8 +182,11 @@ class StripController extends BaseController {
             $shape->user_id = Auth::user()->id;
         }
         $shape->save();
+        
+        if (Input::exists('saveClean')) {
+            return Redirect::route('strip.index', [$comic_id]);
+        }
 
-        return Redirect::route('strip.clean', [$comic_id, $strip_id]);
     }
 
     /**
