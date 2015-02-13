@@ -2,6 +2,8 @@
 @section('master.content')
 
 <h1>{{ Lang::get('strips.pendingTitle')}}</h1>
+<a href="{{URL::route('strip.create', [$comic_id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+
 <br/>
 @if(Session::has('message'))
 <p class="alert alert-info">{{ Session::get('message') }}</p>
@@ -19,7 +21,7 @@
                 <h3 class="one-line">{{ ($strip->title)? $strip->title : $strip->comic." ".$strip->id }}</h3>
             </div>
             {{ HTML::image($strip->path, 'strip', ['class' => 'img-responsive img-rounded', 'style' => 'overflow:hidden; width:250px; height:250px; display:block; margin:0 auto;']) }}
-            
+
             <div class="caption">
                 {{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id' => 'stripForm'.$strip->id]); }}
                 {{ Form::hidden('_method', 'put', ['id' => '_method']); }}

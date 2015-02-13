@@ -40,7 +40,7 @@ class StripController extends BaseController {
             return Redirect::route('comic.index');
         }
 
-        return View::make('strip.index', ['strips' => $comic->strips]);
+        return View::make('strip.index', ['strips' => $comic->strips, 'comic_id' => $comic_id]);
     }
 
     public function edit($comic_id, $id) {
