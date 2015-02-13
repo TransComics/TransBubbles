@@ -17,7 +17,7 @@ class CreateShapesTable extends Migration {
             $table->increments('id');
             $table->integer('strip_id')->unsigned();
             $table->integer('user_id')->unsigned()->nullable();
-            $table->text('value');
+            $table->longtext('value');
             $table->timestamps();
         });
         Schema::table($this->table, function(Blueprint $table) {

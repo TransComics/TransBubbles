@@ -11,9 +11,9 @@ Interface de nettoyage
     </div>
 
     <div class="btn-group pull-right" role="group">
-        <a class='btn btn-primary glyphicon glyphicon-zoom-out' href="" id="btnZoomOut"></a>
-        <a class='btn btn-primary glyphicon glyphicon-zoom-in' href="" id="btnZoomIn"></a>
-        <a class='btn btn-primary glyphicon glyphicon-search' href="" id="btnResetZoom"></a>
+        <span class='btn btn-primary glyphicon glyphicon-zoom-out' id="btnZoomOut"></span>
+        <span class='btn btn-primary glyphicon glyphicon-zoom-in' id="btnZoomIn"></span>
+        <span class='btn btn-primary glyphicon glyphicon-search' id="btnResetZoom"></span>
     </div>
 
     <div class="btn-group pull-right" role="group">
@@ -41,6 +41,8 @@ Interface de nettoyage
         <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="hidden-origin"> Cacher</a>
     </div>
 @stop
+
+@section('tool.content')
     <div id="main">
         <table id="paint">
             <tr>
@@ -55,9 +57,9 @@ Interface de nettoyage
             </tr>
         </table>
     </div>
-    {{ Form::open(['route' => ['strip.saveClean', $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
+    {{ Form::open(['route' => ['strip.saveClean', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
     {{ Form::hidden('id', $shape->id) }}
-    {{ Form::text('value', $shape->value, ['id' => 'cleanSave']) }}
+    {{ Form::hidden('value', $shape->value, ['id' => 'cleanSave']) }}
     {{ Form::close() }}
 @stop
 
