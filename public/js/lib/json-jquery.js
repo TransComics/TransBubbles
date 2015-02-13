@@ -16,7 +16,7 @@ function ajaxTranslate() {
 	default:
 		break;
 	}
-	var json_url = '../../../../ws/translate/' + api + '?text=' + texttotranslate
+	var json_url = '/ws/translate/' + api + '?text=' + texttotranslate
 			+ '&from=' + from + '&to=' + to;
 
 	$.ajax({
