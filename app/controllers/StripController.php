@@ -123,7 +123,7 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function clean($strip_id) {
+    protected function clean($comic_id, $strip_id) {
         $strip = Strip::find($strip_id);
         if ($strip == null) {
             return Redirect::route('home');

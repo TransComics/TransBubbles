@@ -12,7 +12,7 @@ $(document).ready(function() {
 	var size = $('#sizePicker').val();
         var textSize = $('#sizePickerText').val();
         var font = $('#fontPicker').val();
-	var background = null; // we need to keep an reference for background because it neet to stay unselectable
+	var background = null; // we need to keep an reference for background because it need to stay unselectable
 
 	canvas.freeDrawingBrush.width = size; // default brush size
 	canvas.freeDrawingBrush.color = color; // default brush color
@@ -280,7 +280,14 @@ $(document).ready(function() {
 
 
 	initCanvas();
-
+        updateActivate = false;
+        /* load the cleanning */
+        canvas.loadFromJSON($('#cleanSave').val(),function(){
+            canvas.renderAll(true);
+            updateActivate = true;
+            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+            mods += 1;
+        });
 	var param = new TBCanvasParam();
 
 	/* ********************************************************************************************** *
@@ -291,19 +298,28 @@ $(document).ready(function() {
 	canvas.observe('mouse:move', function(e) { mousemove(e); });
 	canvas.observe('mouse:up', function(e) { mouseup(e); });
 
-	// Gestion de la création d'un rectangle
+	// handling to hide origin strip
 	$('#hidden-origin' ).click(function() {
 		if($('.origin').is(":visible")){
 			$('.origin').hide();
-			$('#hidden-origin').html('Afficher l\'original');
+			$('#hidden-origin').html(' Afficher l\'original');
 		}
 		else {
 			$('.origin').show();
-			$('#hidden-origin').html('cacher');
+			$('#hidden-origin').html(' Cacher');
 		}
 		return false;
 	});
-
+        
+        // handling to save the cleaning
+	$('#saveClean' ).click(function() {
+		myjson = JSON.stringify(canvas);
+                $('#cleanSave').val(myjson);
+                $('#saveCleanForm').submit();
+		return false;
+	});
+        
+        // handling to create a rect
 	$('#rect').click(function() {
 		if(param.shape != "rect") {
 			param.desactivateButton();

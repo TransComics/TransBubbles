@@ -8,6 +8,12 @@
 @stop 
 
 @section('tool.items')
+    
+    {{ Form::select('from', ['en' => 'English'], 1,['class'=>'btn btn-primary glyphicon glyphicon-globev', 'id'=>'from'])}}
+    <span class='glyphicon glyphicon-arrow-right'></span>
+    {{ Form::select('fontPicker', $languages->lists('label','shortcode') ,1,['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'to']) }}
+    
+
     <div class="btn-group pull-right" role="group">
 	<a class='btn btn-primary icon-undo' href="" id="undo"></a>
 	<a class='btn btn-primary icon-redo' href="" id="redo"></a>
@@ -51,24 +57,28 @@
 @stop
 
 @section('tool.content')
-<div id="main">
-	<table id="paint">
-		<tr>
-			<td class="origin-td">
-				<div class='origin'>
-                                    {{ HTML::image('uploads/0/d9480b185525ee7711522b34544fb0f6', 'strip', array('id' => 'i')) }}
-                                </div>
-			</td>
-			<td id="delivered">
-				<canvas id="c" width="706" height="283"></canvas>
-			</td>
-		</tr>
-	</table>
-</div>
+    <div id="main">
+            <table id="paint">
+                    <tr>
+                            <td class="origin-td">
+                                    <div class='origin'>
+                                        {{ HTML::image('uploads/0/d9480b185525ee7711522b34544fb0f6', 'strip', array('id' => 'i')) }}
+                                    </div>
+                            </td>
+                            <td id="delivered">
+                                    <canvas id="c" width="706" height="283"></canvas>
+                            </td>
+                    </tr>
+            </table>
+    </div>
 
-<br/>
-<!-- Button trigger modal -->
-<button id="getdata" type="button" class="btn btn-primary btn-lg"
-	data-toggle="modal" data-target="#myModal">Launch demo popup</button>
-@include('translate.popup')
+    <br/>
+    <!-- Button trigger modal -->
+    <button id="getdata" type="button" class="btn btn-primary btn-lg"
+            data-toggle="modal" data-target="#myModal">Launch demo popup</button>
+    @include('translate.popup')
+@stop
+
+@section('tool.nav')
+
 @stop
