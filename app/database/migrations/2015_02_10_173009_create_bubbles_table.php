@@ -19,7 +19,7 @@ class CreateBubblesTable extends Migration {
             $table->integer('lang_id')->unsigned();
             $table->integer('strip_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->text('value');
+            $table->longtext('value');
             $table->timestamps();
         });
 
