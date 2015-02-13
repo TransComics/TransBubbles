@@ -13,6 +13,14 @@
 
 		<div style="padding-top: 30px" class="panel-body">
 			{{ Form::open(array('url'=>'login', 'class'=>'form-horizontal')) }}
+                        @if(Session::has('success'))
+			<div id="signupalert" class="alert alert-success">
+				<ul>
+					<li>{{ Session::get('success') }}</li>
+				</ul>
+				<span></span>
+			</div>
+			@endif
 			@if(Session::has('message'))
 			<div id="signupalert" class="alert alert-danger">
 				<ul>
