@@ -59,12 +59,13 @@ Interface de nettoyage
     </div>
     {{ Form::open(['route' => ['strip.saveClean', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
     {{ Form::hidden('id', $shape->id) }}
+    {{ Form::hidden('action', '', ['id' => 'saveCleanAction']) }}
     {{ Form::hidden('value', $shape->value, ['id' => 'cleanSave']) }}
     {{ Form::close() }}
 @stop
 
 @section('tool.nav')
-    <a class='btn btn-primary glyphicon glyphicon-remove' href='' id='cancel'> Quitter</a>
+    <a class='btn btn-primary glyphicon glyphicon-remove' href='{{ URL::previous() }}' id='cancel'> Quitter</a>
     <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='saveClean'> Terminer</a>
     <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='nextStep'> Suivant</a>
 @stop

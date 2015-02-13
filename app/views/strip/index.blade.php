@@ -30,11 +30,10 @@
                         Action <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href=""> @lang('strip.pendingApprobation')</a></li>
                         <li><a href="{{URL::route('strip.clean', [$strip->comic->id, $strip->id])}}"> @lang('strip.pendingClean')</a></li>
                         <li><a href="{{URL::route('strip.translate', [$strip->comic->id, $strip->id])}}"> @lang('strip.pendingTranslate')</a></li>
                         <li class="divider"></li>
-                        <li><a href="" onclick="$('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('strip.pendingApprobation') </a></li>
+                        <!--<li><a href="" onclick="$('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('strip.pendingApprobation') </a></li>-->
                         <li><a href="" onclick="$('#_method').val('DELETE'); $('#stripForm{{$strip->id}}').attr('action', '{{ URL::route('strip.destroy', [$strip->comic->id, $strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('base.delete') </a></li>
                         <li><a href="{{URL::route('strip.edit', [$strip->comic->id, $strip->id])}}" title="@lang('strip.editLink')" >@lang('strip.editLink')</a></li>
                     </ul>

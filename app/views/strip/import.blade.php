@@ -46,6 +46,8 @@
 
     <div class="btn-group pull-right" role="group">
 	<a class='btn btn-primary icon-update' href="" id="update"></a>
+	<a class='btn btn-primary glyphicon glyphicon-trash' href="" id="del"></a>
+	<a class='btn btn-primary icon-text' href="" id="text"></a>
         <input class="btn btn-primary" style="height:34px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" />
 	<input class="btn btn-primary" style="height:34px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
         <input class="btn btn-primary" style="width:65px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
@@ -75,8 +77,18 @@
     <button id="getdata" type="button" class="btn btn-primary btn-lg"
             data-toggle="modal" data-target="#myModal">Launch demo popup</button>
     @include('translate.popup')
+    {{ Form::open(['route' => ['strip.saveClean', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
+    {{ Form::hidden('id', $shape->id) }}
+    {{ Form::hidden('value', $shape->value, ['id' => 'cleanSave']) }}
+    {{ Form::close() }}
+    
+    {{ Form::open(['route' => ['strip.saveImport', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveImportForm']) }}
+    {{ Form::hidden('id', $shape->id) }}
+    {{ Form::hidden('value', $shape->value, ['id' => 'importSave']) }}
+    {{ Form::close() }}
 @stop
 
 @section('tool.nav')
-
+    <a class='btn btn-primary glyphicon glyphicon-remove' href='{{ URL::route('strip.index', $strip->comic->id, $strip->id) }}' id='cancel'> Quitter</a>
+    <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='saveImport'> Terminer</a>
 @stop
