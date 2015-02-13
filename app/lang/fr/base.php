@@ -3,7 +3,7 @@
 return array(
     'welcome'   => 'Bienvenue',
     'title'     => 'Titre',
-    'cancel'       => 'Annuler',
+    'cancel'    => 'Annuler',
     'add'       => 'Ajouter',
     'update'    => 'Mettre à Jour',
     'delete'    => 'Supprimer',

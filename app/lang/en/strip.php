@@ -25,5 +25,7 @@ return array(
     'pendingDelete' => 'Delete',
     'approved' => 'The strip has been approved',
     'pendingTitle' => 'Pending',
-    'pending' => 'Strip pending for cleaning'
+    'pending' => 'Strip pending for cleaning',
+    'dateCreated' => 'Created at',
+    'dateUpdated' => 'Updated at'
 );

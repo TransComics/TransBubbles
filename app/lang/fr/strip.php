@@ -25,5 +25,7 @@ return array(
     'pendingDelete' => 'Supprimer',
     'approved' => 'La planche à été validé',
     'pendingTitle' => 'En attente',
-    'pending' => 'Planche attendant pour le nettoyage'
+    'pending' => 'Planche attendant pour le nettoyage',
+    'dateCreated' => 'Créée le',
+    'dateUpdated' => 'Mise à jour le',
 );
