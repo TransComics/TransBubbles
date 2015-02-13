@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('master.content')
 
-<h1>{{ Lang::get('strips.pendingTitle')}}</h1>
+<h1>{{ Lang::get('strip.pendingTitle')}}</h1>
 <a href="{{URL::route('strip.create', [$comic_id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
 
 <br/>
@@ -18,9 +18,9 @@
     <div class="col-sm-6 col-lg-4 padding-10">
         <div class="border padding-10">
             <div class="caption">
-                <h3 class="one-line">{{ ($strip->title)? $strip->title : $strip->comic." ".$strip->id }}</h3>
+                <h3 class="one-line"><a href="{{ route('strip.show',[ $strip->comic->id, $strip->id]) }}">{{ ($strip->title)? $strip->title : $strip->comic." ".$strip->id }}</a></h3>
             </div>
-            {{ HTML::image($strip->path, 'strip', ['class' => 'img-responsive img-rounded', 'style' => 'overflow:hidden; width:250px; height:250px; display:block; margin:0 auto;']) }}
+            <a href="{{ route('strip.show',[ $strip->comic->id, $strip->id]) }}">{{ HTML::image($strip->path, 'strip', ['class' => 'img-responsive img-rounded', 'style' => 'overflow:hidden; width:250px; height:250px; display:block; margin:0 auto;']) }}</a>
 
             <div class="caption">
                 {{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id' => 'stripForm'.$strip->id]); }}

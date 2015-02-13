@@ -13,10 +13,8 @@
 				</ul>
 				<span></span>
 			</div>
-			@endif 
-			
-			{{ Form::open(array('url'=>'password/reset','method' => 'post')) }} 
-			{{ Form::hidden('token', $token) }}
+			@endif {{ Form::open(array('url'=>'password/reset','method' =>
+			'post')) }} {{ Form::hidden('token', $token) }}
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 				{{ Form::text('email', null, array('class'=>'form-control',
@@ -44,5 +42,8 @@
 					<!-- <span style="margin-left: 8px;">or</span> -->
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
 
-			{{ Form::close() }} @stop
+	{{ Form::close() }} @stop
