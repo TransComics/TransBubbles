@@ -110,6 +110,11 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
     ]);
+    Route::put('/{id}/saveTranslate', [
+        'as' => 'strip.saveTranslate',
+        'uses' => 'StripController@saveTranslate'
+    ]);
+    
     Route::get('/{id}/import', [
         'as' => 'strip.import',
         'uses' => 'StripController@import'

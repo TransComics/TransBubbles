@@ -227,6 +227,12 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('home');
         }
+        
+        $shape = $strip->shapes->first();
+        View::share([
+            'shape' => $shape != null ? $shape : new Shape(),
+            'strip' => $strip,
+        ]);
 
         $shape = $strip->shapes->first();
         View::share([
@@ -236,7 +242,14 @@ class StripController extends BaseController {
         ]);
         return View::make('strip.translate');
     }
-
+    
+    protected function saveTranslate($comic_id, $strip_id) {
+        if (!Strip::exists($strip_id)) {
+            return Redirect::route('home');
+        }
+        
+        return Redirect::route('strip.index', [$comic_id, $strip_id]);
+    }
     /* public function listPending() {
       $strips = Strips::whereNull('validated_at')->get();
       return View::make('strips.list', ['strips' => $strips]);

@@ -75,8 +75,20 @@
     <button id="getdata" type="button" class="btn btn-primary btn-lg"
             data-toggle="modal" data-target="#myModal">Launch demo popup</button>
     @include('translate.popup')
+    
+    {{ Form::open(['route' => ['strip.saveClean', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
+    {{ Form::hidden('id', $shape->id) }}
+    {{ Form::hidden('action', '', ['id' => 'saveCleanAction']) }}
+    {{ Form::hidden('value', $shape->value, ['id' => 'cleanSave']) }}
+    {{ Form::close() }}
+    
+    {{ Form::open(['route' => ['strip.saveTranslate', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveTranslateForm']) }}
+    {{ Form::hidden('id', $shape->id) }}
+    {{ Form::hidden('value', $shape->value, ['id' => 'translateSave']) }}
+    {{ Form::close() }}
 @stop
 
 @section('tool.nav')
-
+    <a class='btn btn-primary glyphicon glyphicon-remove' href='{{ URL::previous() }}' id='cancel'> Quitter</a>
+    <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='saveTranslate'> Terminer</a>
 @stop

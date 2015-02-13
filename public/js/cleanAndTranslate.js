@@ -320,6 +320,12 @@ $(document).ready(function() {
 		return false;
 	});
         
+        // handling to save the cleaning
+	$('#saveTranslate' ).click(function() {
+            $('#saveTranslateForm').submit();
+            return false;
+	});
+        
          // handling to save the cleaning
 	$('#saveImport' ).click(function() {
                 $('#saveImportForm').submit();
