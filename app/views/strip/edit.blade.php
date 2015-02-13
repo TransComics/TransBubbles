@@ -26,7 +26,7 @@
     </div>
 
     <div class="btn-group pull-right" role="group">
-        <span class="btn btn-primary" onclick="$('#_method').val('DELETE'); $('#stripForm').attr('action', '{{ URL::route('strip.destroy', [$strips->id]) }}'); $('#stripForm').submit();"> @lang('base.delete') </span>
+        <span class="btn btn-primary" onclick="$('#_method').val('DELETE'); $('#stripForm').attr('action', '{{ URL::route('strip.destroy', [$strips->comic_id, $strips->id]) }}'); $('#stripForm').submit();"> @lang('base.delete') </span>
         <a href="{{ URL::route('home') }}" class="btn btn-primary"> @lang('base.cancel') </a>
         {{ Form::submit(Lang::get('base.update'),['class'=>'btn btn-primary']); }}
     </div>
