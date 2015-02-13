@@ -7,7 +7,7 @@
 <h1>{{ $strips->title }}</h1>
 
 <div class="text-center center-block">
-    <small>Créé le {{ $strips->created_at }} - Mis à jour le {{ $strips->updated_at }}</small>
+    <small>@lang('strip.dateCreated') {{ $strips->created_at }} - @lang('strip.dateUpdated') {{ $strips->updated_at }}</small>
 </div>
 
 <div class="text-center center-block">
