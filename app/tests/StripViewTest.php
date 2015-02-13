@@ -28,7 +28,7 @@ class StripViewTest extends TestCase {
     public function testEditFirstStripLogin() {
         Auth::loginUsingId(1);
 
-        $this->client->request('GET', '/comic/1/strip/1/edit');
+        $this->client->request('GET', '/comic/2/strip/1/edit');
         $this->assertResponseOk();
     }
 }
