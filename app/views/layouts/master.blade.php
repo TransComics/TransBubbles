@@ -46,7 +46,7 @@
     </div><!--/row-->
 </div><!--/.container-->
 
-<nav class="navbar navbar-fixed-bottom navbar-theme-default" style="padding:0 0 50px 0">
+<nav class="navbar navbar-fixed-bottom navbar-theme-default">
     <div class="container">
         <div class="row">
             <div class="col-sm-4">

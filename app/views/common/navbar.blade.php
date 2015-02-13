@@ -3,7 +3,8 @@
     <li class="list-group-item"><a href="{{URL::route('user.logout')}}" >@lang('user.logout')</a></li>
     <li class="list-group-item"><a href="{{URL::route('comic.create')}}" >@lang('comic.addLink')</a></li>
     @else
-    <li class="list-group-item"><a href="{{URL::route('user.signin')}}" >@lang('user.signIn')</a> (<a href="{{URL::route('user.signup')}}" >@lang('login.sign_up_here')</a>)</li>
+    <li class="list-group-item"><a href="{{URL::route('user.signin')}}" >@lang('user.signIn')</a></li>
+    <li class="list-group-item"><a href="{{URL::route('user.signup')}}" >@lang('login.sign_up_here')</a></li>
     @endif
     <li class="list-group-item"><a href="{{URL::route('comic.index')}}" >@lang('comic.listLink')</a></li>
     @if(Auth::check())
