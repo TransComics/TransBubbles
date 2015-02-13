@@ -11,7 +11,7 @@
 			@if(Session::has('error'))
 			<div id="signupalert" class="alert alert-danger">
 				<ul>
-					<li>{{ Session::get('message') }}</li>
+					<li>{{ Session::get('error') }}</li>
 				</ul>
 				<span></span>
 			</div>

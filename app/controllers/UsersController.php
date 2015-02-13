@@ -6,6 +6,11 @@ class UsersController extends Controller {
         $this->beforeFilter('csrf', array(
             'on' => 'post'
         ));
+        $this->beforeFilter('guest', array(
+            'on' => [
+                'getLogin'
+            ]
+        ));
     }
 
     public function getLogin() {
