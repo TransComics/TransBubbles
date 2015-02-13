@@ -17,7 +17,7 @@
             {{ Form::close(); }}
         </h2>
         @if ($comic->cover)
-        <a href={{URL::route('strip.show', [$comic->id])}}>{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} </a>
+        <a href={{URL::route('strip.show', [$comic->id, $comic->strips->last()->id])}}>{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} </a>
         @else
             {{ $comic->description }}
         @endif

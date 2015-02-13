@@ -5,7 +5,7 @@
         <p class="alert alert-info">{{ Session::get('message') }}</p>
     @endif
 
-    {{ Form::open(['method' => 'post', 'files' => true, 'id' => 'stripForm', 'class' => 'form-horizontal']); }}
+    {{ Form::open(['route' => ['strip.store', $comic_id ], 'method' => 'post', 'files' => true, 'id' => 'stripForm', 'class' => 'form-horizontal']); }}
    
     <div class="text-center">
         <h1>{{(Route::currentRouteName() == "strip.create") ? Lang::get('strip.addTitle') : Lang::get('strip.updateTitle');}}</h1>

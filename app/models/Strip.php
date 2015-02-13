@@ -2,6 +2,8 @@
 
 class Strip extends Eloquent {
 
+    use UploadFile;
+    
     protected $table = 'strips';
     public $timestamps = true;
     protected $guarded = [ 'id', 'updated_at', 'created_at',

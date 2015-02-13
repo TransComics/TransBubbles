@@ -72,6 +72,11 @@ class ComicController extends BaseController {
             return Redirect::route('home');
         }
         
+        $comic->strips->each(function($strip) {
+            Strip::dropFile($strip->path);
+            $strip->delete();
+        });
+        
         Comic::dropFile($comic->cover);
         $comic->delete();
         
@@ -105,9 +110,8 @@ class ComicController extends BaseController {
             return Redirect::route('home');
         }
         
-        //TODO remplacer quand y'aura la table strip et les jointures
-        $strips = $comic->strips;
-        //$strips = $comic->strips->whereNotNull('valided_at')->orderBy('valided_at','desc');
+//        $strips = $comic->strips()->whereNotNull('valided_at')->orderBy('valided_at','desc');
+        $strips = $comic->strips->sortByDesc('id');
         
         return View::make('comic.show', [
             'comic' => $comic,

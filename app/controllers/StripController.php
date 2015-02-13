@@ -16,12 +16,12 @@ class StripController extends BaseController {
         if ($comic == null) {
             return Redirect::route('comic.index');
         }
-        
+
         $strip = $comic->strips->find($id);
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
-        
+
         return View::make('strip.show', ['strips' => $strip]);
     }
 
@@ -35,11 +35,11 @@ class StripController extends BaseController {
         if ($comic == null) {
             return Redirect::route('comic.index');
         }
-        
+
         if ($comic->strips->count() < 1) {
             return Redirect::route('comic.index');
         }
-        
+
         return View::make('strip.index', ['strips' => $comic->strips]);
     }
 
@@ -48,17 +48,17 @@ class StripController extends BaseController {
         if ($comic == null) {
             return Redirect::route('comic.index');
         }
-        
+
         $strip = $comic->strips->find($id);
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
-        
+
         return View::make('strip.edit', ['strips' => $strip]);
     }
 
     public function create($comic_id) {
-        return View::make('strip.create', ['strips' => new Strip(), ['comic_id' => $comic_id]]);
+        return View::make('strip.create', ['strips' => new Strip(), 'comic_id' => $comic_id]);
     }
 
     /**
@@ -74,7 +74,7 @@ class StripController extends BaseController {
         if ($comic == null) {
             return Redirect::route('comic.index');
         }
-        
+
         $strip = $comic->strips->find($id);
         if ($strip == null) {
             return Redirect::route('comic.index');
@@ -86,8 +86,8 @@ class StripController extends BaseController {
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
-                            ->withErrors($v)
-                            ->withInput();
+                    ->withErrors($v)
+                    ->withInput();
         }
         return Redirect::back()->with('message', Lang::get('strips.editComplete'));
     }
@@ -98,22 +98,25 @@ class StripController extends BaseController {
      * @param Request $comic_id 
      * @return Response
      */
-    public function store($comic_id, $id) {
-        $valid = Validator::make(Input::all(), Strip::$rules);
-        if ($valid->fails()) {
-            return Redirect::back()->withInput()->withErrors($valid);
-        } else {
-            $file = Input::file('strip');
-            $fileLocation = UploadFile::uploadFile($file);
+    public function store($comic_id) {
+        $files = Input::file('strips');
+        
+        foreach ($files as $file) {
+            $valid = Validator::make(['strip' => $file, 'title' => Input::get('title_')], Strip::$rules);
+            if ($valid->fails()) {
+                return Redirect::back()->withInput()->withErrors($valid);
+            } else {
+                $fileLocation = UploadFile::uploadFile($file);
 
-            $strip = new Strip();
-            $strip->title = Input::get('title');
-            $strip->path = $fileLocation;
-            $strip->validated_at = NULL;
-            $strip->comic_id = $comic_id;
-            $strip->save();
-            return Redirect::route('strip.index');
+                $strip = new Strip();
+                $strip->title = Input::get('title_1');
+                $strip->path = $fileLocation;
+                $strip->validated_at = NULL;
+                $strip->comic_id = $comic_id;
+                $strip->save();
+            }
         }
+        return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strips.uploadComplete'));
     }
 
     /**
@@ -154,7 +157,7 @@ class StripController extends BaseController {
 
         $shape = $strip->shapes->first();
         View::share([
-            'shape' => $shape != null ? $shape :  new Shape(),
+            'shape' => $shape != null ? $shape : new Shape(),
             'strip' => $strip,
         ]);
 
@@ -190,7 +193,7 @@ class StripController extends BaseController {
      */
     protected function translate() {
         return View::make('strip.translate', [
-                    'fonts' => Font::all()->lists('name', 'name')
+                'fonts' => Font::all()->lists('name', 'name')
         ]);
     }
 

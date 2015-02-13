@@ -10,7 +10,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-2 col-md-offset-10">{{Lang::get('comic.imported',['imported'
-			=> User::find($comic->authorApproval)->username]) }}</div>
+			=> User::find($comic->created_by)->username]) }}</div>
 	</div>
 </div>
 @if($comic->cover)
@@ -26,6 +26,7 @@
 </br>
 <div class="page-header">
 	<h3>@lang('comic.lastStrip')</h3>
+        <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
 </div>
 <div class="row">
 	@foreach($strips as $strip)
@@ -35,6 +36,7 @@
 			<h4>{{ $strip->title }}</h4>
 		</div>
 	</div>
+        
 	@endforeach
 </div>
 @stop
