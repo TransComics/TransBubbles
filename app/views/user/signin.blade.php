@@ -1,4 +1,4 @@
- @extends('users.loginout') @section('loginout.sign')
+ @extends('user.loginout') @section('loginout.sign')
 
 <div id="loginbox" style="margin-top: 50px;"
 	class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

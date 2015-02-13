@@ -9,11 +9,11 @@ class UsersController extends Controller {
     }
 
     public function getLogin() {
-        return View::make('users.signin');
+        return View::make('user.signin');
     }
 
     public function getRegister() {
-        return View::make('users.signup');
+        return View::make('user.signup');
     }
 
     public function postCreate() {
@@ -50,7 +50,7 @@ class UsersController extends Controller {
 
     public function getLogout() {
         Auth::logout();
-        return Redirect::route('home')->with('message', Lang::get('login.logged_out'));
+        return Redirect::back()->with('message', Lang::get('login.logged_out'));
     }
 }
 ?>

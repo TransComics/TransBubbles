@@ -3,7 +3,7 @@
 class ComicController extends BaseController {
 
     public function __construct() {
-        $this->beforeFilter('auth', ['except' => ['index']]);
+        $this->beforeFilter('auth', ['except' => ['index', 'show']]);
     }
     
     public function index() {
@@ -106,7 +106,7 @@ class ComicController extends BaseController {
         }
         
         //TODO remplacer quand y'aura la table strip et les jointures
-        $strips = Strip::all();
+        $strips = $comic->strips;
         //$strips = $comic->strips->whereNotNull('valided_at')->orderBy('valided_at','desc');
         
         return View::make('comic.show', [

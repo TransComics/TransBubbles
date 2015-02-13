@@ -39,7 +39,7 @@ Route::get('/logout/', [
 ]);
 Route::post('/login/', 'UsersController@postLogin');
 Route::get('/signup/', [
-    'as' => 'users.signup',
+    'as' => 'user.signup',
     'uses' => 'UsersController@getRegister'
 ]);
 Route::post('/signup/', 'UsersController@postCreate');

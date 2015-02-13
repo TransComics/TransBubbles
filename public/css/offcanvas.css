@@ -11,6 +11,10 @@ body {
   color:#FBFCF4;
 }
 
+.panel-body {
+    color: #333;
+}
+
 a {
     color: #00C8E1;
     text-decoration: none;
