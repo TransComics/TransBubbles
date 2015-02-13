@@ -187,6 +187,7 @@ class StripController extends BaseController {
             return Redirect::route('strip.index', [$comic_id]);
         }
 
+        return Redirect::route('strip.import', [$comic_id, $strip_id]);
     }
 
     /**
