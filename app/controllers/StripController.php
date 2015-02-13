@@ -3,7 +3,7 @@
 class StripController extends BaseController {
 
     public function __construct() {
-        $this->beforeFilter('auth', ['except' => ['index']]);
+        $this->beforeFilter('auth', ['except' => ['index', 'show', 'clean', 'import', 'translate']]);
     }
 
     /**
@@ -147,21 +147,22 @@ class StripController extends BaseController {
      *
      * @return void
      */
-    protected function clean($strip_id) {
+    protected function clean($comic_id, $strip_id) {
         $strip = Strip::find($strip_id);
         if ($strip == null) {
             return Redirect::route('home');
         }
 
+        $shape = $strip->shapes->first();
         View::share([
-            'shape' => Shape::where('strip_id', '=', $strip->id)->get()->first(),
+            'shape' => $shape != null ? $shape :  new Shape(),
             'strip' => $strip,
         ]);
 
         return View::make('strip.clean');
     }
 
-    protected function saveClean($strip_id) {
+    protected function saveClean($comic_id, $strip_id) {
         if (!Strip::exists($strip_id)) {
             return Redirect::route('home');
         }
@@ -180,7 +181,7 @@ class StripController extends BaseController {
         }
         $shape->save();
 
-        return Redirect::route('strip.clean', [$strip_id]);
+        return Redirect::route('strip.clean', [$comic_id, $strip_id]);
     }
 
     /**

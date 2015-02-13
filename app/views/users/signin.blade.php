@@ -65,3 +65,7 @@
 	</div>
 </div>
 @stop
+
+
+@section('master.nav')
+@stop
