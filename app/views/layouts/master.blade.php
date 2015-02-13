@@ -40,37 +40,10 @@
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             @section('master.nav')
-                <div class="list-group">
-                    @if(Auth::check())
-                        <a href="{{URL::route('user.logout')}}" class="list-group-item" >@lang('user.logout')</a>
-                        <a href="{{URL::route('comic.add')}}" class="list-group-item" >@lang('comic.addLink')</a>
-                    @else
-                        <a href="{{URL::route('user.signin')}}" class="list-group-item" >@lang('user.signIn')</a>
-                    @endif
-                    <a href="{{URL::route('comics.list')}}" class="list-group-item" >@lang('comics.listLink')</a>
-                    <a href="{{URL::route('strip.import', ['id' => 3])}}" class="list-group-item" >@lang('strip.importLink')</a>
-                    <a href="{{URL::route('strip.clean', ['id' => 3])}}" class="list-group-item" >@lang('strip.cleanLink')</a>
-                    <a href="{{URL::route('strip.translate', ['id' => 3])}}" class="list-group-item" >@lang('strip.translateLink')</a>
-                </div>
+                @include('common.navbar')
             @show
         </div><!--/.sidebar-offcanvas-->
     </div><!--/row-->
 </div><!--/.container-->
-
-<nav class="navbar navbar-fixed-bottom navbar-theme-default" style="padding:0 0 50px 0">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <h5 id='footer-header'> SITEMAP </h5>
-            </div>
-            <div class="col-sm-4">
-                <h5 id='footer-header'> À propos </h5>
-            </div>
-            <div class="col-sm-4">
-                <h5 id='footer-header'> Contact </h5>
-            </div>
-        </div>
-    </div>
-</nav>
-
+@include('common.footer')
 @stop

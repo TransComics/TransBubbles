@@ -13,6 +13,7 @@
 
 /* Constraint */
 Route::pattern('id', '[0-9]+');
+Route::pattern('comic_id', '[0-9]+');
 Route::when('*', 'csrf', ['post', 'put', 'delete']);
 
 /* Home Page */
@@ -32,13 +33,14 @@ Route::get('/login/', [
     'as' => 'user.signin',
     'uses' => 'UsersController@getLogin'
 ]);
+
 Route::get('/logout/', [
     'as' => 'user.logout',
     'uses' => 'UsersController@getLogout'
 ]);
 Route::post('/login/', 'UsersController@postLogin');
 Route::get('/signup/', [
-    'as' => 'users.signup',
+    'as' => 'user.signup',
     'uses' => 'UsersController@getRegister'
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
@@ -56,48 +58,93 @@ Route::group(['prefix' => '/password'], function() {
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group(['prefix' => '/strip'], function(){
-    Route::get('/clean/{id}', [
+Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
+    Route::get('/{id}', [
+        'as' => 'strip.show',
+        'uses' => 'StripController@show'
+    ]);
+    Route::get('/', [
+        'as' => 'strip.index',
+        'uses' => 'StripController@index'
+    ]);
+    /*
+     * Fix en mode dégueu, corriger !
+      Route::post('/store', [
+      'as' => 'strip.store',
+      'uses' => 'StripController@store'
+      ]);
+     * 
+     */
+    // Fix maison à modifier
+    Route::post('/create', [
+        'as' => 'strip.store',
+        'uses' => 'StripController@store'
+    ]);
+    // Fix maison, à modifier
+    Route::put('/{id}/edit', [
+        'as' => 'strip.update',
+        'uses' => 'StripController@update'
+    ]);
+    Route::get('/{id}/edit', [
+        'as' => 'strip.edit',
+        'uses' => 'StripController@edit'
+    ]);
+    Route::get('/create', [
+        'as' => 'strip.create',
+        'uses' => 'StripController@create'
+    ]);
+    Route::delete('/{id}', [
+        'as' => 'strip.destroy',
+        'uses' => 'StripController@destroy'
+    ]);
+
+    Route::get('/{id}/clean', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
     ]);
-    Route::get('/translate/{id}', [
+    Route::put('/{id}/saveClean', [
+        'as' => 'strip.saveClean',
+        'uses' => 'StripController@saveClean'
+    ]);
+
+    Route::get('/{id}/translate', [
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
     ]);
-    Route::get('/import', [
+    Route::put('/{id}/saveTranslate', [
+        'as' => 'strip.saveTranslate',
+        'uses' => 'StripController@saveTranslate'
+    ]);
+    
+    Route::get('/{id}/import', [
         'as' => 'strip.import',
         'uses' => 'StripController@import'
     ]);
+    Route::put('/{id}/saveImport', [
+        'as' => 'strip.saveImport',
+        'uses' => 'StripController@saveImport'
+    ]);
+
+    /* Route::put('/pending/{id}', [
+      'as' => 'strip.validStrip',
+      'uses' => 'StripsController@validPending'
+      ]);
+      Route::put('/pending/{id}', [
+      'as' => 'strip.validClean',
+      'uses' => 'StripsController@validPending'
+      ]);
+      Route::put('/pending/{id}', [
+      'as' => 'strip.validImportText',
+      'uses' => 'StripsController@validPending'
+      ]);
+      Route::put('/pending/{id}', [
+      'as' => 'strip.validTraduction',
+      'uses' => 'StripsController@validPending'
+      ]); */
 });
 
-Route::get('comics/list', [
-    'as' => 'comics.list',
-    'uses' => 'ComicsController@getList'
-]);
-
-Route::group(['before' => 'auth', 'prefix' => '/comic'], function () {
-    Route::get('/add', [
-        'as' => 'comic.add',
-        'uses' => 'ComicController@addForm'
-    ]);
-    Route::get('/update/{id}', [
-        'as' => 'comic.update',
-        'uses' => 'ComicController@updateForm'
-    ]);
-    Route::post('/add', 'ComicController@add');
-    Route::put('/update/{id}', 'ComicController@update');
-    Route::delete('/delete/{id}', [
-        'as' => 'comic.delete',
-        'uses' => 'ComicController@delete'
-    ]);
-});
+Route::resource('/comic', 'ComicController', ['before' => 'auth']);
 
 Route::group(['prefix' => '/ws'], function () {
-    Route::get('/strip/{id}/shapes', 'ShapesController@getAllForStrip');
-    Route::post('/strip/{id}/shapes', 'ShapesController@setAllForStrip');
-    Route::get('/strip/{id}/bubbles/{lang}', 'BubblesController@getAll');
-    Route::post('/strip/{id}/bubble/{lang}', 'BubblesController@setAll');
-    Route::resource('/translate', 'TranslatorController',array('only' => array('update')));
+    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
 });
-?>

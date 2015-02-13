@@ -22,10 +22,14 @@ App::before(function ($request) {
     App::setLocale($lang);
     
     /* Give languages to View. */
-    View::share('languages', Language::all([
-        'shortcode',
-        'label'
-    ]));
+    
+    View::share([
+        'languages' => Language::all([
+            'shortcode',
+            'label'
+        ]),
+        'pendingStrips' => Strip::whereNull('validated_at')->count()
+    ]);
 });
 
 App::after(function ($request, $response) {
@@ -70,7 +74,8 @@ Route::filter('auth.basic', function () {
 
 Route::filter('guest', function () {
     if (Auth::check()) {
-        return Redirect::to('/');
+        if (Auth::check())
+            return Redirect::route('home')->withMessage('You are already logged in!');
     }
 });
 
@@ -91,4 +96,3 @@ Route::filter('csrf', function () {
         throw new Illuminate\Session\TokenMismatchException();
     }
 });
-?>

@@ -3,13 +3,16 @@ $(document).ready(function() {
 	/* ********************************************************************************************** *
 	 * *********************************** Canvas handler ******************************************** *
 	 * ********************************************************************************************** */
-
+        
 	var canvas = new fabric.Canvas('c');
+        canvas.setHeight($('#i').height());
+        canvas.setWidth($('#i').width());
+        canvas.includeDefaultValues = false;
 	var color = $('#colorPicker').val();
 	var size = $('#sizePicker').val();
         var textSize = $('#sizePickerText').val();
         var font = $('#fontPicker').val();
-	var background = null; // we need to keep an reference for background because it neet to stay unselectable
+	var background = null; // we need to keep an reference for background because it need to stay unselectable
 
 	canvas.freeDrawingBrush.width = size; // default brush size
 	canvas.freeDrawingBrush.color = color; // default brush color
@@ -111,8 +114,11 @@ $(document).ready(function() {
 	function updateModifications() {
             if (updateActivate) {
                     myjson = JSON.stringify(canvas);
+                    //myjson = canvas.toJSON();
                     state.push(myjson);
                     //console.log("Update : state.length : " +state.length + " / mods : " +mods);
+                    //console.log(canvas.toString());
+                    //console.log(canvas.toJSON());
                     for (var i in state) {
                         console.log("i : "+i+" => "+state[i]);
                     }
@@ -274,7 +280,14 @@ $(document).ready(function() {
 
 
 	initCanvas();
-
+        updateActivate = false;
+        /* load the cleanning */
+        canvas.loadFromJSON($('#cleanSave').val(),function(){
+            canvas.renderAll(true);
+            updateActivate = true;
+            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+            mods += 1;
+        });
 	var param = new TBCanvasParam();
 
 	/* ********************************************************************************************** *
@@ -285,19 +298,50 @@ $(document).ready(function() {
 	canvas.observe('mouse:move', function(e) { mousemove(e); });
 	canvas.observe('mouse:up', function(e) { mouseup(e); });
 
-	// Gestion de la création d'un rectangle
+	// handling to hide origin strip
 	$('#hidden-origin' ).click(function() {
 		if($('.origin').is(":visible")){
 			$('.origin').hide();
-			$('#hidden-origin').html('Afficher l\'original');
+			$('#hidden-origin').html(' Afficher l\'original');
 		}
 		else {
 			$('.origin').show();
-			$('#hidden-origin').html('cacher');
+			$('#hidden-origin').html(' Cacher');
 		}
 		return false;
 	});
-
+        
+        // handling to save the cleaning
+	$('#saveClean' ).click(function() {
+		myjson = JSON.stringify(canvas);
+                $('#saveCleanAction').val("saveClean");
+                $('#cleanSave').val(myjson);
+                $('#saveCleanForm').submit();
+		return false;
+	});
+        
+        // handling to save the cleaning
+	$('#saveTranslate' ).click(function() {
+            $('#saveTranslateForm').submit();
+            return false;
+	});
+        
+         // handling to save the cleaning
+	$('#saveImport' ).click(function() {
+                $('#saveImportForm').submit();
+		return false;
+	});
+        
+        // handling to save the cleaning
+	$('#nextStep' ).click(function() {
+		myjson = JSON.stringify(canvas);
+                $('#saveCleanAction').val("nextStep");
+                $('#cleanSave').val(myjson);
+                $('#saveCleanForm').submit();
+		return false;
+	});
+        
+        // handling to create a rect
 	$('#rect').click(function() {
 		if(param.shape != "rect") {
 			param.desactivateButton();
@@ -381,7 +425,7 @@ $(document).ready(function() {
 	});
         
         $('#fontPicker' ).change(function() {
-		font = $('#fontPicker' ).val();
+		font = $('#fontPicker').val();
 		if(size > 999) $('#fontPicker' ).val('999');
 		if(size < 1) $('#fontPicker' ).val('1');
 	});
@@ -415,6 +459,8 @@ $(document).ready(function() {
             var o = canvas.getActiveObject();
             if(o.type == 'i-text'){
                 o.set('textAlign', 'left');
+                o.set('__uidblabla', 2);
+                
             }
             return false;
 	});
@@ -423,6 +469,9 @@ $(document).ready(function() {
             var o = canvas.getActiveObject()
             if(o.type == 'i-text'){
                 o.set('textAlign', 'right');
+                alert(o.__uidblabla);
+                console.log(o.__uidblabla);
+                 console.log(o.toJSON('__uidblabla'));
             }
             return false;
 	});

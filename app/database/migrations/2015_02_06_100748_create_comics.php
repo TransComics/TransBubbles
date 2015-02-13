@@ -27,10 +27,7 @@ class CreateComics extends Migration {
             $table->foreign('font_id')->references('id')->on('fonts')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-        });
-        
-        
-        Schema::table('comics', function(Blueprint $table) {
+            
             $table->foreign('created_by')->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('set null');

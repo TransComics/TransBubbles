@@ -58,10 +58,10 @@ class BingTranslation extends \AbstractTranslator {
         }
         // Close the Curl Session.
         curl_close($ch);
-     
+
         $result = str_replace('&quot;', '"', $result);
         $result = str_replace('\\', '', $result);
-    
+        
         // This will remove unwanted characters.
         // Check http://www.php.net/chr for details
         for ($i = 0; $i <= 31; ++ $i) {
@@ -75,7 +75,6 @@ class BingTranslation extends \AbstractTranslator {
         if (0 === strpos(bin2hex($result), 'efbbbf')) {
             $result = substr($result, 3);
         }
-
         // Decode the returned JSON string.
         
         $objResponse = json_decode($result);
@@ -134,11 +133,10 @@ class BingTranslation extends \AbstractTranslator {
         
         preg_match_all('/<string (.*?)>(.*?)<\/string>/s', $rsp, $matches);
         
-        \Log::debug('----------------into bing translate  ');
-        
         return \Response::json(array(
             'translation' => $matches[2][0]
         ));
     }
 }
+
 ?>

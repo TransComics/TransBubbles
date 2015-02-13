@@ -6,6 +6,7 @@ class TranslatorController extends \BaseController {
     // RESTFUL
     protected static $restful = true;
 
+
     private $duration = 1440;
 
     /**
@@ -15,7 +16,6 @@ class TranslatorController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        \Log::info('into update');
         $textotranslate = Input::get('text');
         $to = Input::get('to');
         $from = Input::get('from');

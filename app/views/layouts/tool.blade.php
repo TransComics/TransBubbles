@@ -18,48 +18,28 @@
 @stop
 
 @section('html.content')
+    <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
+                <span class="navbar-brand">- @yield('tool.title')</span>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                @include('common.lang_selector')
+            </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
 
-<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
-            <span class="navbar-brand">- @yield('tool.title')</span>
+    <nav class="navbar-fixed-top navbar-seconde-top" style="padding:10px 50px 0 50px">
+            @yield('tool.items')
+    </nav>
+
+            @yield('tool.content')
+
+    <nav class="navbar navbar-fixed-bottom navbar-seconde-bottom" style="padding:0 50px 0 50px">
+        <div class="btn-group pull-right" role="group">
+            @yield('tool.nav')
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            @include('common.lang_selector')
-        </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
-</nav><!-- /.navbar -->
-
-<nav class="navbar-fixed-top navbar-seconde-top" style="padding:10px 50px 0 50px">
-        {{ Form::select('from', ['en' => 'English'], 1,['class'=>'btn btn-primary glyphicon glyphicon-globev', 'id'=>'from'])}}
-        <a class='glyphicon glyphicon-arrow-right'></a>
-        {{ Form::select('fontPicker', $languages->lists('label','shortcode') ,1,['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'to']) }}
-        @yield('tool.items')
-</nav>
-
-	@yield('tool.content')
-
-<nav class="navbar navbar-fixed-bottom navbar-seconde-bottom" style="padding:0 50px 0 50px">
-    <div class="btn-group pull-right" role="group">
-        <a class='btn btn-primary glyphicon glyphicon-remove' href='' id='addText'> Quitter</a>
-        <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='del'> Terminer</a>
-        <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='brush'> Suivant</a>
-    </div>
-</nav>      
-<nav class="navbar navbar-fixed-bottom navbar-theme-default" style="padding:0 0 50px 0">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <h5 id='footer-header'> SITEMAP </h5>
-            </div>
-            <div class="col-sm-4">
-                <h5 id='footer-header'> À propos </h5>
-            </div>
-            <div class="col-sm-4">
-                <h5 id='footer-header'> Contact </h5>
-            </div>
-        </div>
-    </div>
-</nav>
+    </nav>  
+    @include('common.footer')
 @stop

@@ -6,14 +6,19 @@ class UsersController extends Controller {
         $this->beforeFilter('csrf', array(
             'on' => 'post'
         ));
+        $this->beforeFilter('guest', array(
+            'on' => [
+                'getLogin'
+            ]
+        ));
     }
 
     public function getLogin() {
-        return View::make('users.signin');
+        return View::make('user.signin');
     }
 
     public function getRegister() {
-        return View::make('users.signup');
+        return View::make('user.signup');
     }
 
     public function postCreate() {
@@ -27,7 +32,7 @@ class UsersController extends Controller {
             $user->password = Hash::make(Input::get('password'));
             $user->save();
             
-            return Redirect::back()->with('success', Lang::get('login.registration_succes'));
+            return Redirect::route('user.signin')->with('success', Lang::get('login.registration_succes'));
         } else {
             // validation has failed, display error messages
             return Redirect::back()->with('message', Lang::get('login.message_errors'))
@@ -50,7 +55,7 @@ class UsersController extends Controller {
 
     public function getLogout() {
         Auth::logout();
-        return Redirect::route('home')->with('message', Lang::get('login.logged_out'));
+        return Redirect::back()->with('message', Lang::get('login.logged_out'));
     }
 }
 ?>
