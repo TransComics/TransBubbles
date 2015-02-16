@@ -19,6 +19,7 @@ class CreateBubblesTable extends Migration {
             $table->integer('lang_id')->unsigned();
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('original_id')->unsigned()->nullable();
+            $table->timestamp('validated_at')->nullable();
             $table->longtext('value');
             $table->timestamps();
         });
