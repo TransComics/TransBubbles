@@ -205,7 +205,10 @@ class StripController extends BaseController {
 
         $bubble = null;
         if (Auth::check()) {
-            $bubble = $strip->bubbles()->where('user_id', Auth::user()->id)->first();
+            $bubble = $strip->bubbles()
+                ->where('user_id', Auth::user()->id)
+                ->whereNull('original_id')
+                ->first();
         }
         
         View::share([
@@ -232,7 +235,7 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
-        $bubble->lang_id = 1;
+        $bubble->lang_id = Input::get('lang_id');
         $bubble->strip_id = $strip_id;
         $bubble->value = $this->extractITextFromJSON(Input::get('value'));;
         if (Auth::check()) {
