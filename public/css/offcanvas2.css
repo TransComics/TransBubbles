@@ -1,13 +1,13 @@
 html,body {
-	padding-top: 40px;
+	padding-top: 10px;
 	padding-bottom: 70px;
 	overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
 
 .navbar-seconde-top {
-	padding-top: 10px;
-	top: 55px;
-	border-top: 1px solid #222222;
+	padding: 0 20px;
+	top: 70px;
+        margin:0;
 }
 
 .navbar-seconde-bottom {
