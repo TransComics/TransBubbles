@@ -9,11 +9,10 @@
 
 @section('tool.items')
     
-    {{ Form::select('from', ['en' => 'English'], 1,['class'=>'btn btn-primary glyphicon glyphicon-globev', 'id'=>'from'])}}
+    {{ Form::select('from', ['en' => 'English'], 1,['class'=>'selectpicker btn-primary','data-width'=>'auto', 'id'=>'from'])}}
     <span class='glyphicon glyphicon-arrow-right'></span>
-    {{ Form::select('fontPicker', $languages->lists('label','shortcode') ,1,['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'to']) }}
+    {{ Form::select('to', $languages->lists('label','shortcode') ,'fr',['class'=>'selectpicker btn-primary','data-width'=>'auto', 'id'=>'to']) }}
     
-
     <div class="btn-group pull-right" role="group">
 	<a class='btn btn-primary icon-undo' href="" id="undo"></a>
 	<a class='btn btn-primary icon-redo' href="" id="redo"></a>

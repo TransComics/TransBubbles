@@ -1,8 +1,8 @@
 @extends('user.loginout') @section('loginout.sign')
 
 <div id="signupbox" style="margin-top: 50px"
-	class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-	<div class="panel panel-info">
+	class="mainbox col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1">
+	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<div class="panel-title">@lang('login.sign_up')</div>
 			<div
@@ -48,7 +48,7 @@
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{{
 				Form::password('password_confirmation',
-				array('class'=>'form-control', 'placeholder'=>'Confirm Password'))
+				array('class'=>'form-control', 'placeholder'=>Lang::get('login.password_confirm')))
 				}}
 			</div>
 
@@ -56,7 +56,7 @@
 				<!-- Button -->
 				<div class="col-md-offset-3 col-md-9">
 					{{ Form::submit(Lang::get('login.sign_up'), array('class'=>'btn
-					btn-info'))}}
+					btn-primary'))}}
 					<!-- <span style="margin-left: 8px;">or</span> -->
 				</div>
 			</div>

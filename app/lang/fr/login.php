@@ -2,12 +2,13 @@
 return array(
     
     'sign_in' => 'Se connecter',
-    'sign_up' => 'S\inscrire',
-    'login' => 'Nom d\'utilisateur',
+    'sign_up' => 'S\'inscrire',
+    'login' => 'Pseudo',
     'forgot_password' => 'Mot de passe oublié?',
     'email' => 'Email',
     'email_adress' => 'Adresse email',
     'password' => 'Mot de passe',
+    'password_confirm' => 'Confirmer le mot de passe',
     'rememberme' => 'Se souvenir de moi',
     'facebook_log' => 'Se connecter avec Facebook',
     'no_account' => 'Vous n\'avez pas de compte?',

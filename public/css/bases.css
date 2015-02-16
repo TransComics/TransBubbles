@@ -1,5 +1,67 @@
-.themeColor {
-	color: #00C8E1;
+/* centered columns styles */
+.row-centered {
+	text-align: center;
+}
+
+.col-centered {
+	display: inline-block;
+	float: none;
+	/* reset the text-align */
+	text-align: left;
+	/* inline-block space fix */
+	margin-right: -4px;
+}
+
+.col-fixed {
+	/* custom width */
+	width: 320px;
+}
+
+.col-min {
+	/* custom min width */
+	min-width: 320px;
+}
+
+.col-max {
+	/* custom max width */
+	max-width: 320px;
+}
+
+/* columns of same height styles */
+.row-same-height {
+	display: table;
+	width: 100%;
+}
+
+.col-xs-height {
+	display: table-cell;
+	float: none !important;
+}
+
+@media ( min-width : 768px) {
+	.col-sm-height {
+		display: table-cell;
+		float: none !important;
+	}
+}
+
+@media ( min-width : 992px) {
+	.col-md-height {
+		display: table-cell;
+		float: none !important;
+	}
+}
+
+@media ( min-width : 1200px) {
+	.col-lg-height {
+		display: table-cell;
+		float: none !important;
+	}
+}
+
+/* firefox fix */
+.img-responsive {
+	width: 100%;
 }
 
 /* vertical alignment styles */
@@ -13,9 +75,4 @@
 
 .col-bottom {
 	vertical-align: bottom;
-}
-
-.col-xs-height {
-	display: table-cell;
-	float: none !important;
 }

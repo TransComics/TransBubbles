@@ -1,3 +1,4 @@
+<div class="sponsor">
 <ul class="list-group">
     @if(Auth::check())
     <li class="list-group-item"><a href="{{URL::route('user.logout')}}" >@lang('user.logout')</a></li>
@@ -14,4 +15,5 @@
     </li>
     @endif
 </ul>
+</div>
 
