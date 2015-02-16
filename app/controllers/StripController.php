@@ -155,12 +155,10 @@ class StripController extends BaseController {
         View::share([
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
-            'shape' => $shape
+            'canvas_delivred' => $shape->value
         ]);
         
-        return View::make('strip.import', [
-                'fonts' => Font::all()->lists('name', 'name')
-        ]);
+        return View::make('strip.import');
     }
 
     /**
