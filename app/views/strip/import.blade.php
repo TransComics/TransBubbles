@@ -78,6 +78,7 @@
             data-toggle="modal" data-target="#myModal">Launch demo popup</button>
     @include('translate.popup')
     
+    <span id="interface" class="hidden">import</span>
     <span id="canvasSave" class="">{{$canvas_delivered}}</span>
     
     {{ Form::open(['route' => ['strip.saveImport', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveImportForm']) }}

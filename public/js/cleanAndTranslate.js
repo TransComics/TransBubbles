@@ -12,18 +12,17 @@ $(document).ready(function () {
         var textSize = $('#sizePickerText').val();
         var font = $('#fontPicker').val();
         var background = null; // we need to keep an reference for background because it need to stay unselectable
-
+        var interface = $('#interface').text();
         canvas.freeDrawingBrush.width = size; // default brush size
         canvas.freeDrawingBrush.color = color; // default brush color
         canvas.renderAll();
-
         function initCanvas() {
             if (background == null) {
                 background = new fabric.Image('i', {
                     left: 0,
                     top: 0,
                     angle: 0,
-                    opacity: 0.85,
+                    opacity: 1,
                     selectable: false
                 });
             }
@@ -32,36 +31,49 @@ $(document).ready(function () {
         }
 
         function TBCanvasParam() {
-            // initialisation de nos parametre de canvas
+// initialisation de nos parametre de canvas
             this.started = false;
             this.shape = false;
             this.viewAll = false;
             this.selectAll = false;
             this.update = false;
-
             this.ctr = false;
-
             this.x = 0;
             this.y = 0;
         }
 
-        // Add methods like this.  All Person objects will be able to invoke this
+// Add methods like this.  All Person objects will be able to invoke this
         TBCanvasParam.prototype.allSelectable = function (selectable, canvas) {
-            canvas.forEachObject(function (o) {
-                if (o.type != 'image')
-                    o.selectable = selectable;
-                else
-                    o.selectable = false;
-            });
+            if (interface === "clean") {
+                canvas.forEachObject(function (o) {
+                    if (o.type != 'image')
+                        o.selectable = selectable;
+                    else
+                        o.selectable = false;
+                });
+            }
+            else {
+                canvas.forEachObject(function (o) {
+                    if (o.type === 'i-text')
+                            o.selectable = selectable;
+                    else
+                        o.selectable = false;
+                });
+            }
         }
 
         TBCanvasParam.prototype.allActive = function (active, canvas) {
             canvas.deactivateAll();
             canvas.forEachObject(function (o) {
-                if (o.type != 'image')
-                    o.set('active', active);
+                if (interface === "clean") {
+                    if (o.type !== 'image')
+                        o.set('active', active);
+                }
+                else {
+                    if (o.type === 'i-text')
+                        o.set('active', active);
+                }
             });
-
             canvas.renderAll();
         }
 
@@ -69,10 +81,16 @@ $(document).ready(function () {
             canvas.deactivateAll();
             if (selected) {
                 var objects = canvas.getObjects();
-
-                objects = jQuery.grep(objects, function (value) {
-                    return value.type != 'image';
-                });
+                if (interface === "clean") {
+                    objects = jQuery.grep(objects, function (value) {
+                        return value.type !== 'image';
+                    });
+                }
+                else {
+                    objects = jQuery.grep(objects, function (value) {
+                        return value.type === 'i-text';
+                    });
+                }
 
                 canvas.setActiveGroup(new fabric.Group(objects));
             }
@@ -114,40 +132,33 @@ $(document).ready(function () {
             param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
         });
         var param = new TBCanvasParam();
-
         /* ********************************************************************************************** *
          * *********************************** Zoom handler ******************************************** *
          * ********************************************************************************************** */
 
         var canvasScale = 1;
         var SCALE_FACTOR = 1.2;
-
 // Zoom In
         function zoomIn() {
             // TODO limit the max canvas zoom in
 
             canvasScale = canvasScale * SCALE_FACTOR;
-
             canvas.setHeight(canvas.getHeight() * SCALE_FACTOR);
             canvas.setWidth(canvas.getWidth() * SCALE_FACTOR);
-
             var objects = canvas.getObjects();
             for (var i in objects) {
                 var scaleX = objects[i].scaleX;
                 var scaleY = objects[i].scaleY;
                 var left = objects[i].left;
                 var top = objects[i].top;
-
                 var tempScaleX = scaleX * SCALE_FACTOR;
                 var tempScaleY = scaleY * SCALE_FACTOR;
                 var tempLeft = left * SCALE_FACTOR;
                 var tempTop = top * SCALE_FACTOR;
-
                 objects[i].scaleX = tempScaleX;
                 objects[i].scaleY = tempScaleY;
                 objects[i].left = tempLeft;
                 objects[i].top = tempTop;
-
                 objects[i].setCoords();
             }
 
@@ -156,30 +167,25 @@ $(document).ready(function () {
 
 // Zoom Out
         function zoomOut() {
-            // TODO limit max cavas zoom out
+// TODO limit max cavas zoom out
 
             canvasScale = canvasScale / SCALE_FACTOR;
-
             canvas.setHeight(canvas.getHeight() * (1 / SCALE_FACTOR));
             canvas.setWidth(canvas.getWidth() * (1 / SCALE_FACTOR));
-
             var objects = canvas.getObjects();
             for (var i in objects) {
                 var scaleX = objects[i].scaleX;
                 var scaleY = objects[i].scaleY;
                 var left = objects[i].left;
                 var top = objects[i].top;
-
                 var tempScaleX = scaleX * (1 / SCALE_FACTOR);
                 var tempScaleY = scaleY * (1 / SCALE_FACTOR);
                 var tempLeft = left * (1 / SCALE_FACTOR);
                 var tempTop = top * (1 / SCALE_FACTOR);
-
                 objects[i].scaleX = tempScaleX;
                 objects[i].scaleY = tempScaleY;
                 objects[i].left = tempLeft;
                 objects[i].top = tempTop;
-
                 objects[i].setCoords();
             }
 
@@ -191,29 +197,24 @@ $(document).ready(function () {
 
             canvas.setHeight(canvas.getHeight() * (1 / canvasScale));
             canvas.setWidth(canvas.getWidth() * (1 / canvasScale));
-
             var objects = canvas.getObjects();
             for (var i in objects) {
                 var scaleX = objects[i].scaleX;
                 var scaleY = objects[i].scaleY;
                 var left = objects[i].left;
                 var top = objects[i].top;
-
                 var tempScaleX = scaleX * (1 / canvasScale);
                 var tempScaleY = scaleY * (1 / canvasScale);
                 var tempLeft = left * (1 / canvasScale);
                 var tempTop = top * (1 / canvasScale);
-
                 objects[i].scaleX = tempScaleX;
                 objects[i].scaleY = tempScaleY;
                 objects[i].left = tempLeft;
                 objects[i].top = tempTop;
-
                 objects[i].setCoords();
             }
 
             canvas.renderAll();
-
             canvasScale = 1;
         }
 
@@ -230,7 +231,6 @@ $(document).ready(function () {
         canvas.observe('mouse:up', function (e) {
             mouseup(e);
         });
-
 // handling to hide origin strip
         $('#hidden-origin').click(function () {
             if ($('.origin').is(":visible")) {
@@ -243,7 +243,6 @@ $(document).ready(function () {
             }
             return false;
         });
-
 // handling to save the cleaning
         $('#saveClean').click(function () {
             myjson = JSON.stringify(canvas);
@@ -252,21 +251,18 @@ $(document).ready(function () {
             $('#saveCleanForm').submit();
             return false;
         });
-
-// handling to save the cleaning
+// handling to save the translation
         $('#saveTranslate').click(function () {
             $('#saveTranslateForm').submit();
             return false;
         });
-
-// handling to save the cleaning
+// handling to save the import origin text
         $('#saveImport').click(function () {
             myjson = JSON.stringify(canvas);
             $('#importSave').val(myjson);
             $('#saveImportForm').submit();
             return false;
         });
-
 // handling to save the cleaning
         $('#nextStep').click(function () {
             myjson = JSON.stringify(canvas);
@@ -275,7 +271,6 @@ $(document).ready(function () {
             $('#saveCleanForm').submit();
             return false;
         });
-
 // handling to create a rect
         $('#rect').click(function () {
             if (param.shape != "rect") {
@@ -289,7 +284,6 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $('#circle').click(function () {
             if (param.shape != "circle") {
                 param.desactivateButton();
@@ -302,19 +296,16 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $("#text").click(function () {
             param.desactivateButton();
             param.shape = 'text';
             return false;
         });
-
         $("#del").click(function () {
             canvas.remove(canvas.getActiveObject());
             canvas.renderAll();
             return false;
         });
-
         $('#brush').click(function () {
             if (!canvas.isDrawingMode) {
                 param.desactivateButton();
@@ -326,8 +317,6 @@ $(document).ready(function () {
             }
             return false;
         });
-
-
         $('#viewAll').click(function () {
             if (!param.viewAll) {
                 param.desactivateButton();
@@ -340,12 +329,10 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $('#colorPicker').change(function () {
             color = $('#colorPicker').val();
             canvas.freeDrawingBrush.color = color;
         });
-
         $('#sizePickerText').change(function () {
             textSize = $('#sizePickerText').val();
             if (textSize > 999)
@@ -353,7 +340,6 @@ $(document).ready(function () {
             if (textSize < 1)
                 $('#sizePickerText').val('1');
         });
-
         $('#sizePicker').change(function () {
             size = $('#sizePicker').val();
             if (size > 999)
@@ -362,7 +348,6 @@ $(document).ready(function () {
                 $('#sizePicker').val('1');
             canvas.freeDrawingBrush.width = size;
         });
-
         $('#fontPicker').change(function () {
             font = $('#fontPicker').val();
             if (size > 999)
@@ -370,7 +355,6 @@ $(document).ready(function () {
             if (size < 1)
                 $('#fontPicker').val('1');
         });
-
         $('#selectAll').click(function () {
             if (!param.selectAll) {
                 param.desactivateButton();
@@ -383,7 +367,6 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $('#update').click(function () {
             if (!param.update) {
                 param.desactivateButton();
@@ -395,17 +378,14 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $('#alignLeft').click(function () {
             var o = canvas.getActiveObject();
             if (o.type == 'i-text') {
                 o.set('textAlign', 'left');
                 o.set('__uidblabla', 2);
-
             }
             return false;
         });
-
         $('#alignRight').click(function () {
             var o = canvas.getActiveObject()
             if (o.type == 'i-text') {
@@ -416,7 +396,6 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $('#alignCenter').click(function () {
             var o = canvas.getActiveObject()
             if (o.type == 'i-text') {
@@ -424,7 +403,6 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $('#alignJustify').click(function () {
             var o = canvas.getActiveObject()
             if (o.type == 'i-text') {
@@ -432,13 +410,11 @@ $(document).ready(function () {
             }
             return false;
         });
-
         $('#magnifier').click(function () {
-            //test1234();
+//test1234();
             alert('pas-ok');
             return false;
         });
-
 // button Zoom In
         $("#btnZoomIn").click(function () {
             param.desactivateButton(); // we desactivate all object, beacause if one object is selected, it will not magnifier
@@ -457,17 +433,14 @@ $(document).ready(function () {
             resetZoom();
             return false;
         });
-
         $("#undo").click(function () {
-            //undo();
+//undo();
             return false;
         });
-
         $("#redo").click(function () {
-            //redo();
+//redo();
             return false;
         });
-
 //$("body").keydown( function(e) { alert(e.keyCode); }); // affiche keyCode
         $("body").keyup(function (e) {
             if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
@@ -475,7 +448,6 @@ $(document).ready(function () {
                 console.log("Touche control/pomme/shit disable.");
             }
         });
-
         $("body").keydown(function (e) {
             if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
                 this.ctr = true;
@@ -597,7 +569,6 @@ $(document).ready(function () {
 
             var mouse = canvas.getPointer(e.e);
             var fshape = canvas.getActiveObject();
-
             if (mouse.x - param.x < 0)
                 fshape.originX = 'right';
             else
@@ -606,10 +577,8 @@ $(document).ready(function () {
                 fshape.originY = 'bottom';
             else
                 fshape.originY = 'top';
-
             var w = Math.abs(mouse.x - param.x),
                     h = Math.abs(mouse.y - param.y);
-
             if (!w || !h) {
                 return false;
             }
@@ -618,7 +587,6 @@ $(document).ready(function () {
                 fshape.set('rx', w).set('ry', h);
             else if (param.shape == 'rect')
                 fshape.set('width', w).set('height', h);
-
             canvas.renderAll(true);
         }
 
@@ -667,39 +635,30 @@ $(document).ready(function () {
             var isBold = getStyle(obj, 'fontWeight') === 'bold';
             setStyle(obj, 'fontWeight', isBold ? '' : 'bold');
         });
-
         addHandler('textItalic', function () {
             var isItalic = getStyle(obj, 'fontStyle') === 'italic';
             setStyle(obj, 'fontStyle', isItalic ? '' : 'italic');
         });
-
         addHandler('textUnderline', function (obj) {
             var isUnderline = (getStyle(obj, 'textDecoration') || '').indexOf('underline') > -1;
             setStyle(obj, 'textDecoration', isUnderline ? '' : 'underline');
         });
-
         addHandler('textLineThrough', function (obj) {
             var isLinethrough = (getStyle(obj, 'textDecoration') || '').indexOf('line-through') > -1;
             setStyle(obj, 'textDecoration', isLinethrough ? '' : 'line-through');
         });
-
         addHandler('colorPickerText', function (obj) {
             setStyle(obj, 'fill', this.value);
         }, 'onchange');
-
         addHandler('colorPickerBackground', function (obj) {
             setStyle(obj, 'textBackgroundColor', this.value);
         }, 'onchange');
-
         addHandler('sizePickerText', function (obj) {
             setStyle(obj, 'fontSize', parseInt(this.value, 10));
         }, 'onchange');
-
         addHandler('fontPicker', function (obj) {
             setStyle(obj, 'fontFamily', this.value);
         }, 'onchange');
-
     });
-
 });
 
