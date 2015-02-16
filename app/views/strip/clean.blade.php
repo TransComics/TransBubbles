@@ -6,39 +6,39 @@ Interface de nettoyage
 
 @section('tool.items')
     <div class="btn-group pull-right margin-10" role="group">
-        <a class='btn btn-primary icon-undo' href="" id="undo"></a>
-        <a class='btn btn-primary icon-redo' href="" id="redo"></a>
+        <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
+        <a class='btn btn-primary fa fa-repeat' href="" id="redo"></a>
     </div>
 
     <div class="btn-group pull-right margin-10" role="group">
-        <span class='btn btn-primary glyphicon glyphicon-zoom-out' id="btnZoomOut"></span>
-        <span class='btn btn-primary glyphicon glyphicon-zoom-in' id="btnZoomIn"></span>
-        <span class='btn btn-primary glyphicon glyphicon-search' id="btnResetZoom"></span>
+        <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut"></span>
+        <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn"></span>
+        <span class='btn btn-primary fa fa-search' id="btnResetZoom"></span>
     </div>
 
     <div class="btn-group pull-right margin-10" role="group">
-        <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="viewAll"></a>
-        <span class='btn btn-primary icon-selectAll' href="" id="selectAll"></span>
+        <a class='btn btn-primary fa fa-eye' href="" id="viewAll"></a>
+        <span class='btn btn-primary fa fa-arrows' href="" id="selectAll"></span>
     </div>
 
     <div class="btn-group pull-right margin-10" role="group">
-        <a class='btn btn-primary fa fa-square-o fa-2x' href="" id="rect"></a>
-        <a class='btn btn-primary fa fa-circle-thin fa-2x' href="" id="circle"></a>
+        <a class='btn btn-primary fa fa-square-o' href="" id="rect"></a>
+        <a class='btn btn-primary fa fa-circle-thin' href="" id="circle"></a>
     </div>
 
     <div class="btn-group pull-right margin-10" role="group">
-        <input class="btn btn-primary" style="height:44px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff" />
-        <input class="btn btn-primary" style="width:65px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999" />
-        <a class='btn btn-primary fa fa-paint-brush fa-2x' href="" id="brush"></a>
+        <input class="btn btn-primary" style="height:37px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff" />
+        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999" />
+        <a class='btn btn-primary fa fa-paint-brush' href="" id="brush"></a>
     </div>
 
     <div class="btn-group pull-right margin-10" role="group">
-        <a class='btn btn-primary fa fa-location-arrow fa-2x' href="" id="update"></a>
-        <a class='btn btn-primary fa fa-trash fa-2x' href="" id="del"></a>
+        <a class='btn btn-primary fa fa-location-arrow' href="" id="update"></a>
+        <a class='btn btn-primary fa fa-trash' href="" id="del"></a>
     </div>
 
     <div class="btn-group pull margin-10" role="group">
-        <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="hidden-origin"> Cacher</a>
+        <a class='btn btn-primary fa fa-eye' href="" id="hidden-origin"> Cacher</a>
     </div>
 @stop
 
@@ -58,7 +58,7 @@ Interface de nettoyage
         </table>
     </div>
     
-    <span id="canvasSave" class="">{{$canvas_delivered}}</span>
+    <span id="canvasSave" class="hidden">{{$canvas_delivered}}</span>
 
     {{ Form::open(['route' => ['strip.saveClean', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
     {{ Form::hidden('id', $shape->id) }}

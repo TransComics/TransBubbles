@@ -79,6 +79,11 @@
     @include('translate.popup')
     
     <span id="canvasSave" class="">{{$canvas_delivered}}</span>
+    
+    {{ Form::open(['route' => ['strip.saveImport', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveImportForm']) }}
+    {{ Form::hidden('id', $bubble->id) }}
+    {{ Form::hidden('value', $bubble->value, ['id' => 'importSave']) }}
+    {{ Form::close() }}
 @stop
 
 @section('tool.nav')
