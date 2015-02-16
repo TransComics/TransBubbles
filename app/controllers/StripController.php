@@ -145,11 +145,12 @@ class StripController extends BaseController {
             return Redirect::route('home');
         }
         
-        $shape = Shape::find($strip_id);
-        if ($shape == null) {
-            $shape = new Shape();
-        } else if (Auth::check() && $shape->user_id != Auth::user()->id) {
-            return Redirect::route('home');
+        $shape = null;
+        $shape = $strip->shapes()->whereNotNull('validated_at')->first();
+        if ($shape == null && Auth::check()) {
+            $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
+        } else {
+            return Redirect::route('access.denied');
         }
         
         View::share([
@@ -160,7 +161,15 @@ class StripController extends BaseController {
         
         return View::make('strip.import');
     }
-
+    
+    protected function saveImport($comic_id, $strip_id) {
+        if (!Strip::exists($strip_id)) {
+            return Redirect::route('home');
+        }
+        
+        return Redirect::route('strip.index', [$comic_id, $strip_id]);
+    }
+    
     /**
      * clean strip used by the controller.
      *
@@ -172,7 +181,10 @@ class StripController extends BaseController {
             return Redirect::route('home');
         }
 
-        $shape = $strip->shapes->first();
+        $shape = null;
+        if (Auth::check()) {
+            $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
+        }
         View::share([
             'shape' => $shape != null ? $shape : new Shape(),
             'strip' => $strip,
@@ -207,14 +219,7 @@ class StripController extends BaseController {
 
         return Redirect::route('strip.import', [$comic_id, $strip_id]);
     }
-    
-    protected function saveImport($comic_id, $strip_id) {
-        if (!Strip::exists($strip_id)) {
-            return Redirect::route('home');
-        }
-        
-        return Redirect::route('strip.index', [$comic_id, $strip_id]);
-    }
+
     /**
      * translate strip used by the controller.
      *
