@@ -2,10 +2,9 @@
 
 
 <h1>{{ $strips->title }}</h1>
-
+<h2>  </h2>
 <div class="text-center center-block">
-	<small>@lang('strip.dateCreated') {{ $strips->created_at }} -
-		@lang('strip.dateUpdated') {{ $strips->updated_at }}</small>
+    <small>@lang('strip.dateCreated') {{ $strips->created_at }} - @lang('strip.createdBy') {{ $strips->user->username }} - @lang('strip.dateUpdated') {{ $strips->updated_at }}</small>
 </div>
 <hr>
 <div class="text-center center-block">
