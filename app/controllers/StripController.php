@@ -209,6 +209,8 @@ class StripController extends BaseController {
         }
         
         View::share([
+            'languages' => Language::all()->lists('label', 'id'),
+            'lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
             'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
