@@ -210,6 +210,10 @@ class StripController extends BaseController {
         } else {
             return Redirect::route('access.denied');
         }
+        
+        if ($bubble === null) {
+            return Redirect::route('access.denied');
+        }
 
         $bubble = null;
         if (Auth::check()) {
