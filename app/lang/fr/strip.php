@@ -19,6 +19,7 @@ return array(
     'updateFailure' => 'Erreur de modification de la planche',
     'editComplete' => 'Modification fini avec succès',
     'deleteSucceded' => 'La planche à été supprimé',
+    'createdBy' => 'Créé par ',
     'pendingApprobation' => 'Approuver',
     'pendingTranslate' => 'Traduire',
     'pendingClean' => 'Nettoyer',

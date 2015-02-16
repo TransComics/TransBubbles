@@ -24,6 +24,7 @@ return array(
     'pendingClean' => 'Clean',
     'pendingDelete' => 'Delete',
     'approved' => 'The strip has been approved',
+    'createdBy' => 'Created by ',
     'pendingTitle' => 'Pending',
     'pending' => 'Strip pending for cleaning',
     'dateCreated' => 'Created at',

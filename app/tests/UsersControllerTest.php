@@ -15,7 +15,7 @@ class UsersControllerTest extends TestCase {
      */
     public function testLoginFormError() {
         $crawler = $this->client->request('GET', '/login');
-        $form = $crawler->selectButton(Lang::get('login.login'))->form();
+        $form = $crawler->selectButton(Lang::get('login.sign_in'))->form();
         
         $form->setValues(array(
             'email' => 'mail@test.com',
@@ -45,7 +45,7 @@ class UsersControllerTest extends TestCase {
         ]);
         
         $crawler = $this->client->request('GET', '/login');
-        $form = $crawler->selectButton(Lang::get('login.login'))->form();
+        $form = $crawler->selectButton(Lang::get('login.sign_in'))->form();
         
         $form->setValues(array(
             'email' => 'fooo@bar.com',
