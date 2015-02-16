@@ -14,28 +14,17 @@ class CreateBubblesTable extends Migration {
     public function up() {
         Schema::create($this->table, function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_id')->unsigned();
-            $table->integer('original_id')->unsigned();
-            $table->integer('lang_id')->unsigned();
             $table->integer('strip_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('lang_id')->unsigned();
+            $table->integer('parent_id')->unsigned();
+            $table->integer('original_id')->unsigned();
             $table->longtext('value');
             $table->timestamps();
+            $table->unique('strip_id', 'user_id', 'lang_id', 'parent_id');
         });
 
         Schema::table($this->table, function(Blueprint $table) {
-            $table->foreign('parent_id')->references('id')->on($this->table)
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-
-            $table->foreign('original_id')->references('id')->on($this->table)
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
-            $table->foreign('lang_id')->references('id')->on('languages')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
             $table->foreign('strip_id')->references('id')->on('strips')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
@@ -44,6 +33,17 @@ class CreateBubblesTable extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
 
+            $table->foreign('lang_id')->references('id')->on('languages')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('parent_id')->references('id')->on($this->table)
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
+            $table->foreign('original_id')->references('id')->on($this->table)
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -54,11 +54,11 @@ class CreateBubblesTable extends Migration {
      */
     public function down() {
         Schema::table($this->table, function(Blueprint $table) {
-            $table->dropForeign($this->table.'_parent_id_foreign');
-            $table->dropForeign($this->table.'_original_id_foreign');
-            $table->dropForeign($this->table.'_lang_id_foreign');
             $table->dropForeign($this->table.'_strip_id_foreign');
             $table->dropForeign($this->table.'_user_id_foreign');
+            $table->dropForeign($this->table.'_lang_id_foreign');
+            $table->dropForeign($this->table.'_parent_id_foreign');
+            $table->dropForeign($this->table.'_original_id_foreign');
         });
         Schema::dropIfExists($this->table);
     }
