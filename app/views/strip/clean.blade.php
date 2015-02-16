@@ -68,7 +68,7 @@ Interface de nettoyage
 @stop
 
 @section('tool.nav')
-    <a class='btn btn-primary glyphicon glyphicon-remove' href='{{ URL::previous() }}' id='cancel'> Quitter</a>
-    <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='saveClean'> Terminer</a>
-    <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='nextStep'> Suivant</a>
+    <a class='btn btn-primary fa fa-times' href='{{ URL::previous() }}' id='cancel'> Quitter</a>
+    <a class='btn btn-primary fa fa-floppy-o' href='' id='saveClean'> Terminer</a>
+    <a class='btn btn-primary fa fa-floppy-o' href='' id='nextStep'> Suivant</a>
 @stop

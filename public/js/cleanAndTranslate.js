@@ -261,6 +261,8 @@ $(document).ready(function () {
 
 // handling to save the cleaning
         $('#saveImport').click(function () {
+            myjson = JSON.stringify(canvas);
+            $('#importSave').val(myjson);
             $('#saveImportForm').submit();
             return false;
         });
