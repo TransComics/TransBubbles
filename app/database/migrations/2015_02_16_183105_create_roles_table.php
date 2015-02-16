@@ -20,7 +20,7 @@ class CreateRolesTable extends Migration {
             $table->boolean('U');
             $table->boolean('M');
             $table->boolean('D');
-            $table->text('value');
+            $table->string('value');
         });
     }
 
