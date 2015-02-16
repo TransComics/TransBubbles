@@ -1,10 +1,9 @@
 @extends('layouts.html')
 
 @section('html.styles')
-{{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap.css') }}
-{{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap-theme.css') }}
+{{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap.min.css') }}
 <!-- Custom styles for this template -->
-{{ HTML::style('css/offcanvas.css') }}
+{{ HTML::style('css/offcanvas2.css') }}
 @stop
 
 @section('html.scripts')
@@ -15,30 +14,16 @@
 @stop
 
 @section('html.content')
-
-<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li @if(Route::currentRouteName() == "home")class="active" @endif><a href="{{URL::route('home')}}" >Accueil</a></li>
-                <li @if(Route::currentRouteName() == "about")class="active" @endif><a href="#about" >À propos</a></li>
-                <li @if(Route::currentRouteName() == "contact")class="active" @endif><a href="#contact" >Nous contacter</a></li>
-            </ul>
-            @include('common.lang_selector')
-        </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
-</nav><!-- /.navbar -->
+@include('common.navbar_top')
 
 <div class="container">
-    <div class="row row-offcanvas row-offcanvas-right">
-        <div class="col-xs-12 col-sm-9">
+<div class="page-header" id="banner"></div>
+    <div class="row">
+        <div class="col-lg-9 col-md-10 col-sm-6">
             @yield('master.content')
         </div><!--/.col-xs-12.col-sm-9-->
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+        <div class="col-lg-3 col-md-2 col-sm-6" id="sidebar">
             @section('master.nav')
                 @include('common.navbar')
             @show

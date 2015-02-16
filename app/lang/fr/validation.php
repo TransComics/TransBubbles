@@ -82,7 +82,7 @@ return array(
 	| convention "attribute.rule" to name the lines. This makes it quick to
 	| specify a specific custom language line for a given attribute rule.
 	|
-	*/e
+	*/
 
 	'custom' => array(
 		'attribute-name' => array(

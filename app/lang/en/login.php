@@ -8,6 +8,7 @@ return array(
     'email' => 'Email',
     'email_adress' => 'Email Address',
     'password' => 'Password',
+    'password_confirm' => 'Confirm password',
     'rememberme' => 'Remember me',
     'facebook_log' => 'Login with Facebook',
     'no_account' => 'Don\'t you have an account?',

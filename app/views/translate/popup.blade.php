@@ -8,12 +8,11 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel" style="color: black;">@Lang('popup.title')</h4>
+				<h4 class="modal-title" id="myModalLabel">@Lang('popup.title')</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="row-same-height">
-						<div class="col-xs-12 col-md-12 col-xs-height">
+						<div class="col-xs-12 col-md-12">
 							<div class="radio">
 								<div class="input-group">
 									<div class="checkbox">
@@ -28,15 +27,16 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-xs-3 col-md-4 col-xs-height col-center">
-							<div class="form-group">
-								{{ Form::text('text','Ever heard the trolley problem?',
-								array('class'=>'form-control', 'placeholder'=> 'Demo text to
-								translate', 'id' => 'texttotranslate' )) }}
-								<button id="textButton" type="button" class="btn btn-primary">Demo
-									button</button>
-							</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-xs-3 col-md-4 col-xs-height col-center">
+						<div class="form-group">
+							{{ Form::text('text','Ever heard the trolley problem?',
+							array('class'=>'form-control', 'placeholder'=> 'Demo text to
+							translate', 'id' => 'texttotranslate' )) }}
+							<button id="textButton" type="button" class="btn btn-primary center-block">Translate</button>
 						</div>
 					</div>
 				</div>

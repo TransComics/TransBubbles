@@ -1,5 +1,6 @@
-<nav class="navbar navbar-fixed-bottom navbar-theme-default">
+<footer>
 	<div class="container">
+		<hr>
 		<div class="row">
 			<div class="col-sm-4">
 				<h5 id='footer-header'>Sitemap</h5>
@@ -12,4 +13,5 @@
 			</div>
 		</div>
 	</div>
-</nav>
+	</div>
+</footer>

@@ -8,14 +8,16 @@
             <a href={{ URL::route('comic.show',['id' => $comic->id] )}}>{{$comic->title}} <small>({{$comic->author}})</small></a>
             @if (Auth::check())
             <span class="btn-group pull-right" role="group">
-                @if($comic->strips->count() > 0) 
-                <a href="{{URL::route('strip.show', [$comic->id, $comic->strips->last()->id])}}" title="strip.show" class='btn btn-sm btn-primary'>Last</a>
-                @endif
                 <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
                 <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
                 <span title="base.delete" class='btn btn-sm btn-primary glyphicon glyphicon-remove' onclick="$('#{{$comic->id}}').submit();"></span>
 
             </span>
+            @endif
+            @if($comic->strips->count() > 0) 
+            <span class="btn-group pull-right" role="group">               
+                <a href="{{URL::route('strip.show', [$comic->id, $comic->strips->last()->id])}}" style="margin-top: 1px; margin-right: 2px;" title="strip.show" class='btn btn-sm btn-primary'>Last</a>
+             </span>
             @endif
             {{ Form::close(); }}
         </h2>
