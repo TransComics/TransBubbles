@@ -82,7 +82,6 @@ class StripController extends BaseController {
 
         if ($valid->passes()) {
             $strip->title = Input::get('title');
-            $strip->updated_at = new DateTime();
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
@@ -100,9 +99,8 @@ class StripController extends BaseController {
      */
     public function store($comic_id) {
         $files = Input::file('strips');
-        
         foreach ($files as $file) {
-            $valid = Validator::make(['strip' => $file, 'title' => Input::get('title_')], Strip::$rules);
+            $valid = Validator::make(['strip' => $file, 'title' => Input::get('title_1')], Strip::$rules);
             if ($valid->fails()) {
                 return Redirect::back()->withInput()->withErrors($valid);
             } else {
@@ -113,6 +111,7 @@ class StripController extends BaseController {
                 $strip->path = $fileLocation;
                 $strip->validated_at = NULL;
                 $strip->comic_id = $comic_id;
+                $strip->user_id = Auth::id();
                 $strip->save();
             }
         }
