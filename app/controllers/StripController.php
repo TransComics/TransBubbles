@@ -211,7 +211,7 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
         
-        if ($bubble === null) {
+        if ($shape === null) {
             return Redirect::route('access.denied');
         }
 
