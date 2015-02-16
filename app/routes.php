@@ -148,3 +148,5 @@ Route::resource('/comic', 'ComicController', ['before' => 'auth']);
 Route::group(['prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
 });
+
+Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () { return "ACCESS DENIED";}]);
