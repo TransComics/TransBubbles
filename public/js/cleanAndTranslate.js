@@ -260,6 +260,7 @@ $(document).ready(function () {
         $('#saveImport').click(function () {
             myjson = JSON.stringify(canvas);
             $('#importSave').val(myjson);
+            $('#lang_id').val($('#langPicker').val());
             $('#saveImportForm').submit();
             return false;
         });

@@ -8,43 +8,39 @@
 @stop 
 
 @section('tool.items')
-    
-    {{ Form::select('from', ['en' => 'English'], 1,['class'=>'btn btn-primary glyphicon glyphicon-globev', 'id'=>'from'])}}
-    <span class='glyphicon glyphicon-arrow-right'></span>
-    {{ Form::select('fontPicker', $languages->lists('label','shortcode') ,1,['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'to']) }}
-    
+   {{ Form::select('langPicker', $strip_languages , $strip_lang_id, ['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'langPicker']) }}    
 
-    <div class="btn-group pull-right" role="group">
-	<a class='btn btn-primary icon-undo' href="" id="undo"></a>
-	<a class='btn btn-primary icon-redo' href="" id="redo"></a>
+    <div class="btn-group pull-right margin-5" role="group">
+        <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
+        <a class='btn btn-primary fa fa-repeat' href="" id="redo"></a>
     </div>
 
-    <div class="btn-group pull-right" role="group">
-	<a class='btn btn-primary glyphicon glyphicon-zoom-out' href="" id="btnZoomOut"></a>
-	<a class='btn btn-primary glyphicon glyphicon-zoom-in' href="" id="btnZoomIn"></a>
-        <a class='btn btn-primary glyphicon glyphicon-search' href="" id="btnResetZoom"></a>
-    </div>
-    
-    <div class="btn-group pull-right" role="group">
-	<a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="viewAll"></a>
-	<span class='btn btn-primary icon-selectAll' href="" id="selectAll"></span>
+    <div class="btn-group pull-right margin-5" role="group">
+        <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut"></span>
+        <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn"></span>
+        <span class='btn btn-primary fa fa-search' id="btnResetZoom"></span>
     </div>
 
-    <div class="btn-group pull-right" role="group">
-        <span class='btn btn-primary glyphicon glyphicon-align-left' id="alignLeft"></span>
-        <span class='btn btn-primary glyphicon glyphicon-align-center' id="alignCenter"></span>
-        <span class='btn btn-primary glyphicon glyphicon-align-right' id="alignRight"></span>
-        <span class='btn btn-primary glyphicon glyphicon-align-justify' id="alignJustify"></span>
+    <div class="btn-group pull-right margin-5" role="group">
+        <a class='btn btn-primary fa fa-eye' href="" id="viewAll"></a>
+        <span class='btn btn-primary fa fa-arrows' href="" id="selectAll"></span>
     </div>
 
-    <div class="btn-group pull-right" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
+        <span class='btn btn-primary fa fa-align-left' id="alignLeft"></span>
+        <span class='btn btn-primary fa fa-align-center' id="alignCenter"></span>
+        <span class='btn btn-primary fa fa-align-right' id="alignRight"></span>
+        <span class='btn btn-primary fa fa-align-justify' id="alignJustify"></span>
+    </div>
+
+    <div class="btn-group pull-right margin-5" role="group">
         <span class='btn btn-primary glyphicon glyphicon-bold' id="textBold"></span>
         <span class='btn btn-primary glyphicon glyphicon-italic' id="textItalic"></span>
         <span class='btn btn-primary' id="textUnderline">Underline</span>
         <span class='btn btn-primary' id="textLineThrough">Line-Through</span>
     </div>
 
-    <div class="btn-group pull-right" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
 	<a class='btn btn-primary icon-update' href="" id="update"></a>
 	<a class='btn btn-primary glyphicon glyphicon-trash' href="" id="del"></a>
 	<a class='btn btn-primary icon-text' href="" id="text"></a>
@@ -80,8 +76,8 @@
     
     <span id="interface" class="hidden">import</span>
     <span id="canvasSave" class="">{{$canvas_delivered}}</span>
-    
     {{ Form::open(['route' => ['strip.saveImport', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveImportForm']) }}
+    {{ Form::hidden('lang_id', '', ['id' => 'lang_id']) }}
     {{ Form::hidden('id', $bubble->id) }}
     {{ Form::hidden('value', $bubble->value, ['id' => 'importSave']) }}
     {{ Form::close() }}

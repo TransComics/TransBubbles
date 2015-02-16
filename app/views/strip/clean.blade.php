@@ -5,39 +5,39 @@ Interface de nettoyage
 @stop
 
 @section('tool.items')
-    <div class="btn-group pull-right margin-10" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
         <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
         <a class='btn btn-primary fa fa-repeat' href="" id="redo"></a>
     </div>
 
-    <div class="btn-group pull-right margin-10" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
         <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut"></span>
         <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn"></span>
         <span class='btn btn-primary fa fa-search' id="btnResetZoom"></span>
     </div>
 
-    <div class="btn-group pull-right margin-10" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
         <a class='btn btn-primary fa fa-eye' href="" id="viewAll"></a>
         <span class='btn btn-primary fa fa-arrows' href="" id="selectAll"></span>
     </div>
 
-    <div class="btn-group pull-right margin-10" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
         <a class='btn btn-primary fa fa-square-o' href="" id="rect"></a>
         <a class='btn btn-primary fa fa-circle-thin' href="" id="circle"></a>
     </div>
 
-    <div class="btn-group pull-right margin-10" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
         <input class="btn btn-primary" style="height:37px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff" />
         <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999" />
         <a class='btn btn-primary fa fa-paint-brush' href="" id="brush"></a>
     </div>
 
-    <div class="btn-group pull-right margin-10" role="group">
+    <div class="btn-group pull-right margin-5" role="group">
         <a class='btn btn-primary fa fa-location-arrow' href="" id="update"></a>
         <a class='btn btn-primary fa fa-trash' href="" id="del"></a>
     </div>
 
-    <div class="btn-group pull margin-10" role="group">
+    <div class="btn-group pull margin-5" role="group">
         <a class='btn btn-primary fa fa-eye' href="" id="hidden-origin"> Cacher</a>
     </div>
 @stop
