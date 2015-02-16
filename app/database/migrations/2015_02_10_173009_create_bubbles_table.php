@@ -17,11 +17,10 @@ class CreateBubblesTable extends Migration {
             $table->integer('strip_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('lang_id')->unsigned();
-            $table->integer('parent_id')->unsigned();
-            $table->integer('original_id')->unsigned();
+            $table->integer('parent_id')->unsigned()->nullable();
+            $table->integer('original_id')->unsigned()->nullable();
             $table->longtext('value');
             $table->timestamps();
-            $table->unique('strip_id', 'user_id', 'lang_id', 'parent_id');
         });
 
         Schema::table($this->table, function(Blueprint $table) {

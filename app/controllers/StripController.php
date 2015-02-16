@@ -133,7 +133,7 @@ class StripController extends BaseController {
         $strip->delete();
         return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
     }
-   
+
     /**
      * clean strip used by the controller.
      *
@@ -176,14 +176,14 @@ class StripController extends BaseController {
             $shape->user_id = Auth::user()->id;
         }
         $shape->save();
-        
+
         if (Input::get('action') == "saveClean") {
             return Redirect::route('strip.index', [$comic_id]);
         }
 
         return Redirect::route('strip.import', [$comic_id, $strip_id]);
     }
-    
+
     /**
      * import strip used by the controller.
      *
@@ -194,7 +194,7 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('home');
         }
-        
+
         $shape = null;
         $shape = $strip->shapes()->whereNotNull('validated_at')->first();
         if ($shape == null && Auth::check()) {
@@ -202,21 +202,22 @@ class StripController extends BaseController {
         } else {
             return Redirect::route('access.denied');
         }
-        
+
+        $bubble = null;
         if (Auth::check()) {
             $bubble = $strip->bubbles()->where('user_id', Auth::user()->id)->first();
-        } 
+        }
         
         View::share([
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
-            'canvas_delivered' => $shape != null ? $shape->value : '',
-            'bubble' => $bubble != null ? bubble : new Bubble()
+            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+            'bubble' => $bubble != null ? $bubble : new Bubble()
         ]);
-        
+
         return View::make('strip.import');
     }
-    
+
     protected function saveImport($comic_id, $strip_id) {
         if (!Strip::exists($strip_id)) {
             return Redirect::route('access.denied');
@@ -229,16 +230,17 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
+        $bubble->lang_id = 1;
         $bubble->strip_id = $strip_id;
-        $bubble->value = Input::get('value');
+        $bubble->value = $this->extractITextFromJSON(Input::get('value'));;
         if (Auth::check()) {
             $bubble->user_id = Auth::user()->id;
         }
         $bubble->save();
-        
+
         return Redirect::route('strip.index', [$comic_id]);
     }
- 
+
     /**
      * translate strip used by the controller.
      *
@@ -249,7 +251,7 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('home');
         }
-        
+
         $shape = $strip->shapes->first();
         View::share([
             'shape' => $shape != null ? $shape : new Shape(),
@@ -264,14 +266,15 @@ class StripController extends BaseController {
         ]);
         return View::make('strip.translate');
     }
-    
+
     protected function saveTranslate($comic_id, $strip_id) {
         if (!Strip::exists($strip_id)) {
             return Redirect::route('home');
         }
-        
+
         return Redirect::route('strip.index', [$comic_id, $strip_id]);
     }
+
     /* public function listPending() {
       $strips = Strips::whereNull('validated_at')->get();
       return View::make('strips.list', ['strips' => $strips]);
@@ -288,4 +291,32 @@ class StripController extends BaseController {
 
       return Redirect::back()->with('message', Lang::get('strips.approved'));
       } */
+
+    private function mergeShapesAndBubblesJSON ($shape, $bubble) {
+        if ($bubble === null) {
+            return $shape->value;
+        }
+        
+        $jsonBubble = json_decode($bubble->value, true)['objects'];
+        $json = '{"objects":'.
+            json_encode(array_merge(
+                json_decode($shape->value, true)['objects'], 
+                $jsonBubble)).
+            ',"background":"" }';
+        
+        return $json;
+    }
+    
+    private function extractITextFromJSON($json) {
+        $json = json_decode($json, true);
+        unset($json['objects'][0]); // Remove Image.
+        foreach ($json['objects'] as $k => $v) {
+            if ($v['type'] != 'i-text') {
+                unset($json['objects'][$k]);
+            }
+        }
+        
+        return json_encode($json);
+    }
+    
 }

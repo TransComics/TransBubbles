@@ -5,23 +5,23 @@ class Bubble extends Eloquent {
     protected $guarded = ['id'];
     
     public function strip() {
-        return $this->belongTo('Strip');
+        return $this->belongsTo('Strip');
     }
     
     public function user() {
-        return $this->belongTo('User');
+        return $this->belongsTo('User');
     }
 
     public function language() {
-        return $this->belongTo('Language', 'lang_id');
+        return $this->belongsTo('Language', 'lang_id');
     }
     
     public function parent() {
-        return $this->belongTo('Bubble', 'parent_id');
+        return $this->belongsTo('Bubble', 'parent_id');
     }
     
     public function original() {
-        return $this->belongTo('Bubble', 'original_id');
+        return $this->belongsTo('Bubble', 'original_id');
     }
 
 }
