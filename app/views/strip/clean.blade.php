@@ -57,6 +57,9 @@ Interface de nettoyage
             </tr>
         </table>
     </div>
+    
+    <span id="canvasSave" class="">{{$canvas_delivered}}</span>
+
     {{ Form::open(['route' => ['strip.saveClean', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
     {{ Form::hidden('id', $shape->id) }}
     {{ Form::hidden('action', '', ['id' => 'saveCleanAction']) }}

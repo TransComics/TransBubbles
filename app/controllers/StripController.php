@@ -155,7 +155,7 @@ class StripController extends BaseController {
         View::share([
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
-            'canvas_delivred' => $shape->value
+            'canvas_delivered' => $shape != null ? $shape->value : ''
         ]);
         
         return View::make('strip.import');
@@ -176,6 +176,7 @@ class StripController extends BaseController {
         View::share([
             'shape' => $shape != null ? $shape : new Shape(),
             'strip' => $strip,
+            'canvas_delivered' => $shape != null ? $shape->value : ''
         ]);
 
         return View::make('strip.clean');

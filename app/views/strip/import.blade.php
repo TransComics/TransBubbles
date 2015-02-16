@@ -77,15 +77,8 @@
     <button id="getdata" type="button" class="btn btn-primary btn-lg"
             data-toggle="modal" data-target="#myModal">Launch demo popup</button>
     @include('translate.popup')
-    {{ Form::open(['route' => ['strip.saveClean', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveCleanForm']) }}
-    {{ Form::hidden('id', $shape->id) }}
-    {{ Form::hidden('value', $shape->value, ['id' => 'cleanSave']) }}
-    {{ Form::close() }}
     
-    {{ Form::open(['route' => ['strip.saveImport', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveImportForm']) }}
-    {{ Form::hidden('id', $shape->id) }}
-    {{ Form::hidden('value', $shape->value, ['id' => 'importSave']) }}
-    {{ Form::close() }}
+    <span id="canvasSave" class="">{{$canvas_delivered}}</span>
 @stop
 
 @section('tool.nav')
