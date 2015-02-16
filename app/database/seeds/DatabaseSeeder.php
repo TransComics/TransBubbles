@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder {
         $this->call('ComicsTableSeeder');
         $this->call('StripsSeeder');
         $this->call('ShapesSeeder');
+        $this->call('RolesTableSeeder');
     }
 }
