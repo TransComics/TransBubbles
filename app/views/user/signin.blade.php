@@ -1,8 +1,8 @@
- @extends('user.loginout') @section('loginout.sign')
-
+ @extends('user.loginout') 
+ @section('loginout.sign')
 <div id="loginbox" style="margin-top: 50px;"
-	class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-	<div class="panel panel-info">
+	class="mainbox col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1">
+	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<div class="panel-title">@lang('login.sign_in')</div>
 			<div
@@ -53,7 +53,7 @@
 				<!-- Button -->
 
 				<div class="col-sm-12 controls">
-					{{ Form::submit(Lang::get('login.login'), array('class'=>'btn
+					{{ Form::submit(Lang::get('login.sign_in'), array('class'=>'btn
 					btn-success'))}} <a id="btn-fblogin" href="#"
 						class="btn btn-primary">@lang('login.facebook_log')</a>
 				</div>
