@@ -115,7 +115,7 @@ class StripController extends BaseController {
                 $strip->save();
             }
         }
-        return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strips.uploadComplete'));
+        return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strip.uploadComplete'));
     }
 
     /**
