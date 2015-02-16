@@ -2,8 +2,10 @@
 
 @section('html.styles')
 {{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap.min.css') }}
+{{ HTML::style('packages/font-awesome-4.3.0/css/font-awesome.min.css') }}
 <!-- Custom styles for this template -->
 {{ HTML::style('css/offcanvas2.css') }}
+ @yield('master.styles')
 @stop
 
 @section('html.scripts')
