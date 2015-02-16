@@ -75,7 +75,8 @@
     @include('translate.popup')
     
     <span id="interface" class="hidden">import</span>
-    <span id="canvasSave" class="">{{$canvas_delivered}}</span>
+    <span id="canvasSave" class="hidden">{{$canvas_delivered}}</span>
+    
     {{ Form::open(['route' => ['strip.saveImport', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveImportForm']) }}
     {{ Form::hidden('lang_id', '', ['id' => 'lang_id']) }}
     {{ Form::hidden('id', $bubble->id) }}
@@ -84,6 +85,6 @@
 @stop
 
 @section('tool.nav')
-    <a class='btn btn-primary glyphicon glyphicon-remove' href='{{ URL::route('strip.index', $strip->comic->id, $strip->id) }}' id='cancel'> Quitter</a>
-    <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='saveImport'> Terminer</a>
+    <a class='btn btn-primary glyphicon fa fa-times' href='{{ URL::route('strip.index', $strip->comic->id, $strip->id) }}' id='cancel'> Quitter</a>
+    <a class='btn btn-primary glyphicon fa fa-floppy-o' href='' id='saveImport'> Terminer</a>
 @stop
