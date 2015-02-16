@@ -5,39 +5,39 @@ Interface de nettoyage
 @stop
 
 @section('tool.items')
-    <div class="btn-group pull-right" role="group">
+    <div class="btn-group pull-right margin-10" role="group">
         <a class='btn btn-primary icon-undo' href="" id="undo"></a>
         <a class='btn btn-primary icon-redo' href="" id="redo"></a>
     </div>
 
-    <div class="btn-group pull-right" role="group">
+    <div class="btn-group pull-right margin-10" role="group">
         <span class='btn btn-primary glyphicon glyphicon-zoom-out' id="btnZoomOut"></span>
         <span class='btn btn-primary glyphicon glyphicon-zoom-in' id="btnZoomIn"></span>
         <span class='btn btn-primary glyphicon glyphicon-search' id="btnResetZoom"></span>
     </div>
 
-    <div class="btn-group pull-right" role="group">
+    <div class="btn-group pull-right margin-10" role="group">
         <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="viewAll"></a>
         <span class='btn btn-primary icon-selectAll' href="" id="selectAll"></span>
     </div>
 
-    <div class="btn-group pull-right" role="group">
-        <a class='btn btn-primary icon-rect' href="" id="rect"></a>
-        <a class='btn btn-primary icon-circle' href="" id="circle"></a>
+    <div class="btn-group pull-right margin-10" role="group">
+        <a class='btn btn-primary fa fa-square-o fa-2x' href="" id="rect"></a>
+        <a class='btn btn-primary fa fa-circle-thin fa-2x' href="" id="circle"></a>
     </div>
 
-    <div class="btn-group pull-right" role="group">
-        <input class="btn btn-primary" style="height:34px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff" />
+    <div class="btn-group pull-right margin-10" role="group">
+        <input class="btn btn-primary" style="height:44px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff" />
         <input class="btn btn-primary" style="width:65px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999" />
-        <a class='btn btn-primary icon-brush' href="" id="brush"></a>
+        <a class='btn btn-primary fa fa-paint-brush fa-2x' href="" id="brush"></a>
     </div>
 
-    <div class="btn-group pull-right" role="group">
-        <a class='btn btn-primary icon-update' href="" id="update"></a>
-        <a class='btn btn-primary glyphicon glyphicon-trash' href="" id="del"></a>
+    <div class="btn-group pull-right margin-10" role="group">
+        <a class='btn btn-primary fa fa-location-arrow fa-2x' href="" id="update"></a>
+        <a class='btn btn-primary fa fa-trash fa-2x' href="" id="del"></a>
     </div>
 
-    <div class="btn-group pull" role="group">
+    <div class="btn-group pull margin-10" role="group">
         <a class='btn btn-primary glyphicon glyphicon-eye-open' href="" id="hidden-origin"> Cacher</a>
     </div>
 @stop
