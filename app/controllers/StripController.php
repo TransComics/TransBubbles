@@ -40,7 +40,7 @@ class StripController extends BaseController {
             ->lists('label', 'id');
         
         View::share([
-            '$available_languages' => $available_languages,
+            'available_languages' => $available_languages,
             'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id,
             'bubble_id' => $strip->bubbles()->whereNotNull('validated_at')->first()->id,
             'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles),
