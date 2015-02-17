@@ -31,6 +31,12 @@ class StripController extends BaseController {
      * @return Response
      */
     public function index($comic_id) {
+        
+        $rac = new RoleAssignmentController();
+        if(!$rac->isAllowed('R', Ressource::Comics, $comic_id, Auth::id())) {
+            return Redirect::home();
+        }
+        
         $comic = Comic::find($comic_id);
         if ($comic == null) {
             return Redirect::route('comic.index');
@@ -44,6 +50,10 @@ class StripController extends BaseController {
     }
 
     public function edit($comic_id, $id) {
+        $rac = new RoleAssignmentController();
+        
+        $rac->isAllowed('M', Ressource::Strips, $id, Auth::id());
+        
         $comic = Comic::find($comic_id);
         if ($comic == null) {
             return Redirect::route('comic.index');
@@ -98,6 +108,9 @@ class StripController extends BaseController {
      * @return Response
      */
     public function store($comic_id) {
+
+        $roles = new RoleAssignmentController();
+
         $files = Input::file('strips');
         foreach ($files as $file) {
             $valid = Validator::make(['strip' => $file, 'title' => Input::get('title_1')], Strip::$rules);
@@ -106,6 +119,7 @@ class StripController extends BaseController {
             } else {
                 $fileLocation = UploadFile::uploadFile($file);
 
+
                 $strip = new Strip();
                 $strip->title = Input::get('title_1');
                 $strip->path = $fileLocation;
@@ -113,8 +127,11 @@ class StripController extends BaseController {
                 $strip->comic_id = $comic_id;
                 $strip->user_id = Auth::id();
                 $strip->save();
+
+                $roles->addRight(1, Ressource::Strips, $strip->id, Auth::id());
             }
         }
+
         return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strip.uploadComplete'));
     }
 
