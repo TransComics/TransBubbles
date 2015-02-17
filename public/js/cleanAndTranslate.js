@@ -264,6 +264,9 @@ $(document).ready(function () {
         });
 // handling to save the translation
         $('#saveTranslate').click(function () {
+            myjson = JSON.stringify(canvas);
+            $('#translateSave').val(myjson);
+            $('#lang_id').val($('#langPicker').val());
             $('#saveTranslateForm').submit();
             return false;
         });

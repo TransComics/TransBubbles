@@ -10,9 +10,9 @@
 
 @section('tool.items')
     
-    {{ Form::select('from', $available_languages, 1,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'from'])}}
+    {{ Form::select('from', $available_languages, 1,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'langOrigin'])}}
     <span class='glyphicon glyphicon-arrow-right'></span>
-    {{ Form::select('to', $languages->lists('label','shortcode') ,'fr',['class'=>'selectpicker','data-width'=>'auto', 'id'=>'to']) }}
+    {{ Form::select('to', $translate_languages,'',['class'=>'selectpicker','data-width'=>'auto', 'id'=>'langPicker']) }}
     
     <div class="btn-group pull-right margin-5" role="group">
         <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
@@ -86,6 +86,12 @@
     <span id="strip" class="hidden">
         {{ HTML::image($strip->path) }}
     </span>
+    
+    {{ Form::open(['route' => ['strip.saveTranslate', $strip->comic->id, $strip->id], 'method' => 'put', 'class'=>'form-horizontal', 'id' => 'saveTranslateForm']) }}
+    {{ Form::hidden('lang_id', '', ['id' => 'lang_id']) }}
+    {{ Form::hidden('id', $bubble->id) }}
+    {{ Form::hidden('value', $bubble->value, ['id' => 'translateSave']) }}
+    {{ Form::close() }}
 @stop
 
 @section('tool.nav')
