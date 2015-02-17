@@ -36,6 +36,11 @@ Route::post('/strips/lang', [
     'uses' => 'LanguageController@selectForStrip'
 ]);
 
+Route::post('/strips/lang_to', [
+    'as' => 'strips.lang_to',
+    'uses' => 'LanguageController@selectForStripTo'
+]);
+
 /* Authentification */
 Route::get('/login/', [
     'as' => 'user.signin',
