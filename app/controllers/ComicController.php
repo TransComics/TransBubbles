@@ -120,7 +120,7 @@ class ComicController extends BaseController {
         }
         
 //        $strips = $comic->strips()->whereNotNull('valided_at')->orderBy('valided_at','desc');
-        $strips = $comic->strips->sortByDesc('id');
+        $strips = $comic->strips->sortByDesc('id')->take(3);
         
         return View::make('comic.show', [
             'comic' => $comic,
