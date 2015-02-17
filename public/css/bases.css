@@ -76,3 +76,29 @@
 .col-bottom {
 	vertical-align: bottom;
 }
+
+
+/**/
+@media (min-width: 768px){
+  #left {
+    width: 75%;
+  }
+  
+  #right {
+    position: inherit;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: scroll;
+    width: 25%;
+  }
+}
+
+#left {
+  text-align: center;
+  height:100%;
+}
+
+#right {
+  text-align: center;
+}
