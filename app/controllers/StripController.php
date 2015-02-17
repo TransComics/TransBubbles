@@ -290,7 +290,15 @@ class StripController extends BaseController {
         if ($original_bubbles === null) {
             return Redirect::route('access.denied');
         }
-
+        
+        $delivred_bubbles = null;
+        if (Auth::check()) {
+            $delivred_bubbles = $strip->bubbles()
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('lang_id', '=', Session::has('lang_strip_to') ? Session::get('lang_strip_to') : $strip->comic->lang_id)
+                ->first();
+        }
+        
         $available_languages = DB::table('languages')
             ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
             ->where('bubbles.strip_id', '=', $strip->id)
@@ -307,9 +315,9 @@ class StripController extends BaseController {
             'strip_lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
-            'bubble' => $original_bubbles,
+            'bubble' => $delivred_bubbles !== null ? $delivred_bubbles : new Bubble(),
             'canvas_original' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles),
-            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles),
+            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($original_shape, $delivred_bubbles !== null ? $delivred_bubbles : $original_bubbles),
             'strip_height' => $this->getHeight($original_shape->value),
             'strip_width' => $this->getWidth($original_shape->value)
         ]);
