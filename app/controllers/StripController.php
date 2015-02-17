@@ -296,7 +296,8 @@ class StripController extends BaseController {
             'strip_lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
-            'canvas_original' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles)
+            'canvas_original' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles),
+            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles)
         ]);
         return View::make('strip.translate');
     }

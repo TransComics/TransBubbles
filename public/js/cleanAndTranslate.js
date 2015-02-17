@@ -127,10 +127,13 @@ $(document).ready(function () {
 
         initCanvas();
         /* load the cleanning */
-        canvas.loadFromJSON($('#canvasSave').text(), function () {
-            canvas.renderAll(true);
-            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-        });
+        
+        if (interface === "clean") {canvas.loadFromJSON($('#canvasSave').text(), function () {
+                canvas.renderAll(true);
+                param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+            });
+        }
+        
         var param = new TBCanvasParam();
         /* ********************************************************************************************** *
          * *********************************** Zoom handler ******************************************** *
