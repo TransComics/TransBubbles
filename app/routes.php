@@ -168,3 +168,5 @@ Route::group([
         )
     ));
 });
+
+Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () { return "ACCESS DENIED";}]);

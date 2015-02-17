@@ -3,9 +3,9 @@ html,body {
 }
 
 .navbar-seconde-top {
-	padding-top: 10px;
-	top: 55px;
-	border-top: 1px solid #222222;
+	padding: 0 20px;
+	top: 70px;
+        margin:0;
 }
 
 .navbar-seconde-bottom {
@@ -16,12 +16,20 @@ html,body {
 	border: 1px solid #999;
 }
 
+.padding-5 {
+	padding: 5px;
+}
+
 .padding-10 {
 	padding: 10px;
 }
 
 .padding-20 {
 	padding: 10px;
+}
+
+.margin-5 {
+	margin: 5px;
 }
 
 .margin-10 {

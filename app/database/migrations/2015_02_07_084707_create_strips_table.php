@@ -12,11 +12,15 @@ class CreateStripsTable extends Migration {
             $table->string('path');
             $table->timestamp('validated_at')->nullable();
             $table->integer('comic_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('strips', function(Blueprint $table) {
             $table->foreign('comic_id')->references('id')->on('comics')
+                    ->onUpdate('cascade')
+                    ->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('cascade')
                     ->onDelete('restrict');
         });
@@ -25,6 +29,7 @@ class CreateStripsTable extends Migration {
     public function down() {
         Schema::table('strips', function(Blueprint $table) {
             $table->dropForeign('strips_comic_id_foreign');
+            $table->dropForeign('strips_user_id_foreign');
         });
 
         Schema::drop('strips');

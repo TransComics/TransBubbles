@@ -1,8 +1,5 @@
 @extends('layouts.master') @section('master.content')
-
-
 <h1>{{ $strips->title }}</h1>
-
 <div class="text-center center-block">
 	<small>@lang('strip.dateCreated') {{ $strips->created_at }} -
 		@lang('strip.dateUpdated') {{ $strips->updated_at }}</small>
@@ -11,7 +8,6 @@
 <div class="text-center center-block">
 	{{ HTML::image($strips->path, 'strip', array('id' => 'i', 'class' =>
 	'thumbnail center-block img-responsive')) }}
-
 	<div class="btn-group" role="group">
 		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href=""></a>
 		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href=""></a>
@@ -35,7 +31,6 @@
 			style="top: 1px;" class="btn btn-primary"><i
 			class="glyphicon glyphicon-th"></i> View All</a>
 	</div>
-	
 	<div class="btn-group" role="group">
 		<a
 			href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => 'fr'))}}"
@@ -47,5 +42,4 @@
 			class="fa fa-globe fa-lg" style="padding-right: 5px;"></i>@lang('strip.languages')</a>
 	</div>
 </div>
-
 @stop

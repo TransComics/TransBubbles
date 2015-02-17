@@ -25,5 +25,13 @@ class Strip extends Eloquent {
     public function shapes() {
         return $this->hasMany('Shape');
     }
+    
+    public function user() {
+        return $this->belongsTo('User');
+    }
+    
+    public function bubbles() {
+        return $this->hasMany('Bubble');
+    }
 
 }

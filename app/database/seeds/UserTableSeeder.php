@@ -6,10 +6,10 @@ class UserTableSeeder extends Seeder {
         User::unguard();
         
         User::create([
-                'id'    => 1,
-                'email' => 'admin@transcomics.com',
-                'username' => 'admin',
-                'password' => Hash::make('password')
+            'id'    => 1,
+            'email' => 'admin@transcomics.com',
+            'username' => 'admin',
+            'password' => Hash::make('password')
         ]);
         User::create([
             'id'    => 2,
