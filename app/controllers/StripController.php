@@ -85,7 +85,7 @@ class StripController extends BaseController {
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
-                    ->withErrors($v)
+                    ->withErrors($valid)
                     ->withInput();
         }
         return Redirect::back()->with('message', Lang::get('strips.editComplete'));
