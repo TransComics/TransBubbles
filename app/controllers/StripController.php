@@ -355,11 +355,11 @@ class StripController extends BaseController {
     }
     
     private function getHeight($shapes) {
-        return json_decode($shapes)['objects'][0]['height'];
+        return json_decode($shapes, true)['objects'][0]['height'];
     }
     
     private function getWidth($shapes) {
-        return json_decode($shapes)['objects'][0]['width'];
+        return json_decode($shapes, true)['objects'][0]['width'];
     }
 
 }
