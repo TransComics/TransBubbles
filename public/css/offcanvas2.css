@@ -152,9 +152,6 @@ html,body {
 	border-color: white;
 	border-style: solid;
 }
-<<<<<<< HEAD
-
-
 
 /*
  * Table
@@ -184,5 +181,3 @@ table.dataTable.hover tbody tr.selected:hover, table.dataTable.hover tbody tr.od
 #tableData_length > label > select {
 	color: black;
 }
-=======
->>>>>>> branch 'feature/usRights' of https://github.com/TransComics/TransBubbles

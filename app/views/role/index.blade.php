@@ -7,6 +7,10 @@ $(document).ready(function() {
     $('#tableData').dataTable( {
         "order": [[ 0, "asc" ]]
     } );
+
+    $(".table-hover #click").click(function() {
+        window.document.location = $(this).data("href");
+    });
 } );
 </script>
 @stop 
@@ -42,8 +46,8 @@ $(document).ready(function() {
 				</thead>
 				<tbody>
 					@foreach($roles as $role)
-					<tr>
-						<td>{{$role->value}}</td>
+					<tr id="click" class="clickable=row" data-href="/private/roles/{{$role->id}}">
+						<td>{{$role->name}}</td>
 						<td>{{$role->C}}</td>
 						<td>{{$role->R}}</td>
 						<td>{{$role->U}}</td>

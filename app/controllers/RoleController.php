@@ -31,23 +31,28 @@ class RoleController extends BaseController {
      */
     public function store() {
         $rules = array(
-            'value' => 'required|unique'
+            'name' => 'required|unique:roles'
         );
+        
         $validator = Validator::make(Input::all(), $rules);
-          
+        
         if ($validator->fails()) {
+            Log::info('into store fail' . $validator->messages());
             return Redirect::back()->withErrors($validator)->withInput();
         } else {
+            
             $role = new Role();
             $role->name = Input::get('name');
-            $role->c = Input::has('c') ;
-            $role->r = Input::has('r') ;
-            $role->u = Input::has('u') ;
-            $role->m = Input::has('m') ;
-            $role->d = Input::has('d') ;
+            $role->c = Input::has('c');
+            $role->r = Input::has('r');
+            $role->u = Input::has('u');
+            $role->m = Input::has('m');
+            $role->d = Input::has('d');
             $role->save();
             
-            return Redirect::route('private..role.index')->with('message', Lang::get('rote.created'));
+            Log::info('saving role');
+            
+            return Redirect::route('private..roles.index')->with('message', Lang::get('rote.created'));
         }
     }
 
@@ -59,6 +64,30 @@ class RoleController extends BaseController {
      */
     public function edit($id) {
         //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id            
+     * @return Response
+     */
+    public function show($id) {
+        $role = Role::find($id);
+        if ($role == null) {
+            return Redirect::route('home');
+        }
+        
+        $role_ressources = RoleRessource::whererole_id($role->id)->get();
+       
+        if ($role_ressources == null) {
+            return Redirect::route('home');
+        }
+        
+        return View::make('role.show', [
+            'role' => $role,
+            'role_ressources' => $role_ressources
+        ]);
     }
 
     /**

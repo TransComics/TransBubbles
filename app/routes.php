@@ -50,7 +50,7 @@ Route::post('/signup/', 'UsersController@postCreate');
 
 
 Route::group(['prefix' => '/private'], function() {
-    Route::resource('/roles', 'RoleController', array('only' => array('index','create','store')));
+    Route::resource('/roles', 'RoleController', array('only' => array('index','create','store','show')));
 });
 
 Route::group([
