@@ -10,9 +10,16 @@ class LanguageController extends BaseController {
     }
 
     public function selectForStrip() {
-        $lang = Input::get('lang_id');
+        $lang = Input::get('lang_strip');
         
         Session::put('lang_strip');
+        return Redirect::back();
+    }
+    
+    public function selectForStripTo() {
+        $lang = Input::get('lang_strip_to');
+        
+        Session::put('lang_strip_to');
         return Redirect::back();
     }
     

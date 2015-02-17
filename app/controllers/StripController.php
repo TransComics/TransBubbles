@@ -277,9 +277,12 @@ class StripController extends BaseController {
             return Redirect::route('strip.add');
         }
 
-        $original_shape = null;
-        $original_shape = $strip->shapes()->whereNotNull('validated_at')->first();
-        if ($original_shape === null) {
+        $shapes = null;
+        $shapes = $strip->shapes()->whereNotNull('validated_at')->first();
+        if ($shapes === null && Auth::check()) {
+            $shapes = $strip->shapes()->where('user_id', '=', Auth::user()->id)->first();
+        }
+        if ($shapes === null) {
             return Redirect::route('access.denied');
         }
 
@@ -290,7 +293,15 @@ class StripController extends BaseController {
         if ($original_bubbles === null) {
             return Redirect::route('access.denied');
         }
-
+        
+        $delivred_bubbles = null;
+        if (Auth::check() && Session::has('lang_strip_to')) {
+            $delivred_bubbles = $strip->bubbles()
+                ->where('user_id', '=', Auth::user()->id)
+                ->where('lang_id', '=', Session::get('lang_strip_to'))
+                ->first();
+        }
+        
         $available_languages = DB::table('languages')
             ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
             ->where('bubbles.strip_id', '=', $strip->id)
@@ -304,14 +315,15 @@ class StripController extends BaseController {
         View::share([
             'available_languages' => $available_languages,
             'translate_languages' => $translate_languages,
+            'lang_strip_to' => Session::has('lang_strip_to') ? Session::has('lang_strip_to') : 0,
             'strip_lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
-            'bubble' => $original_bubbles,
-            'canvas_original' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles),
-            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles),
-            'strip_height' => $this->getHeight($original_shape->value),
-            'strip_width' => $this->getWidth($original_shape->value)
+            'bubble' => $delivred_bubbles !== null ? $delivred_bubbles : new Bubble(),
+            'canvas_original' => $this->mergeShapesAndBubblesJSON($shapes, $original_bubbles),
+            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shapes, $delivred_bubbles !== null ? $delivred_bubbles : $original_bubbles),
+            'strip_height' => $this->getHeight($shapes->value),
+            'strip_width' => $this->getWidth($shapes->value)
         ]);
         return View::make('strip.translate');
     }
@@ -332,6 +344,7 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
+        Session::put('lang_strip_to', Input::get('lang_id'));
         $bubble->lang_id = Input::get('lang_id');
         $bubble->strip_id = $strip_id;
         $bubble->value = $this->extractTextsFromJSON(Input::get('value'));
