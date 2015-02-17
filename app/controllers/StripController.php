@@ -3,7 +3,7 @@
 class StripController extends BaseController {
 
     public function __construct() {
-        $this->beforeFilter('auth', ['except' => ['index', 'show', 'clean', 'import', 'translate']]);
+        $this->beforeFilter('auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -21,6 +21,14 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
+        
+        View::share([
+            'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : 1,
+            'bubble_id' => $strip->bubbles()->whereNotNull('validated_at')->first()->id,
+            'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $delivred_bubbles !== null ? $delivred_bubbles : $original_bubbles),
+            'canvas_height' => $this->getHeight($shapes->value),
+            'canvas_width' => $this->getWidth($shapes->value)
+        ]);
 
         return View::make('strip.show', ['strips' => $strip]);
     }
@@ -142,19 +150,15 @@ class StripController extends BaseController {
     protected function clean($comic_id, $strip_id) {
         $strip = Strip::find($strip_id);
         if ($strip == null) {
-            return Redirect::route('home');
-        }
-        
+            return Redirect::route('access.denied');
+        } 
         if ($strip->shapes()->whereNotNull('validated_at')->count() > 0) {
             return Redirect::route('access.denied');
         }
 
-        $shape = null;
-        if (Auth::check()) {
-            $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
-            if ($shape != null && $shape->validated_at != null) {
-                return Redirect::route('strip.import', [$comic_id, $strip_id]);
-            }
+        $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
+        if ($shape != null && $shape->validated_at != null) {
+            return Redirect::route('access.denied');
         }
 
         View::share([
@@ -412,5 +416,5 @@ class StripController extends BaseController {
     private function getWidth($shapes) {
         return json_decode($shapes, true)['objects'][0]['width'];
     }
-
+    
 }
