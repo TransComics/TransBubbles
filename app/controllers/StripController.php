@@ -321,7 +321,7 @@ class StripController extends BaseController {
             'available_languages' => $available_languages,
             'translate_languages' => $translate_languages,
             'lang_strip_to' => Session::has('lang_strip_to') ? Session::get('lang_strip_to') : 0,
-            'strip_lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
+            'lang_strip' => Session::has('lang_strip') ?  Session::get('lang_strip') : 1,
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
             'bubble' => $delivred_bubbles !== null ? $delivred_bubbles : new Bubble(),

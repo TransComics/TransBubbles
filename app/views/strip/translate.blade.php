@@ -10,11 +10,11 @@
 
 @section('tool.items')
     {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langFormFrom', 'style' => 'display : inline;']) }}
-    {{ Form::select('lang_id', $available_languages, 1,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'langOrigin', 'onChange' => '$("#langFormFrom").submit();'])}}
+    {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'langOrigin', 'onChange' => '$("#langFormFrom").submit();'])}}
     {{ Form::close() }}
     <span class='glyphicon glyphicon-arrow-right'></span>
     {{ Form::open(['route' => ['strip.lang_to'], 'method' => 'post', 'id' => 'langFormTo', 'style' => 'display : inline;']) }}
-    {{ Form::select('lang_id', $translate_languages,$lang_strip_to,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'langPicker', 'onChange' => '$("#langFormTo").submit();']) }}
+    {{ Form::select('lang_id', $translate_languages, $lang_strip_to,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'langPicker', 'onChange' => '$("#langFormTo").submit();']) }}
     {{ Form::close() }}
     <div class="btn-group pull-right margin-5" role="group">
         <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
