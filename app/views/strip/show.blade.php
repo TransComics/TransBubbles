@@ -28,23 +28,21 @@
 	</br> </br>
 	<div class="btn-group" role="group">
 		<a class="btn btn-primary glyphicon glyphicon glyphicon-heart" href=""></a>
-		<a class="btn btn-primary glyphicon glyphicon-thumbs-up" href=""><span
-			style="margin-left: 5px; top: 0px;" class="badge">300</span></a> <a
-			class="btn btn-primary glyphicon glyphicon glyphicon-thumbs-down"
-			href=""><span style="margin-left: 5px; top: 0px;" class="badge">3</span></a>
+		<a class="btn btn-primary glyphicon glyphicon-thumbs-up" href=""><span style="margin-left: 5px; top: 0px;" class="badge">300</span></a> <a class="btn btn-primary glyphicon glyphicon glyphicon-thumbs-down" href=""><span style="margin-left: 5px; top: 0px;" class="badge">3</span></a>
 	</div>
 	<div class="btn-group" role="group">
-		<a
-			href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}"
-			style="top: 1px;" class="btn btn-primary"><i
-			class="glyphicon glyphicon-th"></i> View All</a>
+		<a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> View All</a>
 	</div>
 	<div class="btn-group" role="group">
-                {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langForm', 'style' => 'display : inline;']) }}
-                {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'btn btn-primary','data-width'=>'auto', 'onChange' => '$("#langForm").submit();'])}}
+                {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langStripForm', 'style' => 'display : inline;']) }}
+                {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'btn btn-primary','data-width'=>'auto', 'onChange' => '$("#langStripForm").submit();'])}}
                 {{ Form::close() }}
-		<a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => 'fr'))}}" style="top: 1px;" class="btn btn-primary"><i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i>@lang('strip.other_translation')</a>
-		<a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" style="top: 1px;" class="btn btn-primary"><i class="fa fa-globe fa-lg" style="padding-right: 5px;"></i>@lang('strip.languages')</a>
+		<a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => 'fr'))}}" class="btn btn-primary">
+                        <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
+                </a>
+		<a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
+                        <i class="fa fa-globe fa-lg" style="padding-right: 5px;"></i>@lang('strip.languages')
+                </a>
 	</div>
 </div>
 @stop
