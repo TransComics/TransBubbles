@@ -256,7 +256,7 @@ class StripController extends BaseController {
 
         $bubble->lang_id = Input::get('lang_id');
         $bubble->strip_id = $strip_id;
-        $bubble->value = $this->extractITextFromJSON(Input::get('value'));
+        $bubble->value = $this->extractTextsFromJSON(Input::get('value'));
 
         if (Auth::check()) {
             $bubble->user_id = Auth::user()->id;
@@ -297,7 +297,9 @@ class StripController extends BaseController {
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
             'canvas_original' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles),
-            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles)
+            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($original_shape, $original_bubbles),
+            'strip_height' => $this->getHeight($original_shape->value),
+            'strip_width' => $this->getWidth($original_shape->value)
         ]);
         return View::make('strip.translate');
     }
@@ -341,7 +343,7 @@ class StripController extends BaseController {
         return $json;
     }
 
-    private function extractITextFromJSON($json) {
+    private function extractTextsFromJSON($json) {
         $json = json_decode($json, true);
         unset($json['objects'][0]); // Remove Image.
         foreach ($json['objects'] as $k => $v) {
@@ -351,6 +353,14 @@ class StripController extends BaseController {
         }
 
         return json_encode($json);
+    }
+    
+    private function getHeight($shapes) {
+        return json_decode($shapes)['objects'][0]['height'];
+    }
+    
+    private function getWidth($shapes) {
+        return json_decode($shapes)['objects'][0]['width'];
     }
 
 }
