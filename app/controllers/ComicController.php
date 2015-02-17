@@ -119,7 +119,7 @@ class ComicController extends BaseController {
             return Redirect::route('home');
         }
         
-//        $strips = $comic->strips()->whereNotNull('valided_at')->orderBy('valided_at','desc');
+//        $strips = $comic->strips()->whereNotNull('valided_at')->orderBy('valided_at','desc')->take(3);
         $strips = $comic->strips->sortByDesc('id')->take(3);
         
         return View::make('comic.show', [
