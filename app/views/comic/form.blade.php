@@ -62,6 +62,13 @@
         {{ $errors->first('font_id', '<p class="alert alert-danger">:message</p>'); }}
     </div>
 </div>
+<div class="form-group">
+    {{ Form::label('lang_id', Lang::get('base.language'), ['class'=>'col-sm-2 control-label']); }}
+    <div class="col-sm-10">
+        {{ Form::select('lang_id', $comic_languages, $comic->lang_is,['class'=>'form-control selectpicker']); }}
+        {{ $errors->first('lang_id', '<p class="alert alert-danger">:message</p>'); }}
+    </div>
+</div>
 <div class="btn-group pull-right" role="group">
     @if (!$isAdd) 
     <span class="btn btn-primary" onclick="$('#_method').val('DELETE'); $('#comicForm').attr('action', '{{ URL::route('comic.destroy', [$comic->id]) }}'); $('#comicForm').submit();"> @lang('base.delete') </span>

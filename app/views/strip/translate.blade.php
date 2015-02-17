@@ -10,7 +10,7 @@
 
 @section('tool.items')
     
-    {{ Form::select('from', ['en' => 'English'], 1,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'from'])}}
+    {{ Form::select('from', $available_languages, 1,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'from'])}}
     <span class='glyphicon glyphicon-arrow-right'></span>
     {{ Form::select('to', $languages->lists('label','shortcode') ,'fr',['class'=>'selectpicker','data-width'=>'auto', 'id'=>'to']) }}
     
