@@ -1,6 +1,4 @@
 html,body {
-	padding-top: 10px;
-	padding-bottom: 70px;
 	overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
 

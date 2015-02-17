@@ -7,6 +7,7 @@ return array(
     'add'       => 'Add',
     'update'    => 'Update',
     'delete'    => 'Delete',
+    'language'  => 'Language'
 );
 
 ?>
