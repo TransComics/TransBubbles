@@ -291,8 +291,19 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
+        $available_languages = DB::table('languages')
+            ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
+            ->where('bubbles.strip_id', '=', $strip->id)
+            ->select('languages.id', 'languages.label')
+            ->lists('label', 'id');
+        
+        $translate_languages = DB::table('languages')
+            ->where('languages.id', '<>', $strip->comic->lang_id)
+            ->lists('label', 'id');
+        
         View::share([
-            'strip_languages' => Language::all()->lists('label', 'id'),
+            'available_languages' => $available_languages,
+            'translate_languages' => $translate_languages,
             'strip_lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
