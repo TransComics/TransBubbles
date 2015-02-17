@@ -8,8 +8,6 @@
 <hr>
 <div class="text-center center-block">
 	
-        {{ HTML::image($strips->path, 'strip', array('id' => 'i', 'class' => 'thumbnail center-block img-responsive')) }}
-        
         <div class="showCanvas text-right">
             <span class="showCanvas-json hidden">{{$canvas}}</span>
             <span class="showCanvas-height hidden">{{$canvas_height}}</span>
@@ -42,14 +40,11 @@
 			class="glyphicon glyphicon-th"></i> View All</a>
 	</div>
 	<div class="btn-group" role="group">
-		<a
-			href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => 'fr'))}}"
-			style="top: 1px;" class="btn btn-primary"><i
-			class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i>@lang('strip.other_translation')</a>
-		<a
-			href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}"
-			style="top: 1px;" class="btn btn-primary"><i
-			class="fa fa-globe fa-lg" style="padding-right: 5px;"></i>@lang('strip.languages')</a>
+                {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langForm', 'style' => 'display : inline;']) }}
+                {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'btn btn-primary','data-width'=>'auto', 'onChange' => '$("#langForm").submit();'])}}
+                {{ Form::close() }}
+		<a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => 'fr'))}}" style="top: 1px;" class="btn btn-primary"><i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i>@lang('strip.other_translation')</a>
+		<a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" style="top: 1px;" class="btn btn-primary"><i class="fa fa-globe fa-lg" style="padding-right: 5px;"></i>@lang('strip.languages')</a>
 	</div>
 </div>
 @stop
