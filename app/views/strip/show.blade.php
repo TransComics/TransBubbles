@@ -7,8 +7,17 @@
 </div>
 <hr>
 <div class="text-center center-block">
-	{{ HTML::image($strips->path, 'strip', array('id' => 'i', 'class' =>
-	'thumbnail center-block img-responsive')) }}
+	
+        {{ HTML::image($strips->path, 'strip', array('id' => 'i', 'class' => 'thumbnail center-block img-responsive')) }}
+        
+        <div class="showCanvas text-right">
+            <span class="showCanvas-json hidden">{{$canvas}}</span>
+            <span class="showCanvas-height hidden">{{$canvas_height}}</span>
+            <span class="showCanvas-width hidden">{{$canvas_width}}</span>
+            <span class="id hidden">canvas-{{$bubble_id}}</span>
+            <canvas id="canvas-{{$bubble_id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
+        </div>
+        
 	<div class="btn-group" role="group">
 		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href=""></a>
 		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href=""></a>

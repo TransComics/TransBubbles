@@ -458,15 +458,15 @@ $(document).ready(function () {
         });
 //$("body").keydown( function(e) { alert(e.keyCode); }); // affiche keyCode
         $("body").keyup(function (e) {
-            if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
+            if (e.keyCode == 17 || e.keyCode == 224) {
                 this.ctr = false;
                 console.log("Touche control/pomme/shit disable.");
             }
         });
         $("body").keydown(function (e) {
-            if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
+            if (e.keyCode == 17 || e.keyCode == 224) {
                 this.ctr = true;
-                console.log("Key control/pomme/shit enable.");
+                console.log("Key control/pomme.");
             }
             else {
                 console.log("Key " + e.keyCode + " down.");

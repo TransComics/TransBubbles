@@ -4,11 +4,13 @@
         <div class="row-same-height" style="border-bottom: 1px solid #464545;">
             <div class="col-md-9 col-xs-height">
                 <h1>
-                    {{$comic->title}} <small>{{ Lang::get('comic.created',['created' =>
-						$comic->author]) }}</small> <a
-                        href="{{URL::route('strip.index', [$comic->id])}}"
-                        title="strip.index"
-                        class='btn btn-sm btn-primary glyphicon glyphicon-menu-up'></a>
+                    {{$comic->title}} <small>{{ Lang::get('comic.created',['created' => $comic->author]) }}</small>
+                    <a href="{{URL::route('strip.index', [$comic->id])}}" title="strip.index" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
+                    @if (Auth::check())
+                        <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+                        <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
+                        <span title="base.delete" class='btn btn-sm btn-primary glyphicon glyphicon-remove' onclick="$('#{{$comic->id}}').submit();"></span>
+                    @endif
                 </h1>
             </div>
             <div class="col-md-3 col-xs-height col-bottom"><p class="pull-right">{{Lang::get('comic.imported',['imported'

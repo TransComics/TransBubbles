@@ -5,24 +5,17 @@
     <div class="thumbnail thumbnail-comic" @if ($comic->cover) title="{{$comic->description}}" @endif >
         <h2>
             {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => $comic->id]); }}
-            <a href={{ URL::route('comic.show',['id' => $comic->id] )}}>{{$comic->title}} <small>({{$comic->author}})</small></a>
-            @if (Auth::check())
-            <span class="btn-group pull-right" role="group">
-                <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
-                <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
-                <span title="base.delete" class='btn btn-sm btn-primary glyphicon glyphicon-remove' onclick="$('#{{$comic->id}}').submit();"></span>
-
-            </span>
-            @endif
+            <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{$comic->title}} <small>({{$comic->author}})</small></a>
             @if($comic->strips->count() > 0) 
             <span class="btn-group pull-right" role="group">               
+                <a href="{{URL::route('strip.index', [$comic->id])}}" style="margin-top: 1px; margin-right: 2px;" title="strip.index" class='btn btn-sm btn-primary'>All</a>
                 <a href="{{URL::route('strip.show', [$comic->id, $comic->strips->last()->id])}}" style="margin-top: 1px; margin-right: 2px;" title="strip.show" class='btn btn-sm btn-primary'>Last</a>
              </span>
             @endif
             {{ Form::close(); }}
         </h2>
         @if ($comic->cover)
-        <a href={{URL::route('strip.index', [$comic->id])}}>{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} </a>
+        <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} </a>
         @else
             {{ $comic->description }}
         @endif
