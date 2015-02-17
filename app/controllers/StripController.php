@@ -14,18 +14,28 @@ class StripController extends BaseController {
     protected function show($comic_id, $id) {
         $comic = Comic::find($comic_id);
         if ($comic == null) {
-            return Redirect::route('comic.index');
+            return Redirect::route('access.denied');
         }
 
         $strip = $comic->strips->find($id);
         if ($strip == null) {
-            return Redirect::route('comic.index');
+            return Redirect::route('access.denied');
+        }
+        
+        $shapes = $strip->shapes()->whereNotNull('validated_at')->first();
+        if ($shapes == null) {
+            return Redirect::route('access.denied');
+        }
+        
+        $bubbles = $strip->bubbles()->whereNotNull('validated_at')->first();
+        if ($bubbles == null) {
+            return Redirect::route('access.denied');
         }
         
         View::share([
             'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : 1,
             'bubble_id' => $strip->bubbles()->whereNotNull('validated_at')->first()->id,
-            'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $delivred_bubbles !== null ? $delivred_bubbles : $original_bubbles),
+            'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles),
             'canvas_height' => $this->getHeight($shapes->value),
             'canvas_width' => $this->getWidth($shapes->value)
         ]);
