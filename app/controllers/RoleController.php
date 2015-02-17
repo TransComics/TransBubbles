@@ -58,7 +58,5 @@ class RoleController extends BaseController {
     public function destroy($id) {
         //
     }
-    
-    public function 
 
 }
