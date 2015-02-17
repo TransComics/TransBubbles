@@ -15,7 +15,8 @@
 <br />
 @if(Session::has('message'))
 <p class="alert alert-info">{{ Session::get('message') }}</p>
-@endif @if(empty($strips))
+@endif 
+@if(empty($strips))
 <!--TODO -->
 
 @else
@@ -33,7 +34,7 @@
 			<a href="{{ route('strip.show',[ $strip->comic->id, $strip->id]) }}">{{
 				HTML::image($strip->path, 'strip', ['class' => 'img-responsive
 				img-rounded', 'style' => 'overflow:hidden; width:250px;
-				height:250px; display:block; margin:0 auto;']) }}</a>
+				height:250px; display:block; margin:0 auto; img-responsive']) }}</a>
 
 			<div class="caption">
 				{{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id'
