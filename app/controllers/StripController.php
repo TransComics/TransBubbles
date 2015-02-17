@@ -285,7 +285,7 @@ class StripController extends BaseController {
 
         $original_bubbles = $strip->bubbles()
             ->whereNotNull('validated_at')
-            ->where('lang_id', '=', Session::has('strip_lang') ? Session::get('strip_lang') : $strip->comic->lang_id)
+            ->where('lang_id', '=', Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id)
             ->first();
         if ($original_bubbles === null) {
             return Redirect::route('access.denied');
