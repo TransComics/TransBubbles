@@ -9,7 +9,7 @@ class BubblesSeeder extends Seeder {
             'id' => 1,
             'strip_id' => 1,
             'user_id' => 2,
-            'lang_id' => 2,
+            'lang_id' => 1,
             'validated_at' => '2015-02-16 18:47:31',
             'created_at' => '2015-02-16 16:47:31',
             'updated_at' => '2015-02-16 16:47:31',
