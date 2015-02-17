@@ -98,7 +98,7 @@ class ComicController extends BaseController {
         if ($isOk) {
             $comic->title = Input::get('title');
             $comic->author = Input::get('author');
-            $comic->description = Input::get('description');
+            $comic->description = nl2br(Input::get('description'));
             $comic->authorApproval = Input::get('authorApproval');
             if (Input::hasFile('cover')) {
                 Comic::dropFile($comic->cover);
