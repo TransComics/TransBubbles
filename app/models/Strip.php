@@ -10,12 +10,12 @@ class Strip extends Eloquent {
         'insertion_date', 'path', 'validated_at'];
     public static $rules = [
         'pageNumber' => 'numeric',
-        'title' => 'max:64',
+        'title' => 'max:64|required',
         'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|between:40,4096|image'
     ];
     
     public static $updateRules = [
-        'title' => 'max:64'
+        'title' => 'max:64|required'
     ];
     
     public function comic () {
@@ -28,6 +28,10 @@ class Strip extends Eloquent {
     
     public function user() {
         return $this->belongsTo('User');
+    }
+    
+    public function bubbles() {
+        return $this->hasMany('Bubble');
     }
 
 }

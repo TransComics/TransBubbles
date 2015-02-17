@@ -78,4 +78,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function getRememberToken() {
         return $this->remember_token;
     }
+    
+    public function shapes() {
+        return $this->hasMany('Shape');
+    }
 }

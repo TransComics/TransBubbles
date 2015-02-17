@@ -14,7 +14,11 @@
 /* Constraint */
 Route::pattern('id', '[0-9]+');
 Route::pattern('comic_id', '[0-9]+');
-Route::when('*', 'csrf', ['post', 'put', 'delete']);
+Route::when('*', 'csrf', [
+    'post',
+    'put',
+    'delete'
+]);
 
 /* Home Page */
 Route::get('/', [
@@ -26,7 +30,6 @@ Route::post('/lang', [
     'as' => 'language.select',
     'uses' => 'LanguageController@select'
 ]);
-
 
 /* Authentification */
 Route::get('/login/', [
@@ -45,11 +48,14 @@ Route::get('/signup/', [
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
 
+
 Route::group(['prefix' => '/private'], function() {
     Route::resource('/roles', 'RoleController', array('only' => array('index','create','store')));
 });
 
-Route::group(['prefix' => '/password'], function() {
+Route::group([
+    'prefix' => '/password'
+], function () {
     Route::get('/remind', [
         'uses' => 'RemindersController@getRemind',
         'as' => 'password.remind'
@@ -62,7 +68,9 @@ Route::group(['prefix' => '/password'], function() {
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
+Route::group([
+    'prefix' => '/comic/{comic_id}/strip'
+], function () {
     Route::get('/{id}', [
         'as' => 'strip.show',
         'uses' => 'StripController@show'
@@ -104,7 +112,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.destroy',
         'uses' => 'StripController@destroy'
     ]);
-
+    
     Route::get('/{id}/clean', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -113,7 +121,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.saveClean',
         'uses' => 'StripController@saveClean'
     ]);
-
+    
     Route::get('/{id}/translate', [
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
@@ -131,27 +139,39 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.saveImport',
         'uses' => 'StripController@saveImport'
     ]);
-
-    /* Route::put('/pending/{id}', [
-      'as' => 'strip.validStrip',
-      'uses' => 'StripsController@validPending'
-      ]);
-      Route::put('/pending/{id}', [
-      'as' => 'strip.validClean',
-      'uses' => 'StripsController@validPending'
-      ]);
-      Route::put('/pending/{id}', [
-      'as' => 'strip.validImportText',
-      'uses' => 'StripsController@validPending'
-      ]);
-      Route::put('/pending/{id}', [
-      'as' => 'strip.validTraduction',
-      'uses' => 'StripsController@validPending'
-      ]); */
+    
+    /*
+     * Route::put('/pending/{id}', [
+     * 'as' => 'strip.validStrip',
+     * 'uses' => 'StripsController@validPending'
+     * ]);
+     * Route::put('/pending/{id}', [
+     * 'as' => 'strip.validClean',
+     * 'uses' => 'StripsController@validPending'
+     * ]);
+     * Route::put('/pending/{id}', [
+     * 'as' => 'strip.validImportText',
+     * 'uses' => 'StripsController@validPending'
+     * ]);
+     * Route::put('/pending/{id}', [
+     * 'as' => 'strip.validTraduction',
+     * 'uses' => 'StripsController@validPending'
+     * ]);
+     */
 });
 
-Route::resource('/comic', 'ComicController', ['before' => 'auth']);
+Route::resource('/comic', 'ComicController', [
+    'before' => 'auth'
+]);
 
-Route::group(['prefix' => '/ws'], function () {
-    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
+Route::group([
+    'prefix' => '/ws'
+], function () {
+    Route::resource('/translate', 'TranslatorController', array(
+        'only' => array(
+            'update'
+        )
+    ));
 });
+
+Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () { return "ACCESS DENIED";}]);

@@ -7,5 +7,9 @@ class Shape extends Eloquent {
     public function strip() {
         return $this->belongsTo('Strip');
     }
+    
+    public function user() {
+        return $this->belongsTo('User');
+    }
 
 }

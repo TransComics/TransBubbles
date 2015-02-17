@@ -17,7 +17,8 @@ class ComicModelTest extends TestCase {
             'title' => 'Titre', 
             'author' =>  'Geoffrey BERGERET',
             'description' => 'DESC',
-            'authorApproval' => true
+            'authorApproval' => true, 
+            'lang_id' => 1
         ]);
         $this->assertEquals(1, Comic::all()->count());        
 
@@ -26,7 +27,8 @@ class ComicModelTest extends TestCase {
             'title' => 'Comics2', 
             'author' =>  'AMC',
             'description' => 'DESC2',
-            'authorApproval' => true
+            'authorApproval' => true,
+            'lang_id' => 1
         ]);
         $this->assertEquals(2, Comic::all()->count());
     }
@@ -40,7 +42,8 @@ class ComicModelTest extends TestCase {
             'title' => 'Titre', 
             'author' =>  'Geoffrey BERGERET',
             'description' => 'DESC',
-            'authorApproval' => true
+            'authorApproval' => true,
+            'lang_id' => 1
         ]);
         $this->assertEquals(1, Comic::all()->count());        
 
@@ -49,7 +52,8 @@ class ComicModelTest extends TestCase {
             'title' => 'Comics2', 
             'author' =>  'AMC',
             'description' => 'DESC2',
-            'authorApproval' => true
+            'authorApproval' => true ,
+            'lang_id' => 1
         ]);
         $this->assertEquals(2, Comic::all()->count());
         

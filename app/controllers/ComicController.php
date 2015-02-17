@@ -84,7 +84,15 @@ class ComicController extends BaseController {
     }
 
     private function checkAndSave($comic, $return) {
-        $v = Validator::make(Input::all(), Comic::rules($comic->id));
+        $v = Validator::make(Input::all(),   [
+            'title' => 'required|between:4,63|unique:comics,title,'.$comic->id,
+            'author' => 'required|between:4,63',
+            'description' => 'max:2000',
+            'authorApproval' => 'accepted|boolean',
+            'cover' => 'image|mimes:png,jpeg|between:40,4096',
+            'font_id' => 'required|numeric',
+            'lang_id' => 'required|numeric'
+        ]);
         
         $isOk = $v->passes();
         if ($isOk) {
@@ -97,6 +105,7 @@ class ComicController extends BaseController {
                 $comic->cover = Comic::uploadFile(Input::file('cover'));
             }
             $comic->font_id = Input::get('font_id');
+            $comic->lang_id = Input::get('lang_id');
             $comic->created_by = Auth::id();
             $comic->save();
         }
@@ -121,7 +130,8 @@ class ComicController extends BaseController {
 
     private function prepareForm() {
         View::share([
-            'fonts' => Font::all()->lists('name', 'id')
+            'fonts' => Font::all()->lists('name', 'id'),
+            'comic_languages' => Language::all()->lists('label', 'id')
         ]);
     }
 }
