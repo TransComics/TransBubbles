@@ -144,6 +144,10 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('home');
         }
+        
+        if ($strip->shapes()->whereNotNull('validated_at')->count() > 0) {
+            return Redirect::route('access.denied');
+        }
 
         $shape = null;
         if (Auth::check()) {
@@ -316,7 +320,7 @@ class StripController extends BaseController {
         View::share([
             'available_languages' => $available_languages,
             'translate_languages' => $translate_languages,
-            'lang_strip_to' => Session::has('lang_strip_to') ? Session::has('lang_strip_to') : 0,
+            'lang_strip_to' => Session::has('lang_strip_to') ? Session::get('lang_strip_to') : 0,
             'strip_lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
             'fonts' => Font::all()->lists('name', 'name'),
             'strip' => $strip,
