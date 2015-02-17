@@ -27,7 +27,8 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
         
-        $bubbles = $strip->bubbles()->whereNotNull('validated_at')->first();
+        $lang_strip = Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id;
+        $bubbles = $strip->bubbles()->whereNotNull('validated_at')->where('lang_id', '=', $lang_strip)->first();
         if ($bubbles == null) {
             return Redirect::route('access.denied');
         }
@@ -41,7 +42,7 @@ class StripController extends BaseController {
         
         View::share([
             'available_languages' => $available_languages,
-            'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id,
+            'lang_strip' => $lang_strip,
             'bubble_id' => $strip->bubbles()->whereNotNull('validated_at')->first()->id,
             'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles),
             'canvas_height' => $this->getHeight($shapes->value),
