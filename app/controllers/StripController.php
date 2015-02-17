@@ -344,6 +344,7 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
+        Session::put('lang_strip_to', Input::get('lang_id'));
         $bubble->lang_id = Input::get('lang_id');
         $bubble->strip_id = $strip_id;
         $bubble->value = $this->extractTextsFromJSON(Input::get('value'));
