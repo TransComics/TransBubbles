@@ -32,8 +32,16 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
         
+        $available_languages = DB::table('languages')
+            ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
+            ->where('bubbles.strip_id', '=', $strip->id)
+            ->whereNotNull('bubbles.validated_at')
+            ->select('languages.id', 'languages.label')
+            ->lists('label', 'id');
+        
         View::share([
-            'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : 1,
+            '$available_languages' => $available_languages,
+            'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id,
             'bubble_id' => $strip->bubbles()->whereNotNull('validated_at')->first()->id,
             'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles),
             'canvas_height' => $this->getHeight($shapes->value),
@@ -181,26 +189,28 @@ class StripController extends BaseController {
     }
 
     protected function saveClean($comic_id, $strip_id) {
-        if (!Strip::exists($strip_id)) {
-            return Redirect::route('home');
+        $strip = Strip::find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('access.denied');
+        } 
+        if ($strip->shapes()->whereNotNull('validated_at')->count() > 0) {
+            return Redirect::route('access.denied');
         }
 
-        $shape = Shape::find(Input::get('id'));
+        $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
+        if ($shape != null && $shape->validated_at != null) {
+            return Redirect::route('access.denied');
+        }
+        
         if ($shape == null) {
             $shape = new Shape();
         } else if (Auth::check() && $shape->user->id != Auth::user()->id) {
-            return Redirect::route('home');
-        }
-
-        if ($shape->validated_at != null) {
-            return Redirect::route('strip.import', [$comic_id, $strip_id]);
+            return Redirect::route('access.denied');
         }
 
         $shape->strip_id = $strip_id;
         $shape->value = Input::get('value');
-        if (Auth::check()) {
-            $shape->user_id = Auth::user()->id;
-        }
+        $shape->user_id = Auth::user()->id;
         $shape->save();
 
         if (Input::get('action') == "saveClean") {
