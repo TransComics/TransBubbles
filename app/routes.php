@@ -31,13 +31,13 @@ Route::post('/lang', [
     'uses' => 'LanguageController@select'
 ]);
 
-Route::post('/strips/lang', [
-    'as' => 'strips.lang',
+Route::post('/strip/lang', [
+    'as' => 'strip.lang',
     'uses' => 'LanguageController@selectForStrip'
 ]);
 
-Route::post('/strips/lang_to', [
-    'as' => 'strips.lang_to',
+Route::post('/strip/lang_to', [
+    'as' => 'strip.lang_to',
     'uses' => 'LanguageController@selectForStripTo'
 ]);
 

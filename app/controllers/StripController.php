@@ -305,6 +305,7 @@ class StripController extends BaseController {
         $available_languages = DB::table('languages')
             ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
             ->where('bubbles.strip_id', '=', $strip->id)
+            ->whereNotNull('bubbles.validated_at')
             ->select('languages.id', 'languages.label')
             ->lists('label', 'id');
 
