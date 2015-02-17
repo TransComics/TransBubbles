@@ -2,7 +2,8 @@
 <h1>{{ $strips->title }}</h1>
 <div class="text-center center-block">
 	<small>@lang('strip.dateCreated') {{ $strips->created_at }} -
-		@lang('strip.dateUpdated') {{ $strips->updated_at }}</small>
+		@lang('strip.dateUpdated') {{ $strips->updated_at }} - 
+                @lang('comic.imported',['imported'=> $strips->user->username])</small>
 </div>
 <hr>
 <div class="text-center center-block">
