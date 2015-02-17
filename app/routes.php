@@ -45,6 +45,10 @@ Route::get('/signup/', [
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
 
+Route::group(['prefix' => '/private'], function() {
+    Route::resource('/roles', 'RoleController', array('only' => array('index','create','store')));
+});
+
 Route::group(['prefix' => '/password'], function() {
     Route::get('/remind', [
         'uses' => 'RemindersController@getRemind',
@@ -67,14 +71,17 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function() {
         'as' => 'strip.index',
         'uses' => 'StripController@index'
     ]);
-    /*
-     * Fix en mode dégueu, corriger !
-      Route::post('/store', [
-      'as' => 'strip.store',
-      'uses' => 'StripController@store'
-      ]);
-     * 
-     */
+    
+    Route::get('/{id}/vote', [
+        'as' => 'strip.vote',
+        'uses' => 'VoteController@index'
+    ]);
+    
+    Route::post('/{id}/vote', [
+        'as' => 'strip.postvote',
+        'uses' => 'VoteController@store'
+    ]);
+    
     // Fix maison à modifier
     Route::post('/create', [
         'as' => 'strip.store',
