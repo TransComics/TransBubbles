@@ -43,7 +43,7 @@
     <div class="btn-group pull-right margin-5" role="group">
 	<a class='btn btn-primary fa fa-location-arrow' href="" id="update"></a>
         <a class='btn btn-primary fa fa-trash' href="" id="del"></a>
-	<a class='btn btn-primary icon-text' href="" id="text"></a>
+	<a class='btn btn-primary fa fa-text-height' href="" id="text"></a>
         <input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" />
 	<input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
         <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />

@@ -1,33 +1,42 @@
 $(document).ready(function () {
-    $('.container').imageready(function () {
-        /* ********************************************************************************************** *
+    $(document).imageready(function () {
+         /* ********************************************************************************************** *
          * *********************************** Canvas handler ******************************************** *
          * ********************************************************************************************** */
         var canvas = new fabric.Canvas('c');
-        canvas.setHeight($('#i').height());
-        canvas.setWidth($('#i').width());
+        var interface = $('#interface').text();
+        if (interface !== "translate") {
+            canvas.setHeight($('#i').height());
+            canvas.setWidth($('#i').width());
+        }
+        else {
+            canvas.setHeight($('#canvasHeight').text());
+            canvas.setWidth($('#canvasWidth').text());
+        }
+        
         canvas.includeDefaultValues = false;
         var color = $('#colorPicker').val();
         var size = $('#sizePicker').val();
         var textSize = $('#sizePickerText').val();
         var font = $('#fontPicker').val();
         var background = null; // we need to keep an reference for background because it need to stay unselectable
-        var interface = $('#interface').text();
         canvas.freeDrawingBrush.width = size; // default brush size
         canvas.freeDrawingBrush.color = color; // default brush color
         canvas.renderAll();
         function initCanvas() {
-            if (background == null) {
-                background = new fabric.Image('i', {
-                    left: 0,
-                    top: 0,
-                    angle: 0,
-                    opacity: 1,
-                    selectable: false
-                });
+            if (interface !== "translate") {
+                if (background == null) {
+                    background = new fabric.Image('i', {
+                        left: 0,
+                        top: 0,
+                        angle: 0,
+                        opacity: 1,
+                        selectable: false
+                    });
+                }
+                canvas.add(background);
+                canvas.renderAll(true);
             }
-            canvas.add(background);
-            canvas.renderAll(true);
         }
 
         function TBCanvasParam() {
@@ -128,11 +137,10 @@ $(document).ready(function () {
         initCanvas();
         /* load the cleanning */
         
-        if (interface === "clean") {canvas.loadFromJSON($('#canvasSave').text(), function () {
-                canvas.renderAll(true);
-                param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-            });
-        }
+        canvas.loadFromJSON($('#canvasSave').text(), function () {
+            canvas.renderAll(true);
+            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+        });
         
         var param = new TBCanvasParam();
         /* ********************************************************************************************** *

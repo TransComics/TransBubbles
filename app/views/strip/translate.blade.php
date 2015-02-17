@@ -4,7 +4,8 @@
 	Interface de traduction
 @stop
 @section('tool.scripts')
-{{HTML::script('js/lib/json-jquery.js') }} 
+    {{HTML::script('js/showCanvas.js') }} 
+    {{HTML::script('js/lib/json-jquery.js') }} 
 @stop 
 
 @section('tool.items')
@@ -57,8 +58,14 @@
     <div id="main">
         <table id="paint">
             <tr>
-                <td class="origin">
-                    <canvas id="c_origin" width="706" height="283"></canvas>
+                <td id="origin">
+                    <div class="showCanvas text-right">
+                        <span class="showCanvas-json hidden">{{$canvas_original}}</span>
+                        <span class="showCanvas-height hidden">{{$strip_height}}</span>
+                        <span class="showCanvas-width hidden">{{$strip_width}}</span>
+                        <span class="id hidden">canvas-{{$bubble->id}}</span>
+                        <canvas id="canvas-{{$bubble->id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
+                    </div>
                 </td>
                 <td id="delivered">
                     <canvas id="c" width="706" height="283"></canvas>
@@ -73,10 +80,12 @@
     @include('translate.popup')
     
     <span id="interface" class="hidden">translate</span>
-    <span id="canvasOri" class="hidden">{{$canvas_original}}</span>
     <span id="canvasSave" class="hidden">{{$canvas_delivered}}</span>
-    
-    
+    <span id="canvasHeight" class="hidden">{{$strip_height}}</span>
+    <span id="canvasWidth" class="hidden">{{$strip_width}}</span>
+    <span id="strip" class="hidden">
+        {{ HTML::image($strip->path) }}
+    </span>
 @stop
 
 @section('tool.nav')
