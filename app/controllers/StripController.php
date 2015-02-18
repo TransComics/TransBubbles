@@ -6,6 +6,7 @@ class StripController extends BaseController {
 
     public function __construct() {
         $this->beforeFilter('auth', ['except' => ['index', 'show', 'clean', 'import', 'translate']]);
+        $this->beforeFilter('access');
     }
 
     /**
@@ -33,9 +34,6 @@ class StripController extends BaseController {
      * @return Response
      */
     public function index($comic_id) {
-        if (!RoleRessource::isAllowed('R', RessourceDefinition::Comics, $comic_id, Auth::id())) {
-            return Redirect::home();
-        }
 
         $comic = Comic::find($comic_id);
         if ($comic == null) {
@@ -50,9 +48,6 @@ class StripController extends BaseController {
     }
 
     public function edit($comic_id, $id) {
-        if (!RoleRessource::isAllowed('M', RessourceDefinition::Strips, $id, Auth::id())) {
-            return Redirect::home();
-        }
 
         $comic = Comic::find($comic_id);
         if ($comic == null) {
@@ -213,10 +208,6 @@ class StripController extends BaseController {
      * @return void
      */
     protected function import($comic_id, $strip_id) {
-        $strip = Strip::find($strip_id);
-        if ($strip == null) {
-            return Redirect::route('home');
-        }
 
         $shape = null;
         $shape = $strip->shapes()->whereNotNull('validated_at')->first();
