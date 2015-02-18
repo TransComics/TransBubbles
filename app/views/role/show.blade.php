@@ -16,10 +16,10 @@ $(document).ready(function() {
 			<h3>Role {{$role->name}}</h3>
 		</div>
 		<div class="col-xs-1 col-xs-height col-bottom">
-			<a class="btn btn-primary" href="#">role.edit</a>
+		  {{ HTML::linkRoute('private..roles.edit', Lang::get('role.edit'), array($role->id), array('class' => 'btn btn-primary')) }}
 		</div>
 		<div class="col-xs-1 col-xs-height col-bottom">
-			<a class="btn btn-danger" href="#">role.delete</a>
+			 {{ HTML::linkRoute('private..roles.destroy',Lang::get('role.destroy'), array($role->id), array('class' => 'btn btn-danger')) }}
 		</div>
 	</div>
 </div>
@@ -40,10 +40,15 @@ $(document).ready(function() {
 					<tr>
 						<td>{{ User::find($role_r->user_id)->username }}</td>
 						@if($role_r->ressource)
-						<td>{{$role_r->ressource}}</td> @else
-						<td>@lang('role.all')</td> @endif @if($role_r->ressource_id)
-						<td>{{$role_r->ressource_id}}</td> @else
-						<td>@lang('role.all')</td> @endif
+						<td>{{$role_r->ressource}}</td>
+					    @else
+						<td>@lang('role.all')</td> 
+						@endif 
+						@if($role_r->ressource_id)
+						<td>{{$role_r->ressource_id}}</td> 
+						@else
+						<td>@lang('role.all')</td> 
+						@endif
 					</tr>
 					@endforeach
 				</tbody>

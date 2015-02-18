@@ -24,10 +24,10 @@ class CreateRolesRessourceTable extends Migration {
         Schema::table($this->table, function(Blueprint $table) {
             $table->foreign('role_id')->references('id')->on('roles')
                     ->onUpdate('cascade')
-                    ->onDelete('restrict');
+                    ->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')
                     ->onUpdate('cascade')
-                    ->onDelete('restrict');
+                    ->onDelete('cascade');
         });
     }
 

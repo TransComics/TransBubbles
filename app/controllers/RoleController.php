@@ -43,11 +43,11 @@ class RoleController extends BaseController {
             
             $role = new Role();
             $role->name = Input::get('name');
-            $role->c = Input::has('c');
-            $role->r = Input::has('r');
-            $role->u = Input::has('u');
-            $role->m = Input::has('m');
-            $role->d = Input::has('d');
+            $role->C = Input::has('c') ? 1 : 0;
+            $role->R = Input::has('r') ? 1 : 0;
+            $role->U = Input::has('u') ? 1 : 0;
+            $role->M = Input::has('m') ? 1 : 0;
+            $role->D = Input::has('d') ? 1 : 0;
             $role->save();
             
             Log::info('saving role');
@@ -63,7 +63,14 @@ class RoleController extends BaseController {
      * @return Response
      */
     public function edit($id) {
-        //
+        $role = Role::find($id);
+        if ($role == null) {
+            return Redirect::route('home');
+        }
+        
+        return View::make('role.edit', [
+            'role' => $role
+        ]);
     }
 
     /**
@@ -79,7 +86,7 @@ class RoleController extends BaseController {
         }
         
         $role_ressources = RoleRessource::whererole_id($role->id)->get();
-       
+        
         if ($role_ressources == null) {
             return Redirect::route('home');
         }
@@ -97,7 +104,18 @@ class RoleController extends BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        $role = Role::find($id);
+        if ($role == null) {
+            return Redirect::route('home');
+        }
+        $role->C = Input::has('c') ? 1 : 0;
+        $role->R = Input::has('r') ? 1 : 0;
+        $role->U = Input::has('u') ? 1 : 0;
+        $role->M = Input::has('m') ? 1 : 0;
+        $role->D = Input::has('d') ? 1 : 0;
+        $role->save();
+        
+        return Redirect::route('private..roles.index')->with('message', Lang::get('rote.updated'));
     }
 
     /**
@@ -107,6 +125,19 @@ class RoleController extends BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        $role = Role::find($id);
+        if ($role == null) {
+            return Redirect::route('home');
+        }
+        $rolename = $role->name;
+        if ($role->protected) {
+            return Redirect::route('private..roles.index')->with('message', Lang::get('role.cannot_suppress', [
+                'rolename' => $rolename
+            ]));
+        }
+        $role->delete();
+        return Redirect::route('private..roles.index')->with('message', Lang::get('role.destroy', [
+            'rolename' => $rolename
+        ]));
     }
 }
