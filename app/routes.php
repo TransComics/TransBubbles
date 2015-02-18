@@ -50,7 +50,7 @@ Route::post('/signup/', 'UsersController@postCreate');
 
 
 Route::group(['prefix' => '/private'], function() {
-    Route::resource('/roles', 'RoleController', array('only' => array('index','create','store','show')));
+    Route::resource('/roles', 'RoleController');
 });
 
 Route::group([
@@ -165,13 +165,8 @@ Route::resource('/comic', 'ComicController', [
 ]);
 
 Route::group([
-    'prefix' => '/ws'
-], function () {
-    Route::resource('/translate', 'TranslatorController', array(
-        'only' => array(
-            'update'
-        )
-    ));
+    'prefix' => '/ws'], function () { 
+    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
 });
 
 Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () { return "ACCESS DENIED";}]);

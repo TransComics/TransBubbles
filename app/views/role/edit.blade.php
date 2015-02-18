@@ -1,9 +1,9 @@
 @extends('layouts.master') @section('master.content')
 <div class="text-center center-block">
-	<h3>@lang('role.create_new_role')</h3>
+	<h3>@lang('role.update_role')</h3>
 </div>
 </br>
-{{ Form::open(array('route'=>'private..roles.store', 'role' => 'form')) }}
+{{ Form::open(array('route'=>['private..roles.update', $role->id], 'method'=> 'PUT', 'role' => 'form')) }}
 
 <div class="well">
 	<div class="table-responsive">
@@ -20,17 +20,17 @@
 			</thead>
 			<tbody>
 			<tr>
-			<td class="text-center">{{ Form::text('name','', ['class'=>'form-control', 'placeholder' => Lang::get('role.name')]); }}
+			<td class="text-center">{{ Form::text('name','', ['class'=>'form-control', 'disabled' => 'disabled', 'placeholder' => $role->name]); }}
 			{{ $errors->first('name', '<p class="alert alert-danger">:message</p>'); }}</td>
-			<td class="text-center">{{ Form::checkbox('c', 1, null, ['id' =>'c']) }} </td>
-			<td class="text-center">{{ Form::checkbox('r', 1, null, ['id' =>'r']) }} </td>
-			<td class="text-center">{{ Form::checkbox('u', 1, null, ['id' =>'u']) }}</td>
-			<td class="text-center">{{ Form::checkbox('m', 1, null, ['id' =>'m']) }}</td>
-			<td class="text-center">{{ Form::checkbox('d', 1, null, ['id' =>'d']) }} </td>
+			<td class="text-center">{{ Form::checkbox('c', 'c', $role->C, ['id' =>'c']) }} </td>
+			<td class="text-center">{{ Form::checkbox('r', 'r', $role->R, ['id' =>'r']) }} </td>
+			<td class="text-center">{{ Form::checkbox('u', 'u', $role->U, ['id' =>'u']) }}</td>
+			<td class="text-center">{{ Form::checkbox('m', 'm', $role->M, ['id' =>'m']) }}</td>
+			<td class="text-center">{{ Form::checkbox('d', 'd', $role->D, ['id' =>'d']) }} </td>
 			</tr>
 			</tbody>
 		</table>
-		{{ Form::submit(Lang::get('role.validate'), array('class'=>'btn btn-success pull-right'))}}
+		{{ Form::submit(Lang::get('role.update'), array('class'=>'btn btn-success pull-right'))}}
 	</div>
 	
 	{{ Form::close() }}
