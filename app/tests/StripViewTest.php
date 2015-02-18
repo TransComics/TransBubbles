@@ -16,19 +16,19 @@ class StripViewTest extends TestCase {
     public function testStripAddLogin() {
         Auth::loginUsingId(1);
 
-        $this->client->request('GET', '/comic/1/strip/create');
+        $this->client->request('GET', '/comic/3/strip/create');
         $this->assertResponseOk();
     }
 
     public function testEditFirstStripNoLogin() {
-        $this->client->request('GET', '/comic/1/strip/1/edit');
+        $this->client->request('GET', '/comic/3/strip/3/edit');
         $this->assertRedirectedToRoute('user.signin');
     }
 
     public function testEditFirstStripLogin() {
         Auth::loginUsingId(1);
 
-        $this->client->request('GET', '/comic/2/strip/1/edit');
+        $this->client->request('GET', '/comic/3/strip/3/edit');
         $this->assertResponseOk();
     }
 }

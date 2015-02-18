@@ -24,12 +24,12 @@ class ComicViewTest extends TestCase {
     public function testComicUpdateFormAsUser() {
         Auth::loginUsingId(1);
 
-        $this->client->request('GET', '/comic/2/edit');
+        $this->client->request('GET', '/comic/3/edit');
         $this->assertResponseOk();
     }
 
     public function testComicUpdateFormAsGuest() {
-        $this->client->request('GET', '/comic/2/edit');
+        $this->client->request('GET', '/comic/3/edit');
         $this->assertRedirectedToRoute('user.signin');
     }
 
