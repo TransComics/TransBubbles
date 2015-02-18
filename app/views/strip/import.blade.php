@@ -32,21 +32,21 @@
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary glyphicon glyphicon-bold' id="textBold"></span>
-        <span class='btn btn-primary glyphicon glyphicon-italic' id="textItalic"></span>
-        <span class='btn btn-primary' id="textUnderline">Underline</span>
-        <span class='btn btn-primary' id="textLineThrough">Line-Through</span>
+        <span class='btn btn-primary fa fa-bold' id="textBold"></span>
+        <span class='btn btn-primary fa fa-italic' id="textItalic"></span>
+        <span class='btn btn-primary fa fa-underline' id="textUnderline"></span>
+        <span class='btn btn-primary fa fa-strikethrough' id="textLineThrough"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-	<a class='btn btn-primary icon-update' href="" id="update"></a>
-	<a class='btn btn-primary glyphicon glyphicon-trash' href="" id="del"></a>
-	<a class='btn btn-primary icon-text' href="" id="text"></a>
-        <input class="btn btn-primary" style="height:34px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" />
-	<input class="btn btn-primary" style="height:34px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
-        <input class="btn btn-primary" style="width:65px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
+	<a class='btn btn-primary fa fa-location-arrow' href="" id="update"></a>
+        <a class='btn btn-primary fa fa-trash' href="" id="del"></a>
+	<a class='btn btn-primary fa fa-text-height' href="" id="text"></a>
+        <input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" />
+	<input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
+        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
         
-        {{ Form::select('fontPicker', $fonts, 1,['class'=>'btn btn-primary', 'id'=>'fontPicker']); }}
+        {{ Form::select('fontPicker', $fonts, 1,['class'=>'btn btn-primary', 'id'=>'fontPicker', 'style' => 'width:120px;height:37px;padding: 3px;']); }}
     </div>
 @stop
 

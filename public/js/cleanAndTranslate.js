@@ -1,33 +1,42 @@
 $(document).ready(function () {
-    $('.container').imageready(function () {
-        /* ********************************************************************************************** *
+    $(document).imageready(function () {
+         /* ********************************************************************************************** *
          * *********************************** Canvas handler ******************************************** *
          * ********************************************************************************************** */
         var canvas = new fabric.Canvas('c');
-        canvas.setHeight($('#i').height());
-        canvas.setWidth($('#i').width());
+        var interface = $('#interface').text();
+        if (interface !== "translate") {
+            canvas.setHeight($('#i').height());
+            canvas.setWidth($('#i').width());
+        }
+        else {
+            canvas.setHeight($('#canvasHeight').text());
+            canvas.setWidth($('#canvasWidth').text());
+        }
+        
         canvas.includeDefaultValues = false;
         var color = $('#colorPicker').val();
         var size = $('#sizePicker').val();
         var textSize = $('#sizePickerText').val();
         var font = $('#fontPicker').val();
         var background = null; // we need to keep an reference for background because it need to stay unselectable
-        var interface = $('#interface').text();
         canvas.freeDrawingBrush.width = size; // default brush size
         canvas.freeDrawingBrush.color = color; // default brush color
         canvas.renderAll();
         function initCanvas() {
-            if (background == null) {
-                background = new fabric.Image('i', {
-                    left: 0,
-                    top: 0,
-                    angle: 0,
-                    opacity: 1,
-                    selectable: false
-                });
+            if (interface !== "translate") {
+                if (background == null) {
+                    background = new fabric.Image('i', {
+                        left: 0,
+                        top: 0,
+                        angle: 0,
+                        opacity: 1,
+                        selectable: false
+                    });
+                }
+                canvas.add(background);
+                canvas.renderAll(true);
             }
-            canvas.add(background);
-            canvas.renderAll(true);
         }
 
         function TBCanvasParam() {
@@ -127,10 +136,12 @@ $(document).ready(function () {
 
         initCanvas();
         /* load the cleanning */
+        
         canvas.loadFromJSON($('#canvasSave').text(), function () {
             canvas.renderAll(true);
             param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
         });
+        
         var param = new TBCanvasParam();
         /* ********************************************************************************************** *
          * *********************************** Zoom handler ******************************************** *
@@ -253,6 +264,9 @@ $(document).ready(function () {
         });
 // handling to save the translation
         $('#saveTranslate').click(function () {
+            myjson = JSON.stringify(canvas);
+            $('#translateSave').val(myjson);
+            $('#lang_id').val($('#langPicker').val());
             $('#saveTranslateForm').submit();
             return false;
         });
@@ -444,15 +458,15 @@ $(document).ready(function () {
         });
 //$("body").keydown( function(e) { alert(e.keyCode); }); // affiche keyCode
         $("body").keyup(function (e) {
-            if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
+            if (e.keyCode == 17 || e.keyCode == 224) {
                 this.ctr = false;
                 console.log("Touche control/pomme/shit disable.");
             }
         });
         $("body").keydown(function (e) {
-            if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
+            if (e.keyCode == 17 || e.keyCode == 224) {
                 this.ctr = true;
-                console.log("Key control/pomme/shit enable.");
+                console.log("Key control/pomme.");
             }
             else {
                 console.log("Key " + e.keyCode + " down.");
