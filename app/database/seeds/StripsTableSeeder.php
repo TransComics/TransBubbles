@@ -6,29 +6,13 @@ class StripsTableSeeder extends Seeder {
         Strip::unguard();
 
         Strip::create([
-            'id' => 1,
-            'comic_id' => 2,
-            'title' => 'Je suis projet',
-            'path' => '/uploads/0/363b1c29fe79ecbd4a1777201ce11dee',
+            'id' => 3,
+            'comic_id' => 3,
+            'title' => 'Cover',
+            'path' => '/uploads/0/a188e5019e903b2bbdd59a8ec9a12036',
             'validated_at' => '2015-02-10 11:12:32',
-            'user_id' => 1,
-        ]);
-        Strip::create([
-            'id' => 2,
-            'comic_id' => 1,
-            'title' => 'Portable du père',
-            'path' => '/uploads/0/cdb8a777ccf2c7c539cafe4e670c72e2',
             'user_id' => 2,
         ]);
-        Strip::create([
-            'id' => 3,
-            'comic_id' => 2,
-            'title' => 'Devop ?',
-            'path' => '/uploads/0/58f19710798ee712be8efaeba131f768',
-            'validated_at' => '2015-02-10 11:12:32',
-            'user_id' => 4,
-        ]);
-        
         Strip::create([
             'id' => 4,
             'comic_id' => 3,
@@ -110,6 +94,110 @@ class StripsTableSeeder extends Seeder {
             'validated_at' => '2015-02-10 11:12:32',
             'user_id' => 2,
         ]);
+        Strip::create([
+            'id' => 14,
+            'title' => 'Cover',
+            'path' => '/uploads/0/07f485e2f27eb5916a5cff7835bab148',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 15,
+            'title' => 'Chapter 2: Page 1',
+            'path' => '/uploads/0/867cd02c9ebb7273fbe546f4ae8efd9e',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 16,
+            'title' => 'Chapter 2: Page 2',
+            'path' => '/uploads/0/6d6acd0feec256e7c66792a045c9d48e',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 17,
+            'title' => 'Chapter 2: Page 3',
+            'path' => '/uploads/0/3320eba7f169f693dcdb4341e34075f8',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 18,
+            'title' => 'Chapter 2: Page 4',
+            'path' => '/uploads/0/ae5fd4b465982ce4c7611506189e4c66',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 19,
+            'title' => 'Chapter 2: Page 5',
+            'path' => '/uploads/0/06ad150fa0d0e67062822cf4bcaaa70a',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 20,
+            'title' => 'Chapter 2: Page 6',
+            'path' => '/uploads/0/610ff4d9cf2fabbf9ba7eac9ff7bfc2b',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 21,
+            'title' => 'Chapter 2: Page 7',
+            'path' => '/uploads/0/3e89ad9a80be9463a9453bb3c3b33da9',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 22,
+            'title' => 'Chapter 2: Page 8',
+            'path' => '/uploads/0/a3d87daf799ae0b55d8c922a2e4ee2fd',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 23,
+            'title' => 'Chapter 2: Page 9',
+            'path' => '/uploads/0/ad8e5d9cde40fe07c151eb3856f5c788',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 24,
+            'title' => 'Chapter 2: Page 10',
+            'path' => '/uploads/0/8da9f74e528156e3a6645d1812496aa7',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 25,
+            'title' => 'Chapter 2: Page 11',
+            'path' => '/uploads/0/f2b3626f91d495c8ca2c299bc5b122b5',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 26,
+            'title' => 'Chapter 2: Page 12',
+            'path' => '/uploads/0/4fd2415e0db16000eabb38a1739b2b4f',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 27,
+            'title' => 'Chapter 2: Page 13',
+            'path' => '/uploads/0/1d050698012e068aa4808fe6b834ed37',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
+        Strip::create([
+            'id' => 28,
+            'title' => 'Chapter 2: Page 14',
+            'path' => '/uploads/0/b3ccd9042a0696b319929b999d720ba6',
+            'comic_id' => 4,
+            'user_id' => 3
+        ]);
     }
-
 }
