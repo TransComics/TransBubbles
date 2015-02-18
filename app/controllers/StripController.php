@@ -51,7 +51,7 @@ class StripController extends BaseController {
 
     public function edit($comic_id, $id) {
         $rac = new RoleAssignmentController();
-        if(!$rac->isAllowed('M', Ressource::Strips, $comic_id, Auth::id())) {
+        if(!$rac->isAllowed('M', Ressource::Strips, $id, Auth::id())) {
             return Redirect::home();
         }
         
