@@ -92,6 +92,7 @@ class StripsTableSeeder extends Seeder {
             'title' => 'Chapter 1: Page 10',
             'path' => '/uploads/0/4add9b73d5ab647ee47aebcd0438eb30',
             'validated_at' => '2015-02-10 11:12:32',
+            'isShowable' => true,
             'user_id' => 2,
         ]);
         Strip::create([
