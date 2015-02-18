@@ -66,10 +66,10 @@ $(document).ready(function() {
 						<td>{{Role::find($roleR->role_id)->name}}</td>
 						<td>{{User::find($roleR->user_id)->username}}</td>
 					    <td class="text-center"> 
-					    {{ Form::open(['route' => ['comic.role.destroy', $roleR->id], 'method' => 'delete', 'id' =>'form'.$roleR->id ]); }}  
-						<a title=lang('base.delete') data-toggle="modal" data-target="#confirm-submit" data-href={{$roleR->id}} class='btn btn-danger btn-xs glyphicon glyphicon-remove' id={{$roleR->id}}></a>
+					    {{ Form::open(['route' => ['comic.role.destroy', $comic->id , $roleR->id], 'method' => 'delete', 'id' =>'form'.$roleR->id ]); }}  
+						<a title=lang('base.delete') data-toggle="modal" data-target="#confirm-submit" data-href={{$roleR->id}} class='btn btn-danger btn-sm glyphicon glyphicon-remove' id={{$roleR->id}}></a>
 						{{ Form::close();}}
-						      </td>
+						</td>
 					</tr>
 					@endforeach
 				</tbody>
@@ -81,7 +81,7 @@ $(document).ready(function() {
 <div class="row">
     <div class="well bs-component">
         <div class="text-center center-block">
-        {{ Form::open(['route' => ['comic.role.create', $roleR->id], 'method' => 'POST','role'=> 'form', 'class' => 'form-inline','id' =>'createRole' ])}}
+        {{ Form::open(['route' => ['comic.role.create', $comic->id], 'method' => 'POST','role'=> 'form', 'class' => 'form-inline','id' =>'createRole' ])}}
         {{ Form::text('name', null, array('class'=>'form-control pull-left', 'id' => 'autocomplete', 'placeholder'=> Lang::get('login.login'))) }}
         {{ Form::select('role',$role ,null, ['class' => 'form-control', 'id' => 'role'])}}
         {{ Form::submit(Lang::get('role.submit'), array('class'=>'btn btn-primary pull-right'))}}

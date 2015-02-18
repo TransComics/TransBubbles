@@ -149,7 +149,7 @@ Route::post('/comic/{id}/role',[
         'as' => 'comic.role.create',
         'uses'=> 'RoleRessourceController@store'
     ]);
-Route::delete('/comic/{id}/role',[
+Route::delete('/comic/{comic_id}/role/{roleR_id}',[
         'as' => 'comic.role.destroy',
         'uses'=> 'RoleRessourceController@destroy'
     ]);
