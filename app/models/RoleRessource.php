@@ -4,6 +4,7 @@ namespace Transcomics\RoleRessource;
 
 use Role;
 use Strip;
+use User;
 use Comic;
 
 class RoleRessource extends \Eloquent {
