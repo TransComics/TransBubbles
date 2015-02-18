@@ -25,6 +25,50 @@ class ShapesTableSeeder extends Seeder {
             'user_id' => 3,
             'value' => '{"objects":[{"type":"image","width":696,"height":938,"src":"/uploads/0/4add9b73d5ab647ee47aebcd0438eb30","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"ellipse","left":130,"top":218.5,"width":164,"height":76,"fill":"#ffffff","rx":82,"ry":38},{"type":"ellipse","left":44,"top":614.5,"fill":"#ffffff","rx":0,"ry":0},{"type":"ellipse","left":9,"top":579.42,"width":162,"height":78,"fill":"#ffffff","scaleX":0.8,"scaleY":0.8,"rx":81,"ry":39},{"type":"ellipse","left":142,"top":833.5,"width":158,"height":8,"fill":"#ffffff","scaleX":0.89,"scaleY":7.63,"rx":79,"ry":4},{"type":"ellipse","left":428,"top":766.5,"width":148,"height":50,"fill":"#ffffff","scaleX":0.8,"rx":74,"ry":25},{"type":"ellipse","left":627,"top":675.5,"width":46,"height":30,"fill":"#ffffff","rx":23,"ry":15}],"background":""}'
         ]);
+        
+        Shape::create([
+            'id' => 5,
+            'strip_id' => 14,
+            'value' => '',
+            'user_id' => 3,
+            'created_at' => '2015-02-18 16:41:24',
+            'validated_at' => '2015-02-18 16:41:24',
+            'validated_at' => '2015-02-18 17:48:38',
+            'value' => '{"objects":[{"type":"image","width":738,"height":956,"src":"/uploads/0/07f485e2f27eb5916a5cff7835bab148","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"}],"background":""}'
+        ]);
+        
+        Shape::create([
+            'id' => 6,
+            'strip_id' => 15,
+            'value' => '',
+            'user_id' => 3,
+            'created_at' => '2015-02-18 16:43:17',
+            'validated_at' => '2015-02-18 16:43:17',
+            'validated_at' => '2015-02-18 17:48:38',
+            'value' => '{"objects":[{"type":"image","width":668,"height":871,"src":"/uploads/0/867cd02c9ebb7273fbe546f4ae8efd9e","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"ellipse","left":216.23,"top":801.5,"width":46,"height":34,"fill":"#ffffff","rx":23,"ry":17}],"background":""}'
+        ]);
+        
+        Shape::create([
+            'id' => 7,
+            'strip_id' => 16,
+            'value' => '',
+            'user_id' => 3,
+            'created_at' => '2015-02-18 16:46:29',
+            'validated_at' => '2015-02-18 16:46:29',
+            'validated_at' => '2015-02-18 17:48:38',
+            'value' => '{"objects":[{"type":"image","width":668,"height":871,"src":"/uploads/0/6d6acd0feec256e7c66792a045c9d48e","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"ellipse","left":363.23,"top":16.5,"width":190,"height":68,"fill":"#ffffff","scaleX":0.92,"scaleY":0.94,"rx":95,"ry":34},{"type":"ellipse","left":399.41,"top":233.32,"width":204,"height":50,"fill":"#ffffff","scaleX":1.02,"scaleY":1.02,"rx":102,"ry":25},{"type":"ellipse","left":29.23,"top":193.17,"width":218,"height":66,"fill":"#ffffff","scaleX":0.98,"scaleY":0.94,"rx":109,"ry":33},{"type":"ellipse","left":2.23,"top":332.5,"width":194,"height":24,"fill":"#ffffff","scaleY":1.25,"rx":97,"ry":12},{"type":"ellipse","left":231.23,"top":336.5,"width":66,"height":22,"fill":"#ffffff","scaleX":1.11,"scaleY":1.14,"rx":33,"ry":11},{"type":"ellipse","left":1.23,"top":643.5,"width":186,"height":36,"fill":"#ffffff","scaleX":0.93,"rx":93,"ry":18},{"type":"ellipse","left":368.23,"top":782.5,"width":62,"height":24,"fill":"#ffffff","rx":31,"ry":12},{"type":"ellipse","left":482.23,"top":65.5,"fill":"#ffffff","rx":0,"ry":0}],"background":""}'
+        ]);
+        
+        Shape::create([
+            'id' => 8,
+            'strip_id' => 19,
+            'value' => '',
+            'user_id' => 3,
+            'created_at' => '2015-02-18 16:48:11',
+            'validated_at' => '2015-02-18 16:48:11',
+            'validated_at' => '2015-02-18 17:48:38',
+            'value' => '{"objects":[{"type":"image","width":596,"height":800,"src":"/uploads/0/06ad150fa0d0e67062822cf4bcaaa70a","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"rect","left":5.08,"top":22.5,"width":567,"height":131,"fill":"#ffffff"},{"type":"rect","left":370.08,"top":409.5,"width":210,"height":269,"fill":"#ffffff"}],"background":""}'
+        ]);
     }
 
 }

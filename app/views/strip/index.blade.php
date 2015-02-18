@@ -39,6 +39,8 @@
             @if($strip->isShowable)
                 </a>
             @endif
+            
+            @if (Auth::check())
             <div class="caption">
                 {{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id'
 				=> 'stripForm'.$strip->id]); }} {{ Form::hidden('_method', 'put',
@@ -78,6 +80,7 @@
                     </ul>
                 </div>
             </div>
+            @endif
         </div>
     </div>
     @endforeach
