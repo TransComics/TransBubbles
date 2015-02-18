@@ -21,6 +21,7 @@ class CreateRolesTable extends Migration {
             $table->boolean('M');
             $table->boolean('D');
             $table->string('name');
+            $table->boolean('protected');
         });
     }
 

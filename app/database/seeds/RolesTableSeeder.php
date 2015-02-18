@@ -10,7 +10,8 @@ class RolesTableSeeder extends Seeder {
             'U' => true,
             'M' => true,
             'D' => true,
-            'name' => 'Administrator'
+            'name' => 'Administrator',
+            'protected' => true
         ]);
         Role::create([
             'id' => 2,
@@ -19,8 +20,18 @@ class RolesTableSeeder extends Seeder {
             'U' => false,
             'M' => false,
             'D' => false,
-            'name' => 'Guest'
+            'name' => 'Guest',
+            'protected' => true
+        ]);
+        Role::create([
+            'id' => 3,
+            'C' => true,
+            'R' => true,
+            'U' => false,
+            'M' => true,
+            'D' => false,
+            'name' => 'Moderator',
+            'protected' => true
         ]);
     }
-
 }

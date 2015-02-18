@@ -130,7 +130,14 @@ class RoleController extends BaseController {
             return Redirect::route('home');
         }
         $rolename = $role->name;
+        if ($role->protected) {
+            return Redirect::route('private..roles.index')->with('message', Lang::get('role.cannot_suppress', [
+                'rolename' => $rolename
+            ]));
+        }
         $role->delete();
-        return Redirect::route('private..roles.index')->with('message', Lang::get('role.destroy') - with($rolename));
+        return Redirect::route('private..roles.index')->with('message', Lang::get('role.destroy', [
+            'rolename' => $rolename
+        ]));
     }
 }
