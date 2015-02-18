@@ -17,13 +17,21 @@
         </div>
         
 	<div class="btn-group" role="group">
-		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href=""></a>
-		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href=""></a>
-		<a class='btn btn-primary glyphicon glyphicon-random'
-			href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$strips->id))}}"
-			id="btnRandom"></a> <a
-			class='btn btn-primary glyphicon glyphicon-chevron-right' href=""></a>
-		<a class='btn btn-primary glyphicon glyphicon-fast-forward' href=""></a>
+                @if($previous_strip)
+		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$first_strip->id))}}"></a>
+		@endif
+                @if($previous_strip)
+                <a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$previous_strip->id))}}"></a>
+		@endif
+                @if($random_strip)
+                <a class='btn btn-primary glyphicon glyphicon-random' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$random_strip->id))}}" id="btnRandom"></a> 
+                @endif
+                @if($next_strip)
+                <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$next_strip->id))}}"></a>
+		@endif
+                @if($next_strip)
+                <a class='btn btn-primary glyphicon glyphicon-fast-forward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$last_strip->id))}}"></a>
+                @endif
 	</div>
 	</br> </br>
 	<div class="btn-group" role="group">
