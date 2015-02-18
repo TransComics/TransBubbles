@@ -8,7 +8,7 @@ class ComicController extends BaseController {
     
     public function index() {
         return View::make('comic.index', [
-            'comics' => Comic::paginate(Session::has('paginate') ? Session::get('paginate') : 12)
+            'comics' => Comic::paginate(Session::has('paginate') ? Session::get('paginate') : 10)
         ]);
     }
 
