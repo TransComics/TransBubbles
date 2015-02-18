@@ -183,7 +183,7 @@ class StripController extends BaseController {
 
     protected function saveClean($comic_id, $strip_id) {
         $strip = Strip::find($strip_id);
-        if ($strip === null || $strip->isCleanable()) {
+        if ($strip === null || !$strip->isCleanable()) {
             return Redirect::route('access.denied');
         }
 
@@ -216,8 +216,9 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
-        $shape = $strip->shapes()->whereNotNull('validated_at')
-            ->orWhere('user_id', Auth::user()->id)->first();
+        $shape = $strip->shapes()->where(function ($q) {
+            $q->whereNotNull('validated_at')->orWhere('user_id', Auth::user()->id);  
+        })->first();
         $bubble = $strip->bubbles()
             ->where('user_id', Auth::user()->id)
             ->where('lang_id', '=', $strip->comic->lang_id)
@@ -271,8 +272,9 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
-        $shapes = $strip->shapes()->whereNotNull('validated_at')
-            ->orWhere('user_id', '=', Auth::id())->first();
+        $shapes = $strip->shapes()->where(function($q) {
+            $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
+        })->first();
 
         $original_bubbles = $strip->bubbles()
             ->whereNotNull('validated_at')
