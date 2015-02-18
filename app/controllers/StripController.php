@@ -34,6 +34,13 @@ class StripController extends BaseController {
             ->lists('label', 'id');
 
         View::share([
+            /* Paginate. */
+            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('validated_at')->first(),
+            'previous_strip' => $comic->strips()->where('isShowable', true)->where('id', '<', $strip->id)->orderBy('id', 'desc')->first(),
+            'random_strip' => $comic->strips()->where('isShowable', true)->where('id', '<>', $strip->id)->orderByRaw('RAND()')->first(),
+            'next_strip' => $comic->strips()->where('isShowable', true)->where('id', '>', $strip->id)->orderBy('id')->first(),
+            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('validated_at', 'desc')->first(),
+            
             'available_languages' => $available_languages,
             'lang_strip' => $lang_strip,
             'bubble_id' => $strip->bubbles()->whereNotNull('validated_at')->first()->id,

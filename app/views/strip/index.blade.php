@@ -5,11 +5,13 @@
         <div class="col-xs-10 col-xs-height">
             <h1>{{ Lang::get('strip.pendingTitle')}}</h1>
         </div>
+        @if(Auth::check())
         <div class="col-xs-2 col-xs-height col-bottom">
             <a href="{{URL::route('strip.create', [$comic_id])}}"
                title="strip.add"
                class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
         </div>
+        @endif
     </div>
 </div>
 <br />

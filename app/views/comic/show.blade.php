@@ -33,11 +33,13 @@
         <div class="col-xs-10 col-xs-height">
             <h3>@lang('comic.lastStrip')</h3>
         </div>
+        @if (Auth::check())
         <div class="col-xs-2  col-xs-height col-bottom">
             <a href="{{URL::route('strip.create', [$comic->id])}}"
                title="strip.add"
                class='btn btn-sm btn-primary glyphicon glyphicon-plus pull-right'></a>
         </div>
+        @endif
     </div>
 </div>
 <hr>
