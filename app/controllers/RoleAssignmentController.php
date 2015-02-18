@@ -106,7 +106,7 @@ class RoleAssignmentController extends BaseController {
         switch ($this->canAccessRessource($role_desc, $ressource, $ressource_id, $user_id)) {
             case 'UNKNOWN':
                 if ($ressource == Ressource::Strips) {
-                    return isAllowed($role_desc, Ressource::Comics, $ressource_id, $user_id);
+                    return $this->isAllowed($role_desc, Ressource::Comics, $ressource_id, $user_id);
                 } else {
                     return $this->getVisitorRights($role_desc);
                 }
@@ -119,6 +119,7 @@ class RoleAssignmentController extends BaseController {
                 return false;
 
             case 'ERROR':
+                //TODO : Voir checkRessource
                 $ret = 'ERROR';
                 break;
         }
