@@ -1,5 +1,7 @@
 <?php
 
+use Transcomics\RoleRessource\RessourceDefinition;
+
 class StripController extends BaseController {
 
     public function __construct() {
@@ -31,12 +33,10 @@ class StripController extends BaseController {
      * @return Response
      */
     public function index($comic_id) {
-        
-        $rac = new RoleAssignmentController();
-        if(!$rac->isAllowed('R', Ressource::Comics, $comic_id, Auth::id())) {
+        if (!RoleRessource::isAllowed('R', RessourceDefinition::Comics, $comic_id, Auth::id())) {
             return Redirect::home();
         }
-        
+
         $comic = Comic::find($comic_id);
         if ($comic == null) {
             return Redirect::route('comic.index');
@@ -50,11 +50,10 @@ class StripController extends BaseController {
     }
 
     public function edit($comic_id, $id) {
-        $rac = new RoleAssignmentController();
-        if(!$rac->isAllowed('M', Ressource::Strips, $id, Auth::id())) {
+        if (!RoleRessource::isAllowed('M', RessourceDefinition::Strips, $id, Auth::id())) {
             return Redirect::home();
         }
-        
+
         $comic = Comic::find($comic_id);
         if ($comic == null) {
             return Redirect::route('comic.index');
@@ -96,8 +95,8 @@ class StripController extends BaseController {
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
-                    ->withErrors($valid)
-                    ->withInput();
+                            ->withErrors($valid)
+                            ->withInput();
         }
         return Redirect::back()->with('message', Lang::get('strips.editComplete'));
     }
@@ -109,8 +108,6 @@ class StripController extends BaseController {
      * @return Response
      */
     public function store($comic_id) {
-
-        $roles = new RoleAssignmentController();
 
         $files = Input::file('strips');
         foreach ($files as $file) {
@@ -128,10 +125,10 @@ class StripController extends BaseController {
                 $strip->comic_id = $comic_id;
                 $strip->user_id = Auth::id();
                 $strip->save();
-
-                $roles->addRight(1, Ressource::Strips, $strip->id, Auth::id());
+                RoleRessource::addRight(1, RessourceDefinition::Strips, $strip->id, Auth::id());
             }
         }
+
 
         return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strip.uploadComplete'));
     }
@@ -228,7 +225,7 @@ class StripController extends BaseController {
         } else {
             return Redirect::route('access.denied');
         }
-        
+
         if ($shape === null) {
             return Redirect::route('access.denied');
         }
@@ -236,9 +233,9 @@ class StripController extends BaseController {
         $bubble = null;
         if (Auth::check()) {
             $bubble = $strip->bubbles()
-                ->where('user_id', Auth::user()->id)
-                ->whereNull('original_id')
-                ->first();
+                    ->where('user_id', Auth::user()->id)
+                    ->whereNull('original_id')
+                    ->first();
             if ($bubble != null && $bubble->validated_at != null) {
                 return Redirect::route('strip.index', [$comic_id]);
             }
@@ -342,9 +339,9 @@ class StripController extends BaseController {
 
         $jsonBubble = json_decode($bubble->value, true)['objects'];
         $json = '{"objects":' .
-            json_encode(array_merge(
-                    json_decode($shape->value, true)['objects'], $jsonBubble)) .
-            ',"background":"" }';
+                json_encode(array_merge(
+                                json_decode($shape->value, true)['objects'], $jsonBubble)) .
+                ',"background":"" }';
 
         return $json;
     }

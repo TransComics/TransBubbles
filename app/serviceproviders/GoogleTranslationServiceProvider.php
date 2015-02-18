@@ -11,7 +11,7 @@ class GoogleTranslationServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
-        // Register 'bingTranslation' instance container to our BingTranslation object
+        // Register 'googleTranslation' instance container to our GoogleTranslation object
         $this->app['googleTranslation'] = $this->app->share(function ($app) {
             
             $translator = new \Transcomics\GoogleTranslation\GoogleTranslation();
