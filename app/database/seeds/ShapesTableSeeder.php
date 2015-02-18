@@ -1,6 +1,6 @@
 <?php
 
-class ShapesSeeder extends Seeder {
+class ShapesTableSeeder extends Seeder {
 
     public function run() {
         Shape::unguard();
