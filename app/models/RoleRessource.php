@@ -102,4 +102,18 @@ class RoleRessource extends \Eloquent {
         }
     }
 
+    //TODO : Move to private when function refactore above ;)
+    public function getAccessMode($routeName) {
+        // Getting the access mode : C,R,U,(M),D
+        if (preg_match('/.create$|.store$/', $routeName)) {
+            return 'C';
+        } elseif (preg_match('/.show$/', $routeName)) {
+            return 'R';
+        } elseif (preg_match('/.edit$|.update$/', $routeName)) {
+            return 'U';
+        } elseif (preg_match('/.destroy$/', $routeName)) {
+            return 'D';
+        }
+    }
+
 }
