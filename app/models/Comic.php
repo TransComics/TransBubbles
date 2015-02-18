@@ -9,5 +9,9 @@ class Comic extends Eloquent {
     public function strips () {
         return $this->hasMany('Strip');
     }
+        
+    public function getLastShowable() {
+        return $this->strips()->where('isShowable', TRUE)->orderBy('id', 'desc')->first();
+    }
 
 }
