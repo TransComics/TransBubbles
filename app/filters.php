@@ -11,7 +11,7 @@
  * |
  */
 App::before(function ($request) {
-    
+
     /* Define language. */
     if (Session::has('lang')) {
         $lang = Session::get('lang');
@@ -20,9 +20,9 @@ App::before(function ($request) {
     }
     /* Define user locale. */
     App::setLocale($lang);
-    
+
     /* Give languages to View. */
-    
+
     View::share([
         'languages' => Language::all([
             'shortcode',
@@ -59,6 +59,10 @@ Route::filter('auth', function () {
 
 Route::filter('auth.basic', function () {
     return Auth::basic();
+});
+
+Route::filter('access', function($route) {
+    return RoleRessource::filter($route);
 });
 
 /*

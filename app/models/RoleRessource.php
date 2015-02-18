@@ -104,7 +104,7 @@ class RoleRessource extends \Eloquent {
     }
 
     //TODO : Move to private when function refactore above ;)
-    public function getAccessMode($routeName) {
+    private function getAccessMode($routeName) {
         // Getting the access mode : C,R,U,(M),D
         if (preg_match('/.create$|.store$/', $routeName)) {
             return 'C';
@@ -114,6 +114,30 @@ class RoleRessource extends \Eloquent {
             return 'U';
         } elseif (preg_match('/.destroy$/', $routeName)) {
             return 'D';
+        }
+    }
+
+    public function filter($route) {
+        // We get the route name (ressource.xxxxx)
+        $routeName = \Route::getCurrentRoute()->getName();
+
+        $access_mode = $this->getAccessMode($routeName);
+
+        if (empty($access_mode)) {
+            return;
+        }
+
+        // Getting the ressource type
+        if (preg_match('/^strip./', $routeName)) {
+            $strip_id = $route->getParameter('id');
+            if (!$this->isAllowed($access_mode, RessourceDefinition::Strips, $strip_id, \Auth::id())) {
+                return Redirect::route('access.denied');
+            }
+        } elseif (preg_match('/^comic./', $routeName)) {
+            $strip_id = $route->getParameter('id');
+            if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $strip_id, \Auth::id())) {
+                return Redirect::route('access.denied');
+            }
         }
     }
 
