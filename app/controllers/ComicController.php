@@ -4,18 +4,19 @@ class ComicController extends BaseController {
 
     public function __construct() {
         $this->beforeFilter('auth', ['except' => ['index', 'show']]);
+        $this->beforeFilter('access', ['only' => ['show', 'edit', 'update', 'destroy']]);
     }
-    
+
     public function index() {
         return View::make('comic.index', [
-            'comics' => Comic::paginate(Session::has('paginate') ? Session::get('paginate') : 10)
+                    'comics' => Comic::paginate(Session::has('paginate') ? Session::get('paginate') : 10)
         ]);
     }
 
     public function create() {
         $this->prepareForm();
         return View::make('comic.create', [
-            'comic' => new Comic()
+                    'comic' => new Comic()
         ]);
     }
 
@@ -24,46 +25,46 @@ class ComicController extends BaseController {
         if ($c == null) {
             return Redirect::route('comic.create');
         }
-        
+
         $this->prepareForm();
         return View::make('comic.edit', [
-            'comic' => $c
+                    'comic' => $c
         ]);
     }
 
     public function store() {
         return $this->checkAndSave(new Comic(), function ($c, $v, $isOk) {
-            
-            if ($isOk) {
-                return Redirect::route('comic.index', [
-                    $c->id
-                ])->withMessage(Lang::get('comic.added', [
-                    'title' => $c->title
-                ]));
-            }
-            return Redirect::route('comic.create')->withInput()
-                ->withErrors($v)
-                ->withMessage(Lang::get('comic.errorMessage'));
-        });
+
+                    if ($isOk) {
+                        return Redirect::route('comic.index', [
+                                    $c->id
+                                ])->withMessage(Lang::get('comic.added', [
+                                            'title' => $c->title
+                        ]));
+                    }
+                    return Redirect::route('comic.create')->withInput()
+                                    ->withErrors($v)
+                                    ->withMessage(Lang::get('comic.errorMessage'));
+                });
     }
 
     public function update($id) {
         return $this->checkAndSave(Comic::find($id), function ($c, $v, $isOk) {
-            
-            if ($isOk) {
-                return Redirect::route('comic.update', [
-                    $c->id
-                ])->withMessage(Lang::get('comic.updated', [
-                    'title' => $c->title
-                ]));
-            }
-            
-            return Redirect::route('comic.edit', [
-                $c->id
-            ])->withInput()
-                ->withErrors($v)
-                ->withMessage(Lang::get('comic.errorMessage'));
-        });
+
+                    if ($isOk) {
+                        return Redirect::route('comic.update', [
+                                    $c->id
+                                ])->withMessage(Lang::get('comic.updated', [
+                                            'title' => $c->title
+                        ]));
+                    }
+
+                    return Redirect::route('comic.edit', [
+                                        $c->id
+                                    ])->withInput()
+                                    ->withErrors($v)
+                                    ->withMessage(Lang::get('comic.errorMessage'));
+                });
     }
 
     public function destroy($id) {
@@ -71,29 +72,29 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
-        
+
         $comic->strips->each(function($strip) {
             Strip::dropFile($strip->path);
             $strip->delete();
         });
-        
+
         Comic::dropFile($comic->cover);
         $comic->delete();
-        
+
         return Redirect::back();
     }
 
     private function checkAndSave($comic, $return) {
-        $v = Validator::make(Input::all(),   [
-            'title' => 'required|between:4,63|unique:comics,title,'.$comic->id,
-            'author' => 'required|between:4,63',
-            'description' => 'max:2000',
-            'authorApproval' => 'accepted|boolean',
-            'cover' => 'image|mimes:png,jpeg|between:40,4096',
-            'font_id' => 'required|numeric',
-            'lang_id' => 'required|numeric'
+        $v = Validator::make(Input::all(), [
+                    'title' => 'required|between:4,63|unique:comics,title,' . $comic->id,
+                    'author' => 'required|between:4,63',
+                    'description' => 'max:2000',
+                    'authorApproval' => 'accepted|boolean',
+                    'cover' => 'image|mimes:png,jpeg|between:40,4096',
+                    'font_id' => 'required|numeric',
+                    'lang_id' => 'required|numeric'
         ]);
-        
+
         $isOk = $v->passes();
         if ($isOk) {
             $comic->title = Input::get('title');
@@ -109,7 +110,7 @@ class ComicController extends BaseController {
             $comic->created_by = Auth::id();
             $comic->save();
         }
-        
+
         return $return($comic, $v, $isOk);
     }
 
@@ -118,13 +119,13 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
-        
+
 //        $strips = $comic->strips()->whereNotNull('valided_at')->orderBy('valided_at','desc');
         $strips = $comic->strips->sortByDesc('id');
-        
+
         return View::make('comic.show', [
-            'comic' => $comic,
-            'strips' => $strips
+                    'comic' => $comic,
+                    'strips' => $strips
         ]);
     }
 
@@ -134,4 +135,5 @@ class ComicController extends BaseController {
             'comic_languages' => Language::all()->lists('label', 'id')
         ]);
     }
+
 }

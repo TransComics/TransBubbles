@@ -6,7 +6,7 @@ class StripController extends BaseController {
 
     public function __construct() {
         $this->beforeFilter('auth', ['except' => ['index', 'show', 'clean', 'import', 'translate']]);
-        $this->beforeFilter('access');
+        $this->beforeFilter('access', ['only' => ['show', 'edit', 'update', 'destroy']]);
     }
 
     /**
