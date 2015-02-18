@@ -117,8 +117,6 @@ class StripsTableSeeder extends Seeder {
             'id' => 16,
             'title' => 'Chapter 2: Page 2',
             'path' => '/uploads/0/6d6acd0feec256e7c66792a045c9d48e',
-            'validated_at' => '2015-02-18 17:48:38',
-            'isShowable' => true,
             'comic_id' => 4,
             'user_id' => 3
         ]);

@@ -52,7 +52,7 @@ class BubblesSeeder extends Seeder {
             'strip_id' => 14,
             'user_id' => 3,
             'lang_id' => 1,
-            'value' => '',
+            'value' => '{"objects":[],"background":""}',
             'created_at' => '2015-02-18 16:42:48',
             'updated_at' => '2015-02-18 16:42:48',
             'validated_at' => '2015-02-18 16:46:53'
@@ -72,10 +72,9 @@ class BubblesSeeder extends Seeder {
             'strip_id' => 16,
             'user_id' => 3,
             'lang_id' => 1,
-            'value' => '',
+            'value' => '{"objects":[],"background":""}',
             'created_at' => '2015-02-18 16:46:53',
             'updated_at' => '2015-02-18 16:46:53',
-            'validated_at' => '2015-02-18 16:46:53'
         ]);   
         Bubble::create([
             'id' => 9,
