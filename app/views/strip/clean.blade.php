@@ -6,13 +6,13 @@ Interface de nettoyage
 
 @section('tool.items')
     <div class="btn-group pull-right margin-5" role="group">
-        <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
-        <a class='btn btn-primary fa fa-repeat' href="" id="redo"></a>
+        <span class='btn btn-primary fa fa-undo' id="undo"></span>
+        <span class='btn btn-primary fa fa-repeat' id="redo"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut"></span>
-        <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn"></span>
+        <span class='btn btn-primary fa fa-search-minus' id="btnZoomOut"></span>
+        <span class='btn btn-primary fa fa-search-plus' id="btnZoomIn"></span>
         <span class='btn btn-primary fa fa-search' id="btnResetZoom"></span>
     </div>
 
