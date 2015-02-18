@@ -8,8 +8,6 @@
 @stop 
 
 @section('tool.items')
-   {{ Form::select('langPicker', $strip_languages , $strip_lang_id, ['class'=>'selectpicker', 'id'=>'langPicker']) }}    
-
     <div class="btn-group pull-right margin-5" role="group">
         <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
         <a class='btn btn-primary fa fa-repeat' href="" id="redo"></a>

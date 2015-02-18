@@ -1,6 +1,6 @@
 <?php
 
-class StripsSeeder extends Seeder {
+class StripsTableSeeder extends Seeder {
 
     public function run() {
         Strip::unguard();

@@ -14,7 +14,7 @@ class ComicsTableSeeder extends Seeder {
             'cover' => '/uploads/0/ce7afa9115bb0b891963c632be0c4696',
             'font_id' => 2,
             'created_by' => 2,
-            'lang_id' => 2
+            'lang_id' => 1
         ]);
         Comic::create([
             'id' => 2,
