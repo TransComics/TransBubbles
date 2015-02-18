@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $(document).imageready(function () {
-         /* ********************************************************************************************** *
+        /* ********************************************************************************************** *
          * *********************************** Canvas handler ******************************************** *
          * ********************************************************************************************** */
         var canvas = new fabric.Canvas('c');
@@ -13,7 +13,7 @@ $(document).ready(function () {
             canvas.setHeight($('#canvasHeight').text());
             canvas.setWidth($('#canvasWidth').text());
         }
-        
+
         canvas.includeDefaultValues = false;
         var color = $('#colorPicker').val();
         var size = $('#sizePicker').val();
@@ -64,7 +64,7 @@ $(document).ready(function () {
             else {
                 canvas.forEachObject(function (o) {
                     if (o.type === 'i-text')
-                            o.selectable = selectable;
+                        o.selectable = selectable;
                     else
                         o.selectable = false;
                 });
@@ -130,6 +130,68 @@ $(document).ready(function () {
         }
 
         /* ********************************************************************************************** *
+         * ********************************* Undo Redo handler ****************************************** *
+         * ********************************************************************************************** */
+
+        var save = [];
+        var save_index = 0; // because we sauv the original before - and save index become 0
+        var save_max = 0;
+        var updateActivate = true;
+
+        function updateModifications() {
+            if (updateActivate) {
+                myjson = JSON.stringify(canvas);
+                //myjson = canvas.toJSON();
+                save[save_index] = myjson;
+                save_index++;
+                save_max = save_index;
+
+                console.log("vvvvvvvvvvv save [] vvvvvvvvvvv");
+                for (var i in save) {
+                    console.log("i : " + i + " => " + save[i]);
+                }
+                console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            }
+        }
+
+        function undo() {
+            if (save_index > 1) {
+                updateActivate = false;
+                save_index -= 1;
+                console.log("Undo => OK - "+(save_index-1));
+                canvas.clear();
+                canvas.loadFromJSON(save[save_index-1], function () {
+                    canvas.renderAll(true);
+                    updateActivate = true;
+                    param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                });
+            } else {
+                console.log("Undo => KO");
+            }
+        }
+
+        function redo() {
+            if (save_index <  save_max) {
+                updateActivate = false;
+                save_index += 1;
+                console.log("Redo => OK - "+(save_index-1));
+                canvas.clear();
+                canvas.loadFromJSON(save[save_index-1], function () {
+                    canvas.renderAll(true);
+                    updateActivate = true;
+                    param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                });
+            } else {
+                console.log("Redo => KO");
+            }
+        }
+
+        function clearcan() {
+            canvas.clear().renderAll();
+            save = [];
+        }
+        
+        /* ********************************************************************************************** *
          * *********************************** init canvas ******************************************** *
          * ********************************************************************************************** */
 
@@ -137,12 +199,21 @@ $(document).ready(function () {
         initCanvas();
         /* load the cleanning */
         
-        canvas.loadFromJSON($('#canvasSave').text(), function () {
-            canvas.renderAll(true);
-            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-        });
-        
+        updateActivate = false;
+        if($('#canvasSave').text() != ''){
+            canvas.loadFromJSON($('#canvasSave').text(), function () {
+                canvas.renderAll(true);
+                param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                updateActivate = true;
+                updateModifications();
+            });
+        }else {
+            updateActivate = true;
+            updateModifications();
+        }
+
         var param = new TBCanvasParam();
+        
         /* ********************************************************************************************** *
          * *********************************** Zoom handler ******************************************** *
          * ********************************************************************************************** */
@@ -449,13 +520,34 @@ $(document).ready(function () {
             return false;
         });
         $("#undo").click(function () {
-//undo();
+            undo();
             return false;
         });
         $("#redo").click(function () {
-//redo();
+            redo();
             return false;
         });
+
+        canvas.on('object:modified', function () {
+            console.log("An object has modified :" + updateActivate);
+            updateModifications();
+        });
+        canvas.on('object:added', function (e) {
+            var activeObject = e.target;
+            if(activeObject.type != "rect" && activeObject.type != "ellipse"){
+                console.log("An object has created :" + updateActivate);
+                updateModifications();
+            }
+        });
+        canvas.on('object:removed', function () {
+            console.log("An object has removed :" + updateActivate);
+            updateModifications();
+        });
+        canvas.on('text:editing:exited', function () {
+            console.log("An object has changed :" + updateActivate);
+            updateModifications();
+        });
+
 //$("body").keydown( function(e) { alert(e.keyCode); }); // affiche keyCode
         $("body").keyup(function (e) {
             if (e.keyCode == 17 || e.keyCode == 224) {
@@ -612,6 +704,8 @@ $(document).ready(function () {
                 param.allSelected(true, canvas);
                 canvas.deactivateAll();
                 canvas.renderAll(true);
+                console.log("An object has created :" + updateActivate);
+                updateModifications();
             }
         }
         /* ********************************************************************************************** *
