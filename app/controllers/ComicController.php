@@ -38,7 +38,7 @@ class ComicController extends BaseController {
         return $this->checkAndSave(new Comic(), function ($c, $v, $isOk) {
 
                     if ($isOk) {
-                        RoleRessource::addRight(1, RessourceDefinition::Comics, $c->id, Auth::id());
+                        RoleRessource::addRight(2, RessourceDefinition::Comics, $c->id, Auth::id());
                         return Redirect::route('comic.index', [
                                     $c->id
                                 ])->withMessage(Lang::get('comic.added', [
