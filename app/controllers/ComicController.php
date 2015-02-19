@@ -1,5 +1,7 @@
 <?php
 
+use Transcomics\RoleRessource\RessourceDefinition;
+
 class ComicController extends BaseController {
 
     public function __construct() {
@@ -36,6 +38,7 @@ class ComicController extends BaseController {
         return $this->checkAndSave(new Comic(), function ($c, $v, $isOk) {
 
                     if ($isOk) {
+                        RoleRessource::addRight(1, RessourceDefinition::Comics, $c->id, Auth::id());
                         return Redirect::route('comic.index', [
                                     $c->id
                                 ])->withMessage(Lang::get('comic.added', [
@@ -119,7 +122,7 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
-        $strips = $comic->strips()->where('isShowable', TRUE)->orderBy('validated_at','desc')->take(3)->get();
+        $strips = $comic->strips()->where('isShowable', TRUE)->orderBy('validated_at', 'desc')->take(3)->get();
         return View::make('comic.show', [
                     'comic' => $comic,
                     'strips' => $strips
