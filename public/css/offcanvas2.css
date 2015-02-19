@@ -73,6 +73,10 @@ html,body {
 	margin: 6px;
 }
 
+.canvas-container {
+    margin: 0 auto;
+}
+
 /*
  * icon-lang
  * --------------------------------------------------

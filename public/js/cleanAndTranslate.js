@@ -1,33 +1,42 @@
 $(document).ready(function () {
-    $('.container').imageready(function () {
+    $(document).imageready(function () {
         /* ********************************************************************************************** *
          * *********************************** Canvas handler ******************************************** *
          * ********************************************************************************************** */
         var canvas = new fabric.Canvas('c');
-        canvas.setHeight($('#i').height());
-        canvas.setWidth($('#i').width());
+        var interface = $('#interface').text();
+        if (interface !== "translate") {
+            canvas.setHeight($('#i').height());
+            canvas.setWidth($('#i').width());
+        }
+        else {
+            canvas.setHeight($('#canvasHeight').text());
+            canvas.setWidth($('#canvasWidth').text());
+        }
+
         canvas.includeDefaultValues = false;
         var color = $('#colorPicker').val();
         var size = $('#sizePicker').val();
         var textSize = $('#sizePickerText').val();
         var font = $('#fontPicker').val();
         var background = null; // we need to keep an reference for background because it need to stay unselectable
-        var interface = $('#interface').text();
         canvas.freeDrawingBrush.width = size; // default brush size
         canvas.freeDrawingBrush.color = color; // default brush color
         canvas.renderAll();
         function initCanvas() {
-            if (background == null) {
-                background = new fabric.Image('i', {
-                    left: 0,
-                    top: 0,
-                    angle: 0,
-                    opacity: 1,
-                    selectable: false
-                });
+            if (interface !== "translate") {
+                if (background == null) {
+                    background = new fabric.Image('i', {
+                        left: 0,
+                        top: 0,
+                        angle: 0,
+                        opacity: 1,
+                        selectable: false
+                    });
+                }
+                canvas.add(background);
+                canvas.renderAll(true);
             }
-            canvas.add(background);
-            canvas.renderAll(true);
         }
 
         function TBCanvasParam() {
@@ -55,7 +64,7 @@ $(document).ready(function () {
             else {
                 canvas.forEachObject(function (o) {
                     if (o.type === 'i-text')
-                            o.selectable = selectable;
+                        o.selectable = selectable;
                     else
                         o.selectable = false;
                 });
@@ -119,25 +128,61 @@ $(document).ready(function () {
         TBCanvasParam.prototype.activateButton = function (id) {
             $(id).css('border-color', '#f00');
         }
-
-        /* ********************************************************************************************** *
-         * *********************************** init canvas ******************************************** *
-         * ********************************************************************************************** */
-
-
-        initCanvas();
-        /* load the cleanning */
-        canvas.loadFromJSON($('#canvasSave').text(), function () {
-            canvas.renderAll(true);
-            param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
-        });
-        var param = new TBCanvasParam();
+        
+        /* initialisation variable to zoom and to undo/redo */
+        var canvasScale = 1;
+        var SCALE_FACTOR = 1.2;
+        
+        var save = [];
+        var scaleSave = []; // to zoom
+        var save_index = 0; // because we sauv the original before - and save index become 0
+        var save_max = 0;
+        var updateActivate = true;
+        
         /* ********************************************************************************************** *
          * *********************************** Zoom handler ******************************************** *
          * ********************************************************************************************** */
-
-        var canvasScale = 1;
-        var SCALE_FACTOR = 1.2;
+        
+    // Zoom do
+        function zoomDo(canvasScaleFrom, canvasScaleTo) {
+            var objects = canvas.getObjects();
+            for (var i in objects) {
+                var scaleX = objects[i].scaleX;
+                var scaleY = objects[i].scaleY;
+                var left = objects[i].left;
+                var top = objects[i].top;
+                var tempScaleX = scaleX * (1 / canvasScaleFrom);
+                var tempScaleY = scaleY * (1 / canvasScaleFrom);
+                var tempLeft = left * (1 / canvasScaleFrom);
+                var tempTop = top * (1 / canvasScaleFrom);
+                objects[i].scaleX = tempScaleX;
+                objects[i].scaleY = tempScaleY;
+                objects[i].left = tempLeft;
+                objects[i].top = tempTop;
+                objects[i].setCoords();
+            }
+            
+            canvas.renderAll();
+            var zoom = (canvasScaleTo > 1)? true : false;
+            
+            var objects = canvas.getObjects();
+            for (var i in objects) {
+                var scaleX = objects[i].scaleX;
+                var scaleY = objects[i].scaleY;
+                var left = objects[i].left;
+                var top = objects[i].top;
+                var tempScaleX = scaleX * canvasScaleTo;
+                var tempScaleY = scaleY * canvasScaleTo;
+                var tempLeft = left * canvasScaleTo;
+                var tempTop = top * canvasScaleTo;
+                objects[i].scaleX = tempScaleX;
+                objects[i].scaleY = tempScaleY;
+                objects[i].left = tempLeft;
+                objects[i].top = tempTop;
+                objects[i].setCoords();
+            }
+            canvas.renderAll();
+        }
 // Zoom In
         function zoomIn() {
             // TODO limit the max canvas zoom in
@@ -167,7 +212,7 @@ $(document).ready(function () {
 
 // Zoom Out
         function zoomOut() {
-// TODO limit max cavas zoom out
+            // TODO limit max cavas zoom out
 
             canvasScale = canvasScale / SCALE_FACTOR;
             canvas.setHeight(canvas.getHeight() * (1 / SCALE_FACTOR));
@@ -216,8 +261,97 @@ $(document).ready(function () {
 
             canvas.renderAll();
             canvasScale = 1;
+            //scaleSave[save_index-1] = canvasScale; // to be adapted at the undo/redo function
         }
 
+
+        /* ********************************************************************************************** *
+         * ********************************* Undo Redo handler ****************************************** *
+         * ********************************************************************************************** */
+
+        function updateModifications() {
+            if (updateActivate) {
+                myjson = JSON.stringify(canvas);
+                //myjson = canvas.toJSON();
+                save[save_index] = myjson;
+                scaleSave[save_index] = canvasScale;
+                save_index++;
+                save_max = save_index;
+
+                console.log("vvvvvvvvvvv save [] vvvvvvvvvvv");
+                for (var i in save) {
+                    console.log("i : " + i + " => " + save[i]);
+                }
+                console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            }
+        }
+
+        function undo() {
+            if (save_index > 1) {
+                updateActivate = false;
+                save_index -= 1;
+                console.log("Undo => OK - "+(save_index-1));
+                canvas.clear();
+                canvas.loadFromJSON(save[save_index-1], function () {
+                    // handler of zoom
+                    zoomDo(scaleSave[save_index-1] ,canvasScale); // to handle zoom
+                    
+                    canvas.renderAll(true);
+                    updateActivate = true;
+                    param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                });
+            } else {
+                console.log("Undo => KO");
+            }
+        }
+
+        function redo() {
+            if (save_index <  save_max) {
+                updateActivate = false;
+                save_index += 1;
+                console.log("Redo => OK - "+(save_index-1));
+                canvas.clear();
+                canvas.loadFromJSON(save[save_index-1], function () {
+                    // handler of zoom
+                    zoomDo(scaleSave[save_index-1] ,canvasScale); // to handle zoom
+                    
+                    canvas.renderAll(true);
+                    updateActivate = true;
+                    param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                });
+            } else {
+                console.log("Redo => KO");
+            }
+        }
+
+        function clearcan() {
+            canvas.clear().renderAll();
+            save = [];
+        }
+        
+        /* ********************************************************************************************** *
+         * *********************************** init canvas ******************************************** *
+         * ********************************************************************************************** */
+
+
+        initCanvas();
+        /* load the cleanning */
+        
+        updateActivate = false;
+        if($('#canvasSave').text() != ''){
+            canvas.loadFromJSON($('#canvasSave').text(), function () {
+                canvas.renderAll(true);
+                param.allSelectable(true, canvas); // we desactivate all object, beacause if one object is selected, it wont able to undo correctly
+                updateActivate = true;
+                updateModifications();
+            });
+        }else {
+            updateActivate = true;
+            updateModifications();
+        }
+
+        var param = new TBCanvasParam();
+       
         /* ********************************************************************************************** *
          * *********************************** Event handler ******************************************** *
          * ********************************************************************************************** */
@@ -245,6 +379,7 @@ $(document).ready(function () {
         });
 // handling to save the cleaning
         $('#saveClean').click(function () {
+            resetZoom();
             myjson = JSON.stringify(canvas);
             $('#saveCleanAction').val("saveClean");
             $('#cleanSave').val(myjson);
@@ -253,11 +388,16 @@ $(document).ready(function () {
         });
 // handling to save the translation
         $('#saveTranslate').click(function () {
+            resetZoom();
+            myjson = JSON.stringify(canvas);
+            $('#translateSave').val(myjson);
+            $('#lang_id').val($('#langPicker').val());
             $('#saveTranslateForm').submit();
             return false;
         });
 // handling to save the import origin text
         $('#saveImport').click(function () {
+            resetZoom();
             myjson = JSON.stringify(canvas);
             $('#importSave').val(myjson);
             $('#lang_id').val($('#langPicker').val());
@@ -266,6 +406,7 @@ $(document).ready(function () {
         });
 // handling to save the cleaning
         $('#nextStep').click(function () {
+            resetZoom();
             myjson = JSON.stringify(canvas);
             $('#saveCleanAction').val("nextStep");
             $('#cleanSave').val(myjson);
@@ -435,24 +576,45 @@ $(document).ready(function () {
             return false;
         });
         $("#undo").click(function () {
-//undo();
+            undo();
             return false;
         });
         $("#redo").click(function () {
-//redo();
+            redo();
             return false;
         });
+
+        canvas.on('object:modified', function () {
+            console.log("An object has modified :" + updateActivate);
+            updateModifications();
+        });
+        canvas.on('object:added', function (e) {
+            var activeObject = e.target;
+            if(activeObject.type != "rect" && activeObject.type != "ellipse"){
+                console.log("An object has created :" + updateActivate);
+                updateModifications();
+            }
+        });
+        canvas.on('object:removed', function () {
+            console.log("An object has removed :" + updateActivate);
+            updateModifications();
+        });
+        canvas.on('text:editing:exited', function () {
+            console.log("An object has changed :" + updateActivate);
+            updateModifications();
+        });
+
 //$("body").keydown( function(e) { alert(e.keyCode); }); // affiche keyCode
         $("body").keyup(function (e) {
-            if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
+            if (e.keyCode == 17 || e.keyCode == 224) {
                 this.ctr = false;
                 console.log("Touche control/pomme/shit disable.");
             }
         });
         $("body").keydown(function (e) {
-            if (e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {
+            if (e.keyCode == 17 || e.keyCode == 224) {
                 this.ctr = true;
-                console.log("Key control/pomme/shit enable.");
+                console.log("Key control/pomme.");
             }
             else {
                 console.log("Key " + e.keyCode + " down.");
@@ -598,6 +760,8 @@ $(document).ready(function () {
                 param.allSelected(true, canvas);
                 canvas.deactivateAll();
                 canvas.renderAll(true);
+                console.log("An object has created :" + updateActivate);
+                updateModifications();
             }
         }
         /* ********************************************************************************************** *

@@ -99,7 +99,7 @@ class ComicController extends BaseController {
         if ($isOk) {
             $comic->title = Input::get('title');
             $comic->author = Input::get('author');
-            $comic->description = Input::get('description');
+            $comic->description = nl2br(Input::get('description'));
             $comic->authorApproval = Input::get('authorApproval');
             if (Input::hasFile('cover')) {
                 Comic::dropFile($comic->cover);
@@ -119,10 +119,7 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
-
-//        $strips = $comic->strips()->whereNotNull('valided_at')->orderBy('valided_at','desc');
-        $strips = $comic->strips->sortByDesc('id');
-
+        $strips = $comic->strips()->where('isShowable', TRUE)->orderBy('validated_at','desc')->take(3)->get();
         return View::make('comic.show', [
                     'comic' => $comic,
                     'strips' => $strips

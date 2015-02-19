@@ -10,6 +10,7 @@ class CreateStripsTable extends Migration {
             $table->increments('id');
             $table->string('title', 64);
             $table->string('path');
+            $table->boolean('isShowable')->default(false);
             $table->timestamp('validated_at')->nullable();
             $table->integer('comic_id')->unsigned();
             $table->integer('user_id')->unsigned();

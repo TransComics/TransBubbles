@@ -17,13 +17,40 @@ class StripController extends BaseController {
     protected function show($comic_id, $id) {
         $comic = Comic::find($comic_id);
         if ($comic == null) {
-            return Redirect::route('comic.index');
+            return Redirect::route('access.denied');
         }
 
         $strip = $comic->strips->find($id);
-        if ($strip == null) {
-            return Redirect::route('comic.index');
+        if (!$strip->isShowable()) {
+            return Redirect::route('access.denied');
         }
+
+        $lang_strip = Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id;
+        $shapes = $strip->shapes()->whereNotNull('validated_at')->first();
+        $bubbles = $strip->bubbles()->whereNotNull('validated_at')->where('lang_id', '=', $lang_strip)->first();
+
+        $available_languages = DB::table('languages')
+            ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
+            ->where('bubbles.strip_id', '=', $strip->id)
+            ->whereNotNull('bubbles.validated_at')
+            ->select('languages.id', 'languages.label')
+            ->lists('label', 'id');
+
+        View::share([
+            /* Paginate. */
+            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('validated_at')->first(),
+            'previous_strip' => $comic->strips()->where('isShowable', true)->where('id', '<', $strip->id)->orderBy('id', 'desc')->first(),
+            'random_strip' => $comic->strips()->where('isShowable', true)->where('id', '<>', $strip->id)->orderByRaw('RAND()')->first(),
+            'next_strip' => $comic->strips()->where('isShowable', true)->where('id', '>', $strip->id)->orderBy('id')->first(),
+            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('validated_at', 'desc')->first(),
+            
+            'available_languages' => $available_languages,
+            'lang_strip' => $lang_strip,
+            'bubble_id' => $strip->bubbles()->whereNotNull('validated_at')->first()->id,
+            'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles),
+            'canvas_height' => $this->getHeight($shapes->value),
+            'canvas_width' => $this->getWidth($shapes->value)
+        ]);
 
         return View::make('strip.show', ['strips' => $strip]);
     }
@@ -44,7 +71,12 @@ class StripController extends BaseController {
             return Redirect::route('comic.index');
         }
 
-        return View::make('strip.index', ['strips' => $comic->strips, 'comic_id' => $comic_id]);
+        return View::make('strip.index', [
+            'strips' => $comic->strips()->where(function ($q) {
+                $q->where('isShowable', TRUE)->orWhere('user_id', Auth::id());
+            })->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
+            'comic_id' => $comic_id
+        ]);
     }
 
     public function edit($comic_id, $id) {
@@ -151,17 +183,11 @@ class StripController extends BaseController {
      */
     protected function clean($comic_id, $strip_id) {
         $strip = Strip::find($strip_id);
-        if ($strip == null) {
-            return Redirect::route('home');
+        if ($strip === null || !$strip->isCleanable()) {
+            return Redirect::route('access.denied');
         }
 
-        $shape = null;
-        if (Auth::check()) {
-            $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
-            if ($shape != null && $shape->validated_at != null) {
-                return Redirect::route('strip.import', [$comic_id, $strip_id]);
-            }
-        }
+        $shape = $strip->shapes()->where('user_id', '=', Auth::id())->first();
 
         View::share([
             'shape' => $shape != null ? $shape : new Shape(),
@@ -173,26 +199,20 @@ class StripController extends BaseController {
     }
 
     protected function saveClean($comic_id, $strip_id) {
-        if (!Strip::exists($strip_id)) {
-            return Redirect::route('home');
+        $strip = Strip::find($strip_id);
+        if ($strip === null || !$strip->isCleanable()) {
+            return Redirect::route('access.denied');
         }
 
-        $shape = Shape::find(Input::get('id'));
+        $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
+
         if ($shape == null) {
             $shape = new Shape();
-        } else if (Auth::check() && $shape->user->id != Auth::user()->id) {
-            return Redirect::route('home');
-        }
-
-        if ($shape->validated_at != null) {
-            return Redirect::route('strip.import', [$comic_id, $strip_id]);
-        }
+        } 
 
         $shape->strip_id = $strip_id;
         $shape->value = Input::get('value');
-        if (Auth::check()) {
-            $shape->user_id = Auth::user()->id;
-        }
+        $shape->user_id = Auth::user()->id;
         $shape->save();
 
         if (Input::get('action') == "saveClean") {
@@ -208,34 +228,22 @@ class StripController extends BaseController {
      * @return void
      */
     protected function import($comic_id, $strip_id) {
-
-        $shape = null;
-        $shape = $strip->shapes()->whereNotNull('validated_at')->first();
-        if ($shape == null && Auth::check()) {
-            $shape = $strip->shapes()->where('user_id', Auth::user()->id)->first();
-        } else {
+        $strip = Strip::find($strip_id);
+        if ($strip === null || !$strip->isImportable()) {
             return Redirect::route('access.denied');
         }
 
-        if ($shape === null) {
-            return Redirect::route('access.denied');
-        }
-
-        $bubble = null;
-        if (Auth::check()) {
-            $bubble = $strip->bubbles()
-                    ->where('user_id', Auth::user()->id)
-                    ->whereNull('original_id')
-                    ->first();
-            if ($bubble != null && $bubble->validated_at != null) {
-                return Redirect::route('strip.index', [$comic_id]);
-            }
-        }
+        $shape = $strip->shapes()->where(function ($q) {
+            $q->whereNotNull('validated_at')->orWhere('user_id', Auth::user()->id);  
+        })->first();
+        $bubble = $strip->bubbles()
+            ->where('user_id', Auth::user()->id)
+            ->where('lang_id', '=', $strip->comic->lang_id)
+            ->first();
 
         View::share([
-            'strip_languages' => Language::all()->lists('label', 'id'),
-            'strip_lang_id' => Session::has('lang') ? Language::where('shortcode', Session::get('lang'))->first()->id : 1,
             'fonts' => Font::all()->lists('name', 'name'),
+            'font_id' => $strip->comic->font_id,
             'strip' => $strip,
             'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
             'bubble' => $bubble != null ? $bubble : new Bubble()
@@ -245,28 +253,26 @@ class StripController extends BaseController {
     }
 
     protected function saveImport($comic_id, $strip_id) {
-        if (!Strip::exists($strip_id)) {
+        $strip = Strip::find($strip_id);
+        if ($strip === null || !$strip->isImportable()) {
             return Redirect::route('access.denied');
         }
 
         $bubble = Bubble::find(Input::get('id'));
         if ($bubble == null) {
             $bubble = new Bubble();
-        } else if (Auth::check() && $bubble->user->id != Auth::user()->id) {
+        } else if ($bubble->user->id != Auth::id()) {
             return Redirect::route('access.denied');
         }
 
         if ($bubble->validated_at != null) {
-            return Redirect::route('strip.index', [$comic_id]);
+            return Redirect::route('access.denied');
         }
 
-        $bubble->lang_id = Input::get('lang_id');
+        $bubble->lang_id = $strip->comic->lang_id;
         $bubble->strip_id = $strip_id;
-        $bubble->value = $this->extractITextFromJSON(Input::get('value'));
-
-        if (Auth::check()) {
-            $bubble->user_id = Auth::user()->id;
-        }
+        $bubble->value = $this->extractTextsFromJSON(Input::get('value'));
+        $bubble->user_id = Auth::id();
         $bubble->save();
 
         return Redirect::route('strip.index', [$comic_id]);
@@ -279,29 +285,92 @@ class StripController extends BaseController {
      */
     protected function translate($comic_id, $strip_id) {
         $strip = Strip::find($strip_id);
-        if ($strip == null) {
-            return Redirect::route('home');
+        if ($strip === null || !$strip->isTranslateable()) {
+            return Redirect::route('access.denied');
         }
 
-        $shape = $strip->shapes->first();
-        View::share([
-            'shape' => $shape != null ? $shape : new Shape(),
-            'strip' => $strip,
-        ]);
+        $shapes = $strip->shapes()->where(function($q) {
+            $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
+        })->first();
 
-        $shape = $strip->shapes->first();
+        $original_bubbles = $strip->bubbles()
+            ->whereNotNull('validated_at')
+            ->where('lang_id', '=', Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id)
+            ->first();
+        if ($original_bubbles === null) {
+            $original_bubbles = $strip->bubbles()
+                ->whereNull('validated_at')
+                ->where('user_id', '=', Auth::id())
+                ->first();
+        }
+        if ($original_bubbles === null) {
+            return Redirect::route('access.denied');
+        }
+
+        $delivred_bubbles = null;
+        if (Auth::check() && Session::has('lang_strip_to')) {
+            $delivred_bubbles = $strip->bubbles()
+                ->where('user_id', '=', Auth::id())
+                ->where('lang_id', '=', Session::get('lang_strip_to'))
+                ->first();
+        }
+
+        $available_languages = DB::table('languages')
+            ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
+            ->where('bubbles.strip_id', '=', $strip->id)
+            ->whereNotNull('bubbles.validated_at')
+            ->orWhere(function($q) use ($strip) {
+                $q->where('user_id', '=', Auth::id())
+                  ->where('lang_id', '=', $strip->comic->lang_id);
+            })
+            ->select('languages.id', 'languages.label')
+            ->lists('label', 'id');
+
+        $translate_languages = DB::table('languages')
+            ->where('languages.id', '<>', $strip->comic->lang_id)
+            ->lists('label', 'id');
+
         View::share([
-            'shape' => $shape != null ? $shape : new Shape(),
+            'available_languages' => $available_languages,
+            'translate_languages' => $translate_languages,
+            'lang_strip_to' => Session::has('lang_strip_to') ? Session::get('lang_strip_to') : 0,
+            'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : 1,
+            'fonts' => Font::all()->lists('name', 'name'),
+            'font_id' => $strip->comic->font_id,
             'strip' => $strip,
-            'fonts' => Font::all()->lists('name', 'name')
+            'bubble' => $delivred_bubbles !== null ? $delivred_bubbles : new Bubble(),
+            'canvas_original' => $this->mergeShapesAndBubblesJSON($shapes, $original_bubbles),
+            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shapes, $delivred_bubbles !== null ? $delivred_bubbles : $original_bubbles),
+            'strip_height' => $this->getHeight($shapes->value),
+            'strip_width' => $this->getWidth($shapes->value)
         ]);
         return View::make('strip.translate');
     }
 
     protected function saveTranslate($comic_id, $strip_id) {
-        if (!Strip::exists($strip_id)) {
-            return Redirect::route('home');
+        $strip = Strip::find($strip_id);
+        if ($strip === null || !$strip->isTranslateable()) {
+            return Redirect::route('access.denied');
         }
+
+        $bubble = Bubble::find(Input::get('id'));
+        if ($bubble == null) {
+            $bubble = new Bubble();
+        }
+
+        if ($bubble->validated_at != null) {
+            return Redirect::route('access.denied');
+        }
+
+        Session::put('lang_strip_to', Input::get('lang_id'));
+        $bubble->lang_id = Input::get('lang_id');
+        $bubble->strip_id = $strip_id;
+        $bubble->value = $this->extractTextsFromJSON(Input::get('value'));
+
+        if (Auth::check()) {
+            $bubble->user_id = Auth::user()->id;
+        }
+        $bubble->save();
 
         return Redirect::route('strip.index', [$comic_id, $strip_id]);
     }
@@ -337,7 +406,7 @@ class StripController extends BaseController {
         return $json;
     }
 
-    private function extractITextFromJSON($json) {
+    private function extractTextsFromJSON($json) {
         $json = json_decode($json, true);
         unset($json['objects'][0]); // Remove Image.
         foreach ($json['objects'] as $k => $v) {
@@ -347,6 +416,14 @@ class StripController extends BaseController {
         }
 
         return json_encode($json);
+    }
+
+    private function getHeight($shapes) {
+        return json_decode($shapes, true)['objects'][0]['height'];
+    }
+
+    private function getWidth($shapes) {
+        return json_decode($shapes, true)['objects'][0]['width'];
     }
 
 }

@@ -1,15 +1,15 @@
 <?php
 
-class UserTableSeeder extends Seeder {
+class UsersTableSeeder extends Seeder {
 
     public function run() {
         User::unguard();
         
         User::create([
             'id'    => 1,
-            'email' => 'admin@transcomics.com',
-            'username' => 'admin',
-            'password' => Hash::make('password')
+            'email' => 'ryushin75@gmail.com',
+            'username' => 'ryushin75',
+            'password' => Hash::make('laravel')
         ]);
         User::create([
             'id'    => 2,
@@ -19,9 +19,9 @@ class UserTableSeeder extends Seeder {
         ]);
         User::create([
             'id'    => 3,
-            'email' => 'gbt',
+            'email' => 'geoffrey.bergeret@gbergeret.org',
             'username' => 'gbergere',
-            'password' => Hash::make('gbt')
+            'password' => Hash::make('gbergere')
         ]);
         User::create([
             'id' => 4,
