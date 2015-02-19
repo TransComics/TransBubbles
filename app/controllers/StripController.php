@@ -145,6 +145,12 @@ class StripController extends BaseController {
                 $strip->comic_id = $comic_id;
                 $strip->user_id = Auth::id();
                 $strip->save();
+                
+                Queue::push('OcrImport', ['img_url'=> $strip->path,
+                                        'strip_id' => $strip->id,
+                                        'lang_id' => $strip->comic->lang_id,
+                                        'user_id' => Auth::id()
+                                         ]);
             }
         }
         return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strip.uploadComplete'));
