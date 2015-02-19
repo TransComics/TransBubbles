@@ -524,36 +524,31 @@ $(document).ready(function () {
             var o = canvas.getActiveObject();
             if (o.type == 'i-text') {
                 o.set('textAlign', 'left');
-                o.set('__uidblabla', 2);
             }
             return false;
         });
         $('#alignRight').click(function () {
-            var o = canvas.getActiveObject()
+            var o = canvas.getActiveObject();
             if (o.type == 'i-text') {
                 o.set('textAlign', 'right');
-                alert(o.__uidblabla);
-                console.log(o.__uidblabla);
-                console.log(o.toJSON('__uidblabla'));
             }
             return false;
         });
         $('#alignCenter').click(function () {
-            var o = canvas.getActiveObject()
+            var o = canvas.getActiveObject();
             if (o.type == 'i-text') {
                 o.set('textAlign', 'center');
             }
             return false;
         });
         $('#alignJustify').click(function () {
-            var o = canvas.getActiveObject()
+            var o = canvas.getActiveObject();
             if (o.type == 'i-text') {
                 o.set('textAlign', 'justify');
             }
             return false;
         });
         $('#magnifier').click(function () {
-//test1234();
             alert('pas-ok');
             return false;
         });
@@ -583,6 +578,17 @@ $(document).ready(function () {
             redo();
             return false;
         });
+        
+        $('#auto-translate').click(function() {
+            var o = canvas.getActiveObject();
+            if(o.type == 'i-text'){
+                console.log('############## ok');
+                o.text = $('#ajax-content').val();
+                canvas.renderAll(true);
+                $('#myModal').modal('hide');
+            }
+            return false;
+	});
 
         canvas.on('object:modified', function () {
             console.log("An object has modified :" + updateActivate);
