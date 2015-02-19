@@ -11,8 +11,11 @@
                         <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
                         <span title="base.delete" class='btn btn-sm btn-primary glyphicon glyphicon-remove' onclick="$('#{{$comic->id}}').submit();"></span>
                     @endif
+                    <br>
+                    {{ Shareable::facebook() }}{{ Shareable::twitter() }}{{ Shareable::googlePlus() }}
                 </h1>
             </div>
+            
             <div class="col-md-3 col-xs-height col-bottom"><p class="pull-right">{{Lang::get('comic.imported',['imported'
 				=> User::find($comic->created_by)->username]) }}</p></div>
         </div>

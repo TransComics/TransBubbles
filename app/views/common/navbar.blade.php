@@ -15,5 +15,12 @@
     </li>
     @endif
 </ul>
+    
+<ul class="list-group">
+    <li class="list-group-item"><a href="" >@lang('social.shareSite1') @lang('social.shareSite2') !</a></li>
+    <li class="list-group-item"><a href="" >{{ Shareable::facebook(array('url' => URL::route('home'))) }} <a/></li>
+    <li class="list-group-item"><a href="" >{{ Shareable::twitter(array('url' => URL::route('home'))) }}<a/></li>
+    <li class="list-group-item"><a href="" >{{ Shareable::googlePlus(array('url' => URL::route('home'))) }}<a/></li>
+</ul>
 </div>
 
