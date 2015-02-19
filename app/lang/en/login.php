@@ -8,16 +8,16 @@ return array(
     'email' => 'Email',
     'email_adress' => 'Email Address',
     'password' => 'Password',
+    'password_confirm' => 'Confirm password',
     'rememberme' => 'Remember me',
     'facebook_log' => 'Login with Facebook',
-    'no_account' => 'Don\'t have an account!',
-    'sign_up_here' => 'Sign Up Here',
+    'no_account' => 'Don\'t you have an account?',
+    'sign_up_here' => 'Sign Up Here',/*FIX*/
     
-    'error_post_login' => 'Your username/password combination was incorrect',
+    'error_post_login' => 'Your username/password combination is incorrect',
     'logged_out' => 'Your are now logged out!',
     'logged_in' => 'You are now logged in!',
     'message_errors' => 'The following errors occurred',
-    'logged_in' => 'You are now logged in!',
     'registration_succes' => 'Thanks for registering!',
     'reset_success' => 'Password changed correctly'
     

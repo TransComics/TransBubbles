@@ -11,8 +11,10 @@ class DatabaseSeeder extends Seeder {
         Eloquent::unguard();
         $this->call('FontsTableSeeder');
         $this->call('LanguagesTableSeeder');
-    
-        $this->call('UserTableSeeder');
+        $this->call('UsersTableSeeder');
         $this->call('ComicsTableSeeder');
+        $this->call('StripsTableSeeder');
+        $this->call('ShapesTableSeeder');
+        $this->call('BubblesSeeder');
     }
 }

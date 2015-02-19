@@ -12,7 +12,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'username' => 'required|alpha_num|unique:users|min:3',
         'email' => 'required|email|unique:users',
         'password' => 'required|between:6,24|confirmed',
-        'password_confirmation' => 'required|between:6,24'
+//        'password_confirmation' => 'required'
     );
 
     /**
@@ -77,5 +77,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     public function getRememberToken() {
         return $this->remember_token;
+    }
+    
+    public function shapes() {
+        return $this->hasMany('Shape');
     }
 }

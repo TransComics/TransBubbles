@@ -1,0 +1,158 @@
+html,body {
+	overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+.navbar-seconde-top {
+	padding: 0 20px;
+	top: 70px;
+        margin:0;
+}
+
+.navbar-seconde-bottom {
+	padding: 10px 0;
+}
+
+.border {
+	border: 1px solid #999;
+}
+
+.padding-5 {
+	padding: 5px;
+}
+
+.padding-10 {
+	padding: 10px;
+}
+
+.padding-20 {
+	padding: 10px;
+}
+
+.margin-5 {
+	margin: 5px;
+}
+
+.margin-10 {
+	margin: 10px;
+}
+
+.margin-20 {
+	margin: 10px;
+}
+
+.thumbnail {
+	background-color: #303030;
+    border: 1px solid #464545;
+}
+
+.thumbnail-comic {
+	padding: 0 10px 10px 10px;
+}
+
+.border .img-rounded {
+	padding: 0 10px 10px 10px;
+}
+
+.border {
+	border: 1px solid #999;
+}
+
+.border h3 {
+	margin-top: 5px;
+}
+
+.one-line {
+	white-space: nowrap;
+	width: 100%; /* à modifier selon vos besoins */
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
+.lang-selector {
+	margin: 6px;
+}
+
+.canvas-container {
+    margin: 0 auto;
+}
+
+/*
+ * icon-lang
+ * --------------------------------------------------
+ */
+#icon-lang {
+	cursor: pointer;
+	padding-bottom : 0px;
+	padding-left : 3px;
+	padding-right : 3px;
+}
+
+.icon-lang-16-fr:before {
+	content: url('../images/flags/16/fr.png');
+}
+
+.icon-lang-32-fr:before {
+	content: url('../images/flags/32/fr.png');
+}
+
+.icon-lang-16-de:before {
+	content: url('../images/flags/16/de.png');
+}
+
+.icon-lang-32-de:before {
+	content: url('../images/flags/32/de.png');
+}
+
+.icon-lang-16-en:before {
+	content: url('../images/flags/16/uk.png');
+}
+
+.icon-lang-32-en:before {
+	content: url('../images/flags/32/uk.png');
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 767px) {
+	.row-offcanvas {
+		position: relative;
+		-webkit-transition: all .25s ease-out;
+		-o-transition: all .25s ease-out;
+		transition: all .25s ease-out;
+	}
+	.row-offcanvas-right {
+		right: 0;
+	}
+	.row-offcanvas-left {
+		left: 0;
+	}
+	.row-offcanvas-right
+  .sidebar-offcanvas {
+		right: -50%; /* 6 columns */
+	}
+	.row-offcanvas-left
+  .sidebar-offcanvas {
+		left: -50%; /* 6 columns */
+	}
+	.row-offcanvas-right.active {
+		right: 50%; /* 6 columns */
+	}
+	.row-offcanvas-left.active {
+		left: 50%; /* 6 columns */
+	}
+	.sidebar-offcanvas {
+		position: absolute;
+		top: 0;
+		width: 50%; /* 6 columns */
+	}
+}
+
+#imageThumb {
+	width: 240px;
+	height: 210px;
+	border-color: white;
+	border-style: solid;
+}

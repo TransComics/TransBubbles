@@ -3,8 +3,9 @@
 return array(
     'welcome'   => 'Bienvenue',
     'title'     => 'Titre',
-    'cancel'       => 'Retour',
+    'cancel'    => 'Annuler',
     'add'       => 'Ajouter',
-    'update'    => 'Met à Jour',
+    'update'    => 'Mettre à Jour',
     'delete'    => 'Supprimer',
+    'language'  => 'Langue'
 );

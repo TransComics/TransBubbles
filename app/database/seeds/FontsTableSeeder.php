@@ -6,8 +6,7 @@ class FontsTableSeeder extends Seeder {
         DB::table('fonts')->insert([
             [
                 'id' => 1, 
-                'name' => 
-                'Arial Black'
+                'name' => 'Arial Black'
             ],
             [
                 'id' => 2, 

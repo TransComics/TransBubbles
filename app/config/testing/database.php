@@ -16,14 +16,13 @@
  * |
  */
 return array(
-    'default' => 'sqlite',
+    'default' => 'memory',
+    
     'connections' => array(
-        'sqlite' => array(
+        'memory' => array(
             'driver' => 'sqlite',
             'database' => ':memory:',
             'prefix' => ''
         )
     )
 );
-
-?>

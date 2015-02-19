@@ -1,65 +1,49 @@
 @extends('layouts.html')
 
 @section('html.styles')
-        {{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap.css') }}
-        {{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap-theme.css') }}
+        {{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap.min.css') }}
+        {{ HTML::style('packages/silviomoreto-bootstrap-select/css/bootstrap-select.min.css') }}
         <!-- Custom styles for this template -->
-        {{ HTML::style('css/offcanvas.css') }}
-	    {{ HTML::style('css/toolsInterface.css') }}
+        {{ HTML::style('css/offcanvas2.css') }}
+	{{ HTML::style('css/toolsInterface.css') }}
+        {{ HTML::style('packages/font-awesome-4.3.0/css/font-awesome.min.css') }}
 @stop
 
 @section('html.scripts')
 	{{ HTML::script('js/lib/jquery-2.1.3.min.js') }}
+        {{ HTML::script('js/lib/jquery.imageready.js') }}
 	{{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap.min.js') }}
-    {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap-filestyle.min.js') }}
+        {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap-filestyle.min.js') }}
+        {{ HTML::script('packages/silviomoreto-bootstrap-select/js/bootstrap-select.min.js') }}
 	{{ HTML::script('js/lib/fabric.js') }}
-	{{ HTML::script('js/cleanAndTranslate.js') }}
 	@yield('tool.scripts')
 @stop
 
 @section('html.content')
-
-<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
-            <span class="navbar-brand">- @yield('tool.title')</span>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            @include('common.lang_selector')
-        </div><!-- /.nav-collapse -->
-    </div><!-- /.container -->
-</nav><!-- /.navbar -->
-
-<nav class="navbar-fixed-top navbar-seconde-top" style="padding:10px 50px 0 50px">
-        {{ Form::select('from', ['en' => 'English'], 1,['class'=>'btn btn-primary glyphicon glyphicon-globev', 'id'=>'from'])}}
-        <a class='glyphicon glyphicon-arrow-right'></a>
-        {{ Form::select('fontPicker', $languages->lists('label','shortcode') ,1,['class'=>'btn btn-primary glyphicon glyphicon-globe', 'id'=>'to']) }}
-        @yield('tool.items')
-</nav>
-
-	@yield('tool.content')
-
-<nav class="navbar navbar-fixed-bottom navbar-seconde-bottom" style="padding:0 50px 0 50px">
-    <div class="btn-group pull-right" role="group">
-        <a class='btn btn-primary glyphicon glyphicon-remove' href='' id='addText'> Quitter</a>
-        <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='del'> Terminer</a>
-        <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='brush'> Suivant</a>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{URL::route('home')}}" >Trans<span class="themeColor">Bubbles<span></a>
+                <span class="navbar-brand">- @yield('tool.title')</span>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                @include('common.lang_selector')
+            </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </div><!-- /.navbar -->
+    <div class="navbar navbar-default navbar-fixed-top navbar-seconde-top" style="background-color: transparent">
+            @yield('tool.items')
     </div>
-</nav>      
-<nav class="navbar navbar-fixed-bottom navbar-theme-default" style="padding:0 0 50px 0">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <h5 id='footer-header'> SITEMAP </h5>
-            </div>
-            <div class="col-sm-4">
-                <h5 id='footer-header'> À propos </h5>
-            </div>
-            <div class="col-sm-4">
-                <h5 id='footer-header'> Contact </h5>
-            </div>
-        </div>
+    <div class="page-header" id="banner"></div>
+    <div class="container" style="overflow-x:auto; width:100%">
+            @yield('tool.content')
     </div>
-</nav>
+
+    <nav class="navbar navbar-fixed-bottom navbar-seconde-bottom" style="padding:0 50px 0 50px">
+        <div class="btn-group pull-right" role="group">
+            @yield('tool.nav')
+        </div>
+    </nav>
+    {{ HTML::script('js/cleanAndTranslate.js') }}
+    @include('common.footer')
 @stop

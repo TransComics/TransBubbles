@@ -1,7 +1,7 @@
-@extends('users.loginout') @section('loginout.sign')
+@extends('user.loginout') @section('loginout.sign')
 <div id="passwordReset" style="margin-top: 50px;"
-	class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-	<div class="panel panel-info">
+	class="mainbox col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1">
+	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<div class="panel-title">Password Reset</div>
 		</div>
@@ -11,15 +11,14 @@
 			@if(Session::has('error'))
 			<div id="signupalert" class="alert alert-danger">
 				<ul>
-					<li>{{ Session::get('message') }}</li>
+					<li>{{ Session::get('error') }}</li>
 				</ul>
 				<span></span>
 			</div>
 			@elseif(Session::has('status'))
 			<div class="alert alert-success" role="alert">{{
 				trans(Session::get('status')) }}</div>
-			@endif 
-			{{ Form::open() }}
+			@endif {{ Form::open() }}
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i
 					class="glyphicon glyphicon-envelope"></i></span> {{
@@ -36,4 +35,6 @@
 
 			{{ Form::close() }}
 		</div>
-		@stop
+	</div>
+</div>
+@stop
