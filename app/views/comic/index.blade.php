@@ -1,6 +1,15 @@
 @extends('layouts.master')
 
 @section('master.content')
+@if(Session::has('message'))
+<div id="signupalert" class="alert alert-info alert-dismissible">
+ <button type="button" class="close" data-dismiss="alert">×</button>
+	<ul>
+		<li>{{ Session::get('message') }}</li>
+	</ul>
+	<span></span>
+</div>
+@endif
     @foreach($comics as $comic)
     <div class="thumbnail thumbnail-comic" @if ($comic->cover) title="{{$comic->description}}" @endif >
         <h2>

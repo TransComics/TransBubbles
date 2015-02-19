@@ -1,6 +1,6 @@
 <?php
 
-class Strip extends Eloquent {
+class Strip extends Eloquent implements Moderable{
 
     use UploadFile;
 
@@ -55,6 +55,10 @@ class Strip extends Eloquent {
 
     public function isShowable() {
         return $this->isShowable;
+    }
+    
+    public function isValidated() {
+        return $this->validated_state == 'VALIDATED';
     }
 
 }
