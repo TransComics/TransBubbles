@@ -151,8 +151,6 @@ class StripController extends BaseController {
                                         'lang_id' => $strip->comic->lang_id,
                                         'user_id' => Auth::id()
                                          ]);
-                
-            
             }
         }
         return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strip.uploadComplete'));
