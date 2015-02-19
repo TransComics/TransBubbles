@@ -1,3 +1,18 @@
+@section('master.scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".btn-danger-2").on('click', function(e){
+        var $id = $(this).attr('id');
+        $('input#inputB').val($id);
+    });
+    $('#submit').on('click', function(e){
+        $form = "#stripForm" + $('input#inputB').val();
+        $($form).submit();
+    });
+});
+</script>
+@stop 
+
 @extends('layouts.master') @section('master.content')
 
 <div class="row">
@@ -7,9 +22,7 @@
         </div>
         @if(Auth::check())
         <div class="col-xs-2 col-xs-height col-bottom">
-            <a href="{{URL::route('strip.create', [$comic_id])}}"
-               title="strip.add"
-               class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+            <a href="{{URL::route('strip.create', [$comic_id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
         </div>
         @endif
     </div>
@@ -44,10 +57,8 @@
             
             @if (Auth::check())
             <div class="caption">
-                {{ Form::open(['method' => 'put', 'class'=>'form-horizontal', 'id'
-				=> 'stripForm'.$strip->id]); }} {{ Form::hidden('_method', 'put',
-				['id' => '_method']); }} {{ Form::hidden('id', $strip->id, ['id' =>
-				$strip->id]); }}
+                {{ Form::open(['route' => ['strip.destroy', $strip->comic->id, $strip->id], 'method' => 'delete', 'class'=>'form-horizontal', 'id' => 'stripForm'.$strip->id]); }}
+                {{ Form::hidden('id', $strip->id); }}
                                 
                 <!-- Small button group -->
                 <div class="btn-group">
@@ -73,14 +84,15 @@
                         @endif
                         <li class="divider"></li>
                         <!--<li><a href="" onclick="$('#stripForm{{ $strip->id }}').submit(); return false;"> @lang('strip.pendingApprobation') </a></li>-->
-                        <li><a href=""
-                               onclick="$('#_method').val('DELETE'); $('#stripForm{{$strip->id}}').attr('action', '{{ URL::route('strip.destroy', [$strip->comic->id, $strip->id]) }}'); $('#stripForm{{ $strip->id }}').submit(); return false;">
-                                @lang('base.delete') </a></li>
-                        <li><a
-                                href="{{URL::route('strip.edit', [$strip->comic->id, $strip->id])}}"
-                                title="@lang('strip.editLink')">@lang('strip.editLink')</a></li>
+                        <li>
+                            <a href="" id="{{$strip->id}}" data-toggle="modal" data-target="#confirm-submit" class="btn-danger-2">
+                                @lang('base.delete')
+                            </a>
+                        </li>
+                        <li><a href="{{URL::route('strip.edit', [$strip->comic->id, $strip->id])}}" title="@lang('strip.editLink')">@lang('strip.editLink')</a></li>
                     </ul>
                 </div>
+                {{ Form::close(); }}
             </div>
             @endif
         </div>
@@ -90,4 +102,6 @@
         {{ $strips->links(); }}
     </div>
 </div>
+@include('common.submit_delete')
+
 @endif @stop

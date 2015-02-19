@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @section('master.scripts')
-{{HTML::script('packages/boostrap-table/js/jquery.dataTables.min.js')}}
 <script type="text/javascript">
     $(document).ready(function() {
         $('#submit').on('click', function(e){
             $('#deleteForm').submit();
         });
-});</script>
+    });
+</script>
 @stop 
 
 @section('master.content')
