@@ -62,8 +62,18 @@ Route::filter('auth.basic', function () {
 });
 
 Route::filter('access', function($route) {
-    return RoleRessource::filter($route);
+    if (Auth::check()) {
+        return RoleRessource::filter($route);
+    }
 });
+
+Route::filter('super_admin', function ($route) {
+    if (Auth::check() && !Auth::user()->isSuperAdministrator(Auth::id())) {
+        return Redirect::route('access.denied');
+    }
+});
+
+
 
 /*
  * |--------------------------------------------------------------------------
