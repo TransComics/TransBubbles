@@ -39,7 +39,8 @@ class OcrImport {
             $text = OcrImport::tesseract($data);
         }
         else{/*TODO FIX : no other OCR platform for now, abort the detection*/
-          $job-> delete();//delete jobs from the queue
+            $job-> delete();//delete jobs from the queue
+            return;
         }
 
         //split imported text to insert to the strip, with the format used by FabricJS (htmlspecialchars mandatory)

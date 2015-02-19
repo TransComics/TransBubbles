@@ -13,8 +13,8 @@ class LanguagesTableSeeder extends Seeder {
             ],
             [
                 'id'        => 2,
-                'shortcode' => 'fr'
-                'codeiso' => 'fra',,
+                'shortcode' => 'fr',
+                'codeiso' => 'fra',
                 'code'      => 'fr-FR',
                 'label' => 'Français',
             ],
