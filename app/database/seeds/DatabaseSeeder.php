@@ -9,12 +9,15 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
         Eloquent::unguard();
+        
+        
         $this->call('FontsTableSeeder');
         $this->call('LanguagesTableSeeder');
         $this->call('UsersTableSeeder');
         $this->call('ComicsTableSeeder');
-        $this->call('StripsSeeder');
-        $this->call('ShapesSeeder');
+        $this->call('StripsTableSeeder');
+        $this->call('ShapesTableSeeder');
+        $this->call('BubblesTableSeeder');
         $this->call('RolesTableSeeder');
         $this->call('RolesRessourceTableSeeder');
     }
