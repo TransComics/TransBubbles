@@ -18,7 +18,6 @@ class CreateShapesTable extends Migration {
             $table->integer('strip_id')->unsigned();
             $table->integer('user_id')->unsigned()->nullable();
             $table->longtext('value');
-            $table->timestamp('validated_at')->nullable();
             $table->timestamps();
         });
         Schema::table($this->table, function(Blueprint $table) {

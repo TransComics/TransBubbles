@@ -63,7 +63,6 @@
 <div class="row">
     @foreach($strips as $strip)
     <div class="col-sm-6 col-md-4">
-
         <a href="{{ route('strip.show',[ $comic->id, $strip->id]) }}"
            class="thumbnail">
             <h4 class="caption">{{ $strip->title }}</h4>

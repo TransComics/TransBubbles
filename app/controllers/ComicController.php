@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\Process\Exception\InvalidArgumentException;
 
 use Transcomics\RoleRessource\RessourceDefinition;
 
@@ -149,4 +150,60 @@ class ComicController extends BaseController {
         ]);
     }
 
+    public function indexModerate() {
+        $comic = Comic::wherevalidated_state(ValidateEnum::PENDING);
+        
+        if ($comic->count()) {
+            return View::make('comic.moderate')->with('comic', $comic->get()
+                ->random());
+        }
+        return Redirect::route('comic.index');
+    }
+
+    public function moderate() {
+        $comic_id = Input::get('comic_id');
+        $choice = Input::get('choice');
+        
+        $comic = Comic::find($comic_id);
+        if ($comic == null) {
+            return Redirect::route('home');
+        }
+        
+        $comic->validated_by = Auth::id();
+        $comic->validated_at = new DateTime();
+        switch ($choice) {
+            case 'accept':
+                $comic->validated_state = ValidateEnum::VALIDATED;
+                $comic->save();
+                break;
+            case 'refuse':
+                $comment = Input::get('comment');
+                if (empty($comment)) {
+                    return Redirect::route('comic.moderate')->withcomic($comic)->withMessage(Lang::get('moderate.missing_comment'));
+                }
+                
+                $comic->validated_state = ValidateEnum::REFUSED;
+                $comic->validated_comments = $comment;
+                $comic->save();
+                
+                if (Input::has('delete')) {
+                    $comic->strips->each(function ($strip) {
+                        Strip::dropFile($strip->path);
+                        $strip->delete();
+                        
+                        Comic::dropFile($comic->cover);
+                        $comic->delete();
+                    });
+                }
+                break;
+            default:
+                throw new InvalidArgumentException();
+        }
+        
+        $comic = Comic::wherevalidated_state(ValidateEnum::PENDING)->get()->random();
+        if ($comic == null) {
+          return Redirect::route('comic.index');
+        }
+        return Redirect::route('comic.moderate')->withcomic($comic);
+    }
 }

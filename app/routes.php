@@ -26,6 +26,7 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
+/* Languages*/
 Route::post('/lang', [
     'as' => 'language.select',
     'uses' => 'LanguageController@select'
@@ -40,6 +41,11 @@ Route::post('/strip/lang_to', [
     'as' => 'strip.lang_to',
     'uses' => 'LanguageController@selectForStripTo'
 ]);
+
+/*Private*/
+Route::group(['prefix' => '/private'], function () {
+});
+
 
 /* Authentification */
 Route::get('/login/', [
@@ -57,8 +63,6 @@ Route::get('/signup/', [
     'uses' => 'UsersController@getRegister'
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
-
-
 Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
     Route::resource('/roles', 'RoleController');
 });
@@ -78,9 +82,7 @@ Route::group([
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group([
-    'prefix' => '/comic/{comic_id}/strip'
-], function () {
+Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
     Route::get('/{id}', [
         'as' => 'strip.show',
         'uses' => 'StripController@show'
@@ -88,6 +90,15 @@ Route::group([
     Route::get('/', [
         'as' => 'strip.index',
         'uses' => 'StripController@index'
+    ]);
+    Route::get('/moderate', [
+        'as' => 'strip.moderate',
+        'uses' => 'StripController@indexModerate'
+    ]);
+    
+    Route::post('/moderate', [
+        'as' => 'strip.select',
+        'uses' => 'StripController@moderate'
     ]);
     
     Route::get('/{id}/vote', [
@@ -151,6 +162,17 @@ Route::group([
     ]);
 });
 
+Route::group(['prefix' => '/comic'], function () {
+        Route::get('/moderate', [
+        'as' => 'comic.moderate',
+        'uses' => 'ComicController@indexModerate'
+    ]);
+        Route::post('/moderate', [
+        'as' => 'comic.select',
+        'uses' => 'ComicController@moderate'
+     ]);
+});
+
 Route::get('/comic/{id}/role',[
         'as' => 'comic.role',
         'uses'=> 'RoleRessourceController@index'
@@ -167,7 +189,6 @@ Route::delete('/comic/{comic_id}/role/{roleR_id}',[
 Route::resource('/comic', 'ComicController', [
     'before' => 'auth'
 ]);
-
 Route::group([
     'prefix' => '/ws'], function () { 
     Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
