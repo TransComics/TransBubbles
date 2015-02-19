@@ -115,6 +115,8 @@ class RoleRessource extends \Eloquent {
             return 'U';
         } elseif (preg_match('/.destroy$/', $routeName)) {
             return 'D';
+        } elseif (preg_match('/.moderate$|.select$/', $routeName)) {
+            return 'M';
         }
     }
 
@@ -128,15 +130,27 @@ class RoleRessource extends \Eloquent {
             return;
         }
 
+        if ($access_mode == 'M') {
+            // Get Comic right
+            $comic_id = $route->getParameter('comic_id');
+            if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $comic_id, \Auth::id())) {
+                return \Redirect::route('access.denied');
+            } else {
+                return;
+            }
+        }
+
         // Getting the ressource type
         if (preg_match('/^strip./', $routeName)) {
+            // Get Strip right
             $strip_id = $route->getParameter('id');
             if (!$this->isAllowed($access_mode, RessourceDefinition::Strips, $strip_id, \Auth::id())) {
                 return \Redirect::route('access.denied');
             }
         } elseif (preg_match('/^comic./', $routeName)) {
-            $strip_id = $route->getParameter('id');
-            if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $strip_id, \Auth::id())) {
+            // Get Comic right
+            $comic_id = $route->getParameter('id');
+            if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $comic_id, \Auth::id())) {
                 return \Redirect::route('access.denied');
             }
         }
