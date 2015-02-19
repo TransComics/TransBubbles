@@ -59,7 +59,7 @@ Route::get('/signup/', [
 Route::post('/signup/', 'UsersController@postCreate');
 
 
-Route::group(['prefix' => '/private'], function() {
+Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
     Route::resource('/roles', 'RoleController');
 });
 
