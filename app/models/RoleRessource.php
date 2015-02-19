@@ -102,11 +102,6 @@ class RoleRessource extends \Eloquent {
 
             case false:
                 return false;
-
-            case 'ERROR':
-                //TODO : Voir checkRessource
-                $ret = 'ERROR';
-                break;
         }
     }
 
