@@ -55,8 +55,7 @@
         {{ Form::select('fontPicker', $fonts, 1,['class'=>'btn btn-primary', 'id'=>'fontPicker', 'style' => 'width:120px;height:37px;padding: 3px;']); }}
     </div>
     <div class="btn-group pull-right margin-5" role="group">
-        <span id="getdata" type="button" class="btn btn-primary fa fa-google" data-toggle="modal" data-target="#myModal">oogle</span>
-        <span id="getdata" type="button" class="btn btn-primary fa fa-bold" data-toggle="modal" data-target="#myModal">ing</span>
+        <span id="getdata" type="button" class="btn btn-primary fa fa-language" data-toggle="modal" data-target="#myModal"> Auto-translate</span>
     </div>
 @stop
 
