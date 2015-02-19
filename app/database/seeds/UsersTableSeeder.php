@@ -29,6 +29,12 @@ class UsersTableSeeder extends Seeder {
             'username' => 'Graam94',
             'password' => '$2y$10$8vyMKz7P/s92dKc.LpHk8OtWaLHjO5GoiX..bK0uYNI4Fnd/Aa6RK'
         ]);
+        User::create([
+            'id' => 5,
+            'email' => 'admin',
+            'username' => 'admin',
+            'password' => Hash::make('admin')
+        ]);
     }
 }
 
