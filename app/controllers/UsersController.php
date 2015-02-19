@@ -52,14 +52,6 @@ class UsersController extends Controller {
             return Redirect::back()->with('message', Lang::get('login.error_post_login'))->withInput();
         }
     }
-    
-    public function getUsers(){
-        $query = Input::get('name_startsWith').'%';
-        if (Request::ajax()){
-            $users = User::where('username','LIKE',$query)->get();
-            return Response::json(['username' => $users->toArray()]);
-        }
-    }
 
     public function getLogout() {
         Auth::logout();

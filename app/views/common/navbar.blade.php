@@ -13,9 +13,6 @@
         <span class="badge">{{ $pendingStrips }}</span>
         <a href="{{URL::route('strip.index', ['comic_id' => 1])}}" >@lang('strip.pending')</a>
     </li>
-    @if (Auth::user()->isSuperAdministrator(Auth::id()))
-    <li class="list-group-item"><a href="{{URL::route('private..roles.index')}}" >@lang('master.role')</a></li>
-    @endif
     @endif
 </ul>
 </div>

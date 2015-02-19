@@ -1,8 +1,6 @@
 @extends('layouts.html')
 
 @section('html.styles')
-{{HTML::style('packages/boostrap-table/css/jquery.dataTables.min.css')}} 
-{{ HTML::style('packages/jquery-ui/css/custom-theme/jquery-ui-1.9.2.custom.css')}}
 {{ HTML::style('packages/bootstrap-3.3.2-dist/css/bootstrap.min.css') }}
 {{ HTML::style('packages/font-awesome-4.3.0/css/font-awesome.min.css') }}
 <!-- Custom styles for this template -->
