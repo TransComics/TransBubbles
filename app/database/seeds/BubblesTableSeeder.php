@@ -1,6 +1,6 @@
 <?php
 
-class BubblesSeeder extends Seeder {
+class BubblesTableSeeder extends Seeder {
 
     public function run() {
         Bubble::unguard();

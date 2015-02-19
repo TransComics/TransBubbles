@@ -58,6 +58,11 @@ Route::get('/signup/', [
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
 
+
+Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
+    Route::resource('/roles', 'RoleController');
+});
+
 Route::group([
     'prefix' => '/password'
 ], function () {
@@ -144,39 +149,29 @@ Route::group([
         'as' => 'strip.saveImport',
         'uses' => 'StripController@saveImport'
     ]);
-    
-    /*
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validStrip',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validClean',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validImportText',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validTraduction',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     */
 });
+
+Route::get('/comic/{id}/role',[
+        'as' => 'comic.role',
+        'uses'=> 'RoleRessourceController@index'
+     ]);
+Route::post('/comic/{id}/role',[
+        'as' => 'comic.role.create',
+        'uses'=> 'RoleRessourceController@store'
+    ]);
+Route::delete('/comic/{comic_id}/role/{roleR_id}',[
+        'as' => 'comic.role.destroy',
+        'uses'=> 'RoleRessourceController@destroy'
+    ]);
 
 Route::resource('/comic', 'ComicController', [
     'before' => 'auth'
 ]);
 
 Route::group([
-    'prefix' => '/ws'
-], function () {
-    Route::resource('/translate', 'TranslatorController', array(
-        'only' => array(
-            'update'
-        )
-    ));
+    'prefix' => '/ws'], function () { 
+    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
+    Route::get('/getUsers','UsersController@getUsers');
 });
 
 Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () { return "ACCESS DENIED";}]);

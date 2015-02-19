@@ -1,12 +1,15 @@
 <?php
+
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use \Transcomics\RoleRessource\RoleRessource;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
-    
-    use UserTrait, RemindableTrait;
+
+    use UserTrait,
+        RemindableTrait;
 
     public static $rules = array(
         'username' => 'required|alpha_num|unique:users|min:3',
@@ -31,7 +34,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password',
         'remember_token'
     );
-
     protected $errors;
 
     /**
@@ -78,8 +80,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function getRememberToken() {
         return $this->remember_token;
     }
-    
+
     public function shapes() {
         return $this->hasMany('Shape');
+    }
+
+    public function isSuperAdministrator($user_id) {
+        $result = RoleRessource::select()
+                ->whererole_id(1)
+                ->whereuser_id($user_id)
+                ->first();
+        return !empty($result);
     }
 }
