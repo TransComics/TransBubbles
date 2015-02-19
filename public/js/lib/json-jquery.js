@@ -27,9 +27,9 @@ function ajaxTranslate() {
         },
         success: function (data) {
             if (data.translation)
-                $('#ajax-content').html(data.translation);
+                $('#ajax-content').val(data.translation);
             else
-                $('#ajax-content').html(
+                $('#ajax-content').val(
                         "<div id=\"signupalert\" class=\"alert alert-danger\">Errors = "
                         + data.errorReason + "</div>");
         },
