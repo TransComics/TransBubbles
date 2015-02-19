@@ -1,15 +1,27 @@
-@extends('layouts.master') @section('master.content')
+@extends('layouts.master')
+
+@section('master.scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#submit').on('click', function(e){
+            $('#deleteForm').submit();
+        });
+    });
+</script>
+@stop 
+
+@section('master.content')
 <div class="page-header">
     <div class="row">
         <div class="row-same-height" style="border-bottom: 1px solid #464545;">
             <div class="col-md-9 col-xs-height">
                 <h1>
                     {{$comic->title}} <small>{{ Lang::get('comic.created',['created' => $comic->author]) }}</small>
-                    <a href="{{URL::route('strip.index', [$comic->id])}}" title="strip.index" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
                     @if (Auth::check())
-                        <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
-                        <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
-                        <span title="base.delete" class='btn btn-sm btn-primary glyphicon glyphicon-remove' onclick="$('#{{$comic->id}}').submit();"></span>
+                    <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
+                    {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => 'deleteForm', 'style' => 'display : inline;']); }}
+                    <a title=lang('base.delete') data-toggle="modal" data-target="#confirm-submit" data-href="{{$comic->id}}" class="btn btn-danger btn-sm glyphicon glyphicon-remove"></a>
+                    {{ Form::close(); }}
                     @endif
                 </h1>
             </div>
@@ -33,13 +45,14 @@
         <div class="col-xs-10 col-xs-height">
             <h3>@lang('comic.lastStrip')</h3>
         </div>
-        @if (Auth::check())
+        
         <div class="col-xs-2  col-xs-height col-bottom">
-            <a href="{{URL::route('strip.create', [$comic->id])}}"
-               title="strip.add"
-               class='btn btn-sm btn-primary glyphicon glyphicon-plus pull-right'></a>
+            <a href="{{URL::route('strip.index', [$comic->id])}}" title="strip.index" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
+            @if (Auth::check())
+                <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+            @endif
         </div>
-        @endif
+        
     </div>
 </div>
 <hr>
@@ -50,13 +63,13 @@
 
         <a href="{{ route('strip.show',[ $comic->id, $strip->id]) }}"
            class="thumbnail">
-                <h4 class="caption">{{ $strip->title }}</h4>
-            {{HTML::image($strip->path, $strip->title,['id' =>
-			'imageThumb'])}}
+            <h4 class="caption">{{ $strip->title }}</h4>
+            {{HTML::image($strip->path, $strip->title,['id' =>'imageThumb'])}}
         </a>
 
     </div>
-
     @endforeach
+
+    @include('common.submit_delete')
 </div>
 @stop
