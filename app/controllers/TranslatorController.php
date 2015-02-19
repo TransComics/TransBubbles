@@ -17,14 +17,14 @@ class TranslatorController extends \BaseController {
      */
     public function update($id) {
         $textotranslate = Input::get('text');
-        $to = Input::get('to');
-        $from = Input::get('from');
+        
+        $to = Language::find(Input::get('to'))->shortcode;
+        $from = Language::find(Input::get('from'))->shortcode; 
         
         $md5Text = md5($textotranslate);
         $strKey = $id . '_' . $from . '-' . $to . '_' . $md5Text;
         
         $value = $this->checkCache($strKey);
-        
         
         if ($value !== false) {
             return $value;

@@ -278,11 +278,11 @@ $(document).ready(function () {
                 save_index++;
                 save_max = save_index;
 
-                console.log("vvvvvvvvvvv save [] vvvvvvvvvvv");
+                //console.log("vvvvvvvvvvv save [] vvvvvvvvvvv");
                 for (var i in save) {
-                    console.log("i : " + i + " => " + save[i]);
+                    //console.log("i : " + i + " => " + save[i]);
                 }
-                console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                //console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
             }
         }
 
@@ -599,6 +599,13 @@ $(document).ready(function () {
             console.log("An object has removed :" + updateActivate);
             updateModifications();
         });
+        canvas.on('object:selected', function (e) {
+            var activeObject = e.target;
+            if(activeObject.type == "i-text") {
+                console.log("An object has selected :" + activeObject.text);
+                $('#texttotranslate').val(activeObject.text);
+            }
+	});
         canvas.on('text:editing:exited', function () {
             console.log("An object has changed :" + updateActivate);
             updateModifications();
