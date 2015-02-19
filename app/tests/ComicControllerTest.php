@@ -12,7 +12,7 @@ class ComicControllerTest extends TestCase {
         Auth::loginUsingId(1);
         
         $this->client->request('DELETE', '/comic/100', ['_token' => csrf_token()]);
-        $this->assertRedirectedToRoute('home');
+        $this->assertRedirectedToRoute('access.denied');
     }
     
     public function testComicDeleteIdNotFoundAsGuest() {
@@ -24,7 +24,7 @@ class ComicControllerTest extends TestCase {
         Auth::loginUsingId(1);
         
         $this->client->request('GET', '/comic/100/edit');
-        $this->assertRedirectedToRoute('comic.create');
+        $this->assertRedirectedToRoute('access.denied');
     }
 
     public function testComicUpdateIdNotFoundAsGuest() {
