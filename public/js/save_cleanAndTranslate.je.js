@@ -537,7 +537,11 @@ $(document).ready(function() {
 		console.log("An object has removed :"+updateActivate);
 		updateModifications();
 	});
-	
+	canvas.on('object:selected', function () {
+		console.log("An object has removed :"+updateActivate);
+		updateModifications();
+	});
+        
 	//$("body").keydown( function(e) { alert(e.keyCode); }); // affiche keyCode
 	$("body").keyup( function(e) {
 		if(e.keyCode == 17 || e.keyCode == 224 || e.keyCode == 16) {

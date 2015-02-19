@@ -4,7 +4,6 @@
     @foreach($comics as $comic)
     <div class="thumbnail thumbnail-comic" @if ($comic->cover) title="{{$comic->description}}" @endif >
         <h2>
-            {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => $comic->id]); }}
             <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{$comic->title}} <small>({{$comic->author}})</small></a>
             @if($comic->strips->count() > 0) 
             <span class="btn-group pull-right" role="group">               
@@ -14,7 +13,6 @@
                     @endif
             </span>
             @endif
-            {{ Form::close(); }}
         </h2>
         @if ($comic->cover)
         <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} </a>
