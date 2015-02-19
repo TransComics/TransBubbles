@@ -22,9 +22,9 @@ class ComicViewTest extends TestCase {
     }
 
     public function testComicUpdateFormAsUser() {
-        Auth::loginUsingId(1);
+        Auth::loginUsingId(3); // Login : Gbt with his own comic
 
-        $this->client->request('GET', '/comic/3/edit');
+        $this->client->request('GET', '/comic/4/edit');
         $this->assertResponseOk();
     }
 
