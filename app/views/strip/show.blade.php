@@ -48,9 +48,6 @@
             <a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => 'fr'))}}" class="btn btn-primary">
                     <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
             </a>
-            <a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
-                    <i class="fa fa-globe fa-lg" style="padding-right: 5px;"></i>@lang('strip.languages')
-            </a>
             <a href="{{URL::route('strip.translate', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
                     <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.translate')
             </a>
