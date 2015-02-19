@@ -54,7 +54,7 @@ class RoleRessource extends \Eloquent {
 
     private function checkRessource($ressource) {
         if (!RessourceDefinition::isValidValue($ressource)) {
-            return Redirect::route('access.denied');
+            return \Redirect::route('access.denied');
         }
     }
 
@@ -137,12 +137,12 @@ class RoleRessource extends \Eloquent {
         if (preg_match('/^strip./', $routeName)) {
             $strip_id = $route->getParameter('id');
             if (!$this->isAllowed($access_mode, RessourceDefinition::Strips, $strip_id, \Auth::id())) {
-                return Redirect::route('access.denied');
+                return \Redirect::route('access.denied');
             }
         } elseif (preg_match('/^comic./', $routeName)) {
             $strip_id = $route->getParameter('id');
             if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $strip_id, \Auth::id())) {
-                return Redirect::route('access.denied');
+                return \Redirect::route('access.denied');
             }
         }
     }
