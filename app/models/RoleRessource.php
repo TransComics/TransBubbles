@@ -36,7 +36,15 @@ class RoleRessource extends \Eloquent {
             return false;
         }
 
-        $role_ressource = new RoleRessource();
+        $role_ressource = RoleRessource::whereuser_id($user_id)
+                ->whereressource($ressource)
+                ->whereressource_id($ressource_id)
+                ->first();
+
+        if (empty($role_ressource)) {
+            $role_ressource = new RoleRessource();
+        }
+
         $role_ressource->role_id = $role_id;
         $role_ressource->user_id = $user_id;
         $role_ressource->ressource = $ressource;
@@ -46,8 +54,7 @@ class RoleRessource extends \Eloquent {
 
     private function checkRessource($ressource) {
         if (!RessourceDefinition::isValidValue($ressource)) {
-            // TODO : Retourner la vue qui affiche erreur !
-            return 'ERROR';
+            return Redirect::route('access.denied');
         }
     }
 
@@ -103,7 +110,6 @@ class RoleRessource extends \Eloquent {
         }
     }
 
-    //TODO : Move to private when function refactore above ;)
     private function getAccessMode($routeName) {
         // Getting the access mode : C,R,U,(M),D
         if (preg_match('/.create$|.store$/', $routeName)) {
