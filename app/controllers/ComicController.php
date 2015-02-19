@@ -35,39 +35,82 @@ class ComicController extends BaseController {
     }
 
     public function store() {
-        return $this->checkAndSave(new Comic(), function ($c, $v, $isOk) {
+        $v = Validator::make(Input::all(), [
+                    'title' => 'required|between:4,63|unique:comics,title',
+                    'author' => 'required|between:4,63',
+                    'description' => 'max:2000',
+                    'authorApproval' => 'accepted|boolean',
+                    'cover' => 'image|mimes:png,jpeg|between:40,4096',
+                    'font_id' => 'required|numeric',
+                    'lang_id' => 'required|numeric'
+        ]);
 
-                    if ($isOk) {
-                        RoleRessource::addRight(2, RessourceDefinition::Comics, $c->id, Auth::id());
-                        return Redirect::route('comic.index', [
-                                    $c->id
-                                ])->withMessage(Lang::get('comic.added', [
-                                            'title' => $c->title
-                        ]));
-                    }
-                    return Redirect::route('comic.create')->withInput()
-                                    ->withErrors($v)
-                                    ->withMessage(Lang::get('comic.errorMessage'));
-                });
+        if ($v->passes()) {
+            $comic = new Comic();
+
+            $comic->title = Input::get('title');
+            $comic->author = Input::get('author');
+            $comic->description = nl2br(Input::get('description'));
+            $comic->authorApproval = Input::get('authorApproval');
+            if (Input::hasFile('cover')) {
+                Comic::dropFile($comic->cover);
+                $comic->cover = Comic::uploadFile(Input::file('cover'));
+            }
+            $comic->font_id = Input::get('font_id');
+            $comic->lang_id = Input::get('lang_id');
+            $comic->created_by = Auth::id();
+            $comic->save();
+
+            RoleRessource::addRight(2, RessourceDefinition::Comics, $comic->id, Auth::id());
+            return Redirect::route('comic.index', [
+                        $comic->id
+                    ])->withMessage(Lang::get('comic.added', [
+                                'title' => $comic->title
+            ]));
+        }
+        return Redirect::route('comic.create')->withInput()
+                        ->withErrors($v)
+                        ->withMessage(Lang::get('comic.errorMessage'));
     }
 
     public function update($id) {
-        return $this->checkAndSave(Comic::find($id), function ($c, $v, $isOk) {
 
-                    if ($isOk) {
-                        return Redirect::route('comic.update', [
-                                    $c->id
-                                ])->withMessage(Lang::get('comic.updated', [
-                                            'title' => $c->title
-                        ]));
-                    }
+        $comic = Comic::findOrFail($id);
+        
+        $v = Validator::make(Input::all(), [
+                    'title' => 'required|between:4,63|unique:comics,title,' . $comic->id,
+                    'author' => 'required|between:4,63',
+                    'description' => 'max:2000',
+                    'authorApproval' => 'accepted|boolean',
+                    'cover' => 'image|mimes:png,jpeg|between:40,4096',
+                    'font_id' => 'required|numeric',
+                    'lang_id' => 'required|numeric'
+        ]);
 
-                    return Redirect::route('comic.edit', [
-                                        $c->id
-                                    ])->withInput()
-                                    ->withErrors($v)
-                                    ->withMessage(Lang::get('comic.errorMessage'));
-                });
+        if ($v->passes()) {
+            $comic->title = Input::get('title');
+            $comic->author = Input::get('author');
+            $comic->description = nl2br(Input::get('description'));
+            $comic->authorApproval = Input::get('authorApproval');
+            if (Input::hasFile('cover')) {
+                Comic::dropFile($comic->cover);
+                $comic->cover = Comic::uploadFile(Input::file('cover'));
+            }
+            $comic->font_id = Input::get('font_id');
+            $comic->lang_id = Input::get('lang_id');
+            $comic->save();
+
+            return Redirect::route('comic.update', [
+                        $comic->id
+                    ])->withMessage(Lang::get('comic.updated', [
+                                'title' => $comic->title
+            ]));
+        }
+
+        return Redirect::route('comic.edit', [$comic->id])
+                        ->withInput()
+                        ->withErrors($v)
+                        ->withMessage(Lang::get('comic.errorMessage'));
     }
 
     public function destroy($id) {
@@ -85,36 +128,6 @@ class ComicController extends BaseController {
         $comic->delete();
 
         return Redirect::back();
-    }
-
-    private function checkAndSave($comic, $return) {
-        $v = Validator::make(Input::all(), [
-                    'title' => 'required|between:4,63|unique:comics,title,' . $comic->id,
-                    'author' => 'required|between:4,63',
-                    'description' => 'max:2000',
-                    'authorApproval' => 'accepted|boolean',
-                    'cover' => 'image|mimes:png,jpeg|between:40,4096',
-                    'font_id' => 'required|numeric',
-                    'lang_id' => 'required|numeric'
-        ]);
-
-        $isOk = $v->passes();
-        if ($isOk) {
-            $comic->title = Input::get('title');
-            $comic->author = Input::get('author');
-            $comic->description = nl2br(Input::get('description'));
-            $comic->authorApproval = Input::get('authorApproval');
-            if (Input::hasFile('cover')) {
-                Comic::dropFile($comic->cover);
-                $comic->cover = Comic::uploadFile(Input::file('cover'));
-            }
-            $comic->font_id = Input::get('font_id');
-            $comic->lang_id = Input::get('lang_id');
-            $comic->created_by = Auth::id();
-            $comic->save();
-        }
-
-        return $return($comic, $v, $isOk);
     }
 
     public function show($id) {
