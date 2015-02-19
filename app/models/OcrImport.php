@@ -44,10 +44,14 @@ class OcrImport {
 
         //split imported text to insert to the strip, with the format used by FabricJS (htmlspecialchars mandatory)
         $texts = preg_split("/\n\n/", htmlspecialchars($text,0,"UTF-8"));
+        if (empty(trim($texts)))
+            $job->delete();//No insertion into DB if the content is null.
         $i=0;
         foreach ($texts as $value) {
+            if (empty(trim($value))){
             $bubbleValue['objects']["indexi-text_$i"]=array('type'=>'i-text','text'=>$value,'top'=>0,'left'=>0,'fontSize'=>"14",'textAlign'=>'center');
             $i++;
+            }
         }
         $bubbleValue['background']='';
 
