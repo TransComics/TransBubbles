@@ -284,7 +284,7 @@ class StripsTableSeeder extends Seeder {
             'id' => '46',
             'title' => '#234',
             'path' => '/uploads/0/049811a2314c0df98a594f4b131583a6',
-            'isShowable' => NULL,
+            'isShowable' => false,
             'comic_id' => '6',
             'user_id' => '4',
             'created_at' => '2015-02-20 12:52:34',
