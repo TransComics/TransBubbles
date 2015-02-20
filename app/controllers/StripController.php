@@ -344,7 +344,7 @@ class StripController extends BaseController {
             ->first();
         View::share([
             'fonts' => Font::all()->lists('name', 'name'),
-            'font_id' => $strip->comic->font_id,
+            'font_id' => Font::find($strip->comic->font_id)->name,
             'strip' => $strip,
             'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
             'bubble' => $bubble != null ? $bubble : new Bubble()
@@ -434,7 +434,7 @@ class StripController extends BaseController {
             'lang_strip_to' => Session::has('lang_strip_to') ? Session::get('lang_strip_to') : 0,
             'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : 1,
             'fonts' => Font::all()->lists('name', 'name'),
-            'font_id' => $strip->comic->font_id,
+            'font_id' => Font::find($strip->comic->font_id)->name,
             'strip' => $strip,
             'bubble' => $delivred_bubbles !== null ? $delivred_bubbles : new Bubble(),
             'canvas_original' => $this->mergeShapesAndBubblesJSON($shapes, $original_bubbles),
