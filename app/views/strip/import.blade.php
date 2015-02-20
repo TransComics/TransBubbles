@@ -1,7 +1,7 @@
 @extends('layouts.tool')
 
 @section('tool.title')
-	Interface de traduction
+	Interface d'import
 @stop
 @section('tool.scripts')
 {{HTML::script('js/lib/json-jquery.js') }} 
