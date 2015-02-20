@@ -21,6 +21,10 @@ class StripController extends BaseController {
         }
 
         $strip = $comic->strips->find($id);
+        if ($strip == null) {
+            return Redirect::route('access.denied');
+        }
+        
         if (!$strip->isShowable()) {
             return Redirect::route('access.denied');
         }
