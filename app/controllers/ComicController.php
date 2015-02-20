@@ -44,7 +44,7 @@ class ComicController extends BaseController {
                 'author' => 'required|between:4,63',
                 'description' => 'max:2000',
                 'authorApproval' => 'accepted|boolean',
-                'cover' => 'image|mimes:png,jpeg|between:40,4096',
+                'cover' => 'image|mimes:png,jpeg|between:20,4096',
                 'font_id' => 'required|numeric',
                 'lang_id' => 'required|numeric'
         ]);
@@ -84,7 +84,7 @@ class ComicController extends BaseController {
                 'author' => 'required|between:4,63',
                 'description' => 'max:2000',
                 'authorApproval' => 'accepted|boolean',
-                'cover' => 'image|mimes:png,jpeg|between:40,4096',
+                'cover' => 'image|mimes:png,jpeg|between:20,4096',
                 'font_id' => 'required|numeric',
                 'lang_id' => 'required|numeric'
         ]);
