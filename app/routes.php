@@ -83,7 +83,7 @@ Route::group([
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
+Route::group(['prefix' => '/comic/{comic}/strip'], function () {
     Route::get('/{id}', [
         'as' => 'strip.show',
         'uses' => 'StripController@show'
@@ -178,22 +178,25 @@ Route::group(['prefix' => '/comic'], function () {
     ]);
 });
 
-Route::get('/comic/{id}/role', [
+Route::get('/comic/{comic}/role', [
     'as' => 'comic.role',
-    'uses' => 'RoleRessourceController@index'
-]);
-Route::post('/comic/{id}/role', [
-    'as' => 'comic.role.create',
-    'uses' => 'RoleRessourceController@store'
-]);
-Route::delete('/comic/{comic_id}/role/{roleR_id}', [
-    'as' => 'comic.role.destroy',
-    'uses' => 'RoleRessourceController@destroy'
+    'uses' => 'RoleRessourceController@index',
+    'before' => 'comic_admin'
 ]);
 
-Route::resource('/comic', 'ComicController', [
-    'before' => 'auth'
+Route::post('/comic/{comic}/role', [
+    'as' => 'comic.role.create',
+    'uses' => 'RoleRessourceController@store',
+    'before' => 'comic_admin'
 ]);
+
+Route::delete('/comic/{comic}/role/{roleR_id}', [
+    'as' => 'comic.role.destroy',
+    'uses' => 'RoleRessourceController@destroy',
+    'before' => 'comic_admin'
+]);
+
+Route::resource('/comic', 'ComicController');
 Route::group([
     'prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController', array('only' => array('update')));

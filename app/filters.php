@@ -33,7 +33,7 @@ App::before(function ($request) {
 });
 
 App::after(function ($request, $response) {
-    //
+//
 });
 
 /*
@@ -68,9 +68,23 @@ Route::filter('access', function($route) {
 });
 
 Route::filter('super_admin', function ($route) {
-    if (Auth::check() && !Auth::user()->isSuperAdministrator(Auth::id())) {
+    if (Auth::check() && !Auth::user()->isSuperAdministrator()) {
         return Redirect::route('access.denied');
     }
+});
+
+Route::filter('comic_admin', function ($route) {
+    if(!Auth::check()) {
+        return Redirect::route('user.signin');
+    }
+    if(Auth::user()->isComicAdmin($route)) {
+        return;
+    }
+    if(Auth::user()->isSuperAdministrator()) {
+        return;
+    }
+    
+    return Redirect::route('access.denied');
 });
 
 /*
