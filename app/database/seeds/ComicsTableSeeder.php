@@ -65,6 +65,24 @@ class ComicsTableSeeder extends Seeder {
             'validated_state' => 'REFUSED',
             'validated_comments' => 'Description pas assez parlante',
         ]);
+
+        Comic::create([
+            'id' => '7',
+            'title' => 'XKCD',
+            'author' => 'Randall Munroe',
+            'description' => 'http://xkcd.com',
+            'authorApproval' => '1',
+            'cover' => '/uploads/2/0f48fdab00575b7060b03e96c1e46f5a',
+            'font_id' => '5',
+            'created_by' => '6',
+            'lang_id' => '1',
+            'created_at' => '2015-02-20 14:42:43',
+            'updated_at' => '2015-02-20 14:43:52',
+            'validated_by' => NULL,
+            'validated_at' => NULL,
+            'validated_state' => 'PENDING',
+            'validated_comments' => NULL,
+        ]);
     }
 
 }
