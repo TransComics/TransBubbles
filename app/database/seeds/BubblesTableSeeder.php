@@ -174,21 +174,6 @@ class BubblesTableSeeder extends Seeder {
         ]);
 
         Bubble::create([
-            'id' => '26',
-            'strip_id' => '47',
-            'user_id' => '1',
-            'lang_id' => '1',
-            'parent_id' => NULL,
-            'value' => '{"background":""}',
-            'created_at' => '2015-02-20 13:12:03',
-            'updated_at' => '2015-02-20 13:12:03',
-            'validated_by' => NULL,
-            'validated_at' => NULL,
-            'validated_state' => 'PENDING',
-            'validated_comments' => NULL
-        ]);
-
-        Bubble::create([
             'id' => '23',
             'strip_id' => '46',
             'user_id' => '4',
