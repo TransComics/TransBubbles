@@ -105,3 +105,13 @@ $(document).ready(function() {
 @include('common.submit_delete')
 
 @endif @stop
+
+@section('master.nav')
+    @parent
+    @if(Auth::check())
+    <li class="list-group-item">
+        <span class="badge">{{ $nb_pending }}</span>
+        <a href="{{URL::route('strip.moderate', [$comic_id])}}" >@lang('strip.pending')</a>
+    </li>
+    @endif
+@append

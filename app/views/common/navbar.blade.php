@@ -9,13 +9,9 @@
     @endif
     <li class="list-group-item"><a href="{{URL::route('comic.index')}}" >@lang('comic.listLink')</a></li>
     @if(Auth::check())
-    <li class="list-group-item">
-        <span class="badge">{{ $pendingStrips }}</span>
-        <a href="{{URL::route('strip.index', ['comic_id' => 1])}}" >@lang('strip.pending')</a>
-    </li>
-    @if (Auth::user()->isSuperAdministrator(Auth::id()))
-    <li class="list-group-item"><a href="{{URL::route('private..roles.index')}}" >@lang('master.role')</a></li>
-    @endif
+        @if (Auth::user()->isSuperAdministrator(Auth::id()))
+        <li class="list-group-item"><a href="{{URL::route('private..roles.index')}}" >@lang('master.role')</a></li>
+        @endif
     @endif
 </ul>
 </div>

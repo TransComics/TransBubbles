@@ -34,3 +34,13 @@
     {{ $comics->links(); }}
     </div>
 @stop
+
+@section('master.nav')
+    @parent
+    @if(Auth::check())
+    <li class="list-group-item">
+        <span class="badge">{{ $nb_pending }}</span>
+        <a href="{{URL::route('comic.moderate')}}" >@lang('comic.pending')</a>
+    </li>
+    @endif
+@append
