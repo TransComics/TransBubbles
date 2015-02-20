@@ -26,7 +26,7 @@ class ShapesTableSeeder extends Seeder {
             'validated_by' => 2,
             'validated_at' => '2015-02-20 13:08:28',
             'validated_state' => 'VALIDATED',
-            'value' => '{"objects":[{"type":"image","width":696,"height":938,"src":"http://localhost:8000/uploads/0/5d46295fe2f7127018786ae6185e4412","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"rect","left":321.03,"top":50.5,"width":90,"height":63,"fill":"#ffffff","scaleX":0.96},{"type":"ellipse","left":102.03,"top":660.5,"width":122,"height":36,"fill":"#ffffff","scaleX":0.79,"scaleY":0.86,"rx":61,"ry":18}],"background":""}'
+            'value' => '{"objects":[{"type":"image","width":696,"height":938,"src":"/uploads/0/5d46295fe2f7127018786ae6185e4412","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"rect","left":321.03,"top":50.5,"width":90,"height":63,"fill":"#ffffff","scaleX":0.96},{"type":"ellipse","left":102.03,"top":660.5,"width":122,"height":36,"fill":"#ffffff","scaleX":0.79,"scaleY":0.86,"rx":61,"ry":18}],"background":""}'
         ]);
 
         Shape::create([
