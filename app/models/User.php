@@ -86,20 +86,28 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     public function isSuperAdministrator() {
-        $result = RoleRessource::select()
-                ->whererole_id(1)
-                ->whereuser_id($this->id)
-                ->first();
-        return !empty($result);
+        if (Auth::check()) {
+            $result = RoleRessource::select()
+                    ->whererole_id(1)
+                    ->whereuser_id($this->id)
+                    ->first();
+            return !empty($result);
+        } else {
+            return false;
+        }
     }
 
     public function isComicAdmin($route) {
-        $result = RoleRessource::select()
-                ->whereressource(Transcomics\RoleRessource\RessourceDefinition::Comics)
-                ->whereressource_id($route->getParameter('comic'))
-                ->whereuser_id($this->id)
-                ->first();
-        return !empty($result);
+        if (Auth::check()) {
+            $result = RoleRessource::select()
+                    ->whereressource(Transcomics\RoleRessource\RessourceDefinition::Comics)
+                    ->whereressource_id($route->getParameter('comic'))
+                    ->whereuser_id($this->id)
+                    ->first();
+            return !empty($result);
+        } else {
+            return false;
+        }
     }
 
 }

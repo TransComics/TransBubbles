@@ -26,6 +26,11 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
+Route::get('/export', [
+    'as' => 'export',
+    'uses' => 'ExportController@export'
+]);
+
 /* Languages */
 Route::post('/lang', [
     'as' => 'language.select',
