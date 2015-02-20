@@ -26,16 +26,16 @@ class StripController extends BaseController {
         }
 
         $lang_strip = Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id;
-        $shapes = $strip->shapes()->whereNotNull('validated_at')->first();
-        $bubbles = $strip->bubbles()->whereNotNull('validated_at')->where('lang_id', '=', $lang_strip)->first();
+        $shapes = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
+        $bubbles = $strip->bubbles()->where('validated_state', ValidateEnum::VALIDATED)->where('lang_id', '=', $lang_strip)->first();
         if ($bubbles === null) {
-            $bubbles = $strip->bubbles()->whereNotNull('validated_at')->where('lang_id', '=', $comic->lang_id)->first();
+            $bubbles = $strip->bubbles()->where('validated_state', ValidateEnum::VALIDATED)->where('lang_id', '=', $comic->lang_id)->first();
         }
 
         $available_languages = DB::table('languages')
             ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
             ->where('bubbles.strip_id', '=', $strip->id)
-            ->whereNotNull('bubbles.validated_at')
+            ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
             ->select('languages.id', 'languages.label')
             ->lists('label', 'id');
 
@@ -48,9 +48,7 @@ class StripController extends BaseController {
             'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('id', 'desc')->first(),
             'available_languages' => $available_languages,
             'lang_strip' => $lang_strip,
-            'bubble_id' => $strip->bubbles()
-                ->whereNotNull('validated_at')
-                ->first()->id,
+            'bubble_id' => $bubbles->id,
             'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles),
             'canvas_height' => $this->getHeight($shapes->value),
             'canvas_width' => $this->getWidth($shapes->value)
@@ -339,7 +337,7 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
         $shape = $strip->shapes()->where(function ($q) {
-                $q->whereNotNull('validated_at')->orWhere('user_id', Auth::user()->id);
+                $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::user()->id);
             })->first();
         $bubble = $strip->bubbles()
             ->where('user_id', Auth::user()->id)
