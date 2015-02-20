@@ -14,7 +14,8 @@ class ComicController extends BaseController {
                 'comics' => Comic::where(function ($q) {
                         $q->where('validated_state', ValidateEnum::VALIDATED)
                             ->orWhere('created_by', Auth::check() ? Auth::id() : 0);
-                    })->paginate(Session::has('paginate') ? Session::get('paginate') : 10)
+                    })->paginate(Session::has('paginate') ? Session::get('paginate') : 10),
+                'nb_pending' => Comic::where('validated_state', ValidateEnum::PENDING)->count()
         ]);
     }
 
@@ -208,4 +209,5 @@ class ComicController extends BaseController {
         }
         return Redirect::route('comic.moderate')->withcomic($comic);
     }
+
 }

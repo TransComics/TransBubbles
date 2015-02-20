@@ -90,7 +90,8 @@ class StripController extends BaseController {
                             ->orWhere('user_id', Auth::check() ? Auth::id() : 0);
                         })
                     ->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
-                'comic_id' => $comic_id
+                'comic_id' => $comic_id,
+                'nb_pending' => $comic->strips()->where('validated_state', ValidateEnum::PENDING)->count()
         ]);
     }
 
