@@ -26,7 +26,7 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
-/* Languages*/
+/* Languages */
 Route::post('/lang', [
     'as' => 'language.select',
     'uses' => 'LanguageController@select'
@@ -42,8 +42,9 @@ Route::post('/strip/lang_to', [
     'uses' => 'LanguageController@selectForStripTo'
 ]);
 
-/*Private*/
+/* Private */
 Route::group(['prefix' => '/private'], function () {
+    
 });
 
 
@@ -69,7 +70,7 @@ Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
 
 Route::group([
     'prefix' => '/password'
-], function () {
+        ], function () {
     Route::get('/remind', [
         'uses' => 'RemindersController@getRemind',
         'as' => 'password.remind'
@@ -82,7 +83,7 @@ Route::group([
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
+Route::group(['prefix' => '/comic/{comic}/strip'], function () {
     Route::get('/{id}', [
         'as' => 'strip.show',
         'uses' => 'StripController@show'
@@ -93,24 +94,26 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
     ]);
     Route::get('/moderate', [
         'as' => 'strip.moderate',
-        'uses' => 'StripController@indexModerate'
+        'uses' => 'StripController@indexModerate',
+        'before' => 'access'
     ]);
-    
+
     Route::post('/moderate', [
         'as' => 'strip.select',
-        'uses' => 'StripController@moderate'
+        'uses' => 'StripController@moderate',
+        'before' => 'access'
     ]);
-    
+
     Route::get('/{id}/vote', [
         'as' => 'strip.vote',
         'uses' => 'VoteController@index'
     ]);
-    
+
     Route::post('/{id}/vote', [
         'as' => 'strip.postvote',
         'uses' => 'VoteController@store'
     ]);
-    
+
     // Fix maison à modifier
     Route::post('/create', [
         'as' => 'strip.store',
@@ -133,7 +136,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
         'as' => 'strip.destroy',
         'uses' => 'StripController@destroy'
     ]);
-    
+
     Route::get('/{id}/clean', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -142,7 +145,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
         'as' => 'strip.saveClean',
         'uses' => 'StripController@saveClean'
     ]);
-    
+
     Route::get('/{id}/translate', [
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
@@ -151,7 +154,7 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
         'as' => 'strip.saveTranslate',
         'uses' => 'StripController@saveTranslate'
     ]);
-    
+
     Route::get('/{id}/import', [
         'as' => 'strip.import',
         'uses' => 'StripController@import'
@@ -163,36 +166,43 @@ Route::group(['prefix' => '/comic/{comic_id}/strip'], function () {
 });
 
 Route::group(['prefix' => '/comic'], function () {
-        Route::get('/moderate', [
+    Route::get('/moderate', [
         'as' => 'comic.moderate',
-        'uses' => 'ComicController@indexModerate'
+        'uses' => 'ComicController@indexModerate',
+        'before' => 'access'
     ]);
-        Route::post('/moderate', [
+    Route::post('/moderate', [
         'as' => 'comic.select',
-        'uses' => 'ComicController@moderate'
-     ]);
+        'uses' => 'ComicController@moderate',
+        'before' => 'access'
+    ]);
 });
 
-Route::get('/comic/{id}/role',[
-        'as' => 'comic.role',
-        'uses'=> 'RoleRessourceController@index'
-     ]);
-Route::post('/comic/{id}/role',[
-        'as' => 'comic.role.create',
-        'uses'=> 'RoleRessourceController@store'
-    ]);
-Route::delete('/comic/{comic_id}/role/{roleR_id}',[
-        'as' => 'comic.role.destroy',
-        'uses'=> 'RoleRessourceController@destroy'
-    ]);
-
-Route::resource('/comic', 'ComicController', [
-    'before' => 'auth'
+Route::get('/comic/{comic}/role', [
+    'as' => 'comic.role',
+    'uses' => 'RoleRessourceController@index',
+    'before' => 'comic_admin'
 ]);
+
+Route::post('/comic/{comic}/role', [
+    'as' => 'comic.role.create',
+    'uses' => 'RoleRessourceController@store',
+    'before' => 'comic_admin'
+]);
+
+Route::delete('/comic/{comic}/role/{roleR_id}', [
+    'as' => 'comic.role.destroy',
+    'uses' => 'RoleRessourceController@destroy',
+    'before' => 'comic_admin'
+]);
+
+Route::resource('/comic', 'ComicController');
 Route::group([
-    'prefix' => '/ws'], function () { 
+    'prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
-    Route::get('/getUsers','UsersController@getUsers');
+    Route::get('/getUsers', 'UsersController@getUsers');
 });
 
-Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () { return "ACCESS DENIED";}]);
+Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () {
+        return "ACCESS DENIED";
+    }]);

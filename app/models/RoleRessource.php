@@ -66,7 +66,7 @@ class RoleRessource extends \Eloquent {
                 ->where('ressource_id', 'LIKE', $ressource_id)
                 ->first();
 
-        // We don't know the access
+// We don't know the access
         if (empty($userRessourceAccesRight)) {
             return 'UNKNOWN';
         }
@@ -88,6 +88,7 @@ class RoleRessource extends \Eloquent {
         $this->checkRessource($ressource);
 
         switch ($this->canAccessRessource($role_desc, $ressource, $ressource_id, $user_id)) {
+
             case 'UNKNOWN':
                 if ($ressource == RessourceDefinition::Strips) {
                     $comic_id = $this->getComicId($ressource_id);
@@ -106,7 +107,7 @@ class RoleRessource extends \Eloquent {
     }
 
     private function getAccessMode($routeName) {
-        // Getting the access mode : C,R,U,(M),D
+// Getting the access mode : C,R,U,(M),D
         if (preg_match('/.create$|.store$/', $routeName)) {
             return 'C';
         } elseif (preg_match('/.show$/', $routeName)) {
@@ -115,28 +116,42 @@ class RoleRessource extends \Eloquent {
             return 'U';
         } elseif (preg_match('/.destroy$/', $routeName)) {
             return 'D';
+        } elseif (preg_match('/.moderate$|.select$/', $routeName)) {
+            return 'M';
         }
     }
 
     public function filter($route) {
-        // We get the route name (ressource.xxxxx)
+// We get the route name (ressource.xxxxx)
         $routeName = \Route::getCurrentRoute()->getName();
-
+        
         $access_mode = $this->getAccessMode($routeName);
 
         if (empty($access_mode)) {
             return;
         }
+        
+
+        if ($access_mode == 'M') {
+            $comic_id = $route->getParameter('comic');
+            if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $comic_id, \Auth::id())) {
+                return \Redirect::route('access.denied');
+            } else {
+                return;
+            }
+        }
 
         // Getting the ressource type
         if (preg_match('/^strip./', $routeName)) {
+            // Get Strip right
             $strip_id = $route->getParameter('id');
             if (!$this->isAllowed($access_mode, RessourceDefinition::Strips, $strip_id, \Auth::id())) {
                 return \Redirect::route('access.denied');
             }
         } elseif (preg_match('/^comic./', $routeName)) {
-            $strip_id = $route->getParameter('id');
-            if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $strip_id, \Auth::id())) {
+            // Get Comic right
+            $comic_id = $route->getParameter('comic');
+            if (!$this->isAllowed($access_mode, RessourceDefinition::Comics, $comic_id, \Auth::id())) {
                 return \Redirect::route('access.denied');
             }
         }
