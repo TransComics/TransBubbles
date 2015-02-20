@@ -155,8 +155,7 @@ class ComicController extends BaseController {
         $comic = Comic::wherevalidated_state(ValidateEnum::PENDING);
 
         if ($comic->count()) {
-            return View::make('comic.moderate')->with('comic', $comic->get()
-                        ->random());
+            return View::make('comic.moderate')->with('comic', $comic->get()->random());
         }
         return Redirect::route('comic.index');
     }
