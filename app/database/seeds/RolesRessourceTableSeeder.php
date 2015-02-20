@@ -29,6 +29,39 @@ class RolesRessourceTableSeeder extends Seeder {
             'ressource' => 1,
             'ressource_id' => 3
         ]);
+
+
+        RoleRessource::create([
+            'id' => '4',
+            'role_id' => '2',
+            'user_id' => '6',
+            'ressource' => '2',
+            'ressource_id' => '48',
+        ]);
+
+        RoleRessource::create([
+            'id' => '5',
+            'role_id' => '2',
+            'user_id' => '1',
+            'ressource' => '1',
+            'ressource_id' => '5',
+        ]);
+
+        RoleRessource::create([
+            'id' => '6',
+            'role_id' => '2',
+            'user_id' => '4',
+            'ressource' => '1',
+            'ressource_id' => '6',
+        ]);
+
+        RoleRessource::create([
+            'id' => '7',
+            'role_id' => '2',
+            'user_id' => '6',
+            'ressource' => '1',
+            'ressource_id' => '7',
+        ]);
     }
 
 }
