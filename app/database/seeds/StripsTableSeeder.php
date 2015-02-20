@@ -446,7 +446,7 @@ class StripsTableSeeder extends Seeder {
         Strip::create([
             'id' => 39,
             'title' => 'Chapter 1: Page 18',
-            'path' => '/uploads/2/f18bbfce7fb742c6f02cfad48dae0e89',
+            'path' => '/uploads/0/f18bbfce7fb742c6f02cfad48dae0e89',
             'isShowable' => false,
             'comic_id' => '3',
             'user_id' => '2',
@@ -461,7 +461,7 @@ class StripsTableSeeder extends Seeder {
         Strip::create([
             'id' => 40,
             'title' => 'Chapter 1: Page 19',
-            'path' => '/uploads/2/5ce4e4fca7bcb7353b1ee6f57b6b660a',
+            'path' => '/uploads/0/5ce4e4fca7bcb7353b1ee6f57b6b660a',
             'isShowable' => false,
             'comic_id' => '3',
             'user_id' => '2',
@@ -476,7 +476,7 @@ class StripsTableSeeder extends Seeder {
         Strip::create([
             'id' => 41,
             'title' => 'Chapter 1: Page 20',
-            'path' => '/uploads/2/1cbfc9cd930bb21492926e4c839502a9',
+            'path' => '/uploads/0/1cbfc9cd930bb21492926e4c839502a9',
             'isShowable' => false,
             'comic_id' => '3',
             'user_id' => '2',
@@ -491,7 +491,7 @@ class StripsTableSeeder extends Seeder {
         Strip::create([
             'id' => 42,
             'title' => 'Chapter 1: Page 21',
-            'path' => '/uploads/2/4d8bf2d8bf7d9a8a7ac328ce7107add2',
+            'path' => '/uploads/0/4d8bf2d8bf7d9a8a7ac328ce7107add2',
             'isShowable' => false,
             'comic_id' => '3',
             'user_id' => '2',
