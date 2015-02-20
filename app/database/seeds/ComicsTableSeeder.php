@@ -15,7 +15,10 @@ class ComicsTableSeeder extends Seeder {
             'font_id' => 4,
             'created_by' => 2,
             'lang_id' => 1,
-            'created_at' => '2015-02-17 14:43:35'
+            'created_at' => '2015-02-17 14:43:35',
+            'validated_by' => '5',
+            'validated_at' => '2015-02-20 12:07:24',
+            'validated_state' => 'VALIDATED'
         ]);
 
         Comic::create([
