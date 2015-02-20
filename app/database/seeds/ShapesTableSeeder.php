@@ -16,6 +16,18 @@ class ShapesTableSeeder extends Seeder {
             'validated_state' => 'VALIDATED',
             'value' => '{"objects":[{"type":"image","width":696,"height":938,"src":"/uploads/0/4add9b73d5ab647ee47aebcd0438eb30","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"ellipse","left":130,"top":218.5,"width":164,"height":76,"fill":"#ffffff","rx":82,"ry":38},{"type":"ellipse","left":44,"top":614.5,"fill":"#ffffff","rx":0,"ry":0},{"type":"ellipse","left":9,"top":579.42,"width":162,"height":78,"fill":"#ffffff","scaleX":0.8,"scaleY":0.8,"rx":81,"ry":39},{"type":"ellipse","left":142,"top":833.5,"width":158,"height":8,"fill":"#ffffff","scaleX":0.89,"scaleY":7.63,"rx":79,"ry":4},{"type":"ellipse","left":428,"top":766.5,"width":148,"height":50,"fill":"#ffffff","scaleX":0.8,"rx":74,"ry":25},{"type":"ellipse","left":627,"top":675.5,"width":46,"height":30,"fill":"#ffffff","rx":23,"ry":15}],"background":""}'
         ]);
+        
+        Shape::create([
+            'id' => 26,
+            'strip_id' => 4,
+            'user_id' => 2,
+            'created_at' => '2015-02-18 16:41:24',
+            'updated_at' => '2015-02-18 16:41:24',
+            'validated_by' => 2,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'value' => '{"objects":[{"type":"image","width":696,"height":938,"src":"http://localhost:8000/uploads/0/5d46295fe2f7127018786ae6185e4412","filters":[],"crossOrigin":"","alignX":"none","alignY":"none","meetOrSlice":"meet"},{"type":"rect","left":321.03,"top":50.5,"width":90,"height":63,"fill":"#ffffff","scaleX":0.96},{"type":"ellipse","left":102.03,"top":660.5,"width":122,"height":36,"fill":"#ffffff","scaleX":0.79,"scaleY":0.86,"rx":61,"ry":18}],"background":""}'
+        ]);
 
         Shape::create([
             'id' => 5,
