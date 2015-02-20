@@ -217,6 +217,69 @@ class BubblesTableSeeder extends Seeder {
             'validated_state' => 'PENDING',
             'validated_comments' => NULL,
         ]);
+        
+        Bubble::create([
+            'id' => 16,
+            'strip_id' => '5',
+            'user_id' => '2',
+            'lang_id' => '1',
+            'parent_id' => NULL,
+            'value' => '{"objects":{"5":{"type":"i-text","left":130.03,"top":36.5,"width":238.03,"height":66.3,"text":"Hi! My name is Alma, I\'m 20\nyears old and working in a coffee\nshop downtown ","fontSize":17,"fontFamily":"Cambria","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[],"21":[],"22":[],"23":[],"24":[],"25":[],"26":[]},[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[],[],[],[],[],[]]]},"6":{"type":"i-text","left":394.03,"top":191.5,"width":271.97,"height":93.6,"text":"My route from my aparment to my\nwork takes me through some rough\nareas and my friends say I\'m nuts\nfor going this way","fontSize":18,"fontFamily":"Cambria","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[],"21":[],"22":[],"23":[],"24":[],"25":[],"26":[],"27":[],"28":[],"29":[],"30":[]},{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[],"21":[],"22":[],"23":[],"24":[],"25":[],"26":[],"27":[],"28":[],"29":[],"30":[],"31":[]},[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]]},"7":{"type":"i-text","left":158.03,"top":680.5,"width":254.3,"height":44.2,"text":"But the transients are people too.\neach one worth a smile and a wave.","fontSize":"17","fontFamily":"Cambria","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[],"21":[],"22":[],"23":[],"24":[],"25":[],"26":[],"27":[],"28":[],"29":[],"30":[],"31":[],"32":[],"33":[]},[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]]},"8":{"type":"i-text","left":532.03,"top":881.27,"width":157.93,"height":46.8,"text":"Rations have arrived,\nColonel! Have the confederates\nfallen back any?","fontSize":12,"fontFamily":"Cambria","textAlign":"center","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[]},{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[],"21":[],"22":[],"23":[],"24":[],"25":[],"26":[],"27":[],"28":[],"29":[]},[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]]}},"background":""}',
+            'created_at' => '2015-02-20 12:40:19',
+            'updated_at' => '2015-02-20 12:40:19',
+            'validated_by' => '2',
+            'validated_at' => '2015-02-20 12:57:19',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
+        ]);
+        
+        
+        Bubble::create([
+            'id' => 18,
+            'strip_id' => '10',
+            'user_id' => '2',
+            'lang_id' => '1',
+            'parent_id' => NULL,
+            'value' => '{"objects":{"4":{"type":"i-text","left":45.03,"top":193.5,"width":79.43,"height":36.4,"text":"OUCH!","fontSize":"20","fontFamily":"Arial Black","textAlign":"center","styles":[{"0":{"fontFamily":"Cambria","fontSize":28},"1":{"fontFamily":"Cambria","fontSize":28},"2":{"fontFamily":"Cambria","fontSize":28},"3":{"fontFamily":"Cambria","fontSize":28},"4":{"fontFamily":"Cambria","fontSize":28},"6":[],"7":[],"8":[],"9":[],"10":[]}]},"5":{"type":"i-text","left":462.03,"top":208.5,"width":198.87,"height":57.2,"text":"W-wait a second.\nThat was NOT a dog !","fontSize":20,"fontFamily":"Cambria","textAlign":"center","styles":[[{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22}],[{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},{"fontSize":22},[]]]},"6":{"type":"i-text","left":324.03,"top":703.5,"width":67.17,"height":33.8,"text":"GASP!","fontSize":"22","fontFamily":"Cambria","textAlign":"center","styles":[[{"fontSize":26},{"fontSize":26},{"fontSize":26},{"fontSize":26},{"fontSize":26}]]}},"background":""}',
+            'created_at' => '2015-02-20 12:44:21',
+            'updated_at' => '2015-02-20 12:44:21',
+            'validated_by' => '2',
+            'validated_at' => '2015-02-20 12:57:19',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
+        ]);
+        
+        Bubble::create([
+            'id' => 28,
+            'strip_id' => '43',
+            'user_id' => '2',
+            'lang_id' => '1',
+            'parent_id' => NULL,
+            'value' => '{"objects":{"58":{"type":"i-text","left":264.03,"top":160.5,"width":111.77,"height":52,"text":"No. You\'re an\nanomaly","fontSize":"20","fontFamily":"Cambria","textAlign":"center","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[]},{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[]}]},"59":{"type":"i-text","left":511.03,"top":199.5,"width":154.4,"height":41.6,"text":"I\'m going to have\nto keep  my eye on you","fontSize":16,"fontFamily":"Cambria","textAlign":"center","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[]},{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[],"21":[],"22":[]}]},"60":{"type":"i-text","left":448.03,"top":270.5,"width":206.07,"height":80.6,"text":"I\'LL SEE YOU AROUND.\nSWEETHEART. DEATH WILL \nALWAYS BE NEAR.","fontSize":"16","fontFamily":"Cambria","textAlign":"center","styles":[[{"fontSize":23},[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[],[],[],[],{"fontSize":23},[],[],[],[],[],[],[],[],[],[]],[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]]},"61":{"type":"i-text","left":339.03,"top":630.5,"width":132.07,"height":41.6,"text":"Yeah, any minute\nnow I will wake up.","fontSize":15,"fontFamily":"Cambria","textAlign":"center","styles":[[{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16}],[{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},{"fontSize":16},[]]]},"62":{"type":"i-text","left":573.03,"top":884.5,"width":84.3,"height":15.6,"text":"To be continued.","fontSize":12,"fontFamily":"Cambria","textAlign":"center","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[]}]}},"background":""}',
+            'created_at' => '2015-02-20 14:36:04',
+            'updated_at' => '2015-02-20 14:36:04',
+            'validated_by' => '2',
+            'validated_at' => '2015-02-20 12:57:19',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
+        ]);
+        
+        Bubble::create([
+            'id' => 34,
+            'strip_id' => '38',
+            'user_id' => '2',
+            'lang_id' => '1',
+            'parent_id' => NULL,
+            'value' => '{"objects":{"4":{"type":"i-text","left":158.03,"top":6.5,"width":176,"height":58.5,"text":"I\'ve unlocked some\nitems and weapons. So how\nabout you try it now?","fontSize":15,"fontFamily":"Cambria","textAlign":"center","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[]},{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[],"14":[],"15":[],"16":[],"17":[],"18":[],"19":[],"20":[],"21":[],"22":[],"23":[],"24":[]},[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]]},"5":{"type":"i-text","left":42.03,"top":260.5,"width":83.3,"height":39,"text":"WHOA! Did\nyou see that?","fontSize":"15","fontFamily":"Cambria","textAlign":"center","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[]},{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[],"12":[],"13":[]}]},"6":{"type":"i-text","left":214.03,"top":283.5,"width":76.13,"height":39,"text":"You can\'t be\nserious...","fontSize":"15","fontFamily":"Cambria","textAlign":"center","styles":[{"1":[],"2":[],"3":[],"4":[],"5":[],"6":[],"7":[],"8":[],"9":[],"10":[],"11":[]},[[],[],[],[],[],[],[],[],[],[],[]]]}},"background":""}',
+            'created_at' => '2015-02-20 14:46:23',
+            'updated_at' => '2015-02-20 14:46:23',
+            'validated_by' => '2',
+            'validated_at' => '2015-02-20 12:57:19',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
+        ]);
+
+
     }
 
 }
