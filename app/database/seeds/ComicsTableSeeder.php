@@ -4,7 +4,7 @@ class ComicsTableSeeder extends Seeder {
 
     public function run() {
         Comic::unguard();
-        
+
         Comic::create([
             'id' => 3,
             'title' => 'Gallows Humor - Chapter 1',
@@ -17,7 +17,7 @@ class ComicsTableSeeder extends Seeder {
             'lang_id' => 1,
             'created_at' => '2015-02-17 14:43:35'
         ]);
-        
+
         Comic::create([
             'id' => 4,
             'title' => 'Gallows Humor - Chapter 2',
@@ -30,7 +30,7 @@ class ComicsTableSeeder extends Seeder {
             'lang_id' => 1,
             'created_at' => '2015-02-18 12:05:36'
         ]);
-        
+
         Comic::create([
             'id' => '5',
             'title' => 'Cyanide & Happiness',
@@ -47,7 +47,44 @@ class ComicsTableSeeder extends Seeder {
             'validated_at' => '2015-02-20 12:07:24',
             'validated_state' => 'VALIDATED'
         ]);
+
+        Comic::create([
+            'id' => '6',
+            'title' => 'Glory Owl',
+            'author' => 'Glory Owl',
+            'description' => 'http://gloryowlcomix.blogspot.fr/',
+            'authorApproval' => '1',
+            'cover' => '/uploads/0/d2ea1c104875bd05fc9cd8173dc72f9c',
+            'font_id' => '1',
+            'created_by' => '4',
+            'lang_id' => '2',
+            'created_at' => '2015-02-20 12:50:53',
+            'updated_at' => '2015-02-20 13:32:13',
+            'validated_by' => '5',
+            'validated_at' => '2015-02-20 13:32:13',
+            'validated_state' => 'REFUSED',
+            'validated_comments' => 'Description pas assez parlante',
+        ]);
+
+        Comic::create([
+            'id' => '7',
+            'title' => 'XKCD',
+            'author' => 'Randall Munroe',
+            'description' => 'http://xkcd.com',
+            'authorApproval' => '1',
+            'cover' => '/uploads/2/0f48fdab00575b7060b03e96c1e46f5a',
+            'font_id' => '5',
+            'created_by' => '6',
+            'lang_id' => '1',
+            'created_at' => '2015-02-20 14:42:43',
+            'updated_at' => '2015-02-20 14:43:52',
+            'validated_by' => NULL,
+            'validated_at' => NULL,
+            'validated_state' => 'PENDING',
+            'validated_comments' => NULL,
+        ]);
     }
+
 }
 
 ?>
