@@ -35,6 +35,12 @@ class UsersTableSeeder extends Seeder {
             'username' => 'admin',
             'password' => Hash::make('admin')
         ]);
+        User::create([
+            'id' => 6,
+            'email' => 'dio_brando@live.fr',
+            'username' => 'Dio94',
+            'password' => '$2y$10$VJSgWTB324sX/MPidlATVOBfCd3AIyesyQaSSr952g6CamyATihPi'
+        ]);
     }
 }
 
