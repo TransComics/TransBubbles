@@ -4,8 +4,9 @@ class ExportController extends BaseController {
 
     public function export() {
 
-        $result = $this->exportObject(Strip::all()->toArray(), 'Strip');
+        $result = $this->exportObject(RoleRessource::all()->toArray(), 'RoleRessource');
         $result .= $this->exportObject(Comic::all()->toArray(), 'Comic');
+        $result .= $this->exportObject(Strip::all()->toArray(), 'Strip');
         $result .= $this->exportObject(Shape::all()->toArray(), 'Shape');
         $result .= $this->exportObject(Bubble::all()->toArray(), 'Bubble');
 
