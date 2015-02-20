@@ -10,7 +10,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Cover',
             'path' => '/uploads/0/a188e5019e903b2bbdd59a8ec9a12036',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -18,7 +21,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 1',
             'path' => '/uploads/0/5d46295fe2f7127018786ae6185e4412',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -26,7 +32,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 2',
             'path' => '/uploads/0/af83c70e0911c75aca1010a3409d12a3',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -34,7 +43,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 3',
             'path' => '/uploads/0/26ef3aa7f59d0bec5a663053b776c0cd',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -42,7 +54,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 4',
             'path' => '/uploads/0/513a5bb8df3120b04a138efbed15f658',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -50,16 +65,21 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 5',
             'path' => '/uploads/0/9a1381ff92b12821e0c90185fcc90932',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
             'id' => 9,
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 6',
-            
             'path' => '/uploads/0/65d811bbe303f9cec469566dfad82ca0',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -67,7 +87,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 7',
             'path' => '/uploads/0/a6fb13723e74cb9a6ca86b9862a75691',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -75,7 +98,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 8',
             'path' => '/uploads/0/3da206455ad26d107108752a484a4003',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -83,7 +109,10 @@ class StripsTableSeeder extends Seeder {
             'comic_id' => 3,
             'title' => 'Chapter 1: Page 9',
             'path' => '/uploads/0/21023a8b83a32fa58d62fbcc2914a5a0',
-            'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
             'user_id' => 2,
         ]);
         Strip::create([
@@ -92,8 +121,10 @@ class StripsTableSeeder extends Seeder {
             'title' => 'Chapter 1: Page 10',
             'path' => '/uploads/0/4add9b73d5ab647ee47aebcd0438eb30',
             'validated_at' => '2015-02-10 11:12:32',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
             'validated_state' => 'VALIDATED',
-            'validated_by' => 3,
+            'validated_comments' => NULL,
             'isShowable' => true,
             'user_id' => 2,
         ]);
@@ -102,8 +133,10 @@ class StripsTableSeeder extends Seeder {
             'title' => 'Cover',
             'path' => '/uploads/0/07f485e2f27eb5916a5cff7835bab148',
             'validated_at' => '2015-02-18 17:56:38',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
             'validated_state' => 'VALIDATED',
-            'validated_by' => 3,
+            'validated_comments' => NULL,
             'isShowable' => true,
             'comic_id' => 4,
             'user_id' => 3
@@ -113,8 +146,10 @@ class StripsTableSeeder extends Seeder {
             'title' => 'Chapter 2: Page 1',
             'path' => '/uploads/0/867cd02c9ebb7273fbe546f4ae8efd9e',
             'validated_at' => '2015-02-18 17:58:38',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
             'validated_state' => 'VALIDATED',
-            'validated_by' => 3,
+            'validated_comments' => NULL,
             'isShowable' => true,
             'comic_id' => 4,
             'user_id' => 3
@@ -124,30 +159,47 @@ class StripsTableSeeder extends Seeder {
             'title' => 'Chapter 2: Page 2',
             'path' => '/uploads/0/6d6acd0feec256e7c66792a045c9d48e',
             'comic_id' => 4,
-            'user_id' => 3
+            'user_id' => 3,
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
+            'isShowable' => true,
         ]);
         Strip::create([
             'id' => 17,
             'title' => 'Chapter 2: Page 3',
             'path' => '/uploads/0/3320eba7f169f693dcdb4341e34075f8',
             'comic_id' => 4,
-            'user_id' => 3
+            'user_id' => 3,
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
+            'isShowable' => true,
         ]);
         Strip::create([
             'id' => 18,
             'title' => 'Chapter 2: Page 4',
             'path' => '/uploads/0/ae5fd4b465982ce4c7611506189e4c66',
             'comic_id' => 4,
-            'user_id' => 3
+            'user_id' => 3,
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
+            'validated_state' => 'VALIDATED',
+            'validated_comments' => NULL,
+            'isShowable' => true,
         ]);
         Strip::create([
             'id' => 19,
             'title' => 'Chapter 2: Page 5',
             'path' => '/uploads/0/06ad150fa0d0e67062822cf4bcaaa70a',
             'validated_at' => '2015-02-18 18:48:38',
+            'validated_by' => 5,
+            'validated_at' => '2015-02-20 13:08:28',
             'validated_state' => 'VALIDATED',
-            'validated_by' => 3,
-            'isShowable' => 1,
+            'validated_comments' => NULL,
+            'isShowable' => true,
             'comic_id' => 4,
             'user_id' => 3
         ]);

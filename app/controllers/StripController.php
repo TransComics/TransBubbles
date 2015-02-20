@@ -28,6 +28,9 @@ class StripController extends BaseController {
         $lang_strip = Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id;
         $shapes = $strip->shapes()->whereNotNull('validated_at')->first();
         $bubbles = $strip->bubbles()->whereNotNull('validated_at')->where('lang_id', '=', $lang_strip)->first();
+        if ($bubbles === null) {
+            $bubbles = $strip->bubbles()->whereNotNull('validated_at')->where('lang_id', '=', $comic->lang_id)->first();
+        }
 
         $available_languages = DB::table('languages')
             ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
@@ -38,11 +41,11 @@ class StripController extends BaseController {
 
         View::share([
             /* Paginate. */
-            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('validated_at')->first(),
+            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('id')->first(),
             'previous_strip' => $comic->strips()->where('isShowable', true)->where('id', '<', $strip->id)->orderBy('id', 'desc')->first(),
             'random_strip' => $comic->strips()->where('isShowable', true)->where('id', '<>', $strip->id)->orderByRaw('RAND()')->first(),
             'next_strip' => $comic->strips()->where('isShowable', true)->where('id', '>', $strip->id)->orderBy('id')->first(),
-            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('validated_at', 'desc')->first(),
+            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('id', 'desc')->first(),
             'available_languages' => $available_languages,
             'lang_strip' => $lang_strip,
             'bubble_id' => $strip->bubbles()
