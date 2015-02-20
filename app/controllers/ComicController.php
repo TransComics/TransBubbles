@@ -44,7 +44,7 @@ class ComicController extends BaseController {
                 'author' => 'required|between:4,63',
                 'description' => 'max:2000',
                 'authorApproval' => 'accepted|boolean',
-                'cover' => 'image|mimes:png,jpeg|between:40,4096',
+                'cover' => 'image|mimes:png,jpeg|between:20,4096',
                 'font_id' => 'required|numeric',
                 'lang_id' => 'required|numeric'
         ]);
@@ -66,9 +66,7 @@ class ComicController extends BaseController {
             $comic->save();
 
             RoleRessource::addRight(2, RessourceDefinition::Comics, $comic->id, Auth::id());
-            return Redirect::route('comic.index', [
-                    $comic->id
-                ])->withMessage(Lang::get('comic.added', [
+            return Redirect::route('comic.index')->withMessage(Lang::get('comic.added', [
                         'title' => $comic->title
             ]));
         }
@@ -86,7 +84,7 @@ class ComicController extends BaseController {
                 'author' => 'required|between:4,63',
                 'description' => 'max:2000',
                 'authorApproval' => 'accepted|boolean',
-                'cover' => 'image|mimes:png,jpeg|between:40,4096',
+                'cover' => 'image|mimes:png,jpeg|between:20,4096',
                 'font_id' => 'required|numeric',
                 'lang_id' => 'required|numeric'
         ]);
