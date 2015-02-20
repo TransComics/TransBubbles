@@ -1,7 +1,7 @@
 @extends('layouts.tool')
 
 @section('tool.title')
-	Interface de traduction
+	Interface d'import
 @stop
 @section('tool.scripts')
 {{HTML::script('js/lib/json-jquery.js') }} 
@@ -67,10 +67,6 @@
     </div>
 
     <br/>
-    <!-- Button trigger modal -->
-    <button id="getdata" type="button" class="btn btn-primary btn-lg"
-            data-toggle="modal" data-target="#myModal">Launch demo popup</button>
-    @include('translate.popup')
     
     <span id="interface" class="hidden">import</span>
     <span id="canvasSave" class="hidden">{{$canvas_delivered}}</span>

@@ -33,6 +33,58 @@ class ComicsTableSeeder extends Seeder {
             'validated_by' => 5,
             'validated_at' => '2015-02-20 11:38:14',
             'validated_state' => 'VALIDATED',
+        ]);
+
+        Comic::create([
+            'id' => '5',
+            'title' => 'Cyanide & Happiness',
+            'author' => 'Rob DenBleyker, Kris Wilson, Dave McElfatrick and Matt Melvin',
+            'description' => 'Cyanide & Happiness is a webcomic written and illustrated by Rob DenBleyker, Kris Wilson, Dave McElfatrick and formerly Matt Melvin. It is published on their website explosm.net. It was created on December 9, 2004, and started running daily on January 26, 2005. It has appeared on social networking sites such as Myspace, Quora, LiveJournal, and Facebook, where, in April 2006, it had generated more than a million visits per week. The comic\'s authors attribute its success to its often controversial nature. Cyanide & Happiness characters were used in the television advertisements for Orange Mobile\'s Orange Wednesdays.',
+            'authorApproval' => '1',
+            'cover' => '/uploads/0/986276103dc54199b548f317b267c683',
+            'font_id' => '5',
+            'created_by' => '1',
+            'lang_id' => '1',
+            'created_at' => '2015-02-20 11:39:08',
+            'updated_at' => '2015-02-20 12:07:24',
+            'validated_by' => '5',
+            'validated_at' => '2015-02-20 12:07:24',
+            'validated_state' => 'VALIDATED'
+        ]);
+
+        Comic::create([
+            'id' => '6',
+            'title' => 'Glory Owl',
+            'author' => 'Glory Owl',
+            'description' => 'http://gloryowlcomix.blogspot.fr/',
+            'authorApproval' => '1',
+            'cover' => '/uploads/0/d2ea1c104875bd05fc9cd8173dc72f9c',
+            'font_id' => '1',
+            'created_by' => '4',
+            'lang_id' => '2',
+            'created_at' => '2015-02-20 12:50:53',
+            'updated_at' => '2015-02-20 13:32:13',
+            'validated_by' => '5',
+            'validated_at' => '2015-02-20 13:32:13',
+            'validated_state' => 'REFUSED',
+            'validated_comments' => 'Description pas assez parlante',
+        ]);
+
+        Comic::create([
+            'id' => '7',
+            'title' => 'XKCD',
+            'author' => 'Randall Munroe',
+            'description' => 'http://xkcd.com',
+            'authorApproval' => '1',
+            'cover' => '/uploads/2/0f48fdab00575b7060b03e96c1e46f5a',
+            'font_id' => '5',
+            'created_by' => '6',
+            'lang_id' => '1',
+            'created_at' => '2015-02-20 14:42:43',
+            'updated_at' => '2015-02-20 14:43:52',
+            'validated_by' => NULL,
+            'validated_at' => NULL,
+            'validated_state' => 'PENDING',
             'validated_comments' => NULL,
         ]);
     }
