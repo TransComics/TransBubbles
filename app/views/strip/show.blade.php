@@ -15,7 +15,7 @@
             <span class="id hidden">canvas-{{$bubble_id}}</span>
             <canvas id="canvas-{{$bubble_id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
         </div>
-        
+        <br />
 	<div class="btn-group" role="group">
                 @if($previous_strip)
 		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$first_strip->id))}}"></a>
