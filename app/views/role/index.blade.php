@@ -33,9 +33,7 @@ $(document).ready(function() {
 		<div class="col-xs-10 col-xs-height">
 			<h3>Roles page index</h3>
 			
-			<a href="{{URL::route('private..roles.create')}}" title=@lang(
-				'role.create')
-				class='btn btn-sm btn-primary glyphicon glyphicon-plus pull-right col-bottom'></a>
+			<a href="{{URL::route('private..roles.create')}}" title=@lang('role.create') class='btn btn-sm btn-primary glyphicon glyphicon-plus pull-right col-bottom'></a>
 		</div>
 		
 		
