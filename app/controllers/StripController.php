@@ -94,7 +94,7 @@ class StripController extends BaseController {
                             $q->where('validated_state', ValidateEnum::VALIDATED)
                             ->orWhere('user_id', Auth::check() ? Auth::id() : 0);
                         })->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
-                
+            'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count()
         ]);
     }
 

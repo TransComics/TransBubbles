@@ -22,7 +22,7 @@ $(document).ready(function() {
         </div>
         @if(Auth::check())
         <div class="col-xs-2 col-xs-height col-bottom">
-            <a href="{{URL::route('strip.create', [$comic_id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+            <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
         </div>
         @endif
     </div>
@@ -114,7 +114,7 @@ $(document).ready(function() {
     @if(Auth::check() && Auth::user()->isComicAdmin(Route::current()))
     <li class="list-group-item">
         <span class="badge">{{ $nb_pending }}</span>
-        <a href="{{URL::route('strip.moderate', [$comic_id])}}" >@lang('strip.pending')</a>
+        <a href="{{URL::route('strip.moderate', [$comic->id])}}" >@lang('strip.pending')</a>
     </li>
     @endif
 @append
