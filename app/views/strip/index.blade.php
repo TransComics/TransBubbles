@@ -18,7 +18,7 @@ $(document).ready(function() {
 <div class="row">
     <div class="row-same-height">
         <div class="col-xs-10 col-xs-height">
-            <h1>{{ Lang::get('strip.pendingTitle')}}</h1>
+            <h1>{{$comic->title}}</h1>
         </div>
         @if(Auth::check())
         <div class="col-xs-2 col-xs-height col-bottom">
@@ -35,6 +35,9 @@ $(document).ready(function() {
 <!--TODO -->
 
 @else
+<div class="text-center">
+    {{ $strips->links(); }}
+</div>
 <div class="row">
     @foreach ($strips as $strip)
     <div class="col-sm-6 col-lg-4 padding-10">
