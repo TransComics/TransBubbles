@@ -85,14 +85,12 @@ class StripController extends BaseController {
         }
 
         return View::make('strip.index', [
-                'strips' => $comic->strips()
-                    ->where(function ($q) {
+            'comic' => $comic,
+            'strips' => $comic->strips()->where(function ($q) {
                             $q->where('validated_state', ValidateEnum::VALIDATED)
                             ->orWhere('user_id', Auth::check() ? Auth::id() : 0);
-                        })
-                    ->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
-                'comic_id' => $comic_id,
-                'nb_pending' => $comic->strips()->where('validated_state', ValidateEnum::PENDING)->count()
+                        })->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
+                
         ]);
     }
 
