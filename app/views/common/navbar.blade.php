@@ -1,7 +1,7 @@
 <div class="sponsor">
 <ul class="list-group">
     @if(Auth::check())
-    <li class="list-group-item"><a href="{{URL::route('user.logout')}}" >@lang('user.logout')</a></li>
+    <li class="list-group-item"><a href="{{URL::route('user.logout')}}" >@lang('user.logout')</a><small> &nbsp;&nbsp; ({{ Auth::user()->username }})</small></li>
     <li class="list-group-item"><a href="{{URL::route('comic.create')}}" >@lang('comic.addLink')</a></li>
     @else
     <li class="list-group-item"><a href="{{URL::route('user.signin')}}" >@lang('user.signIn')</a></li>

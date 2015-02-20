@@ -111,7 +111,7 @@ $(document).ready(function() {
 
 @section('master.nav')
     @parent
-    @if(Auth::check())
+    @if(Auth::check() && Auth::user()->isComicAdmin(Route::current()))
     <li class="list-group-item">
         <span class="badge">{{ $nb_pending }}</span>
         <a href="{{URL::route('strip.moderate', [$comic_id])}}" >@lang('strip.pending')</a>
