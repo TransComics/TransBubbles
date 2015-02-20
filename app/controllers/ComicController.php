@@ -66,9 +66,7 @@ class ComicController extends BaseController {
             $comic->save();
 
             RoleRessource::addRight(2, RessourceDefinition::Comics, $comic->id, Auth::id());
-            return Redirect::route('comic.index', [
-                    $comic->id
-                ])->withMessage(Lang::get('comic.added', [
+            return Redirect::route('comic.index')->withMessage(Lang::get('comic.added', [
                         'title' => $comic->title
             ]));
         }
