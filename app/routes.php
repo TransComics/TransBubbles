@@ -174,7 +174,7 @@ Route::group(['prefix' => '/comic'], function () {
     Route::post('/moderate', [
         'as' => 'comic.select',
         'uses' => 'ComicController@moderate',
-        'before' => 'access'
+        'before' => 'super_admin'
     ]);
 });
 
