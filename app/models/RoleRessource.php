@@ -66,7 +66,7 @@ class RoleRessource extends \Eloquent {
                 ->where('ressource_id', 'LIKE', $ressource_id)
                 ->first();
 
-// We don't know the access
+        // We don't know the access
         if (empty($userRessourceAccesRight)) {
             return 'UNKNOWN';
         }
@@ -87,13 +87,17 @@ class RoleRessource extends \Eloquent {
     public function isAllowed($role_desc, $ressource, $ressource_id, $user_id) {
         $this->checkRessource($ressource);
 
-        switch ($this->canAccessRessource($role_desc, $ressource, $ressource_id, $user_id)) {
+        if (User::find($user_id)->isSuperAdministrator()) {
+            return true;
+        }
 
+        switch ($this->canAccessRessource($role_desc, $ressource, $ressource_id, $user_id)) {
             case 'UNKNOWN':
                 if ($ressource == RessourceDefinition::Strips) {
                     $comic_id = $this->getComicId($ressource_id);
                     return $this->isAllowed($role_desc, RessourceDefinition::Comics, $comic_id, $user_id);
                 } else {
+
                     return $this->getVisitorRights($role_desc);
                 }
                 break;
@@ -124,13 +128,12 @@ class RoleRessource extends \Eloquent {
     public function filter($route) {
 // We get the route name (ressource.xxxxx)
         $routeName = \Route::getCurrentRoute()->getName();
-        
+
         $access_mode = $this->getAccessMode($routeName);
 
         if (empty($access_mode)) {
             return;
         }
-        
 
         if ($access_mode == 'M') {
             $comic_id = $route->getParameter('comic');

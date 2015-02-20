@@ -169,7 +169,7 @@ Route::group(['prefix' => '/comic'], function () {
     Route::get('/moderate', [
         'as' => 'comic.moderate',
         'uses' => 'ComicController@indexModerate',
-        'before' => 'access'
+        'before' => 'super_admin'
     ]);
     Route::post('/moderate', [
         'as' => 'comic.select',
