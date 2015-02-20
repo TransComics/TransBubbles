@@ -1,8 +1,8 @@
 <?php
 
 class ComicsTableSeeder extends Seeder {
-    
-    public function run () {
+
+    public function run() {
         Comic::unguard();
         
         Comic::create([
@@ -28,7 +28,24 @@ class ComicsTableSeeder extends Seeder {
             'font_id' => 1,
             'created_by' => 3,
             'lang_id' => 1,
-            'created_at' => '2015-02-18 12:05:36',
+            'created_at' => '2015-02-18 12:05:36'
+        ]);
+        
+        Comic::create([
+            'id' => '5',
+            'title' => 'Cyanide & Happiness',
+            'author' => 'Rob DenBleyker, Kris Wilson, Dave McElfatrick and Matt Melvin',
+            'description' => 'Cyanide & Happiness is a webcomic written and illustrated by Rob DenBleyker, Kris Wilson, Dave McElfatrick and formerly Matt Melvin. It is published on their website explosm.net. It was created on December 9, 2004, and started running daily on January 26, 2005. It has appeared on social networking sites such as Myspace, Quora, LiveJournal, and Facebook, where, in April 2006, it had generated more than a million visits per week. The comic\'s authors attribute its success to its often controversial nature. Cyanide & Happiness characters were used in the television advertisements for Orange Mobile\'s Orange Wednesdays.',
+            'authorApproval' => '1',
+            'cover' => '/uploads/0/986276103dc54199b548f317b267c683',
+            'font_id' => '5',
+            'created_by' => '1',
+            'lang_id' => '1',
+            'created_at' => '2015-02-20 11:39:08',
+            'updated_at' => '2015-02-20 12:07:24',
+            'validated_by' => '5',
+            'validated_at' => '2015-02-20 12:07:24',
+            'validated_state' => 'VALIDATED'
         ]);
     }
 }
