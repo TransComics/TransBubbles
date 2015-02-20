@@ -22,6 +22,8 @@ class ExportController extends BaseController {
             foreach ($elem as $key => $value) {
                 if (!empty($value)) {
                     $blockreturn .= "'$key' => '$value',\n";
+                } else {
+                    $blockreturn .= "'$key' => NULL,\n";
                 }
             }
             $blockreturn .= "]);\n\n";

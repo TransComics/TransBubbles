@@ -87,6 +87,10 @@ class RoleRessource extends \Eloquent {
     public function isAllowed($role_desc, $ressource, $ressource_id, $user_id) {
         $this->checkRessource($ressource);
 
+        if(!\Auth::check()) {
+            return $this->getVisitorRights($role_desc);
+        }
+        
         if (User::find($user_id)->isSuperAdministrator()) {
             return true;
         }
