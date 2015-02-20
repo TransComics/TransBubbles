@@ -16,6 +16,7 @@ class StripsTableSeeder extends Seeder {
         Strip::create([
             'id' => 4,
             'comic_id' => 3,
+            'isShowable' => true,
             'title' => 'Chapter 1: Page 1',
             'path' => '/uploads/0/5d46295fe2f7127018786ae6185e4412',
             'validated_at' => '2015-02-10 11:12:32',
