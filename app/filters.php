@@ -99,10 +99,8 @@ Route::filter('comic_admin', function ($route) {
  */
 
 Route::filter('guest', function () {
-    if (Auth::check()) {
         if (Auth::check())
             return Redirect::route('home')->withMessage('You are already logged in!');
-    }
 });
 
 /*

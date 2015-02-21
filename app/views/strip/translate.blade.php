@@ -5,7 +5,7 @@
 @stop
 @section('tool.scripts')
     {{HTML::script('js/showCanvas.js') }} 
-    {{HTML::script('js/lib/json-jquery.js') }} 
+    {{HTML::script('js/ajaxTranslateRequest.js') }} 
 @stop 
 
 @section('tool.items')

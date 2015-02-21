@@ -59,6 +59,22 @@ Route::get('/login/', [
     'uses' => 'UsersController@getLogin'
 ]);
 
+Route::get('/verify/{confirmation_code}', [
+    'as'=> 'user.verify',
+    'uses' => 'UsersController@verify'
+]);
+
+Route::get('/verify', [
+    'as'=> 'user.verify_index',
+    'uses' => 'UsersController@verifyIndex'
+]);
+
+Route::post('/verify', [
+    'as'=> 'user.verify_index',
+    'uses' => 'UsersController@postVerify'
+]);
+
+
 Route::get('/logout/', [
     'as' => 'user.logout',
     'uses' => 'UsersController@getLogout'

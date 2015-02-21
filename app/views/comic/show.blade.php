@@ -66,7 +66,8 @@
         <a href="{{ route('strip.show',[ $comic->id, $strip->id]) }}"
            class="thumbnail">
             <h4 class="caption">{{ $strip->title }}</h4>
-            {{HTML::image($strip->path, $strip->title,['id' =>'imageThumb'])}}
+            <!-- {{HTML::image($strip->path, $strip->title,['id' =>'imageThumb'])}}-->
+            <img src="{{ Image::path($strip->path, 'resizeCrop', 350, 200)->responsive('max-width=400', 'resize', 100) }}"  alt="{{$strip->title}}" class="img-responsive"/>
         </a>
 
     </div>

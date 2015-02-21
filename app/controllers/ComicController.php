@@ -20,6 +20,7 @@ class ComicController extends BaseController {
     }
 
     public function create() {
+        Form::setValidation(Comic::$formrRules);
         $this->prepareForm();
         return View::make('comic.create', [
                 'comic' => new Comic()
@@ -32,6 +33,7 @@ class ComicController extends BaseController {
             return Redirect::route('comic.create');
         }
 
+        Form::setValidation(Comic::$formrRules);
         $this->prepareForm();
         return View::make('comic.edit', [
                 'comic' => $c
