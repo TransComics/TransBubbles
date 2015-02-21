@@ -18,6 +18,7 @@
 {{ HTML::script('packages/bootstrap-3.3.2-dist/js/bootstrap-filestyle.min.js') }}
 {{ HTML::script('js/lib/fabric.js') }}
 {{ HTML::script('js/showCanvas.js') }} 
+{{ HTML::script('js/form-validation.js') }} 
 {{ Image::js() }}
 @yield('master.scripts')
 @stop
