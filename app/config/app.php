@@ -109,7 +109,8 @@ return array(
         'Transcomics\BingTranslation\ServiceProvider\BingTranslationServiceProvider',
         'Transcomics\GoogleTranslation\ServiceProvider\GoogleTranslationServiceProvider',
         'Transcomics\RoleRessource\ServiceProvider\RoleRessourceServiceProvider',
-        'KevBaldwyn\Image\Providers\Laravel\ImageServiceProvider'
+        'KevBaldwyn\Image\Providers\Laravel\ImageServiceProvider',
+        'Bllim\LaravelToJqueryValidation\LaravelToJqueryValidationServiceProvider',
     ),
     /*
       |--------------------------------------------------------------------------

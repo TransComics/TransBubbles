@@ -14,10 +14,12 @@ class UsersController extends Controller {
     }
 
     public function getLogin() {
+        Form::setValidation(User::$rules);
         return View::make('user.signin');
     }
 
     public function getRegister() {
+        Form::setValidation(User::$rules);
         return View::make('user.signup');
     }
 

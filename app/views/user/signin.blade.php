@@ -12,7 +12,7 @@
 		</div>
 
 		<div style="padding-top: 30px" class="panel-body">
-			{{ Form::open(array('url'=>'login', 'class'=>'form-horizontal')) }}
+			{{ Form::open(array('url'=>'login', 'class'=>'form-horizontal', 'id' => 'formsign')) }}
                         @if(Session::has('success'))
 			<div id="signupalert" class="alert alert-success">
 				<ul>
@@ -72,8 +72,25 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$('#formsign').validate({
+	 highlight: function(element) {
+        $(element).closest('.input-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+        $(element).closest('.input-group').removeClass('has-error');
+    },
+    errorElement: 'span',
+    errorClass: 'help-block',
+    errorPlacement: function(error, element) {
+        if(element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else {
+            error.insertAfter(element);
+        }
+    }
+});
+</script>
 @stop
-
-
 @section('master.nav')
 @stop

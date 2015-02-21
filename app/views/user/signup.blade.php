@@ -1,4 +1,6 @@
-@extends('user.loginout') @section('loginout.sign')
+@extends('user.loginout') 
+
+@section('loginout.sign')
 
 <div id="signupbox" style="margin-top: 50px"
 	class="mainbox col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1">
@@ -11,53 +13,44 @@
 			</div>
 		</div>
 		<div class="panel-body">
-
-			{{ Form::open(array('url'=>'signup', 'class'=>'form-horizontal')) }}
-			@if($errors->has())
+			{{ Form::open(array('url'=>'signup', 'id' => 'formsign',
+			'class'=>'form-horizontal')) }} @if($errors->has())
 			<div id="signupalert" class="alert alert-danger">
 				<ul>
 					@foreach($errors->all() as $error)
-					<li>{{ $error }}</li> 
-					@endforeach
+					<li>{{ $error }}</li> @endforeach
 				</ul>
 				<span></span>
 			</div>
 			@elseif(Session::has('success'))
 			<div class="alert alert-success" role="alert">{{
 				trans(Session::get('success')) }}</div>
-			@endif 
+			@endif
 
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 				{{ Form::text('username', null, array('class'=>'form-control',
-				'placeholder'=> Lang::get('login.login'),
-				'required' => 'required',
-				'minlength'=> '3' )) }}
+				'placeholder'=> Lang::get('login.login'))) }}
 			</div>
 
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i
 					class="glyphicon glyphicon-envelope"></i></span>{{
 				Form::text('email', null, array('class'=>'form-control',
-				'placeholder'=> Lang::get('login.email_adress'),
-				'required' => 'required')) }}
+				'placeholder'=> Lang::get('login.email_adress'))) }}
 			</div>
 
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{{
 				Form::password('password', array('class'=>'form-control',
-				'placeholder'=> Lang::get('login.password'),
-				'required' => 'required',
-				'minlength'=> '6',
-				'maxlength'=> '24')) }}
+				'placeholder'=> Lang::get('login.password'))) }}
 			</div>
 
 			<div style="margin-bottom: 25px" class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{{
-				Form::password('password_confirmation',
-				array('class'=>'form-control', 'placeholder'=>Lang::get('login.password_confirm'),
-				'data-validation-matches-match'=> 'password' ))
-				}}
+				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+				{{Form::password('password_confirmation',
+				array('class'=>'form-control',
+				'placeholder'=>Lang::get('login.password_confirm')))}}
 			</div>
 
 			<div class="form-group">
@@ -83,8 +76,24 @@
 		</div>
 	</div>
 </div>
-@stop
-
-
-@section('master.nav')
-@stop
+<script type="text/javascript">
+$('#formsign').validate({
+	 highlight: function(element) {
+        $(element).closest('.input-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+        $(element).closest('.input-group').removeClass('has-error');
+    },
+    errorElement: 'span',
+    errorClass: 'help-block',
+    errorPlacement: function(error, element) {
+        if(element.parent('.input-group').length) {
+            error.insertAfter(element.parent());
+        } else {
+            error.insertAfter(element);
+        }
+    }
+});
+</script>
+@stop 
+@section('master.nav') @stop

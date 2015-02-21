@@ -22,7 +22,7 @@ return array(
     'reset_success' => 'Password changed correctly',
     'verify_mail_subject' => 'TransBubble: Verify your email adress',
     'verify_content' => 'Thanks for creating an account ! 
-    Please follow the link below to verify your email adress :',
+     Please follow the link below to verify your email adress :',
     'registration_to_verify' => 'Thanks for creating an account !, please check your mail to finish your registration.',
     'confirm_not_working' => 'If the token below doesn\'t work, use this link to generate a new one.'
     
