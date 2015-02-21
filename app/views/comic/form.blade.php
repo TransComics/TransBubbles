@@ -42,9 +42,12 @@
 <div class="form-group">
     <span class="col-sm-2 control-label"></span>
     <div class="col-sm-10">
-        {{ Form::checkbox('authorApproval', true, $comic->authorApproval); }}
-        {{ Form::label('authorApproval', Lang::get('comic.authorApproval')); }}
+    <div class="checkbox">
+    <label> {{ Form::checkbox('authorApproval', true, $comic->authorApproval, ['id' =>'agree', 'data-rule-required'=> 'true']) }}  @lang('comic.authorApproval') </label>
+       <!-- {{ Form::checkbox('authorApproval', true, $comic->authorApproval); }}
+        {{ Form::label('authorApproval', Lang::get('comic.authorApproval')); }}-->
         {{ $errors->first('authorApproval', '<p class="alert alert-danger">:message</p>'); }}
+    </div>
     </div>
 </div>
 <div class="form-group">
@@ -77,3 +80,22 @@
     {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-primary']); }}
 </div>
 {{ Form::close(); }}
+<script type="text/javascript">
+$('#comicForm').validate({
+	 highlight: function(element) {
+        $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+    },
+    errorElement: 'p',
+    errorClass: 'help-block',
+    errorPlacement: function(error, element) {
+        if(element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+            error.insertAfter(element.parent());
+        } else {
+            error.insertAfter(element);
+        }
+    }
+});
+</script>
