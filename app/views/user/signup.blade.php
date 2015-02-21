@@ -17,7 +17,8 @@
 			<div id="signupalert" class="alert alert-danger">
 				<ul>
 					@foreach($errors->all() as $error)
-					<li>{{ $error }}</li> @endforeach
+					<li>{{ $error }}</li> 
+					@endforeach
 				</ul>
 				<span></span>
 			</div>
@@ -29,26 +30,33 @@
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 				{{ Form::text('username', null, array('class'=>'form-control',
-				'placeholder'=> Lang::get('login.login'))) }}
+				'placeholder'=> Lang::get('login.login'),
+				'required' => 'required',
+				'minlength'=> '3' )) }}
 			</div>
 
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i
 					class="glyphicon glyphicon-envelope"></i></span>{{
 				Form::text('email', null, array('class'=>'form-control',
-				'placeholder'=> Lang::get('login.email_adress'))) }}
+				'placeholder'=> Lang::get('login.email_adress'),
+				'required' => 'required')) }}
 			</div>
 
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{{
 				Form::password('password', array('class'=>'form-control',
-				'placeholder'=> Lang::get('login.password'))) }}
+				'placeholder'=> Lang::get('login.password'),
+				'required' => 'required',
+				'minlength'=> '6',
+				'maxlength'=> '24')) }}
 			</div>
 
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>{{
 				Form::password('password_confirmation',
-				array('class'=>'form-control', 'placeholder'=>Lang::get('login.password_confirm')))
+				array('class'=>'form-control', 'placeholder'=>Lang::get('login.password_confirm'),
+				'data-validation-matches-match'=> 'password' ))
 				}}
 			</div>
 
