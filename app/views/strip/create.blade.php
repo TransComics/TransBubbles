@@ -14,9 +14,9 @@
     <br />
       
     <div class="form-group">
-        {{ Form::label('title_1', Lang::get('strip.title'), ['class'=>'col-sm-2 control-label', 'id' => 'label_1']); }}
+        {{ Form::label('title', Lang::get('strip.title'), ['class'=>'col-sm-2 control-label', 'id' => 'label']); }}
         <div class="col-sm-10 ">
-            {{ Form::text('title_1', $strips->title, ['class'=>'form-control', 'placeholder' => Lang::get('strip.title')]); }}
+            {{ Form::text('title', $strips->title, ['class'=>'form-control', 'placeholder' => Lang::get('strip.title')]); }}
             {{ $errors->first('title', '<p class="alert alert-danger">:message</p>'); }}
         </div>
     </div>

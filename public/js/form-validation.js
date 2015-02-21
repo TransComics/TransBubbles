@@ -17,7 +17,13 @@ $(document).ready(function () {
 	    }
 	});
 	
-	$('#comicForm').validate({
+	$('#comicForm,#stripForm').validate({
+		 rules: {
+			 'strips[]': {
+			 required: true,
+			 extension: "jpeg|bmp|png|tiff|tif|jpg"
+			 }
+		},
 		 highlight: function(element) {
 	        $(element).closest('.form-group').addClass('has-error');
 	    },
@@ -27,7 +33,10 @@ $(document).ready(function () {
 	    errorElement: 'p',
 	    errorClass: 'help-block',
 	    errorPlacement: function(error, element) {
-	        if(element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+	        if(element.parent('.input-group').length 
+	        	|| element.prop('type') === 'checkbox' 
+	        	|| element.prop('type') === 'radio' 
+	        	|| element.prop('type') === 'file' ) {
 	            error.insertAfter(element.parent());
 	        } else {
 	            error.insertAfter(element);
