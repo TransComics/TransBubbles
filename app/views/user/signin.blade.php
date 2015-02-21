@@ -29,13 +29,13 @@
 				<span></span>
 			</div>
 			@endif
-			<div style="margin-bottom: 25px" class="input-group">
+			<div style="margin-top: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 				{{ Form::text('email', null, array('class'=>'form-control',
 				'placeholder'=> Lang::get('login.email_adress'))) }}
 			</div>
 
-			<div style="margin-bottom: 25px" class="input-group">
+			<div style="margin-top: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 				{{ Form::password('password', array('class'=>'form-control',
 				'placeholder'=> Lang::get('login.password'))) }}
@@ -78,7 +78,7 @@ $('#formsign').validate({
         $(element).closest('.input-group').addClass('has-error');
     },
     unhighlight: function(element) {
-        $(element).closest('.input-group').removeClass('has-error');
+        $(element).closest('.input-group').removeClass('has-error').addClass('has-success');
     },
     errorElement: 'span',
     errorClass: 'help-block',
