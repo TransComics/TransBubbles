@@ -30,7 +30,8 @@ class UsersTableSeeder extends Seeder {
             'id' => 4,
             'email' => 'gu.roux@gmail.com',
             'username' => 'Graam94',
-            'password' => '$2y$10$8vyMKz7P/s92dKc.LpHk8OtWaLHjO5GoiX..bK0uYNI4Fnd/Aa6RK'
+            'password' => '$2y$10$8vyMKz7P/s92dKc.LpHk8OtWaLHjO5GoiX..bK0uYNI4Fnd/Aa6RK',
+            'confirmed' => true
         ]);
         User::create([
             'id' => 5,

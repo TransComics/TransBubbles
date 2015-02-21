@@ -50,9 +50,12 @@ $(document).ready(function() {
                     {{ ($strip->title)? $strip->title : $strip->comic." ".$strip->id }} 
                 </h3>
             </div>
-            {{  HTML::image($strip->path, 'strip', ['class' => 'img-responsive
+           <!--  {{  HTML::image($strip->path, 'strip', ['class' => 'img-responsive
                 img-rounded', 'style' => 'overflow:hidden; width:250px;
-                height:250px; display:block; margin:0 auto; img-responsive']) }}
+                height:250px; display:block; margin:0 auto; img-responsive']) }}-->
+           <img src="{{ Image::path($strip->path, 'resizeCrop', 250, 250)->responsive('max-width=400', 'resize', 100) }}"  alt="{{$strip->title}}" 
+           class="img-responsive img-rounded" style="overflow:hidden; width:250px;
+                height:250px; display:block; margin:0 auto; img-responsive"/>
                        
             @if($strip->isShowable)
                 </a>

@@ -43,6 +43,7 @@ html,body {
 .thumbnail {
 	background-color: #303030;
     border: 1px solid #464545;
+    padding-bottom: 30px;
 }
 
 .thumbnail-comic {

@@ -108,7 +108,8 @@ return array(
         'Illuminate\Workbench\WorkbenchServiceProvider',
         'Transcomics\BingTranslation\ServiceProvider\BingTranslationServiceProvider',
         'Transcomics\GoogleTranslation\ServiceProvider\GoogleTranslationServiceProvider',
-        'Transcomics\RoleRessource\ServiceProvider\RoleRessourceServiceProvider'
+        'Transcomics\RoleRessource\ServiceProvider\RoleRessourceServiceProvider',
+        'KevBaldwyn\Image\Providers\Laravel\ImageServiceProvider'
     ),
     /*
       |--------------------------------------------------------------------------
@@ -172,6 +173,7 @@ return array(
         'View' => 'Illuminate\Support\Facades\View',
         'BingTranslation' => 'Transcomics\BingTranslation\Facades\BingFacade',
         'GoogleTranslation' => 'Transcomics\GoogleTranslation\Facades\GoogleFacade',
-        'RoleRessource' => 'Transcomics\RoleRessource\Facades\RoleRessourceFacade'
+        'RoleRessource' => 'Transcomics\RoleRessource\Facades\RoleRessourceFacade',
+        'Image' => 'KevBaldwyn\Image\Providers\Laravel\Facades\Image'
     ),
 );

@@ -35,7 +35,7 @@ class UsersController extends Controller {
             $user->confirmation_code = $confirmation_code;
            
             
-            Mail::send('emails.verify', ['confirmation_code' => $confirmation_code], function($message){
+            Mail::send('emails.verify_mail', ['confirmation_code' => $confirmation_code], function($message){
                $message->to(Input::get('email'), Input::get('username'))
                         ->subject(Lang::get('login.verify_mail_subject'));
             });
@@ -75,6 +75,11 @@ class UsersController extends Controller {
     public function getLogout() {
         Auth::logout();
         return Redirect::back()->with('message', Lang::get('login.logged_out'));
+    }
+    
+    public function verifyIndex(){
+        
+        
     }
     
     public function verify($confirmation_code = null){

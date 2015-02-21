@@ -474,8 +474,7 @@ class StripController extends BaseController {
         $bubble->save();
 
         return Redirect::route('strip.index', [
-                $comic_id,
-                $strip_id
+                $comic_id
         ]);
     }
 
