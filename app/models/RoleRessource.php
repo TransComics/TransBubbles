@@ -82,13 +82,16 @@ class RoleRessource extends \Eloquent {
     }
 
     public function isAllowed($role_desc, $ressource, $ressource_id, $user_id) {
-        $this->checkRessource($ressource);
+        
+        if (!RessourceDefinition::isValidValue($ressource)) {
+            return \Redirect::route('access.denied');
+        }
 
         if (!\Auth::check() && !RessourceDefinition::isValidValue($ressource)) {
             return \Redirect::route('access.denied');
         }
 
-        if (Auth::User()->isSuperAdministrator()) {
+        if (\Auth::User()->isSuperAdministrator()) {
             return true;
         }
 
