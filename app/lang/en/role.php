@@ -15,5 +15,7 @@ return array(
     'ressource' => 'Ressource Type',
     'ressource_ID' => 'Ressource ID',
     'added' => 'Role added !',
-    'user_deleted' => 'User Deleted !'
+    'user_deleted' => 'User Deleted !',
+    'cannot_suppress' => 'You cannot suppress this role.',
+    'created' => 'Role created with success!'
 );

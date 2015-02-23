@@ -102,7 +102,7 @@ class UsersController extends Controller {
         Mail::send('emails.verify_mail', [
             'confirmation_code' => $confirmation_code
         ], function ($message) use($user) {
-            $message->to(Input::get('email'), $user->username)->subject(Lang::get('login.verify_mail_subject'));
+            $message->to(Input::get('email'), $user->username)->subject(Lang::get('moderate.verify_mail_subject'));
         });
         
         $user->save();
