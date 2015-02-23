@@ -14,7 +14,6 @@ class UsersController extends Controller {
     }
 
     public function getLogin() {
-        Form::setValidation(User::$rules);
         return View::make('user.signin');
     }
 
