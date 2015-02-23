@@ -11,7 +11,7 @@
  * |
  */
 App::before(function ($request) {
-    
+
     /* Define language. */
     if (Session::has('lang')) {
         $lang = Session::get('lang');
@@ -20,9 +20,9 @@ App::before(function ($request) {
     }
     /* Define user locale. */
     App::setLocale($lang);
-    
+
     /* Give languages to View. */
-    
+
     View::share([
         'languages' => Language::all([
             'shortcode',
@@ -33,7 +33,7 @@ App::before(function ($request) {
 });
 
 App::after(function ($request, $response) {
-    //
+//
 });
 
 /*
@@ -61,6 +61,32 @@ Route::filter('auth.basic', function () {
     return Auth::basic();
 });
 
+Route::filter('access', function($route) {
+    if (Auth::check()) {
+        return RoleRessource::filter($route);
+    }
+});
+
+Route::filter('super_admin', function ($route) {
+    if (Auth::check() && !Auth::user()->isSuperAdministrator()) {
+        return Redirect::route('access.denied');
+    }
+});
+
+Route::filter('comic_admin', function ($route) {
+    if(!Auth::check()) {
+        return Redirect::route('user.signin');
+    }
+    if(Auth::user()->isComicAdmin($route)) {
+        return;
+    }
+    if(Auth::user()->isSuperAdministrator()) {
+        return;
+    }
+    
+    return Redirect::route('access.denied');
+});
+
 /*
  * |--------------------------------------------------------------------------
  * | Guest Filter
@@ -73,10 +99,8 @@ Route::filter('auth.basic', function () {
  */
 
 Route::filter('guest', function () {
-    if (Auth::check()) {
         if (Auth::check())
             return Redirect::route('home')->withMessage('You are already logged in!');
-    }
 });
 
 /*

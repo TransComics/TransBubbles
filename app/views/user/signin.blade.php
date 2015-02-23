@@ -12,7 +12,7 @@
 		</div>
 
 		<div style="padding-top: 30px" class="panel-body">
-			{{ Form::open(array('url'=>'login', 'class'=>'form-horizontal')) }}
+			{{ Form::open(array('url'=>'login', 'class'=>'form-horizontal', 'id' => 'formsign')) }}
                         @if(Session::has('success'))
 			<div id="signupalert" class="alert alert-success">
 				<ul>
@@ -29,13 +29,13 @@
 				<span></span>
 			</div>
 			@endif
-			<div style="margin-bottom: 25px" class="input-group">
+			<div style="margin-top: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
 				{{ Form::text('email', null, array('class'=>'form-control',
 				'placeholder'=> Lang::get('login.email_adress'))) }}
 			</div>
 
-			<div style="margin-bottom: 25px" class="input-group">
+			<div style="margin-top: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 				{{ Form::password('password', array('class'=>'form-control',
 				'placeholder'=> Lang::get('login.password'))) }}
@@ -73,7 +73,5 @@
 	</div>
 </div>
 @stop
-
-
 @section('master.nav')
 @stop

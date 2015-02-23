@@ -42,9 +42,12 @@
 <div class="form-group">
     <span class="col-sm-2 control-label"></span>
     <div class="col-sm-10">
-        {{ Form::checkbox('authorApproval', true, $comic->authorApproval); }}
-        {{ Form::label('authorApproval', Lang::get('comic.authorApproval')); }}
+    <div class="checkbox">
+    <label> {{ Form::checkbox('authorApproval', true, $comic->authorApproval, ['id' =>'agree', 'data-rule-required'=> 'true']) }}  @lang('comic.authorApproval') </label>
+       <!-- {{ Form::checkbox('authorApproval', true, $comic->authorApproval); }}
+        {{ Form::label('authorApproval', Lang::get('comic.authorApproval')); }}-->
         {{ $errors->first('authorApproval', '<p class="alert alert-danger">:message</p>'); }}
+    </div>
     </div>
 </div>
 <div class="form-group">
@@ -65,7 +68,7 @@
 <div class="form-group">
     {{ Form::label('lang_id', Lang::get('base.language'), ['class'=>'col-sm-2 control-label']); }}
     <div class="col-sm-10">
-        {{ Form::select('lang_id', $comic_languages, $comic->lang_is,['class'=>'form-control selectpicker']); }}
+        {{ Form::select('lang_id', $comic_languages, $comic->lang_id,['class'=>'form-control selectpicker']); }}
         {{ $errors->first('lang_id', '<p class="alert alert-danger">:message</p>'); }}
     </div>
 </div>
