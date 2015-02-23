@@ -1,6 +1,6 @@
 <?php
 
-class Strip extends Eloquent {
+class Strip extends Eloquent implements Moderable{
 
     use UploadFile;
 
@@ -11,7 +11,7 @@ class Strip extends Eloquent {
     public static $rules = [
         'pageNumber' => 'numeric',
         'title' => 'max:64|required',
-        'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|between:40,4096|image'
+        'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|between:20,4096|image'
     ];
     public static $updateRules = [
         'title' => 'max:64|required'
@@ -55,6 +55,10 @@ class Strip extends Eloquent {
 
     public function isShowable() {
         return $this->isShowable;
+    }
+    
+    public function isValidated() {
+        return $this->validated_state == 'VALIDATED';
     }
 
 }

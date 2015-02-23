@@ -26,6 +26,12 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
+Route::get('/export', [
+    'as' => 'export',
+    'uses' => 'ExportController@export'
+]);
+
+/* Languages */
 Route::post('/lang', [
     'as' => 'language.select',
     'uses' => 'LanguageController@select'
@@ -41,11 +47,33 @@ Route::post('/strip/lang_to', [
     'uses' => 'LanguageController@selectForStripTo'
 ]);
 
+/* Private */
+Route::group(['prefix' => '/private'], function () {
+    
+});
+
+
 /* Authentification */
 Route::get('/login/', [
     'as' => 'user.signin',
     'uses' => 'UsersController@getLogin'
 ]);
+
+Route::get('/verify/{confirmation_code}', [
+    'as'=> 'user.verify',
+    'uses' => 'UsersController@verify'
+]);
+
+Route::get('/verify', [
+    'as'=> 'user.verify_index',
+    'uses' => 'UsersController@verifyIndex'
+]);
+
+Route::post('/verify', [
+    'as'=> 'user.verify_index',
+    'uses' => 'UsersController@postVerify'
+]);
+
 
 Route::get('/logout/', [
     'as' => 'user.logout',
@@ -57,10 +85,13 @@ Route::get('/signup/', [
     'uses' => 'UsersController@getRegister'
 ]);
 Route::post('/signup/', 'UsersController@postCreate');
+Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
+    Route::resource('/roles', 'RoleController');
+});
 
 Route::group([
     'prefix' => '/password'
-], function () {
+        ], function () {
     Route::get('/remind', [
         'uses' => 'RemindersController@getRemind',
         'as' => 'password.remind'
@@ -73,9 +104,7 @@ Route::group([
     Route::post('/reset', 'RemindersController@postReset');
 });
 
-Route::group([
-    'prefix' => '/comic/{comic_id}/strip'
-], function () {
+Route::group(['prefix' => '/comic/{comic}/strip'], function () {
     Route::get('/{id}', [
         'as' => 'strip.show',
         'uses' => 'StripController@show'
@@ -84,17 +113,28 @@ Route::group([
         'as' => 'strip.index',
         'uses' => 'StripController@index'
     ]);
-    
+    Route::get('/moderate', [
+        'as' => 'strip.moderate',
+        'uses' => 'StripController@indexModerate',
+        'before' => 'access'
+    ]);
+
+    Route::post('/moderate', [
+        'as' => 'strip.select',
+        'uses' => 'StripController@moderate',
+        'before' => 'access'
+    ]);
+
     Route::get('/{id}/vote', [
         'as' => 'strip.vote',
         'uses' => 'VoteController@index'
     ]);
-    
+
     Route::post('/{id}/vote', [
         'as' => 'strip.postvote',
         'uses' => 'VoteController@store'
     ]);
-    
+
     // Fix maison à modifier
     Route::post('/create', [
         'as' => 'strip.store',
@@ -117,7 +157,7 @@ Route::group([
         'as' => 'strip.destroy',
         'uses' => 'StripController@destroy'
     ]);
-    
+
     Route::get('/{id}/clean', [
         'as' => 'strip.clean',
         'uses' => 'StripController@clean'
@@ -126,7 +166,7 @@ Route::group([
         'as' => 'strip.saveClean',
         'uses' => 'StripController@saveClean'
     ]);
-    
+
     Route::get('/{id}/translate', [
         'as' => 'strip.translate',
         'uses' => 'StripController@translate'
@@ -135,7 +175,7 @@ Route::group([
         'as' => 'strip.saveTranslate',
         'uses' => 'StripController@saveTranslate'
     ]);
-    
+
     Route::get('/{id}/import', [
         'as' => 'strip.import',
         'uses' => 'StripController@import'
@@ -144,39 +184,46 @@ Route::group([
         'as' => 'strip.saveImport',
         'uses' => 'StripController@saveImport'
     ]);
-    
-    /*
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validStrip',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validClean',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validImportText',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     * Route::put('/pending/{id}', [
-     * 'as' => 'strip.validTraduction',
-     * 'uses' => 'StripsController@validPending'
-     * ]);
-     */
 });
 
-Route::resource('/comic', 'ComicController', [
-    'before' => 'auth'
+Route::group(['prefix' => '/comic'], function () {
+    Route::get('/moderate', [
+        'as' => 'comic.moderate',
+        'uses' => 'ComicController@indexModerate',
+        'before' => 'super_admin'
+    ]);
+    Route::post('/moderate', [
+        'as' => 'comic.select',
+        'uses' => 'ComicController@moderate',
+        'before' => 'super_admin'
+    ]);
+});
+
+Route::get('/comic/{comic}/role', [
+    'as' => 'comic.role',
+    'uses' => 'RoleRessourceController@index',
+    'before' => 'comic_admin'
 ]);
 
+Route::post('/comic/{comic}/role', [
+    'as' => 'comic.role.create',
+    'uses' => 'RoleRessourceController@store',
+    'before' => 'comic_admin'
+]);
+
+Route::delete('/comic/{comic}/role/{roleR_id}', [
+    'as' => 'comic.role.destroy',
+    'uses' => 'RoleRessourceController@destroy',
+    'before' => 'comic_admin'
+]);
+
+Route::resource('/comic', 'ComicController');
 Route::group([
-    'prefix' => '/ws'
-], function () {
-    Route::resource('/translate', 'TranslatorController', array(
-        'only' => array(
-            'update'
-        )
-    ));
+    'prefix' => '/ws'], function () {
+    Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
+    Route::get('/getUsers', 'UsersController@getUsers');
 });
 
-Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () { return "ACCESS DENIED";}]);
+Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () {
+        return "ACCESS DENIED";
+    }]);

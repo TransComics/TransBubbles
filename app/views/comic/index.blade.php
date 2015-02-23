@@ -1,10 +1,18 @@
 @extends('layouts.master')
 
 @section('master.content')
+@if(Session::has('message'))
+<div id="signupalert" class="alert alert-info alert-dismissible">
+ <button type="button" class="close" data-dismiss="alert">×</button>
+	<ul>
+		<li>{{ Session::get('message') }}</li>
+	</ul>
+	<span></span>
+</div>
+@endif
     @foreach($comics as $comic)
     <div class="thumbnail thumbnail-comic" @if ($comic->cover) title="{{$comic->description}}" @endif >
         <h2>
-            {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => $comic->id]); }}
             <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{$comic->title}} <small>({{$comic->author}})</small></a>
             @if($comic->strips->count() > 0) 
             <span class="btn-group pull-right" role="group">               
@@ -14,10 +22,12 @@
                     @endif
             </span>
             @endif
-            {{ Form::close(); }}
         </h2>
         @if ($comic->cover)
-        <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} </a>
+        <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">
+        <!--{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} -->
+        <img src="{{ Image::path($comic->cover, 'resize', 900, 300) }}"  alt="cover" style="min-height:200px;height:300px;" class="img-thumbnail"/>
+        </a>
         @else
             {{ $comic->description }}
         @endif
@@ -27,3 +37,13 @@
     {{ $comics->links(); }}
     </div>
 @stop
+
+@section('master.nav')
+    @parent
+    @if(Auth::check() && Auth::user()->isSuperAdministrator())
+    <li class="list-group-item">
+        <span class="badge">{{ $nb_pending }}</span>
+        <a href="{{URL::route('comic.moderate')}}" >@lang('comic.pending')</a>
+    </li>
+    @endif
+@append
