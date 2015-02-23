@@ -47,8 +47,8 @@ $(document).ready(function() {
 			<div class="modal-content">
 				<div class="modal-header">@lang('base.confirm')</div>
 				<div class="modal-body">
-					<div class="form-group">{{ Form::label('description',Lang::get('comic.comment*'), ['class'=>'control-label']); }} 
-					{{ Form::textarea('comment',null, ['class'=>'form-control', 'placeholder' => Lang::get('comic.comment')]); }}</div>
+					<div class="form-group">{{ Form::label('description',Lang::get('moderate.comment').'*', ['class'=>'control-label']); }} 
+					{{ Form::textarea('comment',null, ['class'=>'form-control', 'placeholder' => Lang::get('moderate.comment')]); }}</div>
 					<div class="input-group">
 						<div class="checkbox">
 							<label> {{ Form::checkbox('delete', 1, null, ['id' =>
