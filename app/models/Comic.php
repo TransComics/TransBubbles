@@ -7,6 +7,14 @@ class Comic extends Eloquent implements Moderable {
     protected $guarded = [
         'id'
     ];
+    
+    public static $formrRules =  ['title' => 'required|between:4,63|unique:comics',
+                'author' => 'required|between:4,63',
+                'description' => 'max:2000',
+                'authorApproval' => 'accepted|boolean|required',
+                'cover' => 'image|mimes:png,jpeg|between:20,4096',
+                'font_id' => 'required|numeric',
+                'lang_id' => 'required|numeric'];
 
     public function strips() {
         return $this->hasMany('Strip');

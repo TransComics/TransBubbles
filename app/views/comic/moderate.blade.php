@@ -50,24 +50,21 @@ $(document).ready(function() {
 </div>
 </br>
 <div class="text-center center-block">
-	{{ Form::open(['route' => 'comic.select', 'method'
-	=>'post','id'=>'moderate']); }} {{ Form::hidden('choice', '', ['id' =>
-	'choice']) }} {{ Form::hidden('comic_id', $comic->id, ['id' =>
-	'comic_id']) }}
+	{{ Form::open(['route' => 'comic.select', 'method'=>'post','id'=>'moderate']); }} 
+	{{ Form::hidden('choice', '', ['id' =>'choice']) }} 
+	{{ Form::hidden('comic_id', $comic->id, ['id' =>'comic_id']) }}
 	<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">@lang('base.confirm')</div>
 				<div class="modal-body">
-					<div class="form-group">{{ Form::label('description',
-						Lang::get('comic.comment*'), ['class'=>'control-label']); }} {{
-						Form::textarea('comment',null, ['class'=>'form-control',
-						'placeholder' => Lang::get('comic.comment')]); }}</div>
+					<div class="form-group">
+					{{ Form::label('description',Lang::get('comic.comment').'*', ['class'=>'control-label']); }} 
+					{{ Form::textarea('comment',null, ['class'=>'form-control','placeholder' => Lang::get('comic.comment')]); }}</div>
 					<div class="input-group">
 						<div class="checkbox">
-							<label> {{ Form::checkbox('delete', 1, null, ['id' =>
-								'delete_box']) }} @lang('moderate.delete') </label>
+							<label> {{ Form::checkbox('delete', 1, null, ['id' => 'delete_box']) }} @lang('moderate.delete') </label>
 						</div>
 					</div>
 				</div>
@@ -80,8 +77,7 @@ $(document).ready(function() {
 	</div>
 	<a class="btn btn-danger btn-lg clickable" data-toggle="modal"
 		data-target="#confirm-submit" id="refuse">@lang('moderate.refuse')</a>
-	{{HTML::linkRoute('comic.moderate', Lang::get('moderate.getother'),
-	null, ['class'=> 'btn btn-primary btn-lg']);}} <a
+	{{HTML::linkRoute('comic.moderate', Lang::get('moderate.getother'), null, ['class'=> 'btn btn-primary btn-lg']);}} <a
 		class="btn btn-success  btn-lg clickable" id="accept">@lang('moderate.validate')</a>
 	{{ Form::close(); }}
 </div>

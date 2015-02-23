@@ -2,8 +2,10 @@
 
 @section('master.content')
     
-    <h1> Home </h1>
-    <hr/>
+<div class="jumbotron">
+  <h1>Transbubbles</h1>
+  <p>Welcome to Transbubbles website !</p>
+</div>
 
     @if(Auth::check())
         @if(Auth::viaRemember())

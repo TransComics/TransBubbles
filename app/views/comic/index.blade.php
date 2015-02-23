@@ -24,7 +24,10 @@
             @endif
         </h2>
         @if ($comic->cover)
-        <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} </a>
+        <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">
+        <!--{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }} -->
+        <img src="{{ Image::path($comic->cover, 'resize', 900, 300) }}"  alt="cover" style="min-height:200px;height:300px;" class="img-thumbnail"/>
+        </a>
         @else
             {{ $comic->description }}
         @endif

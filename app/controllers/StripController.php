@@ -109,13 +109,15 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
-
+        
+        Form::setValidation(Strip::$rules);
         return View::make('strip.edit', [
                 'strips' => $strip
         ]);
     }
 
     public function create($comic_id) {
+        Form::setValidation(Strip::$rules);
         return View::make('strip.create', [
                 'strips' => new Strip(),
                 'comic_id' => $comic_id
@@ -166,7 +168,7 @@ class StripController extends BaseController {
         foreach ($files as $file) {
             $valid = Validator::make([
                     'strip' => $file,
-                    'title' => Input::get('title_1')
+                    'title' => Input::get('title')
                     ], Strip::$rules);
             if ($valid->fails()) {
                 return Redirect::back()->withInput()->withErrors($valid);
@@ -174,7 +176,7 @@ class StripController extends BaseController {
                 $fileLocation = UploadFile::uploadFile($file);
 
                 $strip = new Strip();
-                $strip->title = Input::get('title_1');
+                $strip->title = Input::get('title');
                 $strip->path = $fileLocation;
                 $strip->validated_at = NULL;
                 $strip->comic_id = $comic_id;
@@ -474,8 +476,7 @@ class StripController extends BaseController {
         $bubble->save();
 
         return Redirect::route('strip.index', [
-                $comic_id,
-                $strip_id
+                $comic_id
         ]);
     }
 
