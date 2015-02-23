@@ -44,6 +44,10 @@ class UsersControllerTest extends TestCase {
             'HTTP_REFERER' => route('home')
         ]);
         
+        $user = User::whereusername('fooo')->first();
+        
+        $this->client->request('GET', '/verify/'.$user->confirmation_code);      
+        
         $crawler = $this->client->request('GET', '/login');
         $form = $crawler->selectButton(Lang::get('login.sign_in'))->form();
         
