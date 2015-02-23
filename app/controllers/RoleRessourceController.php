@@ -67,7 +67,6 @@ class RoleRessourceController extends BaseController {
         return Redirect::route('comic.role', $comic->id)->withMessage(Lang::get('role.added'))->with('rolesR', $rolesR)
                         ->with('comic', $comic)
                         ->with('role', $role);
-        ;
     }
 
     /**
@@ -92,7 +91,6 @@ class RoleRessourceController extends BaseController {
             return Redirect::route('comic.role', $comic->id)->withMessage(Lang::get('role.cannot_suppress'))->with('rolesR', $rolesR)
                             ->with('comic', $comic)
                             ->with('role', $role);
-            ;
         }
 
         $roleR->delete();
@@ -100,7 +98,6 @@ class RoleRessourceController extends BaseController {
         return Redirect::route('comic.role', $comic->id)->withMessage(Lang::get('role.user_deleted'))->with('rolesR', $rolesR)
                         ->with('comic', $comic)
                         ->with('role', $role);
-        ;
     }
 
     private function getAllRoles() {
