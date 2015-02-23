@@ -52,18 +52,15 @@ class RoleRessource extends \Eloquent {
         return $role_ressource->save();
     }
 
-    private function checkRessource($ressource) {
+    private function canAccessRessource($role_desc, $ressource, $ressource_id, $user_id) {
+
         if (!RessourceDefinition::isValidValue($ressource)) {
             return \Redirect::route('access.denied');
         }
-    }
-
-    private function canAccessRessource($role_desc, $ressource, $ressource_id, $user_id) {
-        $this->checkRessource($ressource);
 
         $userRessourceAccesRight = RoleRessource::whereuser_id($user_id)
                 ->whereressource($ressource)
-                ->where('ressource_id', 'LIKE', $ressource_id)
+                ->whereressource_id($ressource_id)
                 ->first();
 
         // We don't know the access
@@ -87,11 +84,11 @@ class RoleRessource extends \Eloquent {
     public function isAllowed($role_desc, $ressource, $ressource_id, $user_id) {
         $this->checkRessource($ressource);
 
-        if(!\Auth::check()) {
-            return $this->getVisitorRights($role_desc);
+        if (!\Auth::check() && !RessourceDefinition::isValidValue($ressource)) {
+            return \Redirect::route('access.denied');
         }
-        
-        if (User::find($user_id)->isSuperAdministrator()) {
+
+        if (Auth::User()->isSuperAdministrator()) {
             return true;
         }
 
@@ -118,13 +115,21 @@ class RoleRessource extends \Eloquent {
 // Getting the access mode : C,R,U,(M),D
         if (preg_match('/.create$|.store$/', $routeName)) {
             return 'C';
-        } elseif (preg_match('/.show$/', $routeName)) {
+        }
+
+        if (preg_match('/.show$/', $routeName)) {
             return 'R';
-        } elseif (preg_match('/.edit$|.update$/', $routeName)) {
+        }
+
+        if (preg_match('/.edit$|.update$/', $routeName)) {
             return 'U';
-        } elseif (preg_match('/.destroy$/', $routeName)) {
+        }
+
+        if (preg_match('/.destroy$/', $routeName)) {
             return 'D';
-        } elseif (preg_match('/.moderate$|.select$/', $routeName)) {
+        }
+
+        if (preg_match('/.moderate$|.select$/', $routeName)) {
             return 'M';
         }
     }
