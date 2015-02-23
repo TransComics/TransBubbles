@@ -603,6 +603,7 @@ $(document).ready(function () {
             console.log("An object has changed :" + updateActivate);
             updateModifications();
         });
+        
 
 //$("body").keydown( function(e) { alert(e.keyCode); }); // affiche keyCode
         $("body").keyup(function (e) {
