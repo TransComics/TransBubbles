@@ -34,4 +34,10 @@ class Comic extends Eloquent implements Moderable {
             ->orderBy('id', 'desc')
             ->first();
     }
+    
+    public function getPendingShapes(){
+        return $this->strips()->join('shapes', 'strips.id', '=', 'shapes.strip_id')
+            ->where('strips.validated_state',ValidateEnum::VALIDATED)
+            ->where('shapes.validated_state',ValidateEnum::PENDING);
+    }
 }

@@ -88,9 +88,9 @@ class StripController extends BaseController {
             });
         }
         
-        $shapes = $comic->strips->shapes()->where('validated_state',ValidateEnum::PENDING);
+        $shapes = $comic->getPendingShapes();
+        $shape_id = $shapes->first()->id;
         $nb_pending_shape = $shapes->count();
-        $shape_id = $shapes->first();
 
         return View::make('strip.index', [
             'comic' => $comic,
@@ -288,16 +288,10 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
         
-        if ($strip == null || !$strip->isImportable()) {
-            return Redirect::route('access.denied');
-        }
-        
-        $shape = $strip->shapes()->where(function ($q) {
-            $q->where('validated_state', ValidateEnum::PENDING);
-        })->random();
+        $shape = Shape::find($shape_id);
         
         View::share([
-            'strip' => $strip,
+            'strip' => $shape->id,
             'canvas_delivered' => $shape->value
         ]);
     
