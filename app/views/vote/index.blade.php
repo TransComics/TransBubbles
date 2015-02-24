@@ -26,7 +26,7 @@
             {{ Form::select('to', $languages->lists('label','shortcode') ,$lang,['class'=>'selectpicker btn-primary','data-width'=>'auto', 'id'=>'to']) }}
         </div>
         <div class="col-xs-2 col-xs-height col-bottom">
-            <a class="btn btn-sm btn-primary glyphicon glyphicon-plus pull-right" title="strip.add" href=""></a>
+            <a class="btn btn-primary pull-right fa fa-plus-square" title="strip.translate" href="{{URL::route('strip.translate', array('comic_id' => $strip->comic_id, 'strip_id' => $strip->id))}}"> @lang('vote.translate')</a>
         </div>
     </div>
 </div>
@@ -44,12 +44,12 @@
 </div>
 <div class="col-sm-4" id="right">
     <div class="btn-group" id="bubble" data-toggle="buttons">
-        @for ($i = 0; $i < 10; $i++)
+        @foreach ($bubbles as $bubble)
             <label class="btn btn-default">
-                <input type="radio" name="bubbleVote" id="bubbles{{$i}}" value={{$i}}>
-                {{ HTML::image($strip->path, 'strip',array('id' => $i, 'class' =>'thumbnail center-block img-responsive'))}}
+                <input type="radio" name="bubbleVote" id="bubbles{{$bubble->id}}" value="{{$bubble->id}}">
+                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'thumbnail center-block img-responsive'))}}
             </label> 
-        @endfor
+        @endforeach
     </div>
 </div>
 <div class="row">
