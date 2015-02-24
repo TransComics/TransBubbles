@@ -93,6 +93,8 @@ class StripController extends BaseController {
         $shape = $shapes->first();
         if(!empty($shape)){
             $shape_id = $shape->id;
+        }else{
+            $shape_id = 0;
         }
         $nb_pending_shape = $shapes->count();
 
