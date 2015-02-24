@@ -7,6 +7,7 @@
     "require": {
         "laravel/framework": "4.2.*",
         "phpunit/phpunit": "4.4.5",
+        "doctrine/dbal": "~2.3",
         "phploc/phploc": "2.0.6",
         "mayflower/php-codebrowser": "~1.1",
         "mockery/mockery": "dev-master@dev",
