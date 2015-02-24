@@ -3,7 +3,8 @@
 return array(
     'null_value'   => 'Incorrect parameter sent',
     'revote' => 'Your vote has been updated !',
-    'success' => 'Thanks for voting !'
+    'success' => 'Thanks for voting !',
+    'translate' => 'Propose a new translation'
 );
 
 ?>
