@@ -609,11 +609,19 @@ $(document).ready(function () {
             var activeObject = e.target;
             if(activeObject.type == "i-text") {
                 console.log("An object has selected :" + activeObject.text);
+                
+                // to auto translate
                 $('#texttotranslate').val(activeObject.text);
+                
+                // to update size/color/font
+                $('#sizePickerText').val(getStyle(activeObject, 'fontSize'));
+                $('#colorPickerBackground').val(getStyle(activeObject, 'textBackgroundColor'));
+                $('#colorPickerText').val(getStyle(activeObject, 'fill'));
+                $('#fontPicker').val(getStyle(activeObject, 'fontFamily'));
             }
 	});
         canvas.on('text:editing:exited', function () {
-            console.log("An object has changed :" + updateActivate);
+            console.log("An object has exited :" + updateActivate);
             updateModifications();
         });
         
@@ -792,6 +800,7 @@ $(document).ready(function () {
                 object[styleName] = value;
             }
         }
+        
         function getStyle(object, styleName) {
             return (object.getSelectionStyles && object.isEditing)
                     ? object.getSelectionStyles()[styleName]
