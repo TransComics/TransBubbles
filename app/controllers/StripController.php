@@ -172,7 +172,7 @@ class StripController extends BaseController {
                     'title' => $titles[$key]
                     ], Strip::$rules);
             if ($valid->fails()) {
-                return Redirect::back()->withInput()->withErrors($valid);
+                return Redirect::back()->withErrors($valid);
             } else {
                 $fileLocation = UploadFile::uploadFile($file);
 

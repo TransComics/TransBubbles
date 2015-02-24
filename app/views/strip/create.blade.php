@@ -1,12 +1,10 @@
 <script type="text/javascript">
     
-    var index = 0;
     
     function duplicateItem(container) {
         var new_inputs = $(container.concat(' div:first-child')).clone();
-        var new_id = new_inputs.find(':file').attr('id').concat(index++);
-        new_inputs.find(':file').attr('id', new_id);
-        new_inputs.find('span label:first-child').attr('for', new_id);
+        new_inputs.find('.bootstrap-filestyle').remove();
+        new_inputs.find(':input').filestyle();
         new_inputs.find(':input').each(function() {
            this.value = ''; 
         });
