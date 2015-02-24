@@ -277,13 +277,29 @@ class StripController extends BaseController {
     }
     
     public function indexModerateShape($comic_id) {
-    
+        $comic = Comic::find($comic_id);
+        if($comic == null) {
+            return Redirect::route('access.denied');
+        }
+        
+        if ($strip == null || !$strip->isImportable()) {
+            return Redirect::route('access.denied');
+        }
+        
+        $shape = $strip->shapes()->where(function ($q) {
+            $q->where('validated_state', ValidateEnum::PENDING);
+        })->random();
+        
+        View::share([
+            'strip' => $strip,
+            'canvas_delivered' => $shape->value
+        ]);
     
         return View::make('strip.moderate_shape');
     }
     
     public function moderateShape($comic_id) {
-    
+        
     }
     
 
