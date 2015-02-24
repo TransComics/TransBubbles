@@ -275,6 +275,17 @@ class StripController extends BaseController {
         }
         return Redirect::route('strip.index', $comic_id);
     }
+    
+    public function indexModerateShape($comic_id) {
+    
+    
+        return View::make('strip.moderate_shape');
+    }
+    
+    public function moderateShape($comic_id) {
+    
+    }
+    
 
     /**
      * clean strip used by the controller.

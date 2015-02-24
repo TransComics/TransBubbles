@@ -127,13 +127,13 @@ Route::group(['prefix' => '/comic/{comic}/strip'], function () {
     
     Route::get('/moderateShape', [
     'as' => 'strip.moderateShape',
-    'uses' => 'ShapeController@indexModerate',
+    'uses' => 'StripController@indexModerateShape',
     'before' => 'access'
     ]);
     
     Route::post('/moderateShape', [
     'as' => 'strip.selectShape',
-    'uses' => 'ShapeController@moderate',
+    'uses' => 'StripController@moderateShape',
     'before' => 'access'
     ]);
     
