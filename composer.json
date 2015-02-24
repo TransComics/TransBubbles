@@ -11,7 +11,6 @@
         "mayflower/php-codebrowser": "~1.1",
         "mockery/mockery": "dev-master@dev",
         "stichoza/google-translate-php": "~2.0",
-        "ryannielson/shareable": "1.0.*",
         "kevbaldwyn/image":"dev-master",
         "bllim/laravel-to-jquery-validation": "*"
     },

@@ -14,12 +14,22 @@
         @endif
     @endif
 </ul>
-    
-<ul class="list-group">
-    <li class="list-group-item"><a href="" >@lang('social.shareSite1') @lang('social.shareSite2') !</a></li>
-    <li class="list-group-item"><a href="" >{{ Shareable::facebook(array('url' => URL::route('home'))) }} <a/></li>
-    <li class="list-group-item"><a href="" >{{ Shareable::twitter(array('url' => URL::route('home'))) }}<a/></li>
-    <li class="list-group-item"><a href="" >{{ Shareable::googlePlus(array('url' => URL::route('home'))) }}<a/></li>
+<ul class="list-group" >
+     <li class="list-group-item"><a href="" >@lang('social.shareSite1') @lang('social.shareSite2') !</a></li>
+    <li class="list-group-item text-center center-block custom-comic-social-button-group">
+        <a class='custom-facebook-button' href="http://www.facebook.com/share.php?u={{URL::to('/')}}" onclick="return !window.open(this.href, 'Facebook', 'width=500,height=500')"
+    target="_blank">
+            <i class="fa fa-facebook"></i></a>
+        <a class='custom-twitter-button' href="http://twitter.com/share?url={{URL::to('/')}}"  onclick="return !window.open(this.href, 'Twitter', 'width=500,height=500')"
+    target="_blank">
+            <i class="fa fa-twitter"></i>
+        </a>
+        <a class='custom-google-plus-button' href="https://plus.google.com/share?url={{URL::to('/')}}" onclick="return !window.open(this.href, 'Google', 'width=500,height=500')"
+    target="_blank">
+            <i class="fa fa-google-plus"></i>
+        </a>
+    </li>
 </ul>
+
 </div>
 
