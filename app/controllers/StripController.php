@@ -147,6 +147,7 @@ class StripController extends BaseController {
 
         if ($valid->passes()) {
             $strip->title = Input::get('title');
+            $strip->validated_state = ValidateEnum::PENDING;
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
@@ -247,6 +248,9 @@ class StripController extends BaseController {
             case 'accept':
                 $strip->validated_state = ValidateEnum::VALIDATED;
                 $strip->save();
+
+                $this->removeRightOnStripAfterModeration($strip_id, $strip->user_id);
+
                 break;
             case 'refuse':
                 $comment = Input::get('comment');
@@ -261,23 +265,16 @@ class StripController extends BaseController {
                 if (Input::has('delete')) {
                     UploadFile::dropFile($strip->path);
                     $strip->delete();
+
+                    $this->removeRightOnStripAfterModeration($strip_id, $strip->user_id);
                 }
                 break;
             default:
                 throw new InvalidArgumentException();
         }
 
-        $role_ressource = RoleRessource::where('ressource', RessourceDefinition::Strips)
-                ->where('ressource_id', $strip_id)
-                ->where('user_id', $strip->user_id)
-                ->first();
 
-        if (empty($role_ressource)) {
-            Log::error('Error when removing right of user $user_id on the strip $strip_id after moderation');
-        } else {
-            $role_ressource->delete();
-        }
-        
+
         $strip = $comic->strips()->wherevalidated_state(ValidateEnum::PENDING);
 
         if ($strip->count()) {
@@ -285,6 +282,20 @@ class StripController extends BaseController {
                                     ->random());
         }
         return Redirect::route('strip.index', $comic_id);
+    }
+
+    private function removeRightOnStripAfterModeration($strip_id, $user_id) {
+
+        $role_ressource = RoleRessource::where('ressource', RessourceDefinition::Strips)
+                ->where('ressource_id', $strip_id)
+                ->where('user_id', $user_id)
+                ->first();
+
+        if (empty($role_ressource)) {
+            Log::error('Error when removing right of user $user_id on the strip $strip_id after moderation');
+        } else {
+            $role_ressource->delete();
+        }
     }
 
     /**
