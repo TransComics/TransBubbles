@@ -7,26 +7,23 @@
         var new_id = new_inputs.find(':file').attr('id').concat(index++);
         new_inputs.find(':file').attr('id', new_id);
         new_inputs.find('span label:first-child').attr('for', new_id);
-        new_inputs.appendTo(container);
-        $(container.concat(' div:last-child input')).each(function() {
+        new_inputs.find(':input').each(function() {
            this.value = ''; 
         });
+        
+        new_inputs.appendTo(container);
         checkForHidden();
-        
-        $(container.concat(' div:first-child')).css('background-color', 'red');
-        $(container.concat(' div:last-child')).css('background-color', 'blue');
-        
     }
     
     function checkForHidden() {
         var style;
-        if ($('.remote_strip_inputs').length > 1) {
+        if ($('.remove_strip_inputs').length > 1) {
             style = 'visible';  
         } else {
             style = 'hidden';
         }
         
-        $('.remote_strip_inputs').each(function() {
+        $('.remove_strip_inputs').each(function() {
             $( this ).css('visibility', style);
         });
     }
@@ -54,7 +51,7 @@
     <div id="formContainer">
         <div>
             <br />
-            <span onclick="removeParent(this)" style="visibility: hidden" class="remote_strip_inputs btn btn-danger btn-sm glyphicon glyphicon-remove"></span>
+            <span onclick="removeParent(this)" style="visibility: hidden" class="remove_strip_inputs btn btn-danger btn-sm glyphicon glyphicon-remove"></span>
             <div class="form-group">
                 {{ Form::label('title', Lang::get('strip.title'), ['class'=>'col-sm-2 control-label', 'id' => 'label']); }}
                 <div class="col-sm-10 ">
