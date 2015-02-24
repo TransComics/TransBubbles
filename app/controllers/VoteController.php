@@ -1,6 +1,9 @@
 <?php
 
 class VoteController extends \BaseController {
+    public function __construct() {
+        $this->beforeFilter('auth');
+    }
 
     public function index($comic_id, $strip_id) {
         $comic = Comic::find($comic_id);

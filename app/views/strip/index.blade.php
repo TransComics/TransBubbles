@@ -18,11 +18,11 @@ $(document).ready(function() {
 <div class="row">
     <div class="row-same-height">
         <div class="col-xs-10 col-xs-height">
-            <h1>{{ Lang::get('strip.pendingTitle')}}</h1>
+            <h1>{{$comic->title}}</h1>
         </div>
         @if(Auth::check())
         <div class="col-xs-2 col-xs-height col-bottom">
-            <a href="{{URL::route('strip.create', [$comic_id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+            <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
         </div>
         @endif
     </div>
@@ -35,6 +35,9 @@ $(document).ready(function() {
 <!--TODO -->
 
 @else
+<div class="text-center">
+    {{ $strips->links(); }}
+</div>
 <div class="row">
     @foreach ($strips as $strip)
     <div class="col-sm-6 col-lg-4 padding-10">
@@ -47,9 +50,12 @@ $(document).ready(function() {
                     {{ ($strip->title)? $strip->title : $strip->comic." ".$strip->id }} 
                 </h3>
             </div>
-            {{  HTML::image($strip->path, 'strip', ['class' => 'img-responsive
+           <!--  {{  HTML::image($strip->path, 'strip', ['class' => 'img-responsive
                 img-rounded', 'style' => 'overflow:hidden; width:250px;
-                height:250px; display:block; margin:0 auto; img-responsive']) }}
+                height:250px; display:block; margin:0 auto; img-responsive']) }}-->
+           <img src="{{ Image::path($strip->path, 'resizeCrop', 250, 250)->responsive('max-width=400', 'resize', 100) }}"  alt="{{$strip->title}}" 
+           class="img-responsive img-rounded" style="overflow:hidden; width:250px;
+                height:250px; display:block; margin:0 auto;"/>
                        
             @if($strip->isShowable)
                 </a>
@@ -105,3 +111,13 @@ $(document).ready(function() {
 @include('common.submit_delete')
 
 @endif @stop
+
+@section('master.nav')
+    @parent
+    @if(Auth::check() && Auth::user()->isComicAdmin(Route::current()))
+    <li class="list-group-item">
+        <span class="badge">{{ $nb_pending }}</span>
+        <a href="{{URL::route('strip.moderate', [$comic->id])}}" >@lang('strip.pending')</a>
+    </li>
+    @endif
+@append

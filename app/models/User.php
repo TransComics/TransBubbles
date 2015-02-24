@@ -1,18 +1,21 @@
 <?php
+
 use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use \Transcomics\RoleRessource\RoleRessource;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
-    
-    use UserTrait, RemindableTrait;
+
+    use UserTrait,
+        RemindableTrait;
 
     public static $rules = array(
         'username' => 'required|alpha_num|unique:users|min:3',
         'email' => 'required|email|unique:users',
         'password' => 'required|between:6,24|confirmed',
-//        'password_confirmation' => 'required'
+        'password_confirmation' => 'required'
     );
 
     /**
@@ -31,7 +34,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'password',
         'remember_token'
     );
-
     protected $errors;
 
     /**
@@ -78,8 +80,30 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     public function getRememberToken() {
         return $this->remember_token;
     }
-    
+
     public function shapes() {
         return $this->hasMany('Shape');
     }
+
+    public function isSuperAdministrator() {
+        $result = RoleRessource::select()
+                ->whererole_id(1)
+                ->whereuser_id($this->id)
+                ->first();
+        return !empty($result);
+    }
+
+    public function isComicAdmin($route) {
+        if ($this->isSuperAdministrator()) {
+            return true;
+        }
+
+        $result = RoleRessource::select()
+                ->whereressource(Transcomics\RoleRessource\RessourceDefinition::Comics)
+                ->whereressource_id($route->getParameter('comic'))
+                ->whereuser_id($this->id)
+                ->first();
+        return !empty($result);
+    }
+
 }

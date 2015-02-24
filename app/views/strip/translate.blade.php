@@ -5,7 +5,7 @@
 @stop
 @section('tool.scripts')
     {{HTML::script('js/showCanvas.js') }} 
-    {{HTML::script('js/lib/json-jquery.js') }} 
+    {{HTML::script('js/ajaxTranslateRequest.js') }} 
 @stop 
 
 @section('tool.items')
@@ -52,11 +52,10 @@
 	<input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
         <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
         
-        {{ Form::select('fontPicker', $fonts, 1,['class'=>'btn btn-primary', 'id'=>'fontPicker', 'style' => 'width:120px;height:37px;padding: 3px;']); }}
+        {{ Form::select('fontPicker', $fonts, $font_id,['class'=>'btn btn-primary', 'id'=>'fontPicker', 'style' => 'width:120px;height:37px;padding: 3px;']); }}
     </div>
     <div class="btn-group pull-right margin-5" role="group">
-        <span id="getdata" type="button" class="btn btn-primary fa fa-google" data-toggle="modal" data-target="#myModal">oogle</span>
-        <span id="getdata" type="button" class="btn btn-primary fa fa-bold" data-toggle="modal" data-target="#myModal">ing</span>
+        <span id="getdata" type="button" class="btn btn-primary fa fa-language" data-toggle="modal" data-target="#myModal"> Auto-translate</span>
     </div>
 @stop
 
