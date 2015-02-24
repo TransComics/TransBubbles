@@ -35,21 +35,24 @@ class Comic extends Eloquent implements Moderable {
     public function getPendingShapes(){
         return $this->strips()->join('shapes', 'strips.id', '=', 'shapes.strip_id')
             ->where('strips.validated_state',ValidateEnum::VALIDATED)
-            ->where('shapes.validated_state',ValidateEnum::PENDING);
+            ->where('shapes.validated_state',ValidateEnum::PENDING)
+            ->orderBy('shapes.id');
     }
 
     public function getPendingImport(){
             return $this->strips()->join('bubbles', 'strips.id', '=', 'bubbles.strip_id')
             ->where('strips.validated_state',ValidateEnum::VALIDATED)
             ->where('bubbles.validated_state',ValidateEnum::PENDING)
-            ->where('bubbles.lang_id',$this->lang_id);
+            ->where('bubbles.lang_id',$this->lang_id)
+            ->orderBy('bubbles.id');
      }
      
      public function getPendingBubbles(){
          return $this->strips()->join('bubbles', 'strips.id', '=', 'bubbles.strip_id')
          ->where('strips.validated_state',ValidateEnum::VALIDATED)
          ->where('bubbles.validated_state',ValidateEnum::PENDING)
-         ->where('bubbles.lang_id','<>',$this->lang_id);
+         ->where('bubbles.lang_id','<>',$this->lang_id)
+         ->orderBy('bubbles.id');
      }
 
         

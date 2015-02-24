@@ -110,6 +110,19 @@ class StripController extends BaseController {
         }else {
             $import_id = '';
         }
+        
+        /**
+         * Getting pending bubbles and count
+         */
+        $bubbles = $comic->getPendingBubbles();
+        $nb_pending_bubble = $bubbles->count();
+        
+        if($nb_pending_bubble){
+            $bubble_id = $bubbles->first()->id;
+        }else {
+            $bubble_id = '';
+        }
+        
         return View::make('strip.index', [
             'comic' => $comic,
             'strips' => $comic->strips()->where(function ($q) {
@@ -119,8 +132,10 @@ class StripController extends BaseController {
             'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count(),
             'nb_pending_shape' => $nb_pending_shape,
             'nb_pending_import' => $nb_pending_import,
+            'nb_pending_bubble' => $nb_pending_bubble,
             'shape_id' => $shape_id,
-            'import_id' => $import_id
+            'import_id' => $import_id,
+            'bubble_id' => $bubble_id
         ]);
     }
 
@@ -385,18 +400,84 @@ class StripController extends BaseController {
         if($comic == null) {
             return Redirect::route('access.denied');
         }
-        $import = Bubble::find($import_id);
-        if(empty($import)){
+        $bubble = Bubble::find($import_id);
+        if(empty($bubble)){
             return Redirect::route('strip.index', $comic_id);
         }
-        $strip = $import->strip;
-        $shape = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
+        $strip = $bubble->strip;
+        //$shape = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
+        $shape = $strip->shapes()->where(function ($q) {
+            $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::user()->id);
+        })->first();
+        
         
         $nextPendingImport = $comic->getPendingImport()->where('bubbles.id', '>', $import_id)->orderBy('bubbles.id')->first();
         $previousPendingImport = $comic->getPendingImport()->where('bubbles.id', '<', $import_id)->orderBy('bubbles.id')->first();
-
+ 
+        View::share([
+        'fonts' => Font::all()->lists('name', 'name'),
+        'font_id' => Font::find($strip->comic->font_id)->name,
+        'strip' => $strip,
+        'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+        'bubble' => $bubble,
+        'nextPendingImport' => $nextPendingImport,
+        'previousPendingImport' => $previousPendingImport
+        ]);
+               
+        return View::make('strip.moderate_import');
+    }
+    
+    public function moderateImport($comic_id, $import_id) {
+        $comic = Comic::find($comic_id);
+        if($comic == null) {
+            return Redirect::route('access.denied');
+        }
+        $bubble = Bubble::find($import_id);
+        if(empty($bubble)){
+            return Redirect::route('strip.index', $comic_id);
+        }
         
-        return View::make('strip.moderate_shape');
+        $strip_id = Input::get('strip_id');
+        $choice = Input::get('choice');
+        
+        $strip = $comic->strips->find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('strip.index', $comic_id);
+        }
+        
+        $bubble->validated_by = Auth::id();
+        $bubble->validated_at = new DateTime();
+        switch ($choice) {
+            case 'accept':
+                $bubble->validated_state = ValidateEnum::VALIDATED;
+                $bubble->save();
+                //Once a bubble import has been accepted, we delete others bubble with this strip id
+                $bubbleToDelete = Bubble::where('strip_id',$strip_id)
+                                        ->where('lang_id', $comic->lang_id)
+                                        ->where('validated_state','<>',ValidateEnum::VALIDATED)
+                                        ->delete();
+                break;
+            case 'refuse':
+                $comment = Input::get('comment');
+                if (empty($comment)) {
+                    return Redirect::route('strip.moderateImport',$comic_id,$import_id)->withMessage(Lang::get('moderate.missing_comment'));
+                }
+                $bubble->validated_state = ValidateEnum::REFUSED;
+                $bubble->validated_comments = $comment;
+                $bubble->save();
+                break;
+            default:
+                throw new InvalidArgumentException();
+        }
+        
+        return 'toto';
+        
+    }
+    
+    public function indexModerateBubble($comic_id, $bubble_id) {
+        
+        
+        return View::make('strip.moderate_bubble');
     }
     
 

@@ -143,11 +143,23 @@ Route::group(['prefix' => '/comic/{comic}/strip'], function () {
     'before' => 'access'
     ]);
     
-    Route::post('/moderateShape/{shape_id}', [
-    'as' => 'strip.selectShape',
-    'uses' => 'StripController@moderateShape',
+    Route::post('/moderateImport/{import_id}', [
+    'as' => 'strip.selectImport',
+    'uses' => 'StripController@moderateImport',
     'before' => 'access'
-        ]);
+    ]);
+    
+    Route::get('/moderateBubble/{bubble_id}', [
+    'as' => 'strip.moderateBubble',
+    'uses' => 'StripController@indexModerateBubble',
+    'before' => 'access'
+    ]);
+    
+    Route::post('/moderateBubble/{bubble_id}', [
+    'as' => 'strip.selectBubble',
+    'uses' => 'StripController@moderateBubble',
+    'before' => 'access'
+    ]);
     
 
     Route::get('/{id}/vote', [

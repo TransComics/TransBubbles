@@ -29,11 +29,24 @@ $(document).ready(function() {
 </div>
 @endif
 
+<div id="main">
+    <table id="paint">
+         <tr>
+            <td class="origin-td">
+                <div class='origin'>
+                    {{ HTML::image($strip->path, 'strip', array('id' => 'i')) }}
+                </div>
+            </td>
+            <td id="delivered">
+                <canvas id="c" width="706" height="283"></canvas>
+            </td>
+         </tr>
+    </table>
+</div>
+<br/><br />
 
-
-<br />
 <div class="text-center center-block">
-    {{ Form::open(['route' => ['strip.selectShape', $strip->comic_id, $shape->id], 'method'=>'post','id'=>'moderate']); }} 
+    {{ Form::open(['route' => ['strip.selectImport', $strip->comic_id, $bubble->id], 'method'=>'post','id'=>'moderate']); }} 
 	{{ Form::hidden('choice', '', ['id' =>'choice']) }} 
 	{{ Form::hidden('strip_id', $strip->id, ['id' => 'strip_id']) }}
 	<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
@@ -58,11 +71,11 @@ $(document).ready(function() {
 		</div>
 	</div>
 	<div class="btn-group" role="group">
-	 @if($previousPendingShape)
-		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.moderateShape', ['comic_id' => $strip->comic_id, 'shape_id' => $previousPendingShape->id])}}"></a>
+	 @if($previousPendingImport)
+		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.moderateImport', ['comic_id' => $strip->comic_id, 'import_id' => $previousPendingImport->id])}}"></a>
     @endif
-	@if($nextPendingShape)
-	   <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.moderateShape',['comic_id' => $strip->comic_id, 'shape_id' => $nextPendingShape->id] )}}"></a>
+	@if($nextPendingImport)
+	   <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.moderateImport',['comic_id' => $strip->comic_id, 'import_id' => $nextPendingImport->id] )}}"></a>
 	@endif
 	</div>
 	<br/>
