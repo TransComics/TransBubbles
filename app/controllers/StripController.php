@@ -302,7 +302,9 @@ class StripController extends BaseController {
         
         View::share([
             'strip' => $shape->strip,
-            'canvas_delivered' => $shape->value,
+            'canvas' => $shape->value,
+            'canvas_height' => $this->getHeight($shape->value),
+            'canvas_width' => $this->getWidth($shape->value),
             'nextPendingShape' => $nextPendingShape,
             'previousPendingShape' => $previousPendingShape
         ]);
