@@ -210,6 +210,9 @@ class StripController extends BaseController {
         }
         UploadFile::dropFile($strip->path);
         $strip->delete();
+        
+        $this->removeRightOnStrip($id, $strip->user_id);
+        
         return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
     }
 
@@ -250,7 +253,7 @@ class StripController extends BaseController {
                 $strip->validated_state = ValidateEnum::VALIDATED;
                 $strip->save();
 
-                $this->removeRightOnStripAfterModeration($strip_id, $strip->user_id);
+                $this->removeRightOnStrip($strip_id, $strip->user_id);
 
                 break;
             case 'refuse':
@@ -266,8 +269,6 @@ class StripController extends BaseController {
                 if (Input::has('delete')) {
                     UploadFile::dropFile($strip->path);
                     $strip->delete();
-
-                    $this->removeRightOnStripAfterModeration($strip_id, $strip->user_id);
                 }
                 break;
             default:
@@ -285,7 +286,7 @@ class StripController extends BaseController {
         return Redirect::route('strip.index', $comic_id);
     }
 
-    private function removeRightOnStripAfterModeration($strip_id, $user_id) {
+    private function removeRightOnStrip($strip_id, $user_id) {
 
         $role_ressource = RoleRessource::where('ressource', RessourceDefinition::Strips)
                 ->where('ressource_id', $strip_id)
