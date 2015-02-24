@@ -4,7 +4,6 @@
 	Interface d'import
 @stop
 @section('tool.scripts')
-{{HTML::script('js/lib/json-jquery.js') }} 
 @stop 
 
 @section('tool.items')
