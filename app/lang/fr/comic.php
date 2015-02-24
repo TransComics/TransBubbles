@@ -16,5 +16,6 @@ return array(
     'listLink' => 'Liste des Bandes Dessinées',
     'created' => 'créé par :created',
     'imported' => 'importé par :imported',
-    'lastStrip' => 'Dernier(s) ajout(s)'
+    'lastStrip' => 'Dernier(s) ajout(s)',
+    'noStrip' => 'Actuellement aucunes planche, veuillez en ajouter'
 );
