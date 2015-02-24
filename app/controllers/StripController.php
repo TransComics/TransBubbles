@@ -164,11 +164,12 @@ class StripController extends BaseController {
      */
     public function store($comic_id) {
 
-        $files = Input::file('strips');
-        foreach ($files as $file) {
+        $titles = Input::get('titles');
+        $files = Input::file('files');
+        foreach ($files as $key => $file) {
             $valid = Validator::make([
                     'strip' => $file,
-                    'title' => Input::get('title')
+                    'title' => $titles[$key]
                     ], Strip::$rules);
             if ($valid->fails()) {
                 return Redirect::back()->withInput()->withErrors($valid);
@@ -176,7 +177,7 @@ class StripController extends BaseController {
                 $fileLocation = UploadFile::uploadFile($file);
 
                 $strip = new Strip();
-                $strip->title = Input::get('title');
+                $strip->title = $titles[$key];
                 $strip->path = $fileLocation;
                 $strip->validated_at = NULL;
                 $strip->comic_id = $comic_id;
