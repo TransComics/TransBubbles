@@ -24,7 +24,7 @@ class RoleRessourceController extends BaseController {
             return Redirect::route('home');
         }
 
-        $role = $this->getAllRoles();
+        $role = $this->getFilteredRoles();
 
         return View::make('comic.role')->with('rolesR', $rolesR)
                         ->with('comic', $comic)
@@ -57,7 +57,7 @@ class RoleRessourceController extends BaseController {
 
         RoleRessource::addRight($role, RessourceDefinition::Comics, $id, $user_id);
 
-        $role = $this->getAllRoles();
+        $role = $this->getFilteredRoles();
 
         $rolesR = RoleRessource::whereressource(RessourceDefinition::Comics)->whereressource_id($id)->get();
         if ($rolesR == null) {
@@ -84,7 +84,7 @@ class RoleRessourceController extends BaseController {
             return Redirect::route('home');
         }
 
-        $role = $this->getAllRoles();
+        $role = $this->getFilteredRoles();
         $rolesR = RoleRessource::whereressource(RessourceDefinition::Comics)->whereressource_id($comic_id)->get();
 
         if ($roleR->user_id == $comic->created_by) {
@@ -100,7 +100,7 @@ class RoleRessourceController extends BaseController {
                         ->with('role', $role);
     }
 
-    private function getAllRoles() {
+    private function getFilteredRoles() {
         return Role::all([
                     'id',
                     'name'
