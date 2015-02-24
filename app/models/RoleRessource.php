@@ -14,7 +14,7 @@ class RoleRessource extends \Eloquent {
     public $timestamps = false;
 
     /**
-     * Add the access right to the user on the specified ressource
+     * Add or update the access right to the user on the specified ressource
      * @param type $role_id
      * @param type $ressource
      * @param type $ressource_id
@@ -52,6 +52,19 @@ class RoleRessource extends \Eloquent {
         return $role_ressource->save();
     }
 
+    public function removeRight($roleRessource_id) {
+
+        $row = RoleRessource::find($roleRessource_id);
+        
+        if(empty($row)) {
+            return false;
+        }
+        
+        //FIXME : what is the return ?
+        $row->delete();
+        return true;
+    }
+
     private function canAccessRessource($role_desc, $ressource, $ressource_id, $user_id) {
 
         if (!RessourceDefinition::isValidValue($ressource)) {
@@ -82,7 +95,7 @@ class RoleRessource extends \Eloquent {
     }
 
     public function isAllowed($role_desc, $ressource, $ressource_id, $user_id) {
-        
+
         if (!RessourceDefinition::isValidValue($ressource)) {
             return \Redirect::route('access.denied');
         }
