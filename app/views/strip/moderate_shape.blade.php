@@ -48,9 +48,16 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+	<div class="btn-group" role="group">
+	 @if($previousPendingShape)
+		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href="{{URL::route('strip.moderateShape', ['comic_id' => $strip->comic_id, 'shape_id' => $previousPendingShape])}}"></a>
+		@endif
+	@if($nextPendingShape)
+	   <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.moderateShape',['comic_id' => $strip->comic_id, 'shape_id' => $nextPendingShapes] )}}"></a>
+	@endif
+	</div>
 	<a class="btn btn-danger btn-lg clickable" data-toggle="modal"
 		data-target="#confirm-submit" id="refuse">@lang('moderate.refuse')</a> 
-	{{HTML::linkRoute('strip.moderateShape', Lang::get('moderate.getother'),'' , ['class'=> 'btn btn-primary btn-lg']);}} 
 	<a class="btn btn-success  btn-lg clickable" id="accept">@lang('moderate.validate')</a>
 	{{ Form::close(); }}
 </div>

@@ -295,9 +295,15 @@ class StripController extends BaseController {
         }      
         $shape = Shape::find($shape_id);
         
+        $pendingShapes = $comic->getPendingShapes();
+        $nextPendingShape = $pendingShapes->where('shapes.id', '<', $shape_id)->orderBy('shapes.id')->first();
+        $previousPendingShape = $pendingShapes->where('shapes.id', '>', $shape_id)->orderBy('shapes.id')->first();
+        
         View::share([
             'strip' => $shape->strip,
-            'canvas_delivered' => $shape->value
+            'canvas_delivered' => $shape->value,
+            'nextPendingShape' => $nextPendingShape,
+            'previousPendingShape' => $previousPendingShape
         ]);
     
         return View::make('strip.moderate_shape');
