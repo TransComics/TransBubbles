@@ -63,6 +63,7 @@ class ComicController extends BaseController {
                 $comic->cover = Comic::uploadFile(Input::file('cover'));
             }
             $comic->created_by = Auth::id();
+            $comic->validated_state = ValidateEnum::PENDING;
             $comic->save();
 
             RoleRessource::addRight(2, RessourceDefinition::Comics, $comic->id, Auth::id());
@@ -91,6 +92,9 @@ class ComicController extends BaseController {
             }
             $comic->font_id = Input::get('font_id');
             $comic->lang_id = Input::get('lang_id');
+            if($comic->validated_state == ValidateEnum::REFUSED){
+                $comic->validated_state = ValidateEnum::PENDING;
+            }
             $comic->save();
 
             return Redirect::route('comic.update', [
@@ -162,10 +166,19 @@ class ComicController extends BaseController {
 
         $comic->validated_by = Auth::id();
         $comic->validated_at = new DateTime();
+        $user = User::find($comic->created_by);
+        
         switch ($choice) {
             case 'accept':
                 $comic->validated_state = ValidateEnum::VALIDATED;
                 $comic->save();
+                if(!empty($user)){
+                    Mail::send('emails.accept_moderation', [
+                    'username' => $user->username
+                    ], function ($message) use($user) {
+                        $message->to($user->email, $user->username)->subject(Lang::get('moderate.accepted_comic'));
+                    });
+                }
                 break;
             case 'refuse':
                 $comment = Input::get('comment');
@@ -186,6 +199,18 @@ class ComicController extends BaseController {
                         $comic->delete();
                     });
                 }
+                
+               
+                if(!empty($user)){
+                    Mail::send('emails.refuse_moderation', [
+                    'deleted' => Input::has('delete'),
+                    'comment' => $comment,
+                    'username' => $user->username
+                    ], function ($message) use($user) {
+                        $message->to($user->email, $user->username)->subject(Lang::get('moderate.refused_comic'));
+                    });
+                }
+                
                 break;
             default:
                 throw new InvalidArgumentException();

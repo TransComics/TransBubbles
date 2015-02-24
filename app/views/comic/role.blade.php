@@ -56,7 +56,7 @@ $(document).ready(function() {
 				<thead>
 					<tr>
 						<th>Role</th>
-						<th>Username</th>
+						<th>@lang('login.login')</th>
 						<th></th>
 					</tr>
 				</thead>
