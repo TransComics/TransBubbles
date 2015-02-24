@@ -32,6 +32,20 @@
                 @if($next_strip)
                 <a class='btn btn-primary glyphicon glyphicon-fast-forward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$last_strip->id))}}"></a>
                 @endif
+        
+    </div>
+    <div class="btn-group" role="group">
+        <a class='btn btn-primary' href="http://www.facebook.com/share.php?u={{URL::full()}}" onclick="return !window.open(this.href, 'Facebook', 'width=500,height=500')"
+    target="_blank">
+            <i class="fa fa-facebook"></i></a>
+        <a class='btn btn-primary' href="http://twitter.com/share?url={{URL::full()}}"  onclick="return !window.open(this.href, 'Twitter', 'width=500,height=500')"
+    target="_blank">
+            <i class="fa fa-twitter"></i>
+        </a>
+        <a class='btn btn-primary' href="https://plus.google.com/share?url={{URL::full()}}" onclick="return !window.open(this.href, 'Google', 'width=500,height=500')"
+    target="_blank">
+            <i class="fa fa-google-plus"></i>
+        </a>
 	</div>
 	</br> </br>
 	<div class="btn-group" role="group">
