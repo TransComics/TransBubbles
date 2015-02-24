@@ -295,12 +295,15 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }      
         $shape = Shape::find($shape_id);
+        if(empty($shape)){
+            return Redirect::route('strip.index', $comic_id);
+        }
         
-        $pendingShapes = $comic->getPendingShapes();
-        $nextPendingShape = $pendingShapes->where('shapes.id', '<', $shape_id)->orderBy('shapes.id')->first();
-        $previousPendingShape = $pendingShapes->where('shapes.id', '>', $shape_id)->orderBy('shapes.id')->first();
-        
+        $nextPendingShape = $comic->getPendingShapes()->where('shapes.id', '>', $shape_id)->orderBy('shapes.id')->first();
+        $previousPendingShape = $comic->getPendingShapes()->where('shapes.id', '<', $shape_id)->orderBy('shapes.id')->first();
+    
         View::share([
+            'shape' => $shape,
             'strip' => $shape->strip,
             'canvas' => $shape->value,
             'canvas_height' => $this->getHeight($shape->value),
@@ -312,8 +315,55 @@ class StripController extends BaseController {
         return View::make('strip.moderate_shape');
     }
     
-    public function moderateShape($comic_id) {
+    public function moderateShape($comic_id, $shape_id) {
+        $comic = Comic::find($comic_id);
+        if ($comic == null) {
+            return Redirect::route('comic.index');
+        }
+            
+        $shape = Shape::find($shape_id);
+        if ($shape == null) {
+            return Redirect::route('strip.index',$comic_id);
+        }
+        $strip_id = Input::get('strip_id');
+        $choice = Input::get('choice');
+         
+        $strip = $comic->strips->find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('strip.index', $comic_id);
+        }
         
+        $shape->validated_by = Auth::id();
+        $shape->validated_at = new DateTime();
+        switch ($choice) {
+            case 'accept':      
+                $shape->validated_state = ValidateEnum::VALIDATED;
+                $shape->save();
+                //Once a shape has been accepted, we delete others shape with this id
+                $shapeToDelete = Shape::where('strip_id',$strip_id)
+                                        ->where('validated_state','<>',ValidateEnum::VALIDATED)->delete();
+                break;
+            case 'refuse':   
+                $comment = Input::get('comment');
+                if (empty($comment)) {
+                    return Redirect::route('strip.moderateShape',$comic_id,$shape_id)->withMessage(Lang::get('moderate.missing_comment'));
+                }
+                $shape->validated_state = ValidateEnum::REFUSED;
+                $shape->validated_comments = $comment;
+                $shape->save();
+                break;
+            default:
+                throw new InvalidArgumentException();
+        }
+        $shapes = $comic->getPendingShapes();
+        $nb_pending_shape = $shapes->count();
+    
+        if($nb_pending_shape){
+            $shape_id = $shapes->first()->id;
+            return Redirect::route('strip.moderateShape',[$comic_id, $shape_id]);
+        }else{
+            return Redirect::route('strip.index',$comic_id);
+        }
     }
     
 
