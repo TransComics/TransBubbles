@@ -27,7 +27,6 @@
                     {{ Form::close(); }}
                     @endif
                     <br>
-                    {{ Shareable::facebook() }}{{ Shareable::twitter() }}{{ Shareable::googlePlus() }}
                 </h1>
             </div>
             
