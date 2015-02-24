@@ -5,13 +5,14 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateComics extends Migration {
 
+    private $tbl = 'comics';
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('comics', function(Blueprint $table) {
+        Schema::create($this->tbl, function(Blueprint $table) {
             $table->increments('id');
             $table->string('title',63)->unique();
             $table->string('author',63);
@@ -24,7 +25,7 @@ class CreateComics extends Migration {
             $table->timestamps();
         });
         
-        Schema::table('comics', function(Blueprint $table) {
+        Schema::table($this->tbl, function(Blueprint $table) {
             $table->foreign('font_id')->references('id')->on('fonts')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
@@ -45,12 +46,12 @@ class CreateComics extends Migration {
      * @return void
      */
     public function down() {
-        Schema::table('comics', function(Blueprint $table) {
-            $table->dropForeign('comics_font_id_foreign');
-            $table->dropForeign('comics_created_by_foreign');
-            $table->dropForeign('comics_lang_id_foreign');
+        Schema::table($this->tbl, function(Blueprint $table) {
+            $table->dropForeign($this->tbl.'_font_id_foreign');
+            $table->dropForeign($this->tbl.'_created_by_foreign');
+            $table->dropForeign($this->tbl.'_lang_id_foreign');
         });
-        Schema::dropIfExists('comics');
+        Schema::dropIfExists($this->tbl);
     }
 
 }
