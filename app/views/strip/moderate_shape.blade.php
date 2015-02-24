@@ -25,6 +25,25 @@ $(document).ready(function() {
 </div>
 @endif
 
+<div id="main">
+    <table id="paint">
+        <tr>
+            <td id="origin">
+                <div class="showCanvas text-right">
+                    <span class="showCanvas-json hidden">{{$canvas_original}}</span>
+                    <span class="showCanvas-height hidden">{{$strip_height}}</span>
+                    <span class="showCanvas-width hidden">{{$strip_width}}</span>
+                    <span class="id hidden">canvas-{{$bubble->id}}</span>
+                    <canvas id="canvas-{{$bubble->id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
+                </div>
+            </td>
+            <td id="delivered">
+                <canvas id="c" width="706" height="283"></canvas>
+            </td>
+        </tr>
+    </table>
+</div>
+
 <div class="text-center center-block">
 	<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
