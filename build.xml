@@ -30,7 +30,7 @@
 		<delete dir="${basedir}/vendor" />
 		<delete file="${basedir}/composer.lock" />
 	</target>
-	<target name="composer" depends="get-composer,composer-install,composer-update"
+	<target name="composer" depends="get-composer,clean-composer,composer-install,composer-update"
 		description="Install or update dependencies" />
 	<target name="get-composer" description="Get Composer">
 		<exec executable="/bin/bash">

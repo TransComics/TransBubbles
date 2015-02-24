@@ -35,5 +35,10 @@ class CreateModerationKeys extends Migration {
                 $table->dropForeign($tb.'_validated_by_foreign');
             });
         }
+        foreach ($this->tables as $tb) {
+            Schema::table($tb, function(Blueprint $table){
+                $table->dropColumn(['validated_by','validated_at','validated_state','validated_comments']);
+            });
+        }
     }
 }

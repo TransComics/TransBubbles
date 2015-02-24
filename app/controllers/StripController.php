@@ -184,7 +184,8 @@ class StripController extends BaseController {
                 $strip->save();
                 RoleRessource::addRight(2, RessourceDefinition::Strips, $strip->id, Auth::id());
 
-                Queue::push('OcrImport', ['img_url' => $strip->path,
+                Queue::push('OcrImport', [
+                    'img_url' => $strip->path,
                     'strip_id' => $strip->id,
                     'lang_id' => $strip->comic->lang_id,
                     'user_id' => Auth::id()
