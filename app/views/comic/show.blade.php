@@ -26,10 +26,8 @@
                     @endif
                     {{ Form::close(); }}
                     @endif
-                    <br>
                 </h1>
             </div>
-            
             <div class="col-md-3 col-xs-height col-bottom"><p class="pull-right">{{Lang::get('comic.imported',['imported'
 				=> User::find($comic->created_by)->username]) }}</p></div>
         </div>
