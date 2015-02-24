@@ -9,7 +9,7 @@ class OcrImport {
         $datajson = array(
             "img_url" => URL::to('/') . '/' . $data['img_url'],
             "engine" => getenv('OCR_ENGINE'),
-            "lang" => Language::find(1)->codeiso
+            "lang" => Language::find($data['lang_id'])->codeiso
         );
         $postParams = json_encode($datajson);
         \Log::debug('OCR postParams :' . $postParams);
@@ -36,47 +36,44 @@ class OcrImport {
 
     public function fire($job, $data) {
         // OCR URL Determination
-        if (getenv('OCR_ENGINE') == 'tesseract') {
-            $text = OcrImport::tesseract($data);
-        } else { /* TODO FIX : no other OCR platform for now, abort the detection */
-            $job->delete(); // delete jobs from the queue
-            return;
+        switch (getenv('OCR_ENGINE')) {
+            case 'tesseract':
+                $text = OcrImport::tesseract($data);
+                break;
+            default:
+                $job->delete(); // delete jobs from the queue
+                return;
         }
-        
+         
         // split imported text to insert to the strip, with the format used by FabricJS (htmlspecialchars mandatory)
         $text = trim($text);
         if (empty($text)) {
             $job->delete(); // No insertion into DB if the content is null.
             return;
         }
+        $texts = explode("\n\n", htmlspecialchars($text, 0, "UTF-8"));
         
-        $texts = preg_split("/\n\n/", htmlspecialchars($text, 0, "UTF-8"));
-        
-        $i = 0;
-        foreach ($texts as $value) {
-            $value = trim($value);
-            if (! empty($value)) {
-                $bubbleValue['objects']["indexi-text_$i"] = array(
+        $i=1;
+        foreach ($texts as $text) {
+            $text = trim($text);
+            if (!empty($text)) {
+                $bubbleValue['objects']['index_'.$i] = array(
                     'type' => 'i-text',
-                    'text' => $value,
+                    'text' => $text,
                     'top' => 0,
                     'left' => 0,
-                    'fontSize' => "14",
+                    'fontSize' => '14',
                     'textAlign' => 'center'
                 );
-                $i ++;
+                $i++;
             }
         }
         $bubbleValue['background'] = '';
         
         // remove 'indexi-text_' to keep the index number
-        $patterns = array(
-            '/indexi-text_/'
-        );
-        $replacements = array(
-            ''
-        );
-        $bubbles = preg_replace($patterns, $replacements, json_encode($bubbleValue));
+        $patterns = 'index_';
+        $replacements ='';
+        $bubbles = str_replace($patterns, $replacements, json_encode($bubbleValue));
         
         // store the imported text into Bubbles table
         $bubble = new Bubble();

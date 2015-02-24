@@ -16,10 +16,10 @@ $(document).ready(function() {
 			<h3>Role {{$role->name}}</h3>
 		</div>
 		<div class="col-xs-1 col-xs-height col-bottom">
-		  {{ HTML::linkRoute('private..roles.edit', Lang::get('role.edit'), array($role->id), array('class' => 'btn btn-primary')) }}
+		  {{ HTML::linkRoute('private..roles.edit', Lang::get('base.edit'), array($role->id), array('class' => 'btn btn-primary')) }}
 		</div>
 		<div class="col-xs-1 col-xs-height col-bottom">
-			 {{ HTML::linkRoute('private..roles.destroy',Lang::get('role.destroy'), array($role->id), array('class' => 'btn btn-danger')) }}
+			 {{ HTML::linkRoute('private..roles.destroy',Lang::get('base.delete'), array($role->id), array('class' => 'btn btn-danger')) }}
 		</div>
 	</div>
 </div>
@@ -30,9 +30,9 @@ $(document).ready(function() {
 			<table id="tableData" class="display table table-hover" width="100%">
 				<thead>
 					<tr>
-						<th>Username</th>
-						<th>Ressource</th>
-						<th>Ressource ID</th>
+						<th>@lang('role.username')</th>
+						<th>@lang('role.ressource')</th>
+						<th>@lang('role.ressource_ID')</th>
 					</tr>
 				</thead>
 				<tbody>
