@@ -7,7 +7,12 @@ return array(
     'add'       => 'Add',
     'update'    => 'Update',
     'delete'    => 'Delete',
-    'language'  => 'Language'
+    'edit'      => 'Edit',
+    'language'  => 'Language',
+    'confirm'   => 'Confirm',
+    'submit'    => 'Submit',
+    'role'      => 'Roles',
+    'confirm_delete' => 'Please confirm the deletion'
 );
 
 ?>

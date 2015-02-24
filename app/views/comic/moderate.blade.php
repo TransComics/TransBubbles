@@ -41,8 +41,7 @@ $(document).ready(function() {
 	</div>
 </div>
 @if($comic->cover)
-<div>{{ HTML::image($comic->cover, 'cover', array('width' =>
-	'846','height' => '170', 'class' => 'img-thumbnail')) }}</div>
+<div>{{ HTML::image($comic->cover, 'cover', array('width' => '846','height' => '170', 'class' => 'img-thumbnail')) }}</div>
 </br>
 @endif
 <div class="well">
@@ -60,8 +59,8 @@ $(document).ready(function() {
 				<div class="modal-header">@lang('base.confirm')</div>
 				<div class="modal-body">
 					<div class="form-group">
-					{{ Form::label('description',Lang::get('comic.comment').'*', ['class'=>'control-label']); }} 
-					{{ Form::textarea('comment',null, ['class'=>'form-control','placeholder' => Lang::get('comic.comment')]); }}</div>
+					{{ Form::label('description',Lang::get('moderate.comment').'*', ['class'=>'control-label']); }} 
+					{{ Form::textarea('comment',null, ['class'=>'form-control','placeholder' => Lang::get('moderate.comment')]); }}</div>
 					<div class="input-group">
 						<div class="checkbox">
 							<label> {{ Form::checkbox('delete', 1, null, ['id' => 'delete_box']) }} @lang('moderate.delete') </label>

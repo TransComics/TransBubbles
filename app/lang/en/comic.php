@@ -15,5 +15,6 @@ return array(
     'listLink' => 'Comics list',
     'created' => 'created by :created',
     'imported' => 'imported by :imported',
-    'lastStrip' => 'Latest addition'
+    'lastStrip' => 'Latest addition',
+    'pending' => 'Pending comics to meoderate'
 );
