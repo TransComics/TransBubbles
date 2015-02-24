@@ -118,6 +118,8 @@ $(document).ready(function() {
     <li class="list-group-item">
         <span class="badge">{{ $nb_pending }}</span>
         <a href="{{URL::route('strip.moderate', [$comic->id])}}" >@lang('strip.pending')</a>
+        <span class="badge">{{ $nb_pending_shape }}</span>
+        <a href="{{URL::route('strip.moderateShape', [$comic->id, $shape_id])}}" >@lang('strip.pendingShape')</a>
     </li>
     @endif
 @append

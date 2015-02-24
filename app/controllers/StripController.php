@@ -87,6 +87,10 @@ class StripController extends BaseController {
                     ->orWhere('user_id', Auth::id());
             });
         }
+        
+        $shapes = $comic->strips->shapes()->where('validated_state',ValidateEnum::PENDING);
+        $nb_pending_shape = $shapes->count();
+        $shape_id = $shapes->first();
 
         return View::make('strip.index', [
             'comic' => $comic,
@@ -94,7 +98,9 @@ class StripController extends BaseController {
                             $q->where('validated_state', ValidateEnum::VALIDATED)
                             ->orWhere('user_id', Auth::check() ? Auth::id() : 0);
                         })->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
-            'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count()
+            'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count(),
+            'nb_pending_shape' => $nb_pending_shape,
+            'shape_id' => $shape_id
         ]);
     }
 
@@ -276,7 +282,7 @@ class StripController extends BaseController {
         return Redirect::route('strip.index', $comic_id);
     }
     
-    public function indexModerateShape($comic_id) {
+    public function indexModerateShape($comic_id, $shape_id) {
         $comic = Comic::find($comic_id);
         if($comic == null) {
             return Redirect::route('access.denied');
