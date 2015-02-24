@@ -115,14 +115,15 @@ $(document).ready(function() {
 @section('master.nav')
     @parent
     @if(Auth::check() && Auth::user()->isComicAdmin(Route::current()))
-    <li class="list-group-item">
-        <span class="badge">{{ $nb_pending }}</span>
-        <a href="{{URL::route('strip.moderate', [$comic->id])}}" >@lang('strip.pending')</a>
-    </li>
-    <li class="list-group-item">
-        <span class="badge">{{ $nb_pending_shape }}</span>
-        <a href="{{URL::route('strip.moderateShape', [$comic->id, $shape_id])}}" >@lang('strip.pendingShape')</a>
-        
-    </li>
+    <div class="list-group">
+        @if($nb_pending)
+        <a class="list-group-item" href="{{URL::route('strip.moderate', [$comic->id])}}" >@lang('strip.pendingStrip')<span class="badge">{{ $nb_pending }}</span></a>
+        @else
+        <a class="list-group-item disabled" style="background-color:#303030 ;" href="{{URL::route('strip.moderate', [$comic->id])}}" >@lang('strip.pendingStrip')<span class="badge">{{ $nb_pending }}</span></a>
+        @endif
+        <a class="list-group-item" href="{{URL::route('strip.moderateShape', [$comic->id, $shape_id])}}" >@lang('strip.pendingShape')<span class="badge">{{ $nb_pending_shape }}</span></a>
+        <a class="list-group-item" href="{{URL::route('strip.moderateImport', [$comic->id, $import_id])}}" >@lang('strip.pendingImport')<span class="badge">{{ $nb_pending_import }}</span></a>
+
+     </div>
     @endif
 @append

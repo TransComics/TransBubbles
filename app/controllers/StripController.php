@@ -88,16 +88,28 @@ class StripController extends BaseController {
             });
         }
         
-        $shapes = $comic->getPendingShapes();
-        
-        $shape = $shapes->first();
-        if(!empty($shape)){
-            $shape_id = $shape->id;
-        }else {
-            $shape_id = 0;
-        }
+        /**
+         * Getting pending shapes and count
+         */
+        $shapes = $comic->getPendingShapes(); 
         $nb_pending_shape = $shapes->count();
-
+        if($nb_pending_shape){
+            $shape_id = $shapes->first()->id;
+        }else {
+            $shape_id = '';
+        }
+        
+        /**
+         * Getting pending import and count
+         */ 
+        $imports = $comic->getPendingImport();
+        $nb_pending_import = $imports->count();
+ 
+        if($nb_pending_import){
+            $import_id = $imports->first()->id;
+        }else {
+            $import_id = '';
+        }
         return View::make('strip.index', [
             'comic' => $comic,
             'strips' => $comic->strips()->where(function ($q) {
@@ -106,7 +118,9 @@ class StripController extends BaseController {
                         })->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
             'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count(),
             'nb_pending_shape' => $nb_pending_shape,
-            'shape_id' => $shape_id
+            'nb_pending_import' => $nb_pending_import,
+            'shape_id' => $shape_id,
+            'import_id' => $import_id
         ]);
     }
 
@@ -366,6 +380,25 @@ class StripController extends BaseController {
         }
     }
     
+    public function indexModerateImport($comic_id, $import_id) {
+        $comic = Comic::find($comic_id);
+        if($comic == null) {
+            return Redirect::route('access.denied');
+        }
+        $import = Bubble::find($import_id);
+        if(empty($import)){
+            return Redirect::route('strip.index', $comic_id);
+        }
+        $strip = $import->strip;
+        $shape = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
+        
+        $nextPendingImport = $comic->getPendingImport()->where('bubbles.id', '>', $import_id)->orderBy('bubbles.id')->first();
+        $previousPendingImport = $comic->getPendingImport()->where('bubbles.id', '<', $import_id)->orderBy('bubbles.id')->first();
+
+        
+        return View::make('strip.moderate_shape');
+    }
+    
 
     /**
      * clean strip used by the controller.
@@ -439,6 +472,7 @@ class StripController extends BaseController {
             ->where('user_id', Auth::user()->id)
             ->where('lang_id', '=', $strip->comic->lang_id)
             ->first();
+        
         View::share([
             'fonts' => Font::all()->lists('name', 'name'),
             'font_id' => Font::find($strip->comic->font_id)->name,

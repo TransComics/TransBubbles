@@ -1,7 +1,7 @@
 @extends('layouts.tool')
 
 @section('tool.title')
-	@lang('moderate.shape_moderation')
+	@lang('moderate.import_moderation')
 @stop
 
 @section('tool.scripts')
@@ -29,25 +29,8 @@ $(document).ready(function() {
 </div>
 @endif
 
-<div id="main">
-    <table id="paint">
-        <tr>
-            <td id="origin">
-                {{HTML::image($strip->path, 'strip', array('id' => 'responsive_image-'.$strip->id, 'class' => 'center-block'))}}
-            </td>
-            <td id="delivered">
-                <div class="showCanvas text-right">
-                    <span class="showCanvas-json hidden">{{$canvas}}</span>
-                    <span class="showCanvas-height hidden">{{$canvas_height}}</span>
-                    <span class="showCanvas-width hidden">{{$canvas_width}}</span>
-                    <span class="id hidden">canvas-{{$strip->id}}</span>
-                    <span class="img_id hidden">responsive_image-{{$strip->id}}</span>
-                    <canvas id="canvas-{{$strip->id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+
+
 <br />
 <div class="text-center center-block">
     {{ Form::open(['route' => ['strip.selectShape', $strip->comic_id, $shape->id], 'method'=>'post','id'=>'moderate']); }} 

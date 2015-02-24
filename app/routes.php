@@ -137,6 +137,18 @@ Route::group(['prefix' => '/comic/{comic}/strip'], function () {
     'before' => 'access'
     ]);
     
+    Route::get('/moderateImport/{import_id}', [
+    'as' => 'strip.moderateImport',
+    'uses' => 'StripController@indexModerateImport',
+    'before' => 'access'
+    ]);
+    
+    Route::post('/moderateShape/{shape_id}', [
+    'as' => 'strip.selectShape',
+    'uses' => 'StripController@moderateShape',
+    'before' => 'access'
+        ]);
+    
 
     Route::get('/{id}/vote', [
         'as' => 'strip.vote',
