@@ -19,6 +19,10 @@ class Comic extends Eloquent implements Moderable {
     public function strips() {
         return $this->hasMany('Strip');
     }
+    
+    public function user() {
+        return $this->hasOne('User');
+    }
 
     public function isValidated() {
         return $this->validated_state == 'VALIDATED';

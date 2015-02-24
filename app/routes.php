@@ -124,6 +124,19 @@ Route::group(['prefix' => '/comic/{comic}/strip'], function () {
         'uses' => 'StripController@moderate',
         'before' => 'access'
     ]);
+    
+    Route::get('/moderateShape', [
+    'as' => 'strip.moderateShape',
+    'uses' => 'ShapeController@indexModerate',
+    'before' => 'access'
+    ]);
+    
+    Route::post('/moderateShape', [
+    'as' => 'strip.selectShape',
+    'uses' => 'ShapeController@moderate',
+    'before' => 'access'
+    ]);
+    
 
     Route::get('/{id}/vote', [
         'as' => 'strip.vote',
