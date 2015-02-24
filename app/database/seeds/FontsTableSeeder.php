@@ -6,35 +6,83 @@ class FontsTableSeeder extends Seeder {
         DB::table('fonts')->insert([
             [
                 'id' => 1, 
-                'name' => 'Arial Black'
+                'name' => 'Arial'
             ],
             [
                 'id' => 2, 
-                'name' => 'Calibri'
+                'name' => 'Arial Black'
             ],
             [
                 'id' => 3, 
-                'name' => 'Calibri Light'
+                'name' => 'Helvetica'
             ],
             [
                 'id' => 4, 
-                'name' => 'Cambria'
+                'name' => 'Myriad Pro'
             ],
             [
                 'id' => 5, 
-                'name' => 'Comics Sans Ms'
+                'name' => 'Delicious'
             ],
             [
                 'id' => 6, 
+                'name' => 'Verdana'
+            ],
+             [
+                'id' => 7, 
+                'name' => 'Georgia'
+            ],
+             [
+                'id' => 8, 
+                'name' => 'Courier'
+            ],
+             [
+                'id' => 9, 
+                'name' => 'Comic Sans MS'
+            ],
+             [
+                'id' => 10, 
+                'name' => 'Impact'
+            ],
+            [
+                'id' => 11, 
+                'name' => 'Monaco'
+            ],
+            [
+                'id' => 12, 
+                'name' => 'Optima'
+            ],
+            [
+                'id' => 13, 
+                'name' => 'Hoefler Text'
+            ],
+            [
+                'id' => 14, 
+                'name' => 'Plaster'
+            ],
+            [
+                'id' => 15, 
+                'name' => 'Engagement'
+            ],
+            [
+                'id' => 16, 
+                'name' => 'Calibri'
+            ],
+            [
+                'id' => 17, 
+                'name' => 'Calibri Light'
+            ],
+            [
+                'id' => 18, 
+                'name' => 'Cambria'
+            ],
+            [
+                'id' => 19, 
                 'name' => 'Time New Roman'
             ],
             [
-                'id' => 7, 
+                'id' => 20, 
                 'name' => 'Trebuchet'
-            ],
-            [
-                'id' => 8, 
-                'name' => 'Verdana'
             ],
         ]);
     }
