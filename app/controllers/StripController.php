@@ -89,7 +89,11 @@ class StripController extends BaseController {
         }
         
         $shapes = $comic->getPendingShapes();
-        $shape_id = $shapes->first()->id;
+        
+        $shape = $shapes->first();
+        if(!empty($shape)){
+            $shape_id = $shape->id;
+        }
         $nb_pending_shape = $shapes->count();
 
         return View::make('strip.index', [
@@ -286,12 +290,11 @@ class StripController extends BaseController {
         $comic = Comic::find($comic_id);
         if($comic == null) {
             return Redirect::route('access.denied');
-        }
-        
+        }      
         $shape = Shape::find($shape_id);
         
         View::share([
-            'strip' => $shape->id,
+            'strip' => $shape->strip,
             'canvas_delivered' => $shape->value
         ]);
     
