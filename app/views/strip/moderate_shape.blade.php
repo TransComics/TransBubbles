@@ -50,7 +50,7 @@ $(document).ready(function() {
 </div>
 <br />
 <div class="text-center center-block">
-    {{ Form::open(['route' => ['strip.selectShape', $strip->comic_id, $shape->id], 'method'=>'post','id'=>'moderate']); }} 
+    {{ Form::open(['route' => ['strip.selectShape', $strip->comic_id, $shape->id], 'method'=>'post','id'=>'moderate']) }} 
 	{{ Form::hidden('choice', '', ['id' =>'choice']) }} 
 	{{ Form::hidden('strip_id', $strip->id, ['id' => 'strip_id']) }}
 	<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"

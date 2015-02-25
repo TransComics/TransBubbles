@@ -33,9 +33,9 @@ $(document).ready(function() {
     <table id="paint">
         <tr>
             <td id="origin">
-                {{HTML::image($strip->path, 'strip', array('id' => 'responsive_image-'.$strip->id, 'class' => 'center-block', 'style' => 'position:absolute; left:10000px;))}}
+                {{HTML::image($strip->path, 'strip', array('id' => 'responsive_image-'.$strip->id, 'class' => 'center-block', 'style' => 'position:absolute; left:10000px;'))}}
                 <div class="showCanvas text-right">
-                    <span class="showCanvas-json hidden">{{canvas_origin}}</span>
+                    <span class="showCanvas-json hidden">{{$canvas_origin}}</span>
                     <span class="showCanvas-height hidden">{{$canvas_height}}</span>
                     <span class="showCanvas-width hidden">{{$canvas_width}}</span>
                     <span class="id hidden">canvas_origin-{{$strip->id}}</span>
@@ -58,7 +58,7 @@ $(document).ready(function() {
 </div>
 <br />
 <div class="text-center center-block">
-    {{ Form::open(['route' => ['strip.selectBubble', $strip->comic_id, $bubble->id], 'method'=>'post','id'=>'moderate']); }} 
+    {{ Form::open(['route' => ['strip.selectBubble', $strip->comic_id, $bubble->id], 'method'=>'post','id'=>'moderate']) }} 
 	{{ Form::hidden('choice', '', ['id' =>'choice']) }} 
 	{{ Form::hidden('strip_id', $strip->id, ['id' => 'strip_id']) }}
 	<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
