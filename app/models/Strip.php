@@ -38,10 +38,14 @@ class Strip extends Eloquent implements Moderable {
     public function getBestBubbles($lang_id, $user_id) {
         
         $bubbles = $this->bubbles()
+            ->leftJoin('votes', 'votes.bubble_id', '=', 'bubbles.id')
             ->where('validated_state', ValidateEnum::VALIDATED)
-            ->where('lang_id', $lang_id)
+            ->where('bubbles.lang_id', $lang_id)
+            ->groupBy('bubbles.id')
+            ->select(DB::raw('`bubbles`.`id` as id, `bubbles`.`strip_id`, `bubbles`.`value`, COUNT(`bubbles`.`id`) as votes'))
+            ->orderBy('votes', 'desc')
             ->first();
-        
+
         if ($bubbles !== null) {
             return $bubbles;
         }
