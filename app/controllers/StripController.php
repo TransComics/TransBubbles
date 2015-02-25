@@ -744,7 +744,7 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
 
-        if ($bubble->validated_at != null) {
+        if ($bubble->validated_state == ValidateEnum::VALIDATED) {
             return Redirect::route('access.denied');
         }
 
@@ -813,7 +813,7 @@ class StripController extends BaseController {
             $bubble = new Bubble();
         }
 
-        if ($bubble->validated_at != null) {
+        if ($bubble->validated_state == ValidateEnum::VALIDATED) {
             return Redirect::route('access.denied');
         }
 
