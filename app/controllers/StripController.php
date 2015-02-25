@@ -45,11 +45,11 @@ class StripController extends BaseController {
 
         View::share([
             /* Paginate. */
-            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('id')->first(),
-            'previous_strip' => $comic->strips()->where('isShowable', true)->where('id', '<', $strip->id)->orderBy('id', 'desc')->first(),
-            'random_strip' => $comic->strips()->where('isShowable', true)->where('id', '<>', $strip->id)->orderByRaw('RAND()')->first(),
-            'next_strip' => $comic->strips()->where('isShowable', true)->where('id', '>', $strip->id)->orderBy('id')->first(),
-            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('id', 'desc')->first(),
+            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('index')->first(),
+            'previous_strip' => $comic->strips()->where('isShowable', true)->where('index', '<', $strip->index)->orderBy('index', 'desc')->first(),
+            'random_strip' => $comic->strips()->where('isShowable', true)->where('index', '<>', $strip->index)->orderByRaw('RAND()')->first(),
+            'next_strip' => $comic->strips()->where('isShowable', true)->where('index', '>', $strip->index)->orderBy('index')->first(),
+            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('index', 'desc')->first(),
             'available_languages' => $available_languages,
             'lang_strip' => $lang_strip,
             'bubble_id' => $bubbles->id,
@@ -118,9 +118,14 @@ class StripController extends BaseController {
 
     public function create($comic_id) {
         Form::setValidation(Strip::$rules);
+        
+        $maxIndex = intval(Strip::where('comic_id', $comic_id)->max('index'));
+        $maxIndex++;
+
         return View::make('strip.create', [
                     'strips' => new Strip(),
-                    'comic_id' => $comic_id
+                    'comic_id' => $comic_id,
+                    'index' => $maxIndex
         ]);
     }
 
@@ -132,7 +137,8 @@ class StripController extends BaseController {
      */
     public function update($comic_id, $id) {
         $valid = Validator::make([
-                    'title' => Input::get('title')
+                    'title' => Input::get('title'),
+                    'index' => Input::get('index')
                         ], Strip::$updateRules);
 
         $comic = Comic::find($comic_id);
@@ -143,11 +149,21 @@ class StripController extends BaseController {
         $strip = $comic->strips->find($id);
         if ($strip == null) {
             return Redirect::route('comic.index');
-        }
+        };
+
+        $index = Input::get('index');
 
         if ($valid->passes()) {
+
+            // We only prepare the strip index if it change 
+            if ($index != $strip->index) {
+                Strip::prepareStripIndex($index, $comic_id);
+                $strip->index = $index;
+            }
+
             $strip->title = Input::get('title');
             $strip->validated_state = ValidateEnum::PENDING;
+
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
@@ -167,33 +183,40 @@ class StripController extends BaseController {
 
         $titles = Input::get('titles');
         $files = Input::file('files');
+        $indexes = Input::get('indexes');
+
         foreach ($files as $key => $file) {
             $valid = Validator::make([
-                    'strip' => $file,
-                    'title' => $titles[$key]
-                    ], Strip::$rules);
+                        'strip' => $file,
+                        'title' => $titles[$key],
+                        'index' => $indexes[$key]
+                            ], Strip::$rules);
             if ($valid->fails()) {
                 return Redirect::back()->withErrors($valid);
-            } else {
-                $fileLocation = UploadFile::uploadFile($file);
-
-                $strip = new Strip();
-                $strip->title = $titles[$key];
-                $strip->path = $fileLocation;
-                $strip->validated_at = NULL;
-                $strip->comic_id = $comic_id;
-                $strip->user_id = Auth::id();
-                $strip->save();
-                RoleRessource::addRight(2, RessourceDefinition::Strips, $strip->id, Auth::id());
-
-                Queue::push('OcrImport', [
-                    'img_url' => $strip->path,
-                    'strip_id' => $strip->id,
-                    'lang_id' => $strip->comic->lang_id,
-                    'user_id' => Auth::id()
-                ]);
             }
+
+            $fileLocation = UploadFile::uploadFile($file);
+
+            Strip::prepareStripIndex($indexes[$key], $comic_id);
+
+            $strip = new Strip();
+            $strip->title = $titles[$key];
+            $strip->path = $fileLocation;
+            $strip->validated_at = NULL;
+            $strip->comic_id = $comic_id;
+            $strip->user_id = Auth::id();
+            $strip->index = $indexes[$key];
+            $strip->save();
+            RoleRessource::addRight(2, RessourceDefinition::Strips, $strip->id, Auth::id());
+
+            Queue::push('OcrImport', [
+                'img_url' => $strip->path,
+                'strip_id' => $strip->id,
+                'lang_id' => $strip->comic->lang_id,
+                'user_id' => Auth::id()
+            ]);
         }
+
         return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strip.uploadComplete'));
     }
 
