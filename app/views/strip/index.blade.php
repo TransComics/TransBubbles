@@ -118,7 +118,7 @@ $(document).ready(function() {
     <div class="list-group">
         <h4 class="list-group-item"> Moderation </h4>
         @if($nb_pending)
-        <a class="list-group-item" href="{{URL::route('strip.moderate', [$comic->id])}}" >@lang('strip.pendingStrip')<span class="badge">{{ $nb_pending }}</span></a>
+        <a class="list-group-item" href="{{URL::route('strip.moderate', [$comic->id, $strip_id])}}" >@lang('strip.pendingStrip')<span class="badge">{{ $nb_pending }}</span></a>
         @else
         <a class="list-group-item disabled" style="background-color:#303030 ;" href="" >@lang('strip.pendingStrip')<span class="badge">{{ $nb_pending }}</span></a>
         @endif
