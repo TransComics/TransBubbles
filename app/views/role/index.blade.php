@@ -56,7 +56,7 @@ $(document).ready(function() {
 				</thead>
 				<tbody>
 					@foreach($roles as $role)				
-					<tr id="click" class="clickable=row"
+					<tr id="click" class="clickable-row"
 						data-href="/private/roles/{{$role->id}}">
 						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->name}}</td>
 						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->C}}</td>

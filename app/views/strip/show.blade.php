@@ -6,41 +6,41 @@
 
 <h1>{{ $strips->title }}</h1>
 <div class="text-center center-block">
-	<small>@lang('strip.dateCreated') {{ $strips->created_at }} -
-		@lang('strip.dateUpdated') {{ $strips->updated_at }} - 
-                @lang('comic.imported',['imported'=> $strips->user->username])</small>
+    <small>@lang('strip.dateCreated') {{ $strips->created_at }} -
+        @lang('strip.dateUpdated') {{ $strips->updated_at }} - 
+        @lang('comic.imported',['imported'=> $strips->user->username])</small>
 </div>
 <hr>
 <div class="text-center center-block">
-	
-    <!--IMAGE CANVAS-->
-        <div class="showCanvas text-right">
-            <span class="showCanvas-json hidden">{{$canvas}}</span>
-            <span class="showCanvas-height hidden">{{$canvas_height}}</span>
-            <span class="showCanvas-width hidden">{{$canvas_width}}</span>
-            <span class="id hidden">canvas-{{$bubble_id}}</span>
-            <canvas id="canvas-{{$bubble_id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
-        </div>
-        <br />
-    
-    <!--STRIP NAVIGATION-->
-	<div class="btn-group" role="group">
-                @if($previous_strip)
-		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$first_strip->id))}}"></a>
-		@endif
-                @if($previous_strip)
-                <a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$previous_strip->id))}}"></a>
-		@endif
-                @if($random_strip)
-                <a class='btn btn-primary glyphicon glyphicon-random' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$random_strip->id))}}" id="btnRandom"></a> 
-                @endif
-                @if($next_strip)
-                <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$next_strip->id))}}"></a>
-		@endif
-                @if($next_strip)
-                <a class='btn btn-primary glyphicon glyphicon-fast-forward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$last_strip->id))}}"></a>
-                @endif
+        <!--IMAGE CANVAS-->
+    {{HTML::image($strips->path, 'strip', array('id' => 'responsive_image-'.$bubble_id, 'class' => 'thumbnail center-block img-responsive', 'style' => 'position:absolute; left:10000px;'))}}
+    <div class="showCanvas text-right">
+        <span class="showCanvas-json hidden">{{$canvas}}</span>
+        <span class="showCanvas-height hidden">{{$canvas_height}}</span>
+        <span class="showCanvas-width hidden">{{$canvas_width}}</span>
+        <span class="id hidden">canvas-{{$bubble_id}}</span>
+        <span class="img_id hidden">responsive_image-{{$bubble_id}}</span>
+        <canvas id="canvas-{{$bubble_id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
+    </div>
+    <br />
         
+    <!--STRIP NAVIGATION-->
+    <div class="btn-group" role="group">
+        @if($previous_strip)
+        <a class='btn btn-primary glyphicon glyphicon-fast-backward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$first_strip->id))}}"></a>
+        @endif
+        @if($previous_strip)
+        <a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$previous_strip->id))}}"></a>
+        @endif
+        @if($random_strip)
+        <a class='btn btn-primary glyphicon glyphicon-random' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$random_strip->id))}}" id="btnRandom"></a> 
+        @endif
+        @if($next_strip)
+        <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$next_strip->id))}}"></a>
+        @endif
+        @if($next_strip)
+        <a class='btn btn-primary glyphicon glyphicon-fast-forward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$last_strip->id))}}"></a>
+        @endif
     </div>
     
     <!--SOCIAL SHARING-->
@@ -76,7 +76,7 @@
 		<a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> View All</a>
 	</div>
 	<div class="btn-group" role="group">
-            <a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => 'fr'))}}" class="btn btn-primary">
+            <a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => $lang_strip))}}" class="btn btn-primary">
                     <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
             </a>
             <a href="{{URL::route('strip.translate', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">

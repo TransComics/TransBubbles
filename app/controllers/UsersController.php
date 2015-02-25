@@ -59,7 +59,7 @@ class UsersController extends Controller {
             'confirmed' => true
         ), Input::has('remember'))) {
             // Login has passed
-            return Redirect::route('home')->with('message', Lang::get('login.logged_in'));
+            return Redirect::intended('home')->with('message', Lang::get('login.logged_in'));
         } else {
             return Redirect::back()->with('message', Lang::get('login.error_post_login'))->withInput();
         }

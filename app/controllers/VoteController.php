@@ -16,9 +16,24 @@ class VoteController extends \BaseController {
             return Redirect::route('comic.index');
         }
         
+        $bubbles = $strip->bubbles()->where('lang_id', Input::get('lang'))->whereNotNull('validated_at')->get();
+        if ($bubbles == null) {
+            return Redirect::route('comic.index');
+        }
+        
+        $shapes = $strip->shapes()->whereNotNull('validated_at')->first();
+        if ($shapes == null) {
+            return Redirect::route('comic.index');
+        }
+        
         return View::make('vote.index', [
             'strip' => $strip,
-            'comic' => $comic
+            'comic' => $comic,
+            'bubbles' => $bubbles,
+            'bubble_id' => $bubbles->first()->id,
+            'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles->first()),
+            'canvas_height' => $this->getHeight($shapes->value),
+            'canvas_width' => $this->getWidth($shapes->value)
         ])->with('lang', Input::get('lang'));
     }
 
@@ -72,4 +87,27 @@ class VoteController extends \BaseController {
         );
         return Response::json($response);
     }
+
+    private function mergeShapesAndBubblesJSON($shape, $bubble) {
+        if ($bubble === null) {
+            return $shape->value;
+        }
+
+        $jsonBubble = json_decode($bubble->value, true)['objects'];
+        $json = '{"objects":' .
+            json_encode(array_merge(
+                    json_decode($shape->value, true)['objects'], $jsonBubble)) .
+            ',"background":"" }';
+
+        return $json;
+    }
+    
+    private function getHeight($shapes) {
+        return json_decode($shapes, true)['objects'][0]['height'];
+    }
+
+    private function getWidth($shapes) {
+        return json_decode($shapes, true)['objects'][0]['width'];
+    }
+
 }
