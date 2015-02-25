@@ -5,7 +5,7 @@ use Transcomics\RoleRessource\RessourceDefinition;
 class StripController extends BaseController {
 
     public function __construct() {
-        $this->beforeFilter('auth', ['except' => ['index', 'show', 'clean', 'import', 'translate']]);
+        $this->beforeFilter('auth', ['except' => ['index', 'show']]);
         $this->beforeFilter('access', ['only' => ['show', 'edit', 'update', 'destroy']]);
     }
 
