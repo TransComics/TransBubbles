@@ -1,4 +1,15 @@
 @extends('layouts.master')
+@section('master.scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#submit').on('click',function() {
+		$('#_method').val('DELETE'); 
+		$('#stripForm').attr('action', '{{ URL::route('strip.destroy', [$strips->comic_id, $strips->id]) }}');
+		$('#stripForm').submit();
+	});
+});
+</script>
+@stop 
 
 @section('master.content')
 @if(Session::has('message'))
@@ -33,11 +44,12 @@
 <div class="form-group text-center">
     {{ HTML::image($strips->path, '', array('class' => 'img-thumbnail')) }}
 </div>
-
-<div class="btn-group pull-right" role="group">
-    <span class="btn btn-primary" onclick="$('#_method').val('DELETE'); $('#stripForm').attr('action', '{{ URL::route('strip.destroy', [$strips->comic_id, $strips->id]) }}'); $('#stripForm').submit();"> @lang('base.delete') </span>
-    <a href="{{ URL::route('home') }}" class="btn btn-primary"> @lang('base.cancel') </a>
-    {{ Form::submit(Lang::get('base.update'),['class'=>'btn btn-primary']); }}
-</div>
-{{ Form::close(); }}
+    <div class="btn-group pull-right" role="group">
+        <span class="btn btn-danger danger" data-toggle="modal"
+		data-target="#confirm-submit" id="refuse"> @lang('base.delete') </span>
+        <a href="{{ URL::route('home') }}" class="btn btn-primary"> @lang('base.cancel') </a>
+        {{ Form::submit(Lang::get('base.update'),['class'=>'btn btn-primary']); }}
+    </div>
+    {{ Form::close(); }}
 @stop
+@include('common.submit_delete')
