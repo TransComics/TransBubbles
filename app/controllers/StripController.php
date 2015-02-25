@@ -406,7 +406,8 @@ class StripController extends BaseController {
         $shapes = $strip->getBestShapes(Auth::id());
         $best_bubbles = $strip->getBestBubbles($lang_from, Auth::id());
         $delivred_bubbles = $strip->getBubblesToEdit($lang_to, Auth::id());
-            
+        // FIXE ME GET BEST $LANG_TO
+        
         if ($best_bubbles === null) {
             return Redirect::route('access.denied');
         }
