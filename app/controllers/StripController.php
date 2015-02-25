@@ -84,6 +84,17 @@ class StripController extends BaseController {
         }
         
         /**
+         * Getting pending strip and count
+         */
+        $stripsPending = $comic->getPendingStrips();
+        $nb_pending = $stripsPending->count();
+        if($nb_pending){
+            $strip_id = $stripsPending->first()->id;
+        }else {
+            $strip_id = '';
+        }
+        
+        /**
          * Getting pending shapes and count
          */
         $shapes = $comic->getPendingShapes(); 
@@ -121,13 +132,14 @@ class StripController extends BaseController {
 
         View::share([
             'comic' => $comic,
-            'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count(),
+            'nb_pending' => $nb_pending,
             'nb_pending_shape' => $nb_pending_shape,
             'nb_pending_import' => $nb_pending_import,
             'nb_pending_bubble' => $nb_pending_bubble,
             'shape_id' => $shape_id,
             'import_id' => $import_id,
             'bubble_id' => $bubble_id,
+            'strip_id' => $strip_id,
             'strips' => $strips
         ]);
         
@@ -252,22 +264,30 @@ class StripController extends BaseController {
         return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
     }
 
-    public function indexModerate($comic_id) {
+    public function indexModerate($comic_id, $strip_id) {
         $comic = Comic::find($comic_id);
         if ($comic == null) {
             return Redirect::route('strip.index');
         }
-
-        $strip = $comic->strips()->wherevalidated_state(ValidateEnum::PENDING);
-
-        if ($strip->count()) {
-            return View::make('strip.moderate')->with('strip', $strip->get()
-                                    ->random());
+        
+        $strip = Strip::find($strip_id);
+        if(empty($strip)){
+            return Redirect::route('strip.index', $comic_id);
         }
-        return Redirect::route('strip.index');
+      
+        $nextPendingStrip = $comic->getPendingStrips()->where('strips.id', '>', $strip_id)->orderBy('strips.id')->first();
+        $previousPendingStrip = $comic->getPendingStrips()->where('strips.id', '<', $strip_id)->orderBy('strips.id')->first();
+        
+        View::share([
+        'strip' => $strip,
+        'nextPendingStrip' => $nextPendingStrip,
+        'previousPendingStrip' => $previousPendingStrip
+        ]);
+         
+        return View::make('strip.moderate');
     }
 
-    public function moderate($comic_id) {
+    public function moderate($comic_id, $strip_id) {
         $comic = Comic::find($comic_id);
         if ($comic == null) {
             return Redirect::route('strip.index', $comic_id);
@@ -309,16 +329,15 @@ class StripController extends BaseController {
             default:
                 throw new InvalidArgumentException();
         }
-
-
-
-        $strip = $comic->strips()->wherevalidated_state(ValidateEnum::PENDING);
-
-        if ($strip->count()) {
-            return View::make('strip.moderate')->with('strip', $strip->get()
-                                    ->random());
-        }
-        return Redirect::route('strip.index', $comic_id);
+        
+        $stripsPending = $comic->getPendingStrips();
+        $nb_pending = $stripsPending->count();
+        if($nb_pending){
+            $strip_id = $stripsPending->first()->id;
+            return Redirect::route('strip.moderate',[$comic_id, $strip_id]);
+        }else {
+            return Redirect::route('strip.index',$comic_id);
+        } 
     }
 
     private function removeRightOnStrip($strip_id, $user_id) {

@@ -95,4 +95,8 @@ class Comic extends Eloquent implements Moderable {
     public static function getNbPending() {
         return Comic::where('validated_state', ValidateEnum::PENDING)->count();
     }
+    
+    public function getPendingStrips(){
+        return $this->strips()->wherevalidated_state(ValidateEnum::PENDING);
+    }
 }
