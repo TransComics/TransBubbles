@@ -137,30 +137,24 @@ class Strip extends Eloquent implements Moderable {
      * Move every strip to the next index until a gap is found
      * @param Strip $strip Object to increment index
      * @param Integer $comic_id Id of the comic whoose we are creating the strip on
-     * @return boolean True if everything is ok, false otherwise
      */
     private static function incrementIndex($strip, $comic_id) {
-        if ($strip == null) {
-            return true;
-        }
-        
-        $nextIndex = $strip->index;
-        $nextIndex++;
-
-        $nextStrip = Strip::where('index', $nextIndex)
+                
+        $strips =  Strip::where('index', '>=' ,$strip->index)
                 ->where('comic_id', $comic_id)
-                ->first();
-        
-        if (!Strip::incrementIndex($nextStrip, $comic_id)) {
-            // Trouble somewhere :O
-            return false;
+                ->get();
+                
+        // We found the last continuous index
+        $lastContinuousIndex = 0;
+        while($lastContinuousIndex+1 != $strips->count() && $strips[$lastContinuousIndex+1]->index == $strips[$lastContinuousIndex]->index+1) {
+            $lastContinuousIndex++;
         }
-
-        // We increment and persist
-        $strip->index++;
-        $strip->save();
-
-        return true;
+        
+        // We increment everyone from the continuous index to new strip index
+        for($i = $lastContinuousIndex; $i >= 0; $i--) {
+            $strips[$i]->index++;
+            $strips[$i]->save();
+        }
     }
 
     public function getBubblesToEdit($lang_id, $user_id) {
