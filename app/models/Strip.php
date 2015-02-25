@@ -62,12 +62,13 @@ class Strip extends Eloquent implements Moderable {
         
     }
     
-    public function getBestShapes($user_id) {
+    public function getBestShapes($user_id = null) {
         return $this->shapes()
             ->where(function($query) use ($user_id) {
-                $query
-                    ->where('validated_state', ValidateEnum::VALIDATED)
-                    ->orWhere('user_id', '=', $user_id);
+                $query->where('validated_state', ValidateEnum::VALIDATED);
+                if (!is_null($user_id)) {
+                    $query->orWhere('user_id', '=', $user_id);
+                }
             })
             ->first();
     }
