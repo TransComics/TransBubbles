@@ -11,7 +11,7 @@ class Strip extends Eloquent implements Moderable {
     public static $rules = [
         'pageNumber' => 'numeric',
         'title' => 'max:64|required',
-        'strip' => 'required|max:1024|image'
+        'strip' => 'required|max:1024|image',
         'index' => 'integer|required|min:0'
     ];
     public static $updateRules = [
