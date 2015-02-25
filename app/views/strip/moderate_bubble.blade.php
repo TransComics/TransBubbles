@@ -18,6 +18,11 @@ $(document).ready(function() {
 });
 </script>
 @stop 
+@section('tool.items')
+    {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langFormFrom', 'style' => 'display : inline;']) }}
+    {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'selectpicker','data-width'=>'auto', 'id'=>'langOrigin', 'onChange' => '$("#langFormFrom").submit();'])}}
+    {{ Form::close() }}
+@stop
 @section('tool.content')
 @if(Session::has('message'))
 <div id="signupalert" class="alert alert-danger alert-dismissible">

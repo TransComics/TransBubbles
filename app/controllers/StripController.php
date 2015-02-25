@@ -500,15 +500,31 @@ class StripController extends BaseController {
         $nextPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '>', $bubble_id)->orderBy('bubbles.id')->first();
         $previousPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '<', $bubble_id)->orderBy('bubbles.id')->first();
         
+        $available_languages = DB::table('languages')
+        ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
+        ->where('bubbles.strip_id', '=', $strip->id)
+        ->where(function ($q) use($strip) {
+            $q->where('bubbles.validated_state',ValidateEnum::VALIDATED)
+            ->orWhere(function ($query) use ($strip){
+                $query->where('user_id', '=', Auth::id())
+                ->where('lang_id', '=', $strip->comic->lang_id);
+            });
+        })
+        ->select('languages.id', 'languages.label')
+        ->lists('label', 'id');
+        
         View::share([
         'strip' => $strip,
         'canvas_origin' => '', // TO DO
         'canvas' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+        'canvas_original' => $this->mergeShapesAndBubblesJSON($shape, $original_bubbles),
         'canvas_height' => $this->getHeight($shape->value),
         'canvas_width' => $this->getWidth($shape->value),
         'bubble' => $bubble,
         'nextPendingBubble' => $nextPendingBubble,
-        'previousPendingBubble' => $previousPendingBubble
+        'previousPendingBubble' => $previousPendingBubble,
+        'available_languages' => $available_languages,
+        'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id
         ]);
          
         return View::make('strip.moderate_bubble');
