@@ -83,7 +83,8 @@ class StripController extends BaseController {
         if (RoleRessource::isAllowed('M', RessourceDefinition::Comics, $comic_id, Auth::id())) {
             $strips = $comic->strips()->paginate($paginate);
         } else {
-            $strips = $comic->stripsValidated($paginate);
+            $user_id = Auth::check() ? Auth::id() : null;
+            $strips = $comic->stripsValidatedOrYours($paginate, $user_id);
         }
 
         /**
