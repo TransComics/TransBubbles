@@ -32,7 +32,7 @@
 </div>
 <br />
 <div class="col-sm-8" id="left">
-    {{HTML::image($strip->path, 'strip', array('id' => 'responsive_image-'.$bubble_id, 'class' => 'thumbnail center-block img-responsive', 'style' => 'position:absolute; left:10000px;'))}}
+    {{HTML::image($strip->path, 'strip', array('id' => 'responsive_image-'.$bubble_id, 'class' => 'center-block img-responsive', 'style' => 'position:absolute; left:10000px;'))}}
     <div class="showCanvas text-right">
         <span class="showCanvas-json hidden">{{$canvas}}</span>
         <span class="showCanvas-height hidden">{{$canvas_height}}</span>
@@ -47,14 +47,20 @@
         @foreach ($bubbles as $bubble)
             <label class="btn btn-default">
                 <input type="radio" name="bubbleVote" id="bubbles{{$bubble->id}}" value="{{$bubble->id}}">
-                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'thumbnail center-block img-responsive'))}}
+                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block img-responsive', 'style' => 'width:100;')) }}
+            </label> 
+        @endforeach
+        @foreach ($bubbles as $bubble)
+            <label class="btn btn-default">
+                <input type="radio" name="bubbleVote" id="bubbles{{$bubble->id}}" value="{{$bubble->id}}">
+                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block img-responsive', 'style' => 'width:100;')) }}
             </label> 
         @endforeach
     </div>
 </div>
 <div class="row">
-    <div class="col-md-9" id="ajax-response"></div>
-    <div class="col-md-3">
+    <div class="col-sm-8" id="ajax-response"></div>
+    <div class="col-sm-4">
         {{ Form::open( array('route' => ['strip.postvote', $strip->id, $comic->id ], 'method' => 'post','id' => 'form-vote'))}} 
             {{ Form::hidden('user_id', Auth::id(),['id' => 'user_id']) }} 
             {{ Form::hidden('strip_id', $strip->id, ['id' => 'strip_id']) }} 
