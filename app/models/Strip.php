@@ -1,6 +1,6 @@
 <?php
 
-class Strip extends Eloquent implements Moderable{
+class Strip extends Eloquent implements Moderable {
 
     use UploadFile;
 
@@ -11,10 +11,12 @@ class Strip extends Eloquent implements Moderable{
     public static $rules = [
         'pageNumber' => 'numeric',
         'title' => 'max:64|required',
-        'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|between:20,4096|image'
+        'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|between:20,4096|image',
+        'index' => 'integer|required'
     ];
     public static $updateRules = [
-        'title' => 'max:64|required'
+        'title' => 'max:64|required',
+        'index' => 'integer|required'
     ];
 
     public function comic() {
@@ -39,18 +41,16 @@ class Strip extends Eloquent implements Moderable{
 
     public function isImportable() {
         return $this->shapes()->where(function ($q) {
-                $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
-            })->count() > 0 
-                && $this->bubbles()->where('lang_id', $this->comic->lang_id)->whereNotNull('validated_at')->count() == 0;
+                    $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
+                })->count() > 0 && $this->bubbles()->where('lang_id', $this->comic->lang_id)->whereNotNull('validated_at')->count() == 0;
     }
 
     public function isTranslateable() {
         return $this->shapes()->where(function ($q) {
-                $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
-            })->count() > 0 
-            && $this->bubbles()->where(function ($q) {
-                $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
-            })->count() > 0;
+                    $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
+                })->count() > 0 && $this->bubbles()->where(function ($q) {
+                    $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
+                })->count() > 0;
     }
 
     public function isShowable() {
@@ -76,15 +76,15 @@ class Strip extends Eloquent implements Moderable{
     public function getPreviousShowable() {
         return $this->comic->strips()
             ->where('isShowable', true)
-            ->where('id', '<', $this->id)
-            ->orderBy('id', 'desc')
+            ->where('index', '<', $this->index)
+            ->orderBy('index', 'desc')
             ->first();
     }
     
     public function getAnotherShowable() {
         return $this->comic->strips()
             ->where('isShowable', true)
-            ->where('id', '<>', $this->id)
+            ->where('index', '<>', $this->index)
             ->orderByRaw('RAND()')
             ->first();
     }
@@ -92,8 +92,8 @@ class Strip extends Eloquent implements Moderable{
     public function getNextShowable() {
         return $this->comic->strips()
             ->where('isShowable', true)
-            ->where('id', '>', $this->id)
-            ->orderBy('id')
+            ->where('index', '>', $this->index)
+            ->orderBy('index')
             ->first();
     }
     
@@ -113,6 +113,54 @@ class Strip extends Eloquent implements Moderable{
             ->where('user_id', '=', $user_id)
             ->where('lang_id', $lang_id)
             ->first();
+    }
+
+    /**
+     * Check if there is a strip at this index
+     * @param type $index
+     * @return boolean True if ok, false othewise
+     */
+    public static function prepareStripIndex($index, $comic_id) {
+        $strip = Strip::where('index', $index)
+                ->where('comic_id', $comic_id)
+                ->first();
+        
+        if ($strip == null) {
+            // Ok, nothing at this index
+            return true;
+        }
+        
+        return Strip::incrementIndex($strip, $comic_id);
+    }
+
+    /**
+     * Move every strip to the next index until a gap is found
+     * @param Strip $strip Object to increment index
+     * @param Integer $comic_id Id of the comic whoose we are creating the strip on
+     * @return boolean True if everything is ok, false otherwise
+     */
+    private static function incrementIndex($strip, $comic_id) {
+        if ($strip == null) {
+            return true;
+        }
+        
+        $nextIndex = $strip->index;
+        $nextIndex++;
+
+        $nextStrip = Strip::where('index', $nextIndex)
+                ->where('comic_id', $comic_id)
+                ->first();
+        
+        if (!Strip::incrementIndex($nextStrip, $comic_id)) {
+            // Trouble somewhere :O
+            return false;
+        }
+
+        // We increment and persist
+        $strip->index++;
+        $strip->save();
+
+        return true;
     }
 
     public function getBubblesToEdit($lang_id, $user_id) {

@@ -13,6 +13,7 @@ class CreateStripsTable extends Migration {
             $table->boolean('isShowable')->default(false);
             $table->integer('comic_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->integer('index')->nullable();
             $table->timestamps();
         });
 
