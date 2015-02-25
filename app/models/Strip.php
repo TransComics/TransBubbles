@@ -117,15 +117,17 @@ class Strip extends Eloquent implements Moderable{
     }
     
     public function updateShowable() {
-        $strip->isShowable = $this->shapes()
+        $this->isShowable = DB::table('strips')
+            ->join('shapes', 'shapes.strip_id', '=', 'strips.id')
             ->join('bubbles', 'bubbles.strip_id', '=', 'strips.id')
             ->where('shapes.validated_state', ValidateEnum::VALIDATED)
             ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
             ->where('strips.validated_state', ValidateEnum::VALIDATED)
+            ->where('strips.id',$this->id)
             ->groupBy('strips.id')
             ->count() > 1;
         
-        $strip->save();
+        $this->save();
     }
     
     public function isValidated() {

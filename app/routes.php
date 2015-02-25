@@ -113,17 +113,54 @@ Route::group(['prefix' => '/comic/{comic}/strip'], function () {
         'as' => 'strip.index',
         'uses' => 'StripController@index'
     ]);
-    Route::get('/moderate', [
+    Route::get('/moderate/{strip_id}', [
         'as' => 'strip.moderate',
         'uses' => 'StripController@indexModerate',
         'before' => 'access'
     ]);
 
-    Route::post('/moderate', [
+    Route::post('/moderate/{strip_id}', [
         'as' => 'strip.select',
         'uses' => 'StripController@moderate',
         'before' => 'access'
     ]);
+    
+    Route::get('/moderateShape/{shape_id}', [
+    'as' => 'strip.moderateShape',
+    'uses' => 'StripController@indexModerateShape',
+    'before' => 'access'
+    ]);
+    
+    Route::post('/moderateShape/{shape_id}', [
+    'as' => 'strip.selectShape',
+    'uses' => 'StripController@moderateShape',
+    'before' => 'access'
+    ]);
+    
+    Route::get('/moderateImport/{import_id}', [
+    'as' => 'strip.moderateImport',
+    'uses' => 'StripController@indexModerateImport',
+    'before' => 'access'
+    ]);
+    
+    Route::post('/moderateImport/{import_id}', [
+    'as' => 'strip.selectImport',
+    'uses' => 'StripController@moderateImport',
+    'before' => 'access'
+    ]);
+    
+    Route::get('/moderateBubble/{bubble_id}', [
+    'as' => 'strip.moderateBubble',
+    'uses' => 'StripController@indexModerateBubble',
+    'before' => 'access'
+    ]);
+    
+    Route::post('/moderateBubble/{bubble_id}', [
+    'as' => 'strip.selectBubble',
+    'uses' => 'StripController@moderateBubble',
+    'before' => 'access'
+    ]);
+    
 
     Route::get('/{id}/vote/{bubble_id?}', [
         'as' => 'strip.vote',

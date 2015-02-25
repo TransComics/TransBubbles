@@ -20,7 +20,7 @@
                     @if (Auth::check())
                     <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
                     {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => 'deleteForm', 'style' => 'display : inline;']); }}
-                    <a title=lang('base.delete') data-toggle="modal" data-target="#confirm-submit" data-href="{{$comic->id}}" class="btn btn-danger btn-sm glyphicon glyphicon-remove"></a>
+                    <a title="@lang('base.delete')" data-toggle="modal" data-target="#confirm-submit" data-href="{{$comic->id}}" class="btn btn-danger btn-sm glyphicon glyphicon-remove"></a>
                     @if ($comic->created_by == Auth::id() || Auth::user()->isSuperAdministrator(Auth::id()))
                     <a href="{{URL::route('comic.role', [$comic->id])}}" title="comics.role" class='btn btn-sm btn-default glyphicon glyphicon-lock'></a>
                     @endif
@@ -34,8 +34,7 @@
     </div>
 </div>
 @if($comic->cover)
-<div>{{ HTML::image($comic->cover, 'cover', array('width' => '846',
-	'height' => '170', 'class' => 'img-thumbnail')) }}</div>
+<div>{{ HTML::image($comic->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }}</div>
 </br>
 @endif
 <div class="well">
@@ -70,7 +69,7 @@
            class="thumbnail">
             <h4 class="caption">{{ $strip->title }}</h4>
             <!-- {{HTML::image($strip->path, $strip->title,['id' =>'imageThumb'])}}-->
-            <img src="{{ Image::path($strip->path, 'resizeCrop', 350, 200)->responsive('max-width=400', 'resize', 100) }}"  alt="{{$strip->title}}" class="img-responsive"/>
+            <img src="{{ Image::path($strip->path, 'resizeCrop', 350, 200)->responsive('max-width=350', 'resize', 100) }}"  alt="{{$strip->title}}" class="img-responsive"/>
         </a>
 
     </div>
