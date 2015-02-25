@@ -31,20 +31,32 @@ $(document).ready(function() {
 
 <div id="main">
     <table id="paint">
-         <tr>
-            <td class="origin-td">
-                <div class='origin'>
-                    {{ HTML::image($strip->path, 'strip', array('id' => 'i')) }}
+        <tr>
+            <td id="origin">
+                {{HTML::image($strip->path, 'strip', array('id' => 'responsive_image-'.$strip->id, 'class' => 'center-block', 'style' => 'position:absolute; left:10000px;))}}
+                <div class="showCanvas text-right">
+                    <span class="showCanvas-json hidden">{{canvas_origin}}</span>
+                    <span class="showCanvas-height hidden">{{$canvas_height}}</span>
+                    <span class="showCanvas-width hidden">{{$canvas_width}}</span>
+                    <span class="id hidden">canvas_origin-{{$strip->id}}</span>
+                    <span class="img_id hidden">responsive_image-{{$strip->id}}</span>
+                    <canvas id="canvas_origin-{{$strip->id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
                 </div>
             </td>
             <td id="delivered">
-                <canvas id="c" width="706" height="283"></canvas>
+                <div class="showCanvas text-right">
+                    <span class="showCanvas-json hidden">{{$canvas}}</span>
+                    <span class="showCanvas-height hidden">{{$canvas_height}}</span>
+                    <span class="showCanvas-width hidden">{{$canvas_width}}</span>
+                    <span class="id hidden">canvas-{{$strip->id}}</span>
+                    <span class="img_id hidden">responsive_image-{{$strip->id}}</span>
+                    <canvas id="canvas-{{$strip->id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
+                </div>
             </td>
-         </tr>
+        </tr>
     </table>
 </div>
-<br/><br />
-
+<br />
 <div class="text-center center-block">
     {{ Form::open(['route' => ['strip.selectBubble', $strip->comic_id, $bubble->id], 'method'=>'post','id'=>'moderate']); }} 
 	{{ Form::hidden('choice', '', ['id' =>'choice']) }} 

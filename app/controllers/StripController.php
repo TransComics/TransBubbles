@@ -416,7 +416,9 @@ class StripController extends BaseController {
  
         View::share([
         'strip' => $strip,
-        'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+        'canvas' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+        'canvas_height' => $this->getHeight($shape->value),
+        'canvas_width' => $this->getWidth($shape->value),
         'bubble' => $bubble,
         'nextPendingImport' => $nextPendingImport,
         'previousPendingImport' => $previousPendingImport
@@ -500,7 +502,10 @@ class StripController extends BaseController {
         
         View::share([
         'strip' => $strip,
-        'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+        'canvas_origin' => '', // TO DO
+        'canvas' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+        'canvas_height' => $this->getHeight($shape->value),
+        'canvas_width' => $this->getWidth($shape->value),
         'bubble' => $bubble,
         'nextPendingBubble' => $nextPendingBubble,
         'previousPendingBubble' => $previousPendingBubble
