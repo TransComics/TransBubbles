@@ -125,12 +125,12 @@ Route::group(['prefix' => '/comic/{comic}/strip'], function () {
         'before' => 'access'
     ]);
 
-    Route::get('/{id}/vote', [
+    Route::get('/{id}/vote/{bubble_id?}', [
         'as' => 'strip.vote',
         'uses' => 'VoteController@index'
     ]);
 
-    Route::post('/{id}/vote', [
+    Route::post('/{id}/vote/{bubble_id}', [
         'as' => 'strip.postvote',
         'uses' => 'VoteController@store'
     ]);

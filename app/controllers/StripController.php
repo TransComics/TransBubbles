@@ -42,9 +42,9 @@ class StripController extends BaseController {
                 ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
                 ->select('languages.id', 'languages.label')
                 ->lists('label', 'id');
-
+        
         View::share([
-            /* Paginate. */
+            'isTheOriginal' => $bubbles->isOriginal(),
             'first_strip' => $comic->getFirstShowable(),
             'previous_strip' => $strip->getPreviousShowable(),
             'random_strip' => $strip->getAnotherShowable(),
