@@ -50,8 +50,8 @@
     <div class="btn-group" id="bubble">
         @foreach ($bubbles as $bubble)
         <a href="{{ URL::route('strip.vote', [$strip->comic_id ,$strip->id, $bubble->id])}}">
-            <label class="btn btn-default">
-                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block img-responsive', 'style' => 'width:100;')) }}
+            <label class="btn btn-default @if($bubble->id == $bubble_id) active @endif">
+                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block', 'style' => 'width:100%;')) }}
             </label>
         </a>
         @endforeach
