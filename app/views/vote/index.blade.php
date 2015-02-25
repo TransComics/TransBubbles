@@ -50,7 +50,11 @@
     <div class="btn-group" id="bubble">
         @foreach ($bubbles as $bubble)
         <a href="{{ URL::route('strip.vote', [$strip->comic_id ,$strip->id, $bubble->id])}}">
-            <label class="btn btn-default @if($bubble->id == $bubble_id) active @endif">
+            @if($bubble->id == $bubble_id) 
+                <label class="btn btn-default active">
+            @else
+                <label class="btn btn-default">
+            @endif
                 {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block', 'style' => 'width:100%;')) }}
             </label>
         </a>
@@ -60,15 +64,16 @@
 <br />
 <div class="row">
     <div class="col-sm-8 padding-10" id="ajax-response" ></div>
-    <div class="btn-group pull-right">
-        {{ Form::open( array('route' => ['strip.postvote', $strip->id, $comic->id ], 'method' => 'post','id' => 'form-vote'))}} 
+    {{ Form::open( array('route' => ['strip.postvote', $strip->id, $comic->id, 'style' => 'display:inline;'], 'method' => 'post','id' => 'form-vote'))}} 
+        <div class="pull-right">    
             {{ Form::hidden('bubble_id', $bubble_id,['id' => 'bubble_id']) }} 
             {{ Form::hidden('user_id', Auth::id(),['id' => 'user_id']) }} 
             {{ Form::hidden('strip_id', $strip->id, ['id' => 'strip_id']) }} 
-            {{ Form::hidden('lang_id', $lang_strip, ['id' => 'lang_id']) }} 
-            {{ Form::submit(Lang::get('strip.choose'), array('class'=>'btn btn-primary text-center center-block', 'style' => 'margin-top: 10px;', 'id' => 'submitBubble'))}} 
-        {{ Form::close() }}
-    </div>
+            {{ Form::hidden('lang_id', $lang_strip, ['id' => 'lang_id']) }}
+            <a class="btn btn-default" title="strip.return" href="{{ URL::route('strip.show', [$strip->comic_id, $strip->id]) }}"> @lang('strip.return')</a>
+            {{ Form::submit(Lang::get('strip.choose'), array('class'=>'btn btn-primary', 'id' => 'submitBubble'))}}
+        </div>
+    {{ Form::close() }}
 </div>
 @stop
 
