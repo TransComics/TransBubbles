@@ -78,6 +78,13 @@ html,body {
     margin: 0 auto;
 }
 
+#right .btn-default:hover, #right .btn-default:focus, #right .btn-default.focus, #right .btn-default:active, #right .btn-default.active, 
+#right .open > .dropdown-toggle.btn-default {
+    background-color: #0ce3ac;
+    border-color: #272727;
+    color: #ffffff;
+}
+
 /*
  * icon-lang
  * --------------------------------------------------

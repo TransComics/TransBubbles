@@ -7,7 +7,7 @@
 </div>
 <hr>
 <div class="text-center center-block">
-    {{HTML::image($strips->path, 'strip', array('id' => 'responsive_image-'.$bubble_id, 'class' => 'thumbnail center-block img-responsive', 'style' => 'position:absolute; left:10000px;'))}}
+    {{HTML::image($strips->path, 'strip', array('id' => 'responsive_image-'.$bubble_id, 'class' => 'img-responsive', 'style' => 'position:absolute; left:10000px;'))}}
     <div class="showCanvas text-right">
         <span class="showCanvas-json hidden">{{$canvas}}</span>
         <span class="showCanvas-height hidden">{{$canvas_height}}</span>
@@ -27,7 +27,6 @@
         @if($random_strip)
         <a class='btn btn-primary glyphicon glyphicon-random' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$random_strip->id))}}" id="btnRandom"></a> 
         @endif
-        @if($next_strip)
         <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$next_strip->id))}}"></a>
         @endif
         @if($next_strip)
@@ -47,7 +46,7 @@
             <i class="fa fa-google-plus"></i>
         </a>
 	</div>
-	</br> </br>
+	<br /> <br />
 	<div class="btn-group" role="group">
 		<a class="btn btn-primary glyphicon glyphicon glyphicon-heart" href=""></a>
 		<a class="btn btn-primary glyphicon glyphicon-thumbs-up" href=""><span style="margin-left: 5px; top: 0px;" class="badge">300</span></a> <a class="btn btn-primary glyphicon glyphicon glyphicon-thumbs-down" href=""><span style="margin-left: 5px; top: 0px;" class="badge">3</span></a>
