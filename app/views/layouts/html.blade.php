@@ -9,7 +9,7 @@
         
         <!-- Custom styles for this template -->
         {{ HTML::style('css/bases.css') }}
-        
+        {{ HTML::style('css/social.css') }}
         @yield('html.styles')
         @yield('html.scripts')
     </head>

@@ -59,7 +59,7 @@ class UsersController extends Controller {
             'confirmed' => true
         ), Input::has('remember'))) {
             // Login has passed
-            return Redirect::route('home')->with('message', Lang::get('login.logged_in'));
+            return Redirect::intended('/')->with('message', Lang::get('login.logged_in'));
         } else {
             return Redirect::back()->with('message', Lang::get('login.error_post_login'))->withInput();
         }
@@ -102,7 +102,7 @@ class UsersController extends Controller {
         Mail::send('emails.verify_mail', [
             'confirmation_code' => $confirmation_code
         ], function ($message) use($user) {
-            $message->to(Input::get('email'), $user->username)->subject(Lang::get('login.verify_mail_subject'));
+            $message->to(Input::get('email'), $user->username)->subject(Lang::get('moderate.verify_mail_subject'));
         });
         
         $user->save();

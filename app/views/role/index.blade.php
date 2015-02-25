@@ -31,8 +31,7 @@ $(document).ready(function() {
 <div class="row">
 	<div class="row-same-height">
 		<div class="col-xs-10 col-xs-height">
-			<h3>Roles page index</h3>
-			
+			<h3>@lang('role.index')</h3>		
 			<a href="{{URL::route('private..roles.create')}}" title=@lang('role.create') class='btn btn-sm btn-primary glyphicon glyphicon-plus pull-right col-bottom'></a>
 		</div>
 		
@@ -56,9 +55,8 @@ $(document).ready(function() {
 					</tr>
 				</thead>
 				<tbody>
-					@foreach($roles as $role)
-					
-					<tr id="click" class="clickable=row"
+					@foreach($roles as $role)				
+					<tr id="click" class="clickable-row"
 						data-href="/private/roles/{{$role->id}}">
 						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->name}}</td>
 						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->C}}</td>
@@ -70,7 +68,7 @@ $(document).ready(function() {
 					    {{ Form::open(['route' => ['private..roles.destroy', $role->id], 'method' => 'delete', 'id' =>'form'.$role->id ]); }}
 					           <span class="btn-group" role="group"> 
 					          {{ HTML::linkRoute('private..roles.edit', '', array($role->id), array('class' => 'btn btn-primary btn-xs glyphicon glyphicon-pencil')) }}
-						      <a title=lang('base.delete') data-toggle="modal" data-target="#confirm-submit" data-href={{$role->id}} class='btn btn-danger btn-xs glyphicon glyphicon-remove' id={{$role->id}}></a>
+						      <a title=@lang('base.delete') data-toggle="modal" data-target="#confirm-submit" data-href={{$role->id}} class='btn btn-danger btn-xs glyphicon glyphicon-remove' id={{$role->id}}></a>
 						      </span>
 						{{ Form::close();}}
 						      </td>

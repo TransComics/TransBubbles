@@ -20,8 +20,8 @@ class Bubble extends Eloquent {
         return $this->belongsTo('Bubble', 'parent_id');
     }
     
-    public function original() {
-        return $this->belongsTo('Bubble', 'original_id');
+    public function isOriginal() {
+        return $this->lang_id == $this->strip->comic->lang_id;
     }
 
 }

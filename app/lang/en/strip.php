@@ -28,5 +28,8 @@ return array(
     'pendingTitle' => 'Pending',
     'pending' => 'Strip pending for cleaning',
     'dateCreated' => 'Created at',
-    'dateUpdated' => 'Updated at'
+    'dateUpdated' => 'Updated at',
+    'other_translation' => 'Vote for the best translation',
+    'translate' => 'Translate',
+    'choose' => 'Vote'
 );

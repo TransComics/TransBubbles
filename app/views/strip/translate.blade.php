@@ -4,7 +4,6 @@
 	Interface de traduction
 @stop
 @section('tool.scripts')
-    {{HTML::script('js/showCanvas.js') }} 
     {{HTML::script('js/ajaxTranslateRequest.js') }} 
 @stop 
 
@@ -50,7 +49,7 @@
 	<a class='btn btn-primary fa fa-location-arrow' href="" id="update"></a>
         <input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" />
 	<input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
-        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
+        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePickerText" id="sizePickerText" value="14" min="1" max="999" />
         
         {{ Form::select('fontPicker', $fonts, $font_id,['class'=>'btn btn-primary', 'id'=>'fontPicker', 'style' => 'width:120px;height:37px;padding: 3px;']); }}
     </div>

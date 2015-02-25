@@ -40,19 +40,19 @@ function ajaxTranslate() {
 }
 ;
 
-function bubbleVote(id) {
+function bubbleVote() {
+    var bubble_id = $('#bubble_id').val();
     var user_id = $('#user_id').val();
     var strip_id = $('#strip_id').val();
     var lang_id = $('#lang_id').val();
 
-    $
-            .ajax({
+    $.ajax({
                 type: 'POST',
                 data: {
                     user_id: user_id,
                     strip_id: strip_id,
                     lang_id: lang_id,
-                    bubble_id: id
+                    bubble_id: bubble_id
                 },
                 headers: {
                     'X-CSRF-Token': $('meta[name="_token"]').attr('content')
@@ -103,22 +103,8 @@ $(document).ready(function () {
         ajaxTranslate();
     });
     $('#form-vote').on('submit', function (e) {
-        e.preventDefault(); // Le navigateur ne
-        // peut pas envoyer
-        // le formulaire
-        var bubbleId = $(
-                '#bubble label.active input')
-                .val();
-        if (bubbleId != null && bubbleId !== undefined) {
-            bubbleVote(bubbleId);
-            return false;
-        } else {
-            $('#ajax-response')
-                    .html(
-                            "<div id=\"signupalert\" class=\"alert alert-dismissible alert-danger\">"
-                            + "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>"
-                            + "Please select one translation</div>");
-            return false;
-        }
+        e.preventDefault();
+        bubbleVote();
+        return false;
     });
 });

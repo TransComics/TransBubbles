@@ -1,0 +1,140 @@
+.custom-comic-social-button-group{
+	margin:0;
+	left:0;
+	*zoom:1;
+	margin-bottom:2rem;
+}
+
+.custom-comic-social-button-group:after{
+	clear:both;
+}
+
+.custom-comic-social-button-group > a {
+    margin: 0px;
+    float: left;
+    width: 33.3333%;
+}
+
+.custom-comic-social-button-group:before,.custom-comic-social-button-group:after{
+	content:" ";
+	display:table;
+}
+
+
+.custom-facebook-button{
+	border-style:solid;
+	border-width:0px;
+	cursor:pointer;
+	font-family:CreativeBlock,ProximaNova-Regular,"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	font-weight:bold;
+	line-height:normal;
+	margin:0 0 1.25rem;
+	position:relative;
+	text-decoration:none;
+	text-align:center;
+	display:inline-block;
+	padding-top:0.625rem;
+	padding-right:1.25rem;
+	padding-bottom:0.6875rem;
+	padding-left:1.25rem;
+	font-size:0.6875rem;
+	padding-top:0.625rem;
+	padding-bottom:0.6875rem;
+	padding-right:0;
+	padding-left:0;
+	width:100%;
+	background-color:#3b5999;
+	border-color:#2f477a;
+	color:white;
+	color:#fff;
+	font-family:ProximaNova-Regular,"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	font-size:1.25rem;
+	margin-bottom:0;
+}
+
+.custom-facebook-button:hover,.custom-facebook-button:focus{
+	background-color:#2f477a;
+}
+
+.custom-facebook-button:hover,.custom-facebook-button:focus{
+	color:white;
+}
+
+.custom-google-plus-button{
+	border-style:solid;
+	border-width:0px;
+	cursor:pointer;
+	font-family:CreativeBlock,ProximaNova-Regular,"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	font-weight:bold;
+	line-height:normal;
+	margin:0 0 1.25rem;
+	position:relative;
+	text-decoration:none;
+	text-align:center;
+	display:inline-block;
+	padding-top:0.625rem;
+	padding-right:1.25rem;
+	padding-bottom:0.6875rem;
+	padding-left:1.25rem;
+	font-size:0.6875rem;
+	padding-top:0.625rem;
+	padding-bottom:0.6875rem;
+	padding-right:0;
+	padding-left:0;
+	width:100%;
+	background-color:#df4a32;
+	border-color:#bd341d;
+	color:white;
+	color:#fff;
+	font-family:ProximaNova-Regular,"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	font-size:1.25rem;
+	margin-bottom:0;
+}
+
+.custom-google-plus-button:hover,.custom-google-plus-button:focus{
+	background-color:#bd341d;
+}
+
+.custom-google-plus-button:hover,.custom-google-plus-button:focus{
+	color:white;
+}
+
+.custom-twitter-button{
+	border-style:solid;
+	border-width:0px;
+	cursor:pointer;
+	font-family:CreativeBlock,ProximaNova-Regular,"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	font-weight:bold;
+	line-height:normal;
+	margin:0 0 1.25rem;
+	position:relative;
+	text-decoration:none;
+	text-align:center;
+	display:inline-block;
+	padding-top:0.625rem;
+	padding-right:1.25rem;
+	padding-bottom:0.6875rem;
+	padding-left:1.25rem;
+	font-size:0.6875rem;
+	padding-top:0.625rem;
+	padding-bottom:0.6875rem;
+	padding-right:0;
+	padding-left:0;
+	width:100%;
+	background-color:#55acee;
+	border-color:#1a8fe8;
+	color:white;
+	color:#fff;
+	font-family:ProximaNova-Regular,"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
+	font-size:1.25rem;
+	margin-bottom:0;
+}
+
+.custom-twitter-button:hover,.custom-twitter-button:focus{
+	background-color:#1a8fe8;
+}
+
+.custom-twitter-button:hover,.custom-twitter-button:focus{
+	color:white;
+}
+

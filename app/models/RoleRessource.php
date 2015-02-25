@@ -55,11 +55,10 @@ class RoleRessource extends \Eloquent {
     public function removeRight($roleRessource_id) {
 
         $row = RoleRessource::find($roleRessource_id);
-        
-        if(empty($row)) {
+
+        if (empty($row)) {
             return false;
         }
-        
         //FIXME : what is the return ?
         $row->delete();
         return true;
@@ -100,11 +99,11 @@ class RoleRessource extends \Eloquent {
             return \Redirect::route('access.denied');
         }
 
-        if (!\Auth::check() && !RessourceDefinition::isValidValue($ressource)) {
-            return \Redirect::route('access.denied');
+        if (!\Auth::check()) {
+            return $this->getVisitorRights($role_desc);
         }
 
-        if (\Auth::User()->isSuperAdministrator()) {
+        if (User::find($user_id)->isSuperAdministrator()) {
             return true;
         }
 
@@ -128,7 +127,7 @@ class RoleRessource extends \Eloquent {
     }
 
     private function getAccessMode($routeName) {
-// Getting the access mode : C,R,U,(M),D
+        // Getting the access mode : C,R,U,(M),D
         if (preg_match('/.create$|.store$/', $routeName)) {
             return 'C';
         }
@@ -151,7 +150,7 @@ class RoleRessource extends \Eloquent {
     }
 
     public function filter($route) {
-// We get the route name (ressource.xxxxx)
+        // We get the route name (ressource.xxxxx)
         $routeName = \Route::getCurrentRoute()->getName();
 
         $access_mode = $this->getAccessMode($routeName);

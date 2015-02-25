@@ -175,6 +175,6 @@ return array(
         'BingTranslation' => 'Transcomics\BingTranslation\Facades\BingFacade',
         'GoogleTranslation' => 'Transcomics\GoogleTranslation\Facades\GoogleFacade',
         'RoleRessource' => 'Transcomics\RoleRessource\Facades\RoleRessourceFacade',
-        'Image' => 'KevBaldwyn\Image\Providers\Laravel\Facades\Image'
+        'Image' => 'KevBaldwyn\Image\Providers\Laravel\Facades\Image',
     ),
 );
