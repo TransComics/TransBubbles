@@ -88,13 +88,7 @@ class ComicController extends BaseController {
             }
             $comic->font_id = Input::get('font_id');
             $comic->lang_id = Input::get('lang_id');
-<<<<<<< HEAD
             $comic->validated_state = ValidateEnum::PENDING;
-=======
-            if ($comic->validated_state == ValidateEnum::REFUSED) {
-                $comic->validated_state = ValidateEnum::PENDING;
-            }
->>>>>>> refs/remotes/origin/develop
             $comic->save();
 
             return Redirect::route('comic.update', [

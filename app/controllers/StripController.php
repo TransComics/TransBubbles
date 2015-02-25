@@ -288,9 +288,8 @@ class StripController extends BaseController {
             case 'accept':
                 $strip->validated_state = ValidateEnum::VALIDATED;
                 $strip->save();
-
                 $this->removeRightOnStrip($strip_id, $strip->user_id);
-
+                $strip->updateShowable();
                 break;
             case 'refuse':
                 $comment = Input::get('comment');
@@ -389,6 +388,7 @@ class StripController extends BaseController {
                 //Once a shape has been accepted, we delete others shape with this id
                 $shapeToDelete = Shape::where('strip_id',$strip_id)
                                         ->where('validated_state','<>',ValidateEnum::VALIDATED)->delete();
+                $strip->updateShowable();
                 break;
             case 'refuse':   
                 $comment = Input::get('comment');
@@ -474,6 +474,7 @@ class StripController extends BaseController {
                                         ->where('lang_id', $comic->lang_id)
                                         ->where('validated_state','<>',ValidateEnum::VALIDATED)
                                         ->delete();
+                $strip->updateShowable();
                 break;
             case 'refuse':
                 $comment = Input::get('comment');
@@ -562,6 +563,7 @@ class StripController extends BaseController {
             case 'accept':
                 $bubble->validated_state = ValidateEnum::VALIDATED;
                 $bubble->save();
+                $strip->updateShowable();
                 break;
             case 'refuse':
                 $comment = Input::get('comment');
