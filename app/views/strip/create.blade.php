@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="form-group">
-            {{ Form::label('index', 'Index :' , ['class' => 'col-sm-2 control-label']); }}
+            {{ Form::label('index', 'Index' , ['class' => 'col-sm-2 control-label']); }}
             <div class="col-sm-10">
                 {{ Form::number('indexes[]', $index, ['class' => 'form-control']); }}
                 {{ $errors->first('index', '<p class="alert alert-danger">:message</p>'); }}
