@@ -234,7 +234,7 @@ class StripController extends BaseController {
                 
                 //add an entry in the popularities table
                 $popularity = new Popularities();
-                $popularity->strip_id = $strip_id; 
+                $popularity->strip_id = $strip->id; 
                 $popularity->save();
             }
         }
@@ -248,13 +248,6 @@ class StripController extends BaseController {
      * @return Response
      */
     public function destroy($comic_id, $id) {
-        $strip = Strip::find($id);
-        if ($strip == null) {
-            return Redirect::route('comic.index');
-        }
-        UploadFile::dropFile($strip->path);
-        $strip->delete();
-        
         $popularity=Popularities::where('strip_id',$id)->first();
         if ($popularity != null) {
             $popularity->delete();
@@ -262,6 +255,15 @@ class StripController extends BaseController {
         else{
             Log::error("Popularity not found");
         }
+        
+        $strip = Strip::find($id);        
+        if ($strip == null) {
+            return Redirect::route('comic.index');
+        }
+        UploadFile::dropFile($strip->path);
+        $strip->delete();
+        
+        
         $this->removeRightOnStrip($id, $strip->user_id);
 
         return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
