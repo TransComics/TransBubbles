@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder {
         $this->call('BubblesTableSeeder');
         $this->call('RolesTableSeeder');
         $this->call('RolesRessourceTableSeeder');
+        $this->call('PopularitiesTableSeeder');
     }
 }

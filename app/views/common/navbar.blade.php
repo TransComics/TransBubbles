@@ -15,7 +15,7 @@
         @endif
     </ul>
     <ul class="list-group" >
-         <li class="list-group-item"><a href="" >@lang('social.shareSite')</a></li>
+        <li class="list-group-item"><h4>@lang('social.shareSite')</h4></li>
         <li class="list-group-item text-center center-block custom-comic-social-button-group">
             <a class='custom-facebook-button' href="http://www.facebook.com/share.php?u={{URL::to('/')}}" onclick="return !window.open(this.href, 'Facebook', 'width=500,height=500')"
         target="_blank">
