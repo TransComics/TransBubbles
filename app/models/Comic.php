@@ -50,14 +50,14 @@ class Comic extends Eloquent implements Moderable {
     public function getFirstShowable() {
         return $this->strips()
             ->where('isShowable', true)
-            ->orderBy('id')
+            ->orderBy('index')
             ->first();
     }
     
     public function getLastShowable() {
         return $this->strips()
             ->where('isShowable', true)
-            ->orderBy('id', 'desc')
+            ->orderBy('index', 'desc')
             ->first();
     }
 
