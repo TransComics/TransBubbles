@@ -32,21 +32,21 @@ class StripController extends BaseController {
         }
 
         $lang_strip = Session::has('lang_strip') ? Session::get('lang_strip') : $comic->lang_id;
-        $shapes = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
-        $bubbles = $strip->bubbles()->where('validated_state', ValidateEnum::VALIDATED)->where('lang_id', '=', $lang_strip)->first();
+        $shapes = $strip->getBestShapes(Auth::id());
+        $bubbles = $strip->getBestBubbles($lang_strip, Auth::id());
         if ($bubbles === null) {
-            $bubbles = $strip->bubbles()->where('validated_state', ValidateEnum::VALIDATED)->where('lang_id', '=', $comic->lang_id)->first();
+            $bubbles = $strip->getBestBubbles($strip->comic->lang_id, Auth::id());
         }
-
+        
         $available_languages = DB::table('languages')
                 ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
                 ->where('bubbles.strip_id', '=', $strip->id)
                 ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
                 ->select('languages.id', 'languages.label')
                 ->lists('label', 'id');
-
+        
         View::share([
-            /* Paginate. */
+            'isTheOriginal' => $bubbles->isOriginal(),
             'first_strip' => $comic->getFirstShowable(),
             'previous_strip' => $strip->getPreviousShowable(),
             'random_strip' => $strip->getAnotherShowable(),
@@ -709,9 +709,8 @@ class StripController extends BaseController {
         if ($strip === null || !$strip->isImportable()) {
             return Redirect::route('access.denied');
         }
-        $shape = $strip->shapes()->where(function ($q) {
-                    $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::user()->id);
-                })->first();
+        $shape = $strip->getBestShapes(Auth::id());
+        
         $bubble = $strip->bubbles()
                 ->where('user_id', Auth::user()->id)
                 ->where('lang_id', '=', $strip->comic->lang_id)
@@ -767,56 +766,36 @@ class StripController extends BaseController {
         if ($strip === null || !$strip->isTranslateable()) {
             return Redirect::route('access.denied');
         }
-        $shapes = $strip->shapes()->where(function($q) {
-                    $q->whereNotNull('validated_at')->orWhere('user_id', '=', Auth::id());
-                })->first();
-
-        $original_bubbles = $strip->bubbles()
-                ->whereNotNull('validated_at')
-                ->where('lang_id', '=', Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id)
-                ->first();
-        if ($original_bubbles === null) {
-            $original_bubbles = $strip->bubbles()
-                    ->whereNull('validated_at')
-                    ->where('user_id', '=', Auth::id())
-                    ->first();
-        }
-        if ($original_bubbles === null) {
+        
+        $lang_from = Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id;
+        $lang_to = Session::has('lang_strip_to') ? Session::get('lang_strip_to') : $strip->comic->lang_id;
+        $lang_available_from = $strip->getLanguagesWithTranslate(Auth::id())->lists('label', 'id');
+        $lang_available_to = $strip->getLanguagesToTranslate()->lists('label', 'id');
+        
+        $shapes = $strip->getBestShapes(Auth::id());
+        $best_bubbles = $strip->getBestBubbles($lang_from, Auth::id());
+        $delivred_bubbles = $strip->getBubblesToEdit($lang_to, Auth::id());
+        // FIXE ME GET BEST $LANG_TO
+        
+        if ($best_bubbles === null) {
             return Redirect::route('access.denied');
         }
 
-        $delivred_bubbles = null;
-        if (Auth::check() && Session::has('lang_strip_to')) {
-            $delivred_bubbles = $strip->bubbles()
-                    ->where('user_id', '=', Auth::id())
-                    ->where('lang_id', '=', Session::get('lang_strip_to'))
-                    ->first();
-        }
-        $available_languages = DB::table('languages')->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
-                ->where('bubbles.strip_id', '=', $strip->id)
-                ->whereNotNull('bubbles.validated_at')
-                ->orWhere(function ($q) use($strip) {
-                    $q->where('user_id', '=', Auth::id())
-                    ->where('lang_id', '=', $strip->comic->lang_id);
-                })
-                ->select('languages.id', 'languages.label')
-                ->lists('label', 'id');
-
-        $translate_languages = DB::table('languages')->where('languages.id', '<>', $strip->comic->lang_id)->lists('label', 'id');
         View::share([
-            'available_languages' => $available_languages,
-            'translate_languages' => $translate_languages,
-            'lang_strip_to' => Session::has('lang_strip_to') ? Session::get('lang_strip_to') : 0,
-            'lang_strip' => Session::has('lang_strip') ? Session::get('lang_strip') : 1,
+            'available_languages' => $lang_available_from,
+            'translate_languages' => $lang_available_to,
+            'lang_strip_to' => $lang_to,
+            'lang_strip' => $lang_from,
             'fonts' => Font::all()->lists('name', 'name'),
             'font_id' => Font::find($strip->comic->font_id)->name,
             'strip' => $strip,
             'bubble' => $delivred_bubbles !== null ? $delivred_bubbles : new Bubble(),
-            'canvas_original' => $this->mergeShapesAndBubblesJSON($shapes, $original_bubbles),
-            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shapes, $delivred_bubbles !== null ? $delivred_bubbles : $original_bubbles),
+            'canvas_original' => $this->mergeShapesAndBubblesJSON($shapes, $best_bubbles),
+            'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shapes, $delivred_bubbles !== null ? $delivred_bubbles : $best_bubbles),
             'strip_height' => $this->getHeight($shapes->value),
             'strip_width' => $this->getWidth($shapes->value)
         ]);
+        
         return View::make('strip.translate');
     }
 

@@ -45,11 +45,13 @@
 <div class="row">
     <div class="row-same-height">
         <div class="col-xs-10 col-xs-height">
-            <h3>@lang('comic.lastStrip')</h3>
+            <h3>@if (count($strips) > 0) @lang('comic.lastStrip') @else @lang('comic.noStrip') @endif</h3>
         </div>
         
         <div class="col-xs-2  col-xs-height col-bottom">
+            @if (count($strips) > 0)
             <a href="{{URL::route('strip.index', [$comic->id])}}" title="strip.index" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
+            @endif
             @if (Auth::check())
                 <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
             @endif
@@ -57,6 +59,7 @@
         
     </div>
 </div>
+@if (count($strips) > 0)
 <hr>
 </br>
 <div class="row">
@@ -74,4 +77,5 @@
 
     @include('common.submit_delete')
 </div>
+@endif
 @stop

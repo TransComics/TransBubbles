@@ -34,7 +34,66 @@ class Strip extends Eloquent implements Moderable {
     public function bubbles() {
         return $this->hasMany('Bubble');
     }
+    
+    public function getBestBubbles($lang_id, $user_id) {
+        
+        $bubbles = $this->bubbles()
+            ->where('validated_state', ValidateEnum::VALIDATED)
+            ->where('lang_id', $lang_id)
+            ->first();
+        
+        if ($bubbles !== null) {
+            return $bubbles;
+        }
+        
+        return $this->bubbles()
+            ->where('validated_state', '<>', ValidateEnum::VALIDATED)
+            ->where('user_id', '=', $user_id)
+            ->where('lang_id', $lang_id)
+            ->first();
+    }
 
+    public function getBubblesToEdit($lang_id, $user_id) {
+        return $this->bubbles()
+            ->where('validated_state', '<>', ValidateEnum::VALIDATED)
+            ->where('user_id', '=', $user_id)
+            ->where('lang_id', '=', $lang_id)
+            ->first();
+        
+    }
+    
+    public function getBestShapes($user_id) {
+        return $this->shapes()
+            ->where(function($query) use ($user_id) {
+                $query
+                    ->where('validated_state', ValidateEnum::VALIDATED)
+                    ->orWhere('user_id', '=', $user_id);
+            })
+            ->first();
+    }
+    
+    public function getLanguagesWithTranslate($user_id = null) {
+        return DB::table('languages')
+            ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
+            ->where('bubbles.strip_id', '=', $this->id)
+            ->where(function ($query) use ($user_id) {
+                $query
+                    ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
+                    ->orWhere(function ($query) use ($user_id) {
+                        $query->where('lang_id', '=', $this->comic->lang_id);
+                        if (!is_null($user_id)) {
+                            $query->where('user_id', '=', $user_id);
+                        }
+                    });
+            })
+            ->select('languages.id', 'languages.label');
+    }
+    
+    public function getLanguagesToTranslate() {
+        return DB::table('languages')
+            ->where('languages.id', '<>', $this->comic->lang_id)    ;
+    }
+    
     public function isCleanable() {
         return $this->shapes()->whereNotNull('validated_at')->count() == 0;
     }
@@ -98,24 +157,6 @@ class Strip extends Eloquent implements Moderable {
             ->orderBy('index')
             ->first();
     }
-    
-    public function getBestBubbles($lang_id, $user_id) {
-        
-        $bubbles = $this->bubbles()
-            ->where('validated_state', ValidateEnum::VALIDATED)
-            ->where('lang_id', $lang_id)
-            ->first();
-        
-        if ($bubbles !== null) {
-            return $bubbles;
-        }
-        
-        return $this->bubbles()
-            ->where('validated_state', '<>', ValidateEnum::VALIDATED)
-            ->where('user_id', '=', $user_id)
-            ->where('lang_id', $lang_id)
-            ->first();
-    }
 
     /**
      * Check if there is a strip at this index
@@ -159,43 +200,4 @@ class Strip extends Eloquent implements Moderable {
         }
     }
 
-    public function getBubblesToEdit($lang_id, $user_id) {
-        return $this->bubbles()
-            ->where('validated_state', '<>', ValidateEnum::VALIDATED)
-            ->where('user_id', '=', $user_id)
-            ->where('lang_id', '=', $lang_id)
-            ->first();
-        
-    }
-    
-    public function getBestShapes($user_id) {
-        return $this->shapes()
-            ->where(function($query) use ($user_id) {
-                $query
-                    ->where('validated_state', ValidateEnum::VALIDATED)
-                    ->orWhere('user_id', '=', $user_id);
-            })
-            ->first();
-    }
-    
-    public function getLanguagesWithTranslate($user_id) {
-        return DB::table('languages')
-            ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
-            ->where('bubbles.strip_id', '=', $this->id)
-            ->where(function ($query) use ($user_id) {
-                $query
-                    ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
-                    ->orWhere(function ($query) use ($user_id) {
-                        $query
-                            ->where('user_id', '=', $user_id)
-                            ->where('lang_id', '=', $this->comic->lang_id);
-                    });
-            })
-            ->select('languages.id', 'languages.label');
-    }
-    
-    public function getLanguagesToTranslate() {
-        return DB::table('languages')
-            ->where('languages.id', '<>', $this->comic->lang_id)    ;
-    }
 }

@@ -12,8 +12,8 @@
 </div>
 <hr>
 <div class="text-center center-block">
-        <!--IMAGE CANVAS-->
-    {{HTML::image($strips->path, 'strip', array('id' => 'responsive_image-'.$bubble_id, 'class' => 'thumbnail center-block img-responsive', 'style' => 'position:absolute; left:10000px;'))}}
+    {{HTML::image($strips->path, 'strip', array('id' => 'responsive_image-'.$bubble_id, 'class' => 'img-responsive', 'style' => 'position:absolute; left:10000px;'))}}
+
     <div class="showCanvas text-right">
         <span class="showCanvas-json hidden">{{$canvas}}</span>
         <span class="showCanvas-height hidden">{{$canvas_height}}</span>
@@ -43,50 +43,52 @@
         @endif
     </div>
     
+    <br />
+    <br />
+    
     <!--SOCIAL SHARING-->
     <div class="btn-group" role="group">
-        <a class='btn btn-primary' href="http://www.facebook.com/share.php?u={{URL::full()}}" onclick="return !window.open(this.href, 'Facebook', 'width=500,height=500')"
-    target="_blank">
+        <a class='btn btn-primary' href="http://www.facebook.com/share.php?u={{URL::full()}}" onclick="return !window.open(this.href, 'Facebook', 'width=500,height=500')" target="_blank">
             <i class="fa fa-facebook"></i></a>
-        <a class='btn btn-primary' href="http://twitter.com/share?url={{URL::full()}}"  onclick="return !window.open(this.href, 'Twitter', 'width=500,height=500')"
-    target="_blank">
+        <a class='btn btn-primary' href="http://twitter.com/share?url={{URL::full()}}"  onclick="return !window.open(this.href, 'Twitter', 'width=500,height=500')" target="_blank">
             <i class="fa fa-twitter"></i>
         </a>
-        <a class='btn btn-primary' href="https://plus.google.com/share?url={{URL::full()}}" onclick="return !window.open(this.href, 'Google', 'width=500,height=500')"
-    target="_blank">
+        <a class='btn btn-primary' href="https://plus.google.com/share?url={{URL::full()}}" onclick="return !window.open(this.href, 'Google', 'width=500,height=500')" target="_blank">
             <i class="fa fa-google-plus"></i>
         </a>
-	</div>
-    
-    </br>
-    </br>
+    </div>
 
     <!--BOOKMARK,VOTE UP & DOWN-->
-	<div class="btn-group popularity-group" role="group">
-		<button class="btn btn-primary glyphicon glyphicon-thumbs-up popularities" id="{{$popularity->id }}" >
+    <div class="btn-group popularity-group" role="group">
+        <button class="btn btn-primary glyphicon glyphicon-thumbs-up popularities" id="{{$popularity->id }}" >
             <span style="margin-left: 5px; top: 0px;" class="badge">{{ $popularity->vote_up }}</span>
         </button>
         <button class="btn btn-primary glyphicon glyphicon glyphicon-thumbs-down popularities" id="{{$popularity->id }}">
             <span style="margin-left: 5px; top: 0px;" class="badge">{{ $popularity->vote_down }}</span>
         </button>
-	</div>
-
+    </div>
+    
+    <br />
+    <br />
+    
     <!--STRIP LIST & TRANSLATIONS-->
-	<div class="btn-group" role="group">
-		<a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> View All</a>
-	</div>
-	<div class="btn-group" role="group">
-            <a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id, 'lang' => $lang_strip))}}" class="btn btn-primary">
+    <div class="btn-group" role="group">
+            <a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> View All</a>
+    </div>
+    @if(!$isTheOriginal)
+        <div class="btn-group" role="group">
+            <a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
                     <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
             </a>
             <a href="{{URL::route('strip.translate', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
                     <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.translate')
             </a>
-	</div>
-	<div class="btn-group" role="group">
-	        {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langStripForm', 'style' => 'display : inline;']) }}
-            {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'btn btn-primary','data-width'=>'auto', 'onChange' => '$("#langStripForm").submit();'])}}
-            {{ Form::close() }}
+        </div>
+    @endif
+    <div class="btn-group" role="group">
+            {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langStripForm', 'style' => 'display : inline;']) }}
+        {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'btn btn-primary','data-width'=>'auto', 'onChange' => '$("#langStripForm").submit();'])}}
+        {{ Form::close() }}
     </div>
 </div>
 @stop

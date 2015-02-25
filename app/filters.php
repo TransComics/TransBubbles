@@ -27,8 +27,7 @@ App::before(function ($request) {
         'languages' => Language::all([
             'shortcode',
             'label'
-        ]),
-        'pendingStrips' => Strip::whereNull('validated_at')->count()
+        ])
     ]);
 });
 
