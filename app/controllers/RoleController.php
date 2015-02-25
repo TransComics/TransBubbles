@@ -64,8 +64,7 @@ class RoleController extends BaseController {
      */
     public function storeUserRole($role_id) {
         $rules = array(
-            'name' => 'required',
-            'role' => 'required'
+            'name' => 'required'
         );
 
         $validator = Validator::make(Input::all(), $rules);
@@ -77,21 +76,21 @@ class RoleController extends BaseController {
         $role = Role::find($role_id);
         if ($role == NULL) {
             Log::info('unknown role $role_id');
-            // TODO : Create lang
+// TODO : Create lang
             return Redirect::back()->withErrors(Lang::get('role.errorUpdatingRole'))->withInput();
         }
 
         $user = User::whereusername(Input::get('name'))->first();
         if (empty($user)) {
             Log::info('invalid user' . Input::get('name'));
-            //Todo : Create message
+//Todo : Create message
             return Redirect::back()->withErrors(Lang::get('role.errorUpdatingRole'))->withInput();
         }
 
         $result = RoleRessource::addRight($role_id, RessourceDefinition::All, RessourceDefinition::All, $user->id);
 
         if ($result) {
-            // Getting new table to update
+// Getting new table to update
             $role_ressources = RoleRessource::whererole_id($role->id)->get();
             return View::make('role.show', [
                         'role' => $role,
@@ -104,28 +103,46 @@ class RoleController extends BaseController {
     }
 
     public function removeUserRole($role_id, $roleRessource_id) {
-        
+
+        $role = Role::find($role_id);
+        if ($role == null) {
+            return Redirect::route('access.denied');
+        }
+
+        $roleRessource = RoleRessource::find($roleRessource_id);
+
+        if (is_null($roleRessource)) {
+            return Redirect::route('private..roles.show', $role_id)
+                            ->withErrors(Lang::get('role.errorDeleteRole'))
+                            ->withInput();
+        }
+
+        // Is Super Admin
+        if ($role_id == 1) {
+            $user = User::find($roleRessource->user_id);
+            if(!empty($user) && $user->isSuperAdministrator()) {
+                return Redirect::route('private..roles.show', $role_id)
+                            ->withErrors(Lang::get('role.cannotsuppress'));
+                            //->withInput();
+            }
+        }
+
+        $filteredRoleRessource = RoleRessource::whererole_id($role_id)
+                ->where('id', $roleRessource_id)
+                ->get();
+
+        if ($filteredRoleRessource == null) {
+            return Redirect::route('access.denied');
+        }
+
         if (RoleRessource::removeRight($roleRessource_id)) {
-            $role = Role::find($role_id);
-            if ($role == null) {
-                return Redirect::route('home');
-            }
-
-           $role_ressources = RoleRessource::whererole_id($role->id)->get();
-           
-            if ($role_ressources == null) {
-                return Redirect::route('home');
-            }
-
-            return View::make('role.show', [
-                        'role' => $role,
-                        'role_ressources' => $role_ressources,
-            ]);
-            
+            return Redirect::route('private..roles.show', $role_id)
+                            ->withMessage(Lang::get('role.added'));
         } else {
             Log::info('unknown error when removing userRole : removeRight returned false with role_id : $role_id');
-            // FIXME : 
-            return Redirect::back()->withErrors(Lang::get('role.errorDeleteRole'))->withInput();
+            return Redirect::route('private..roles.show', $role_id)
+                            ->withErrors(Lang::get('role.cannotsuppress'))
+                            ->withInput();
         }
     }
 
