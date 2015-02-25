@@ -4,7 +4,6 @@
 	Interface de traduction
 @stop
 @section('tool.scripts')
-    {{HTML::script('js/showCanvas.js') }} 
     {{HTML::script('js/ajaxTranslateRequest.js') }} 
 @stop 
 

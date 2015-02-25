@@ -16,6 +16,10 @@ class Comic extends Eloquent implements Moderable {
     public function strips() {
         return $this->hasMany('Strip');
     }
+    
+    public function user() {
+        return $this->hasOne('User');
+    }
 
     public function isValidated() {
         return $this->validated_state == 'VALIDATED';
@@ -56,7 +60,31 @@ class Comic extends Eloquent implements Moderable {
             ->orderBy('id', 'desc')
             ->first();
     }
-    
+
+    public function getPendingShapes(){
+        return $this->strips()->join('shapes', 'strips.id', '=', 'shapes.strip_id')
+            ->where('strips.validated_state',ValidateEnum::VALIDATED)
+            ->where('shapes.validated_state',ValidateEnum::PENDING)
+            ->orderBy('shapes.id');
+    }
+
+    public function getPendingImport(){
+            return $this->strips()->join('bubbles', 'strips.id', '=', 'bubbles.strip_id')
+            ->where('strips.validated_state',ValidateEnum::VALIDATED)
+            ->where('bubbles.validated_state',ValidateEnum::PENDING)
+            ->where('bubbles.lang_id',$this->lang_id)
+            ->orderBy('bubbles.id');
+     }
+     
+     public function getPendingBubbles(){
+         return $this->strips()->join('bubbles', 'strips.id', '=', 'bubbles.strip_id')
+         ->where('strips.validated_state',ValidateEnum::VALIDATED)
+         ->where('bubbles.validated_state',ValidateEnum::PENDING)
+         ->where('bubbles.lang_id','<>',$this->lang_id)
+         ->orderBy('bubbles.id');
+     }
+
+        
     public static function getComicToDisplay() {
         return Comic::where(function ($query) {
             $query->where('validated_state', ValidateEnum::VALIDATED)
