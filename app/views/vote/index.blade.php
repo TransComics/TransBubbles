@@ -5,9 +5,11 @@
 {{HTML::script('js/lib/json-jquery.js') }}
 <script type="text/javascript">
     $(document).ready(function () {
-        var divHeight = $('#left').height();
-        console.log(divHeight);
-        $('#right').css('height', divHeight + 'px');
+        $(document).imageready(function () {
+            var divHeight = $('#left').height();
+            console.log(divHeight);
+            $('#right').css('height', divHeight + 'px');
+        }
     });
 </script>
 @stop @section('master.content') 
@@ -44,12 +46,6 @@
 </div>
 <div class="col-sm-4" id="right">
     <div class="btn-group" id="bubble" data-toggle="buttons">
-        @foreach ($bubbles as $bubble)
-            <label class="btn btn-default">
-                <input type="radio" name="bubbleVote" id="bubbles{{$bubble->id}}" value="{{$bubble->id}}">
-                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block img-responsive', 'style' => 'width:100;')) }}
-            </label> 
-        @endforeach
         @foreach ($bubbles as $bubble)
             <label class="btn btn-default">
                 <input type="radio" name="bubbleVote" id="bubbles{{$bubble->id}}" value="{{$bubble->id}}">
