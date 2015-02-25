@@ -82,14 +82,15 @@ Route::get('/signup/', [
 Route::post('/signup/', 'UsersController@postCreate');
 Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
     Route::resource('/roles', 'RoleController');
-    Route::post('/roles/{role_id}/', [
-        'as' => 'roles.storeUserRole',
-        'uses' => 'RoleController@storeUserRole'
-    ]);
-    
+        
     Route::delete('/roles/{role_id}/{roleRessource_id}', [
         'as' => 'roles.user.destroy',
         'uses' => 'RoleController@removeUserRole'
+    ]);
+    
+    Route::post('/roles/{role_id}/', [
+        'as' => 'roles.storeUserRole',
+        'uses' => 'RoleController@storeUserRole'
     ]);
     
   

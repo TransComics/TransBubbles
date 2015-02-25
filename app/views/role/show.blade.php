@@ -39,6 +39,10 @@
 @stop @section('master.content') @if(Session::has('message'))
 <p class="alert alert-info">{{ Session::get('message') }}</p>
 @endif
+
+@if(Session::has('errors'))
+<p class="alert alert-danger">{{ Session::get('errors') }}</p>
+@endif
 <div class="row">
     <div class="row-same-height">
         <div class="col-xs-10 col-xs-height">
@@ -79,7 +83,7 @@
                         @else
                         <td>@lang('role.all')</td> 
                         @endif
-                        <td>
+                        <td class="text-center"> 
                             {{ Form::open(['route' => ['roles.user.destroy', $role->id, $role_r->id], 'method' => 'delete', 'id' =>'form'.$role_r->id ]); }}  
                             <a title=lang('base.delete') data-toggle="modal" data-target="#confirm-submit" data-href={{$role_r->id}} class='btn btn-danger btn-sm glyphicon glyphicon-remove' id={{$role_r->id}}></a>
                             {{ Form::close();}}
@@ -93,11 +97,13 @@
 </div>
 
 <div class="row">
-    <div class="well bs-component">
-        {{ Form::open(['route' => ['roles.storeUserRole', $role->id], 'method' => 'POST','role'=> 'form', 'class' => 'form-inline','id' =>'createRole' ])}}
-        {{ Form::text('name', null, array('class'=>'form-control pull-left', 'id' => 'autocomplete', 'placeholder'=> Lang::get('login.login'))) }}
-        {{ Form::submit(Lang::get('role.submit'), array('class'=>'btn btn-primary pull-right'))}}
-        {{Form::close()}}
+    <div class="well bs-component" style="overflow: hidden;">
+        <div class="text-center center-block">
+            {{ Form::open(['route' => ['roles.storeUserRole', $role->id], 'method' => 'POST','role'=> 'form', 'class' => 'form-inline','id' =>'createRole' ])}}
+            {{ Form::text('name', null, array('class'=>'form-control pull-left', 'id' => 'autocomplete', 'placeholder'=> Lang::get('login.login'))) }}
+            {{ Form::submit(Lang::get('role.submit'), array('class'=>'btn btn-primary pull-right'))}}
+            {{Form::close()}}
+        </div>
     </div>
 </div>
 @include('common.submit_delete')
