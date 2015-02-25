@@ -150,7 +150,7 @@ class Strip extends Eloquent implements Moderable {
             $lastContinuousIndex++;
         }
         
-        // We increment everyone from the continuous index to new strip index
+        // We increment everyone from continuous index to new strip index
         for($i = $lastContinuousIndex; $i >= 0; $i--) {
             $strips[$i]->index++;
             $strips[$i]->save();
