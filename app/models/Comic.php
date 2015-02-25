@@ -24,9 +24,38 @@ class Comic extends Eloquent implements Moderable {
         return $this->validated_state == 'VALIDATED';
     }
 
+    public function stripsValidated($paginate = null) {
+        $strips = $this->strips()
+            ->where('validated_state', ValidateEnum::VALIDATED);
+        
+        if (!is_null($paginate)) {
+            return $strips->paginate($paginate);
+        }
+        return $strips;
+    }
+    
+    public function stripsShowable($paginate = null) {
+        $strips = $this->strips()
+            ->where('validated_state', ValidateEnum::VALIDATED)
+            ->where('isShowable', true)
+            ->orderBy('validated_at', 'desc');
+        
+        if (!is_null($paginate)) {
+            return $strips->paginate($paginate);
+        }
+        return $strips;
+    }
+    
+    public function getFirstShowable() {
+        return $this->strips()
+            ->where('isShowable', true)
+            ->orderBy('id')
+            ->first();
+    }
+    
     public function getLastShowable() {
         return $this->strips()
-            ->where('isShowable', TRUE)
+            ->where('isShowable', true)
             ->orderBy('id', 'desc')
             ->first();
     }

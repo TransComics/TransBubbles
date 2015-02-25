@@ -57,8 +57,45 @@ class Strip extends Eloquent implements Moderable{
         return $this->isShowable;
     }
     
+    public function updateShowable() {
+        $strip->isShowable = $this->shapes()
+            ->join('bubbles', 'bubbles.strip_id', '=', 'strips.id')
+            ->where('shapes.validated_state', ValidateEnum::VALIDATED)
+            ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
+            ->where('strips.validated_state', ValidateEnum::VALIDATED)
+            ->groupBy('strips.id')
+            ->count() > 1;
+        
+        $strip->save();
+    }
+    
     public function isValidated() {
         return $this->validated_state == 'VALIDATED';
     }
-
+    
+    public function getPreviousShowable() {
+        return $this->comic->strips()
+            ->where('isShowable', true)
+            ->where('id', '<', $this->id)
+            ->orderBy('id', 'desc')
+            ->first();
+    }
+    
+    public function getAnotherShowable() {
+        return $this->comic->strips()
+            ->where('isShowable', true)
+            ->where('id', '<>', $this->id)
+            ->orderByRaw('RAND()')
+            ->first();
+    }
+    
+    public function getNextShowable() {
+        return $this->comic->strips()
+            ->where('isShowable', true)
+            ->where('id', '>', $this->id)
+            ->orderBy('id')
+            ->first();
+    }
+    
+    
 }

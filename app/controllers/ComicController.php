@@ -143,10 +143,10 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
-        $strips = $comic->strips()->where('isShowable', TRUE)->orderBy('validated_at', 'desc')->take(3)->get();
+        
         return View::make('comic.show', [
                 'comic' => $comic,
-                'strips' => $strips
+                'strips' => $comic->stripsShowable(3)
         ]);
     }
 
