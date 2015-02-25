@@ -1,4 +1,9 @@
 @extends('layouts.master') @section('master.content')
+
+@section('master.scripts')
+{{ HTML::script('js/popularities.js') }} 
+@stop
+
 <h1>{{ $strips->title }}</h1>
 <div class="text-center center-block">
 	<small>@lang('strip.dateCreated') {{ $strips->created_at }} -
@@ -8,6 +13,7 @@
 <hr>
 <div class="text-center center-block">
 	
+    <!--IMAGE CANVAS-->
         <div class="showCanvas text-right">
             <span class="showCanvas-json hidden">{{$canvas}}</span>
             <span class="showCanvas-height hidden">{{$canvas_height}}</span>
@@ -16,6 +22,8 @@
             <canvas id="canvas-{{$bubble_id}}" class="showCanvas-canvas" width="706" height="283"></canvas>
         </div>
         <br />
+    
+    <!--STRIP NAVIGATION-->
 	<div class="btn-group" role="group">
                 @if($previous_strip)
 		<a class='btn btn-primary glyphicon glyphicon-fast-backward' href="{{URL::route('strip.show', array('comic_id'=>$strips->comic_id,'id'=>$first_strip->id))}}"></a>
@@ -34,6 +42,8 @@
                 @endif
         
     </div>
+    
+    <!--SOCIAL SHARING-->
     <div class="btn-group" role="group">
         <a class='btn btn-primary' href="http://www.facebook.com/share.php?u={{URL::full()}}" onclick="return !window.open(this.href, 'Facebook', 'width=500,height=500')"
     target="_blank">
@@ -47,11 +57,21 @@
             <i class="fa fa-google-plus"></i>
         </a>
 	</div>
-	</br> </br>
-	<div class="btn-group" role="group">
-		<a class="btn btn-primary glyphicon glyphicon glyphicon-heart" href=""></a>
-		<a class="btn btn-primary glyphicon glyphicon-thumbs-up" href=""><span style="margin-left: 5px; top: 0px;" class="badge">300</span></a> <a class="btn btn-primary glyphicon glyphicon glyphicon-thumbs-down" href=""><span style="margin-left: 5px; top: 0px;" class="badge">3</span></a>
+    
+    </br>
+    </br>
+
+    <!--BOOKMARK,VOTE UP & DOWN-->
+	<div class="btn-group popularity-group" role="group">
+		<button class="btn btn-primary glyphicon glyphicon-thumbs-up popularities" id="{{$popularity->id }}" >
+            <span style="margin-left: 5px; top: 0px;" class="badge">{{ $popularity->vote_up }}</span>
+        </button>
+        <button class="btn btn-primary glyphicon glyphicon glyphicon-thumbs-down popularities" id="{{$popularity->id }}">
+            <span style="margin-left: 5px; top: 0px;" class="badge">{{ $popularity->vote_down }}</span>
+        </button>
 	</div>
+
+    <!--STRIP LIST & TRANSLATIONS-->
 	<div class="btn-group" role="group">
 		<a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> View All</a>
 	</div>

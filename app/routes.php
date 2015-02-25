@@ -221,7 +221,9 @@ Route::resource('/comic', 'ComicController');
 Route::group([
     'prefix' => '/ws'], function () {
     Route::resource('/translate', 'TranslatorController', array('only' => array('update')));
+    Route::resource('/popularities', 'PopularitiesController', array('only' => array('update')));
     Route::get('/getUsers', 'UsersController@getUsers');
+
 });
 
 Route::get('/access/denied', ['as' => 'access.denied', 'uses' => function () {

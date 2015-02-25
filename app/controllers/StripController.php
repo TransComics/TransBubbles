@@ -25,6 +25,8 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
         
+        $popularity = Popularities::where('strip_id',$id)->first();
+        
         if (!$strip->isShowable()) {
             return Redirect::route('access.denied');
         }
@@ -59,7 +61,8 @@ class StripController extends BaseController {
         ]);
 
         return View::make('strip.show', [
-                'strips' => $strip
+                'strips' => $strip,
+                'popularity' => $popularity
         ]);
     }
 
@@ -190,6 +193,11 @@ class StripController extends BaseController {
                     'lang_id' => $strip->comic->lang_id,
                     'user_id' => Auth::id()
                 ]);
+                
+                //add an entry in the popularities table
+                $popularity = new Popularities();
+                $popularity->strip_id = $strip_id; 
+                $popularity->save();
             }
         }
         return Redirect::route('strip.index', ['comic_id' => $comic_id])->with('message', Lang::get('strip.uploadComplete'));
@@ -208,6 +216,14 @@ class StripController extends BaseController {
         }
         UploadFile::dropFile($strip->path);
         $strip->delete();
+        
+        $popularity=Popularities::where('strip_id',$id)->first();
+        if ($popularity != null) {
+            $popularity->delete();
+        }
+        else{
+            Log::error("Popularity not found");
+        }
         return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
     }
 
