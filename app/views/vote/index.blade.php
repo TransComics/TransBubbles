@@ -47,7 +47,13 @@
         @foreach ($bubbles as $bubble)
             <label class="btn btn-default">
                 <input type="radio" name="bubbleVote" id="bubbles{{$bubble->id}}" value="{{$bubble->id}}">
-                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'thumbnail center-block img-responsive', 'style' => 'width:100;')) }}
+                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block img-responsive', 'style' => 'width:100;')) }}
+            </label> 
+        @endforeach
+        @foreach ($bubbles as $bubble)
+            <label class="btn btn-default">
+                <input type="radio" name="bubbleVote" id="bubbles{{$bubble->id}}" value="{{$bubble->id}}">
+                {{ HTML::image($strip->path, 'strip',array('id' => $bubble->id, 'class' =>'center-block img-responsive', 'style' => 'width:100;')) }}
             </label> 
         @endforeach
     </div>
