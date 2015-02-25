@@ -12,11 +12,11 @@ class Strip extends Eloquent implements Moderable {
         'pageNumber' => 'numeric',
         'title' => 'max:64|required',
         'strip' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|between:20,4096|image',
-        'index' => 'integer|required'
+        'index' => 'integer|required|min:0'
     ];
     public static $updateRules = [
         'title' => 'max:64|required',
-        'index' => 'integer|required'
+        'index' => 'integer|required|min:0'
     ];
 
     public function comic() {
