@@ -161,18 +161,17 @@ class StripController extends BaseController {
             return Redirect::route('comic.index');
         }
 
-        Form::setValidation(Strip::$rules);
+        Form::setValidation($this->formRules);
         return View::make('strip.edit', [
                     'strips' => $strip
         ]);
     }
 
     public function create($comic_id) {
-        Form::setValidation(Strip::$rules);
-
+        Form::setValidation($this->formRules);
         $maxIndex = intval(Strip::where('comic_id', $comic_id)->max('index'));
         $maxIndex++;
-
+        
         return View::make('strip.create', [
                     'strips' => new Strip(),
                     'comic_id' => $comic_id,
@@ -882,5 +881,12 @@ class StripController extends BaseController {
     private function getWidth($shapes) {
         return json_decode($shapes, true)['objects'][0]['width'];
     }
+    
+    private $formRules = [
+        'pageNumber' => 'numeric',
+        'titles[]' => 'max:64|required',
+        'files[]' => 'required|max:1024|image',
+        'indexes[]' => 'integer|required|min:0'
+    ];
 
 }
