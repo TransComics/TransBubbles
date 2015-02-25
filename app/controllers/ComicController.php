@@ -11,10 +11,10 @@ class ComicController extends BaseController {
 
     public function index() {
         $paginate = Session::has('paginate') ? Session::get('paginate') : 10;
-                    
+
         View::share([
-                'comics' => Comic::getComicToDisplay()->paginate($paginate),
-                'nb_pending' => Comic::getNbPending()
+            'comics' => Comic::getComicToDisplay()->paginate($paginate),
+            'nb_pending' => Comic::getNbPending()
         ]);
         return View::make('comic.index');
     }
@@ -22,11 +22,11 @@ class ComicController extends BaseController {
     public function create() {
         Form::setValidation(ComicController::getRules());
         $this->prepareForm();
-        
+
         View::share([
             'comic' => new Comic()
         ]);
-        
+
         return View::make('comic.create');
     }
 
@@ -39,7 +39,7 @@ class ComicController extends BaseController {
         Form::setValidation(ComicController::getRules($id));
         $this->prepareForm();
         return View::make('comic.edit', [
-            'comic' => $comic
+                    'comic' => $comic
         ]);
     }
 
@@ -50,13 +50,9 @@ class ComicController extends BaseController {
             $comic = new Comic();
 
             $comic->fill(Input::only(
-                'title',
-                'author',
-                'authorApproval',
-                'font_id',
-                'lang_id'
+                            'title', 'author', 'authorApproval', 'font_id', 'lang_id'
             ));
-            
+
             $comic->description = nl2br(Input::get('description'));
             if (Input::hasFile('cover')) {
                 Comic::dropFile($comic->cover);
@@ -68,12 +64,12 @@ class ComicController extends BaseController {
 
             RoleRessource::addRight(2, RessourceDefinition::Comics, $comic->id, Auth::id());
             return Redirect::route('comic.index')->withMessage(Lang::get('comic.added', [
-                'title' => $comic->title
+                                'title' => $comic->title
             ]));
         }
         return Redirect::route('comic.create')->withInput()
-                ->withErrors($v)
-                ->withMessage(Lang::get('comic.errorMessage'));
+                        ->withErrors($v)
+                        ->withMessage(Lang::get('comic.errorMessage'));
     }
 
     public function update($id) {
@@ -92,20 +88,26 @@ class ComicController extends BaseController {
             }
             $comic->font_id = Input::get('font_id');
             $comic->lang_id = Input::get('lang_id');
+<<<<<<< HEAD
             $comic->validated_state = ValidateEnum::PENDING;
+=======
+            if ($comic->validated_state == ValidateEnum::REFUSED) {
+                $comic->validated_state = ValidateEnum::PENDING;
+            }
+>>>>>>> refs/remotes/origin/develop
             $comic->save();
 
             return Redirect::route('comic.update', [
-                    $comic->id
-                ])->withMessage(Lang::get('comic.updated', [
-                        'title' => $comic->title
+                        $comic->id
+                    ])->withMessage(Lang::get('comic.updated', [
+                                'title' => $comic->title
             ]));
         }
 
         return Redirect::route('comic.edit', [$comic->id])
-                ->withInput()
-                ->withErrors($v)
-                ->withMessage(Lang::get('comic.errorMessage'));
+                        ->withInput()
+                        ->withErrors($v)
+                        ->withMessage(Lang::get('comic.errorMessage'));
     }
 
     public function destroy($id) {
@@ -119,10 +121,28 @@ class ComicController extends BaseController {
             $strip->delete();
         });
 
+        $this->removeRightOnComic($id, $comic->created_by);
+        
         Comic::dropFile($comic->cover);
         $comic->delete();
 
+
+
         return Redirect::back();
+    }
+
+    private function removeRightOnComic($comic_id, $user_id) {
+
+        $role_ressource = RoleRessource::where('ressource', RessourceDefinition::Comics)
+                ->where('ressource_id', $comic_id)
+                ->where('user_id', $user_id)
+                ->first();
+        
+        if (empty($role_ressource)) {
+            Log::error('Error when removing right of user $user_id on the strip $strip_id after moderation');
+        } else {
+            $role_ressource->delete();
+        }
     }
 
     public function show($id) {
@@ -130,10 +150,10 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
-        $strips = $comic->strips()->where('isShowable', TRUE)->orderBy('validated_at', 'desc')->take(3)->get();
+        
         return View::make('comic.show', [
             'comic' => $comic,
-            'strips' => $strips
+            'strips' => $comic->stripsShowable(3)
         ]);
     }
 
@@ -165,15 +185,15 @@ class ComicController extends BaseController {
         $comic->validated_by = Auth::id();
         $comic->validated_at = new DateTime();
         $user = User::find($comic->created_by);
-        
+
         switch ($choice) {
             case 'accept':
                 $comic->validated_state = ValidateEnum::VALIDATED;
                 $comic->save();
-                if(!empty($user)){
+                if (!empty($user)) {
                     Mail::send('emails.accept_moderation', [
-                    'username' => $user->username
-                    ], function ($message) use($user) {
+                        'username' => $user->username
+                            ], function ($message) use($user) {
                         $message->to($user->email, $user->username)->subject(Lang::get('moderate.accepted_comic'));
                     });
                 }
@@ -197,18 +217,18 @@ class ComicController extends BaseController {
                         $comic->delete();
                     });
                 }
-                
-               
-                if(!empty($user)){
+
+
+                if (!empty($user)) {
                     Mail::send('emails.refuse_moderation', [
-                    'deleted' => Input::has('delete'),
-                    'comment' => $comment,
-                    'username' => $user->username
-                    ], function ($message) use($user) {
+                        'deleted' => Input::has('delete'),
+                        'comment' => $comment,
+                        'username' => $user->username
+                            ], function ($message) use($user) {
                         $message->to($user->email, $user->username)->subject(Lang::get('moderate.refused_comic'));
                     });
                 }
-                
+
                 break;
             default:
                 throw new InvalidArgumentException();
@@ -232,5 +252,5 @@ class ComicController extends BaseController {
             'lang_id' => 'required|numeric'
         ];
     }
-    
+
 }

@@ -14,7 +14,7 @@ class RoleRessource extends \Eloquent {
     public $timestamps = false;
 
     /**
-     * Add the access right to the user on the specified ressource
+     * Add or update the access right to the user on the specified ressource
      * @param type $role_id
      * @param type $ressource
      * @param type $ressource_id
@@ -52,14 +52,24 @@ class RoleRessource extends \Eloquent {
         return $role_ressource->save();
     }
 
-    private function checkRessource($ressource) {
-        if (!RessourceDefinition::isValidValue($ressource)) {
-            return \Redirect::route('access.denied');
+    public function removeRight($roleRessource_id) {
+
+        $row = RoleRessource::find($roleRessource_id);
+
+        if (empty($row)) {
+            return false;
         }
+
+        //FIXME : what is the return ?
+        $row->delete();
+        return true;
     }
 
     private function canAccessRessource($role_desc, $ressource, $ressource_id, $user_id) {
-        $this->checkRessource($ressource);
+
+        if (!RessourceDefinition::isValidValue($ressource)) {
+            return \Redirect::route('access.denied');
+        }
 
         $userRessourceAccesRight = RoleRessource::whereuser_id($user_id)
                 ->whereressource($ressource)
@@ -85,12 +95,15 @@ class RoleRessource extends \Eloquent {
     }
 
     public function isAllowed($role_desc, $ressource, $ressource_id, $user_id) {
-        $this->checkRessource($ressource);
 
-        if(!\Auth::check()) {
+        if (!RessourceDefinition::isValidValue($ressource)) {
+            return \Redirect::route('access.denied');
+        }
+
+        if (!\Auth::check()) {
             return $this->getVisitorRights($role_desc);
         }
-        
+
         if (User::find($user_id)->isSuperAdministrator()) {
             return true;
         }
@@ -115,7 +128,7 @@ class RoleRessource extends \Eloquent {
     }
 
     private function getAccessMode($routeName) {
-// Getting the access mode : C,R,U,(M),D
+        // Getting the access mode : C,R,U,(M),D
         if (preg_match('/.create$|.store$/', $routeName)) {
             return 'C';
         } elseif (preg_match('/.show$/', $routeName)) {
@@ -130,7 +143,7 @@ class RoleRessource extends \Eloquent {
     }
 
     public function filter($route) {
-// We get the route name (ressource.xxxxx)
+        // We get the route name (ressource.xxxxx)
         $routeName = \Route::getCurrentRoute()->getName();
 
         $access_mode = $this->getAccessMode($routeName);
