@@ -76,15 +76,15 @@ class Strip extends Eloquent implements Moderable {
     public function getPreviousShowable() {
         return $this->comic->strips()
             ->where('isShowable', true)
-            ->where('id', '<', $this->id)
-            ->orderBy('id', 'desc')
+            ->where('index', '<', $this->index)
+            ->orderBy('index', 'desc')
             ->first();
     }
     
     public function getAnotherShowable() {
         return $this->comic->strips()
             ->where('isShowable', true)
-            ->where('id', '<>', $this->id)
+            ->where('index', '<>', $this->index)
             ->orderByRaw('RAND()')
             ->first();
     }
@@ -92,8 +92,8 @@ class Strip extends Eloquent implements Moderable {
     public function getNextShowable() {
         return $this->comic->strips()
             ->where('isShowable', true)
-            ->where('id', '>', $this->id)
-            ->orderBy('id')
+            ->where('index', '>', $this->index)
+            ->orderBy('index')
             ->first();
     }
     
