@@ -476,8 +476,7 @@ class StripController extends BaseController {
             return Redirect::route('strip.moderateImport',[$comic_id, $import_id]);
         }else{
             return Redirect::route('strip.index',$comic_id);
-        }
-        
+        }  
     }
     
     public function indexModerateBubble($comic_id, $bubble_id) {
@@ -511,7 +510,52 @@ class StripController extends BaseController {
     }
     
     public function moderateBubble($comic_id, $bubble_id) {
-        return 'toto';
+    $comic = Comic::find($comic_id);
+        if($comic == null) {
+            return Redirect::route('access.denied');
+        }
+        $bubble = Bubble::find($bubble_id);
+        if(empty($bubble)){
+            return Redirect::route('strip.index', $comic_id);
+        }
+        
+        $strip_id = Input::get('strip_id');
+        $choice = Input::get('choice');
+        
+        $strip = $comic->strips->find($strip_id);
+        if ($strip == null) {
+            return Redirect::route('strip.index', $comic_id);
+        }
+        
+        $bubble->validated_by = Auth::id();
+        $bubble->validated_at = new DateTime();
+        switch ($choice) {
+            case 'accept':
+                $bubble->validated_state = ValidateEnum::VALIDATED;
+                $bubble->save();
+                break;
+            case 'refuse':
+                $comment = Input::get('comment');
+                if (empty($comment)) {
+                    return Redirect::route('strip.moderateBubble',$comic_id,$bubble_id)->withMessage(Lang::get('moderate.missing_comment'));
+                }
+                $bubble->validated_state = ValidateEnum::REFUSED;
+                $bubble->validated_comments = $comment;
+                $bubble->save();
+                break;
+            default:
+                throw new InvalidArgumentException();
+        }
+        
+        $bubbles = $comic->getPendingBubbles();
+        $nb_pending_bubble = $bubbles->count();
+        
+        if($nb_pending_bubble){
+            $bubble_id = $bubbles->first()->id;
+            return Redirect::route('strip.moderateBubble',[$comic_id, $bubble_id]);
+        }else{
+            return Redirect::route('strip.index',$comic_id);
+        }
     }
     
 
