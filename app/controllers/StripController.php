@@ -882,7 +882,7 @@ class StripController extends BaseController {
     private $formRules = [
         'pageNumber' => 'numeric',
         'titles[]' => 'max:64|required',
-        'files[]' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|max:1024|image'
+        'files[]' => 'required|max:1024|image'
     ];
 
 }
