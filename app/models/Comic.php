@@ -4,18 +4,15 @@ class Comic extends Eloquent implements Moderable {
     
     use UploadFile;
 
-    protected $guarded = [
-        'id'
+    protected $guarded = ['id'];
+    protected $fillable = [
+        'title',
+        'author',
+        'authorApproval',
+        'font_id',
+        'lang_id'
     ];
     
-    public static $formrRules =  ['title' => 'required|between:4,63|unique:comics',
-                'author' => 'required|between:4,63',
-                'description' => 'max:2000',
-                'authorApproval' => 'accepted|boolean|required',
-                'cover' => 'image|mimes:png,jpeg|between:20,4096',
-                'font_id' => 'required|numeric',
-                'lang_id' => 'required|numeric'];
-
     public function strips() {
         return $this->hasMany('Strip');
     }
@@ -58,5 +55,16 @@ class Comic extends Eloquent implements Moderable {
             ->where('isShowable', true)
             ->orderBy('id', 'desc')
             ->first();
+    }
+    
+    public static function getComicToDisplay() {
+        return Comic::where(function ($query) {
+            $query->where('validated_state', ValidateEnum::VALIDATED)
+                ->orWhere('created_by', Auth::check() ? Auth::id() : 0);
+        });
+    }
+    
+    public static function getNbPending() {
+        return Comic::where('validated_state', ValidateEnum::PENDING)->count();
     }
 }
