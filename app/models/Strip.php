@@ -125,7 +125,7 @@ class Strip extends Eloquent implements Moderable {
             ->where('strips.validated_state', ValidateEnum::VALIDATED)
             ->where('strips.id',$this->id)
             ->groupBy('strips.id')
-            ->count() > 1;
+            ->count() > 0;
         
         $this->save();
     }
