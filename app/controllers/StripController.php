@@ -407,7 +407,7 @@ class StripController extends BaseController {
         $strip = $bubble->strip;
         //$shape = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
         $shape = $strip->shapes()->where(function ($q) {
-            $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::user()->id);
+            $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::id());
         })->first();
         
         
@@ -415,8 +415,6 @@ class StripController extends BaseController {
         $previousPendingImport = $comic->getPendingImport()->where('bubbles.id', '<', $import_id)->orderBy('bubbles.id')->first();
  
         View::share([
-        'fonts' => Font::all()->lists('name', 'name'),
-        'font_id' => Font::find($strip->comic->font_id)->name,
         'strip' => $strip,
         'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
         'bubble' => $bubble,
@@ -470,14 +468,50 @@ class StripController extends BaseController {
                 throw new InvalidArgumentException();
         }
         
-        return 'toto';
+        $imports = $comic->getPendingImport();
+        $nb_pending_import = $imports->count();
+        
+        if($nb_pending_import){
+            $import_id = $imports->first()->id;
+            return Redirect::route('strip.moderateImport',[$comic_id, $import_id]);
+        }else{
+            return Redirect::route('strip.index',$comic_id);
+        }
         
     }
     
     public function indexModerateBubble($comic_id, $bubble_id) {
+        $comic = Comic::find($comic_id);
+        if($comic == null) {
+            return Redirect::route('access.denied');
+        }
+        $bubble = Bubble::find($bubble_id);
+        if(empty($bubble)){
+            return Redirect::route('strip.index', $comic_id);
+        }
+        $strip = $bubble->strip;
+        //$shape = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
+        $shape = $strip->shapes()->where(function ($q) {
+            $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::id());
+        })->first();
         
         
+        $nextPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '>', $bubble_id)->orderBy('bubbles.id')->first();
+        $previousPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '<', $bubble_id)->orderBy('bubbles.id')->first();
+        
+        View::share([
+        'strip' => $strip,
+        'canvas_delivered' => $this->mergeShapesAndBubblesJSON($shape, $bubble),
+        'bubble' => $bubble,
+        'nextPendingBubble' => $nextPendingBubble,
+        'previousPendingBubble' => $previousPendingBubble
+        ]);
+         
         return View::make('strip.moderate_bubble');
+    }
+    
+    public function moderateBubble($comic_id, $bubble_id) {
+        return 'toto';
     }
     
 
