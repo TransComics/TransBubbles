@@ -563,6 +563,7 @@ class StripsTableSeeder extends Seeder {
 
         Strip::create([
             'id' => '46',
+            'index' => 46,
             'title' => '#234',
             'path' => '/uploads/0/049811a2314c0df98a594f4b131583a6',
             'isShowable' => false,
