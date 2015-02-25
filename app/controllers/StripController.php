@@ -781,6 +781,9 @@ class StripController extends BaseController {
         // FIXE ME GET BEST $LANG_TO
         
         if ($best_bubbles === null) {
+            $best_bubbles = $strip->getBestBubbles($strip->comic->lang_id, Auth::id());
+        }
+        if ($best_bubbles === null) {
             return Redirect::route('access.denied');
         }
 
