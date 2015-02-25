@@ -24,7 +24,7 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('access.denied');
         }
-        
+
         if (!$strip->isShowable()) {
             return Redirect::route('access.denied');
         }
@@ -37,19 +37,19 @@ class StripController extends BaseController {
         }
         
         $available_languages = DB::table('languages')
-            ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
-            ->where('bubbles.strip_id', '=', $strip->id)
-            ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
-            ->select('languages.id', 'languages.label')
-            ->lists('label', 'id');
+                ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
+                ->where('bubbles.strip_id', '=', $strip->id)
+                ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
+                ->select('languages.id', 'languages.label')
+                ->lists('label', 'id');
 
         View::share([
             /* Paginate. */
-            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('id')->first(),
-            'previous_strip' => $comic->strips()->where('isShowable', true)->where('id', '<', $strip->id)->orderBy('id', 'desc')->first(),
-            'random_strip' => $comic->strips()->where('isShowable', true)->where('id', '<>', $strip->id)->orderByRaw('RAND()')->first(),
-            'next_strip' => $comic->strips()->where('isShowable', true)->where('id', '>', $strip->id)->orderBy('id')->first(),
-            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('id', 'desc')->first(),
+            'first_strip' => $comic->getFirstShowable(),
+            'previous_strip' => $strip->getPreviousShowable(),
+            'random_strip' => $strip->getAnotherShowable(),
+            'next_strip' => $strip->getNextShowable(),
+            'last_strip' => $comic->getLastShowable(),
             'available_languages' => $available_languages,
             'lang_strip' => $lang_strip,
             'bubble_id' => $bubbles->id,
@@ -59,7 +59,7 @@ class StripController extends BaseController {
         ]);
 
         return View::make('strip.show', [
-                'strips' => $strip
+                    'strips' => $strip
         ]);
     }
 
@@ -71,31 +71,25 @@ class StripController extends BaseController {
     public function index($comic_id) {
 
         $comic = Comic::find($comic_id);
-        if ($comic == null) {
+        if ($comic == null || $comic->strips->count() < 1) {
             return Redirect::route('comic.index');
         }
 
-        if ($comic->strips->count() < 1) {
-            return Redirect::route('comic.index');
-        }
+        $paginate = Session::has('paginate') ? Session::get('paginate') : 12;
 
         if (RoleRessource::isAllowed('M', RessourceDefinition::Comics, $comic_id, Auth::id())) {
-            $strips = $comic->strips();
+            $strips = $comic->strips()->paginate($paginate);
         } else {
-            $strips = $comic->strips()->where(function ($q) {
-                $q->where('isShowable', TRUE)
-                    ->orWhere('user_id', Auth::id());
-            });
+            $strips = $comic->stripsValidated($paginate);
         }
 
-        return View::make('strip.index', [
+        View::share([
             'comic' => $comic,
-            'strips' => $comic->strips()->where(function ($q) {
-                            $q->where('validated_state', ValidateEnum::VALIDATED)
-                            ->orWhere('user_id', Auth::check() ? Auth::id() : 0);
-                        })->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
+            'strips' => $strips,
             'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count()
         ]);
+        
+        return View::make('strip.index');
     }
 
     public function edit($comic_id, $id) {
@@ -109,18 +103,18 @@ class StripController extends BaseController {
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
-        
+
         Form::setValidation(Strip::$rules);
         return View::make('strip.edit', [
-                'strips' => $strip
+                    'strips' => $strip
         ]);
     }
 
     public function create($comic_id) {
         Form::setValidation(Strip::$rules);
         return View::make('strip.create', [
-                'strips' => new Strip(),
-                'comic_id' => $comic_id
+                    'strips' => new Strip(),
+                    'comic_id' => $comic_id
         ]);
     }
 
@@ -132,8 +126,8 @@ class StripController extends BaseController {
      */
     public function update($comic_id, $id) {
         $valid = Validator::make([
-                'title' => Input::get('title')
-                ], Strip::$updateRules);
+                    'title' => Input::get('title')
+                        ], Strip::$updateRules);
 
         $comic = Comic::find($comic_id);
         if ($comic == null) {
@@ -147,11 +141,12 @@ class StripController extends BaseController {
 
         if ($valid->passes()) {
             $strip->title = Input::get('title');
+            $strip->validated_state = ValidateEnum::PENDING;
             $strip->save();
         } else {
             return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
-                    ->withErrors($valid)
-                    ->withInput();
+                            ->withErrors($valid)
+                            ->withInput();
         }
         return Redirect::back()->with('message', Lang::get('strips.editComplete'));
     }
@@ -164,19 +159,20 @@ class StripController extends BaseController {
      */
     public function store($comic_id) {
 
-        $files = Input::file('strips');
-        foreach ($files as $file) {
+        $titles = Input::get('titles');
+        $files = Input::file('files');
+        foreach ($files as $key => $file) {
             $valid = Validator::make([
                     'strip' => $file,
-                    'title' => Input::get('title')
+                    'title' => $titles[$key]
                     ], Strip::$rules);
             if ($valid->fails()) {
-                return Redirect::back()->withInput()->withErrors($valid);
+                return Redirect::back()->withErrors($valid);
             } else {
                 $fileLocation = UploadFile::uploadFile($file);
 
                 $strip = new Strip();
-                $strip->title = Input::get('title');
+                $strip->title = $titles[$key];
                 $strip->path = $fileLocation;
                 $strip->validated_at = NULL;
                 $strip->comic_id = $comic_id;
@@ -208,6 +204,9 @@ class StripController extends BaseController {
         }
         UploadFile::dropFile($strip->path);
         $strip->delete();
+        
+        $this->removeRightOnStrip($id, $strip->user_id);
+        
         return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
     }
 
@@ -221,7 +220,7 @@ class StripController extends BaseController {
 
         if ($strip->count()) {
             return View::make('strip.moderate')->with('strip', $strip->get()
-                        ->random());
+                                    ->random());
         }
         return Redirect::route('strip.index');
     }
@@ -247,6 +246,9 @@ class StripController extends BaseController {
             case 'accept':
                 $strip->validated_state = ValidateEnum::VALIDATED;
                 $strip->save();
+
+                $this->removeRightOnStrip($strip_id, $strip->user_id);
+
                 break;
             case 'refuse':
                 $comment = Input::get('comment');
@@ -267,13 +269,29 @@ class StripController extends BaseController {
                 throw new InvalidArgumentException();
         }
 
+
+
         $strip = $comic->strips()->wherevalidated_state(ValidateEnum::PENDING);
 
         if ($strip->count()) {
             return View::make('strip.moderate')->with('strip', $strip->get()
-                        ->random());
+                                    ->random());
         }
         return Redirect::route('strip.index', $comic_id);
+    }
+
+    private function removeRightOnStrip($strip_id, $user_id) {
+
+        $role_ressource = RoleRessource::where('ressource', RessourceDefinition::Strips)
+                ->where('ressource_id', $strip_id)
+                ->where('user_id', $user_id)
+                ->first();
+
+        if (empty($role_ressource)) {
+            Log::error('Error when removing right of user $user_id on the strip $strip_id after moderation');
+        } else {
+            $role_ressource->delete();
+        }
     }
 
     /**
@@ -288,8 +306,8 @@ class StripController extends BaseController {
         }
 
         $shape = $strip->shapes()
-            ->where('user_id', '=', Auth::id())
-            ->first();
+                ->where('user_id', '=', Auth::id())
+                ->first();
 
         View::share([
             'shape' => $shape != null ? $shape : new Shape(),
@@ -307,8 +325,8 @@ class StripController extends BaseController {
         }
 
         $shape = $strip->shapes()
-            ->where('user_id', Auth::user()->id)
-            ->first();
+                ->where('user_id', Auth::user()->id)
+                ->first();
 
         if ($shape == null) {
             $shape = new Shape();
@@ -321,13 +339,13 @@ class StripController extends BaseController {
 
         if (Input::get('action') == "saveClean") {
             return Redirect::route('strip.index', [
-                    $comic_id
+                        $comic_id
             ]);
         }
 
         return Redirect::route('strip.import', [
-                $comic_id,
-                $strip_id
+                    $comic_id,
+                    $strip_id
         ]);
     }
 
@@ -344,9 +362,9 @@ class StripController extends BaseController {
         $shape = $strip->getBestShapes(Auth::id());
         
         $bubble = $strip->bubbles()
-            ->where('user_id', Auth::user()->id)
-            ->where('lang_id', '=', $strip->comic->lang_id)
-            ->first();
+                ->where('user_id', Auth::user()->id)
+                ->where('lang_id', '=', $strip->comic->lang_id)
+                ->first();
         View::share([
             'fonts' => Font::all()->lists('name', 'name'),
             'font_id' => Font::find($strip->comic->font_id)->name,
@@ -383,7 +401,7 @@ class StripController extends BaseController {
         $bubble->save();
 
         return Redirect::route('strip.index', [
-                $comic_id
+                    $comic_id
         ]);
     }
 
@@ -456,7 +474,7 @@ class StripController extends BaseController {
         $bubble->save();
 
         return Redirect::route('strip.index', [
-                $comic_id
+                    $comic_id
         ]);
     }
 
