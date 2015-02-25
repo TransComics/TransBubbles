@@ -113,13 +113,13 @@ Route::group(['prefix' => '/comic/{comic}/strip'], function () {
         'as' => 'strip.index',
         'uses' => 'StripController@index'
     ]);
-    Route::get('/moderate', [
+    Route::get('/moderate/{strip_id}', [
         'as' => 'strip.moderate',
         'uses' => 'StripController@indexModerate',
         'before' => 'access'
     ]);
 
-    Route::post('/moderate', [
+    Route::post('/moderate/{strip_id}', [
         'as' => 'strip.select',
         'uses' => 'StripController@moderate',
         'before' => 'access'

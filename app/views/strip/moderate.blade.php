@@ -38,7 +38,7 @@ $(document).ready(function() {
 </div>
 </br>
 <div class="text-center center-block">
-	{{ Form::open(['route' => ['strip.select', $strip->comic_id], 'method'=>'post','id'=>'moderate']); }} 
+	{{ Form::open(['route' => ['strip.select', $strip->comic_id, $strip->id], 'method'=>'post','id'=>'moderate']); }} 
 	{{ Form::hidden('choice', '', ['id' =>'choice']) }} 
 	{{ Form::hidden('strip_id', $strip->id, ['id' => 'strip_id']) }}
 	<div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog"
@@ -63,9 +63,19 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+    <div class="btn-group" role="group">
+	@if($previousPendingStrip)
+		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.moderate', ['comic_id' => $strip->comic_id, 'strip_id' => $previousPendingStrip->id] )}}"></a>
+    @endif
+	@if($nextPendingStrip)
+	   <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.moderate',['comic_id' => $strip->comic_id, 'strip_id' => $nextPendingStrip->id] )}}"></a>
+	@endif
+	</div>
+	<br/>
+	<br/>
+	<a class="btn btn-default  btn-lg" href="{{URL::route('strip.index', $strip->comic_id)}}">@lang('moderate.quit')</a>
 	<a class="btn btn-danger btn-lg clickable" data-toggle="modal"
-		data-target="#confirm-submit" id="refuse">@lang('moderate.refuse')</a>
-	{{HTML::linkRoute('strip.moderate', Lang::get('moderate.getother'), $strip->comic_id, ['class'=> 'btn btn-primary btn-lg']);}} 
+		data-target="#confirm-submit" id="refuse">@lang('moderate.refuse')</a> 
 	<a class="btn btn-success  btn-lg clickable" id="accept">@lang('moderate.validate')</a>
 	{{ Form::close(); }}
 </div>
