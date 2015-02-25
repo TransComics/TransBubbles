@@ -161,14 +161,14 @@ class StripController extends BaseController {
             return Redirect::route('comic.index');
         }
 
-        Form::setValidation(Strip::$rules);
+        Form::setValidation($this->formRules);
         return View::make('strip.edit', [
                     'strips' => $strip
         ]);
     }
 
     public function create($comic_id) {
-        Form::setValidation(Strip::$rules);
+        Form::setValidation($this->formRules);
         return View::make('strip.create', [
                     'strips' => new Strip(),
                     'comic_id' => $comic_id
@@ -878,5 +878,11 @@ class StripController extends BaseController {
     private function getWidth($shapes) {
         return json_decode($shapes, true)['objects'][0]['width'];
     }
+    
+    private $formRules = [
+        'pageNumber' => 'numeric',
+        'titles[]' => 'max:64|required',
+        'files[]' => 'required|mimes:jpeg,bmp,png,tiff,tif,jpg|max:1024|image'
+    ];
 
 }
