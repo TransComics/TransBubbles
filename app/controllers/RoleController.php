@@ -70,21 +70,21 @@ class RoleController extends BaseController {
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) {
             Log::info('into store fail' . $validator->messages());
-            return Redirect::back()->withErrors($validator)->withInput();
+            return Redirect::back()->withErrors($validator);
         }
 
         $role = Role::find($role_id);
         if ($role == NULL) {
             Log::info('unknown role $role_id');
 // TODO : Create lang
-            return Redirect::back()->withErrors(Lang::get('role.errorUpdatingRole'))->withInput();
+            return Redirect::back()->withError(Lang::get('role.errorUpdatingRole'));
         }
 
         $user = User::whereusername(Input::get('name'))->first();
         if (empty($user)) {
             Log::info('invalid user' . Input::get('name'));
 //Todo : Create message
-            return Redirect::back()->withErrors(Lang::get('role.errorUpdatingRole'))->withInput();
+            return Redirect::back()->withError(Lang::get('role.errorUpdatingRole'));
         }
 
         $result = RoleRessource::addRight($role_id, RessourceDefinition::All, RessourceDefinition::All, $user->id);
@@ -98,7 +98,7 @@ class RoleController extends BaseController {
             ]);
         } else {
             Log::info('unknown error when adding/updating userRole : addRight return false');
-            return Redirect::back()->withErrors(Lang::get('role.errorUpdatingRole'))->withInput();
+            return Redirect::back()->withError(Lang::get('role.errorUpdatingRole'));
         }
     }
 
@@ -113,18 +113,7 @@ class RoleController extends BaseController {
 
         if (is_null($roleRessource)) {
             return Redirect::route('private..roles.show', $role_id)
-                            ->withErrors(Lang::get('role.errorDeleteRole'))
-                            ->withInput();
-        }
-
-        // Is Super Admin
-        if ($role_id == 1) {
-            $user = User::find($roleRessource->user_id);
-            if(!empty($user) && $user->isSuperAdministrator()) {
-                return Redirect::route('private..roles.show', $role_id)
-                            ->withErrors(Lang::get('role.cannotsuppress'));
-                            //->withInput();
-            }
+                            ->withError(Lang::get('role.errorDeleteRole'));
         }
 
         $filteredRoleRessource = RoleRessource::whererole_id($role_id)
@@ -141,8 +130,7 @@ class RoleController extends BaseController {
         } else {
             Log::info('unknown error when removing userRole : removeRight returned false with role_id : $role_id');
             return Redirect::route('private..roles.show', $role_id)
-                            ->withErrors(Lang::get('role.cannotsuppress'))
-                            ->withInput();
+                            ->withError(Lang::get('role.cannot_suppress'));
         }
     }
 

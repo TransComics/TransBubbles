@@ -40,9 +40,10 @@
 <p class="alert alert-info">{{ Session::get('message') }}</p>
 @endif
 
-@if(Session::has('errors'))
-<p class="alert alert-danger">{{ Session::get('errors') }}</p>
+@if(Session::has('error'))
+<p class="alert alert-danger">{{ Session::get('error') }}</p>
 @endif
+
 <div class="row">
     <div class="row-same-height">
         <div class="col-xs-10 col-xs-height">
