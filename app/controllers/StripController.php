@@ -45,11 +45,11 @@ class StripController extends BaseController {
 
         View::share([
             /* Paginate. */
-            'first_strip' => $comic->strips()->where('isShowable', true)->orderBy('id')->first(),
-            'previous_strip' => $comic->strips()->where('isShowable', true)->where('id', '<', $strip->id)->orderBy('id', 'desc')->first(),
-            'random_strip' => $comic->strips()->where('isShowable', true)->where('id', '<>', $strip->id)->orderByRaw('RAND()')->first(),
-            'next_strip' => $comic->strips()->where('isShowable', true)->where('id', '>', $strip->id)->orderBy('id')->first(),
-            'last_strip' => $comic->strips()->where('isShowable', true)->orderBy('id', 'desc')->first(),
+            'first_strip' => $comic->getFirstShowable(),
+            'previous_strip' => $strip->getPreviousShowable(),
+            'random_strip' => $strip->getAnotherShowable(),
+            'next_strip' => $strip->getNextShowable(),
+            'last_strip' => $comic->getLastShowable(),
             'available_languages' => $available_languages,
             'lang_strip' => $lang_strip,
             'bubble_id' => $bubbles->id,
@@ -71,31 +71,25 @@ class StripController extends BaseController {
     public function index($comic_id) {
 
         $comic = Comic::find($comic_id);
-        if ($comic == null) {
+        if ($comic == null || $comic->strips->count() < 1) {
             return Redirect::route('comic.index');
         }
 
-        if ($comic->strips->count() < 1) {
-            return Redirect::route('comic.index');
-        }
+        $paginate = Session::has('paginate') ? Session::get('paginate') : 12;
 
         if (RoleRessource::isAllowed('M', RessourceDefinition::Comics, $comic_id, Auth::id())) {
-            $strips = $comic->strips();
+            $strips = $comic->strips()->paginate($paginate);
         } else {
-            $strips = $comic->strips()->where(function ($q) {
-                $q->where('isShowable', TRUE)
-                        ->orWhere('user_id', Auth::id());
-            });
+            $strips = $comic->stripsValidated($paginate);
         }
 
-        return View::make('strip.index', [
-                    'comic' => $comic,
-                    'strips' => $comic->strips()->where(function ($q) {
-                                $q->where('validated_state', ValidateEnum::VALIDATED)
-                                        ->orWhere('user_id', Auth::check() ? Auth::id() : 0);
-                            })->paginate(Session::has('paginate') ? Session::get('paginate') : 12),
-                    'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count()
+        View::share([
+            'comic' => $comic,
+            'strips' => $strips,
+            'nb_pending' => $comic->strips()->wherevalidated_state(ValidateEnum::PENDING)->count()
         ]);
+        
+        return View::make('strip.index');
     }
 
     public function edit($comic_id, $id) {
