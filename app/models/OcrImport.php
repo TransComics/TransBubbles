@@ -51,10 +51,12 @@ class OcrImport {
             $job->delete(); // No insertion into DB if the content is null.
             return;
         }
-        $texts = explode("\n\n", htmlspecialchars($text, 0, "UTF-8"));
+        $text = preg_replace('/[><]/','*', $text);
+        $texts = explode("\n\n", $text);
         
         $i=1;
         foreach ($texts as $text) {
+            
             $text = trim($text);
             if (!empty($text)) {
                 $bubbleValue['objects']['index_'.$i] = array(
