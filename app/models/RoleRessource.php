@@ -59,7 +59,6 @@ class RoleRessource extends \Eloquent {
         if (empty($row)) {
             return false;
         }
-
         //FIXME : what is the return ?
         $row->delete();
         return true;
@@ -73,7 +72,7 @@ class RoleRessource extends \Eloquent {
 
         $userRessourceAccesRight = RoleRessource::whereuser_id($user_id)
                 ->whereressource($ressource)
-                ->where('ressource_id', 'LIKE', $ressource_id)
+                ->whereressource_id($ressource_id)
                 ->first();
 
         // We don't know the access
@@ -131,13 +130,21 @@ class RoleRessource extends \Eloquent {
         // Getting the access mode : C,R,U,(M),D
         if (preg_match('/.create$|.store$/', $routeName)) {
             return 'C';
-        } elseif (preg_match('/.show$/', $routeName)) {
+        }
+
+        if (preg_match('/.show$/', $routeName)) {
             return 'R';
-        } elseif (preg_match('/.edit$|.update$/', $routeName)) {
+        }
+
+        if (preg_match('/.edit$|.update$/', $routeName)) {
             return 'U';
-        } elseif (preg_match('/.destroy$/', $routeName)) {
+        }
+
+        if (preg_match('/.destroy$/', $routeName)) {
             return 'D';
-        } elseif (preg_match('/.moderate$|.select$/', $routeName)) {
+        }
+
+        if (preg_match('/.moderate$|.select$/', $routeName)) {
             return 'M';
         }
     }

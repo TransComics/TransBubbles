@@ -19,5 +19,5 @@ return array(
     'lastStrip' => 'Latest strips addition',
     'latestUpdated' => 'Latest comics updated',
     'noStrip' => 'Currently no strip, please add one.',
-    'pending' => 'Pending comics to meoderate'
+    'pending' => 'Pending comics to moderate'
 );

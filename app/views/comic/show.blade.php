@@ -16,8 +16,9 @@
         <div class="row-same-height" style="border-bottom: 1px solid #464545;">
             <div class="col-md-9 col-xs-height">
                 <h1>
-                    @if (Auth::check())
-                    {{$comic->title}} <small>{{ Lang::get('comic.created',['created' => $comic->author]) }}</small>
+                    {{$comic->title}}
+                    @if (Auth::check() && Auth::user()->isComicAdminWithID($comic->id))
+                    <small>{{ Lang::get('comic.created',['created' => $comic->author]) }}</small>
                     <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
                     {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => 'deleteForm', 'style' => 'display : inline;']); }}
                     <a title="@lang('base.delete')" data-toggle="modal" data-target="#confirm-submit" data-href="{{$comic->id}}" class="btn btn-danger btn-sm glyphicon glyphicon-remove"></a>
@@ -45,7 +46,6 @@
         <div class="col-xs-10 col-xs-height">
             <h3>@if (count($strips) > 0) @lang('comic.lastStrip') @else @lang('comic.noStrip') @endif</h3>
         </div>
-
         <div class="col-xs-2  col-xs-height col-bottom">
             @if (count($strips) > 0)
             <a href="{{URL::route('strip.index', [$comic->id])}}" title="strip.index" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
@@ -54,26 +54,33 @@
             <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
             @endif
         </div>
-
     </div>
 </div>
 @if (count($strips) > 0)
 <hr>
-</br>
+<br/>
 <div class="row">
     @foreach($strips as $strip)
-    <div class="col-sm-6 col-md-4">
-        <a href="{{ route('strip.show',[ $comic->id, $strip->id]) }}"
-           class="thumbnail">
-            <h4 class="caption">{{ $strip->title }}</h4>
-            <!-- {{HTML::image($strip->path, $strip->title,['id' =>'imageThumb'])}}-->
-            <img src="{{ Image::path($strip->path, 'resizeCrop', 350, 200)->responsive('max-width=350', 'resize', 100) }}"  alt="{{$strip->title}}" class="img-responsive"/>
-        </a>
-
-    </div>
+    <div class="col-sm-6 col-lg-4 padding-10">
+        <div class="border thumbnail padding-10">
+            <a href="{{ route('strip.show',[ $comic->id, $strip->id]) }}">
+             <div class="caption">
+                <h3 class="one-line">
+                    {{ $strip->title }} 
+                </h3>
+             </div>
+             <img src="{{ Image::path($strip->path, 'resizeCrop', 250, 350)->responsive('max-width=250', 'resize', 100) }}"  
+             alt="{{$strip->title}}" class="img-responsive img-rounded" style="overflow:hidden; width:250px;
+             height:250px; display:block; margin:0 auto;"/>
+            </a>
+         </div>
+    </div>   
     @endforeach
-
     @include('common.submit_delete')
 </div>
 @endif
 @stop
+@section('master.nav')
+    @parent
+    @include('common.moderate_nav')
+@append

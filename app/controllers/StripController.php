@@ -37,14 +37,14 @@ class StripController extends BaseController {
         if ($bubbles === null) {
             $bubbles = $strip->getBestBubbles($strip->comic->lang_id, Auth::id());
         }
-        
+
         $available_languages = DB::table('languages')
                 ->join('bubbles', 'bubbles.lang_id', '=', 'languages.id')
                 ->where('bubbles.strip_id', '=', $strip->id)
                 ->where('bubbles.validated_state', ValidateEnum::VALIDATED)
                 ->select('languages.id', 'languages.label')
                 ->lists('label', 'id');
-        
+
         View::share([
             'isTheOriginal' => $bubbles->isOriginal(),
             'first_strip' => $comic->getFirstShowable(),
@@ -173,7 +173,7 @@ class StripController extends BaseController {
         Form::setValidation($this->formRules);
         $maxIndex = intval(Strip::where('comic_id', $comic_id)->max('index'));
         $maxIndex++;
-        
+
         return View::make('strip.create', [
                     'strips' => new Strip(),
                     'comic_id' => $comic_id,
@@ -214,7 +214,12 @@ class StripController extends BaseController {
             }
 
             $strip->title = Input::get('title');
-            $strip->validated_state = ValidateEnum::PENDING;
+
+            if (Auth::user()->isComicAdminWithID($comic_id)) {
+                $strip->validated_state = ValidateEnum::VALIDATED;
+            } else {
+                $strip->validated_state = ValidateEnum::PENDING;
+            }
 
             $strip->save();
         } else {
@@ -258,6 +263,13 @@ class StripController extends BaseController {
             $strip->comic_id = $comic_id;
             $strip->user_id = Auth::id();
             $strip->index = $indexes[$key];
+            
+            if (Auth::user()->isComicAdminWithID($comic_id)) {
+                $strip->validated_state = ValidateEnum::VALIDATED;
+            } else {
+                $strip->validated_state = ValidateEnum::PENDING;
+            }
+            
             $strip->save();
             RoleRessource::addRight(2, RessourceDefinition::Strips, $strip->id, Auth::id());
 
@@ -284,21 +296,21 @@ class StripController extends BaseController {
      * @return Response
      */
     public function destroy($comic_id, $id) {
-        $popularity=Popularities::where('strip_id',$id)->first();
+        $popularity = Popularities::where('strip_id', $id)->first();
         if ($popularity != null) {
             $popularity->delete();
         } else {
             Log::error("Popularity not found");
         }
-        
-        $strip = Strip::find($id);        
+
+        $strip = Strip::find($id);
         if ($strip == null) {
             return Redirect::route('comic.index');
         }
         UploadFile::dropFile($strip->path);
         $strip->delete();
-        
-        
+
+
         $this->removeRightOnStrip($id, $strip->user_id);
 
         return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
@@ -714,7 +726,7 @@ class StripController extends BaseController {
             return Redirect::route('access.denied');
         }
         $shape = $strip->getBestShapes(Auth::id());
-        
+
         $bubble = $strip->bubbles()
                 ->where('user_id', Auth::user()->id)
                 ->where('lang_id', '=', $strip->comic->lang_id)
@@ -770,17 +782,17 @@ class StripController extends BaseController {
         if ($strip === null || !$strip->isTranslateable()) {
             return Redirect::route('access.denied');
         }
-        
+
         $lang_from = Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id;
         $lang_to = Session::has('lang_strip_to') ? Session::get('lang_strip_to') : $strip->comic->lang_id;
         $lang_available_from = $strip->getLanguagesWithTranslate(Auth::id())->lists('label', 'id');
         $lang_available_to = $strip->getLanguagesToTranslate()->lists('label', 'id');
-        
+
         $shapes = $strip->getBestShapes(Auth::id());
         $best_bubbles = $strip->getBestBubbles($lang_from, Auth::id());
         $delivred_bubbles = $strip->getBubblesToEdit($lang_to, Auth::id());
         // FIXE ME GET BEST $LANG_TO
-        
+
         if ($best_bubbles === null) {
             $best_bubbles = $strip->getBestBubbles($strip->comic->lang_id, Auth::id());
         }
@@ -802,7 +814,7 @@ class StripController extends BaseController {
             'strip_height' => $this->getHeight($shapes->value),
             'strip_width' => $this->getWidth($shapes->value)
         ]);
-        
+
         return View::make('strip.translate');
     }
 
@@ -865,7 +877,7 @@ class StripController extends BaseController {
     private function getWidth($shapes) {
         return json_decode($shapes, true)['objects'][0]['width'];
     }
-    
+
     private $formRules = [
         'pageNumber' => 'numeric',
         'titles[]' => 'max:64|required',

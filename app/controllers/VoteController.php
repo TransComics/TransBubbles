@@ -17,7 +17,8 @@ class VoteController extends \BaseController {
         }
         
         $lang_from = Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id;
-        $lang_available_from = $strip->getLanguagesWithTranslate()->lists('label', 'id');
+        $lang_available_from = $strip->getLanguagesWithTranslate()->where('languages.id', '<>', $strip->comic->lang_id)->lists('label', 'id');
+            
         
         $bubbles = $strip->bubbles()->where('lang_id', $lang_from)
                                     ->where('validated_state',  ValidateEnum::VALIDATED)->get();

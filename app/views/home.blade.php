@@ -10,7 +10,6 @@
 
 @if(Auth::check())
     {{ Session::get('message') }} 
-    <p>{{ HTML::link('logout', 'logout') }}</p>
 @endif 
 
 
@@ -102,3 +101,8 @@
 
 
 @stop
+
+@section('master.nav')
+    @include('common.admin_nav')
+    @parent
+@append

@@ -12,6 +12,7 @@ class HomeController extends BaseController {
      * | get you started. To route to this controller, just add the route:
      * |
      */
+
     public function home() {
         
         $strips = Strip::where('validated_state', ValidateEnum::VALIDATED)
@@ -31,9 +32,10 @@ class HomeController extends BaseController {
         
         View::share([
             'strips' => $strips,
-            'comics' => $comics
+            'comics' => $comics,
+            'nb_pending_comics' => Comic::getNbPending()
         ]);
-        
+
         return View::make('home');
     }
 }

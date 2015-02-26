@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="col-xs-3 col-md-4 col-xs-height col-center">
                         <div class="form-group">
-                            {{ Form::text('text','Select a bubble ?', array('class'=>'form-control', 'style' => 'margin-bottom: 5px;', 'id' => 'texttotranslate' )) }}
+                            {{ Form::textarea('text','Select a bubble ?', array('class'=>'form-control', 'style' => 'margin-bottom: 5px;height:100px;', 'id' => 'texttotranslate' )) }}
                             <div class="row">
                                 <div class="col-xs-12 col-md-12 ">
                                     <button id="textButton" type="button" class="btn btn-primary">Translate</button>
@@ -30,7 +30,7 @@
                             <label>
                             <h4 id="apiName" class="list-group-item-heading">Google Translate</h4>
                             </label>
-                            <input type="text" id="ajax-content" class="form-control" style="margin-bottom: 5px;" />
+                            <textarea id="ajax-content" class="form-control" style="margin-bottom: 5px;height:100px;" > </textarea>
                         </div>
                     </div>
                 </div>
