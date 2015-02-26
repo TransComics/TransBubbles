@@ -44,7 +44,7 @@ class ComicController extends BaseController {
     }
 
     public function store() {
-        $v = Validator::make(Input::all(), ComicController::getRules());
+        $v = Validator::make(InputParser::parseAll(Input::all()), ComicController::getRules());
 
         if ($v->passes()) {
             $comic = new Comic();
@@ -75,7 +75,7 @@ class ComicController extends BaseController {
     public function update($id) {
 
         $comic = Comic::findOrFail($id);
-        $v = Validator::make(Input::all(), ComicController::getRules($comic->id));
+        $v = Validator::make(InputParser::parseAll(Input::all()), ComicController::getRules($comic->id));
 
         if ($v->passes()) {
             $comic->title = Input::get('title');
@@ -189,6 +189,8 @@ class ComicController extends BaseController {
         } else {
             $bubble_id = '';
         }
+        
+        $comic->description = InputParser::parseBBCode($comic->description);
         
         View::share([
         'comic' => $comic,

@@ -13,7 +13,8 @@
         "mockery/mockery": "dev-master@dev",
         "stichoza/google-translate-php": "~2.0",
         "kevbaldwyn/image":"dev-master",
-        "bllim/laravel-to-jquery-validation": "*"
+        "bllim/laravel-to-jquery-validation": "*",
+        "golonka/bbcodeparser": "1.3"
     },
 
     "autoload": {

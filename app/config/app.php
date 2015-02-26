@@ -111,6 +111,7 @@ return array(
         'Transcomics\RoleRessource\ServiceProvider\RoleRessourceServiceProvider',
         'KevBaldwyn\Image\Providers\Laravel\ImageServiceProvider',
         'Bllim\LaravelToJqueryValidation\LaravelToJqueryValidationServiceProvider',
+        'Golonka\BBCode\BBCodeParserServiceProvider'
     ),
     /*
       |--------------------------------------------------------------------------
@@ -176,5 +177,6 @@ return array(
         'GoogleTranslation' => 'Transcomics\GoogleTranslation\Facades\GoogleFacade',
         'RoleRessource' => 'Transcomics\RoleRessource\Facades\RoleRessourceFacade',
         'Image' => 'KevBaldwyn\Image\Providers\Laravel\Facades\Image',
+        'BBCode' => 'Golonka\BBCode\Facades\BBCodeParser'
     ),
 );
