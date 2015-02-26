@@ -5,7 +5,7 @@ return array(
     'title'     => 'Titre',
     'cancel'    => 'Annuler',
     'add'       => 'Ajouter',
-    'update'    => 'Mettre à Jour',
+    'update'    => 'Mettre à jour',
     'delete'    => 'Supprimer',
     'language'  => 'Langue'
 );
