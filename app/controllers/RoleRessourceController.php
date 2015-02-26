@@ -101,14 +101,30 @@ class RoleRessourceController extends BaseController {
     }
 
     private function getFilteredRoles() {
-        return Role::all([
-                    'id',
-                    'name'
-                ])->filter(function ($r) {
+        return Role::all()->filter(function ($r) {
                     if ($r->id == 1 || $r->id == 4) {
                         return false;
                     }
                     return true;
+                })->each(function ($o) {
+
+                    $o->name .=  ' (';
+                    if ($o->C) {
+                        $o->name .= 'C';
+                    }
+                    if ($o->R) {
+                        $o->name .= 'R';
+                    }
+                    if ($o->U) {
+                        $o->name .= 'U';
+                    }
+                    if ($o->M) {
+                        $o->name .= 'M';
+                    }
+                    if ($o->D) {
+                        $o->name .= 'D';
+                    }
+                    $o->name .= ')';
                 })->lists('name', 'id');
     }
 
