@@ -17,4 +17,6 @@ return array(
     'contactus' => 'Nous contacter',
     'navAdmin' => 'Admin',
     'sitemap' => 'Sitemap'
+    'yes'       => 'Oui',
+    'no'        => 'Non',
 );

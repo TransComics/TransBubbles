@@ -18,6 +18,6 @@ return array(
     'contactus' => 'Contact Us',
     'navAdmin' => 'Admin',
     'sitemap' => 'Sitemap'
+    'yes'       => 'Yes',
+    'no'        => 'No',
 );
-
-?>

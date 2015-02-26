@@ -1,4 +1,4 @@
- @if(Auth::check() && Auth::user()->isComicAdmin(Route::current()))
+ @if(Auth::check() && Auth::user()->isComicModerator($comic->id))
     <div class="list-group">
         <h4 class="list-group-item"> @lang('moderate.navTitle') </h4>
         @if($nb_pending)
