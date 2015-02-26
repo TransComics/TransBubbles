@@ -4,7 +4,7 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
-use \Transcomics\RoleRessource\RoleRessource;
+use Transcomics\RoleRessource\RessourceDefinition;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
@@ -120,6 +120,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                 ->where('role_id', 2)
                 ->first();
         return !empty($result);
+    }
+    
+    public function isComicModerator($comic_id) {
+        if ($this->isSuperAdministrator()) {
+            return true;
+        }
+        
+        return RoleRessource::isAllowed('M', RessourceDefinition::Comics, $comic_id, \Auth::id());
     }
 
 }
