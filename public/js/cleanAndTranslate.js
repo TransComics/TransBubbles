@@ -367,6 +367,7 @@ $(document).ready(function () {
 
             $('#colorPicker').val('#'+data[0].toString(16)+data[1].toString(16)+data[2].toString(16));
             param.desactivateButton();
+            $('#colorPicker').change();
         }
 
         /* ********************************************************************************************** *
