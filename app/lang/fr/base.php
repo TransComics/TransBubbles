@@ -19,4 +19,8 @@ return array(
     'sitemap' => 'Sitemap',
     'yes'       => 'Oui',
     'no'        => 'Non',
+    'quit'      => 'Quitter',
+    'next'      => 'Suivant',
+    'save'      => 'Sauver',
+    'finish'    => 'Finir',
 );

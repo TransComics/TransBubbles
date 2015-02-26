@@ -20,4 +20,8 @@ return array(
     'sitemap' => 'Sitemap',
     'yes'       => 'Yes',
     'no'        => 'No',
+    'quit'      => 'Quit',
+    'next'      => 'Next',
+    'save'      => 'Save',
+    'finish'    => 'Finish',
 );

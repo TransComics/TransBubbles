@@ -69,7 +69,7 @@
 @stop
 
 @section('tool.nav')
-    <a class='btn btn-primary fa fa-times' href='{{ URL::previous() }}' id='cancel'> Quitter</a>
-    <a class='btn btn-primary fa fa-floppy-o' href='' id='saveClean'> Terminer</a>
-    <a class='btn btn-primary fa fa-floppy-o' href='' id='nextStep'> Suivant</a>
+    <a class='btn btn-primary fa fa-times' href='{{ URL::previous() }}' id='cancel'> @lang('base.quit')</a>
+    <a class='btn btn-primary fa fa-floppy-o' href='' id='saveClean'> @lang('base.save')</a>
+    <a class='btn btn-primary fa fa-floppy-o' href='' id='nextStep'> @lang('base.next')</a>
 @stop

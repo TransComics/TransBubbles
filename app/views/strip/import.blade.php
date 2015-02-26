@@ -78,6 +78,6 @@
 @stop
 
 @section('tool.nav')
-    <a class='btn btn-primary glyphicon fa fa-times' href='{{ URL::route('strip.index', $strip->comic->id, $strip->id) }}' id='cancel'> Quitter</a>
-    <a class='btn btn-primary glyphicon fa fa-floppy-o' href='' id='saveImport'> Terminer</a>
+    <a class='btn btn-primary glyphicon fa fa-times' href='{{ URL::route('strip.index', $strip->comic->id, $strip->id) }}' id='cancel'> @lang('base.quit')</a>
+    <a class='btn btn-primary glyphicon fa fa-floppy-o' href='' id='saveImport'> @lang('base.save')</a>
 @stop

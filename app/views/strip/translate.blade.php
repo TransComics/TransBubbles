@@ -98,6 +98,6 @@
 @stop
 
 @section('tool.nav')
-    <a class='btn btn-primary glyphicon glyphicon-remove' href='{{ URL::previous() }}' id='cancel'> Quitter</a>
-    <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='saveTranslate'> Terminer</a>
+    <a class='btn btn-primary glyphicon glyphicon-remove' href='{{ URL::previous() }}' id='cancel'> @lang('base.quit')</a>
+    <a class='btn btn-primary glyphicon glyphicon-floppy-disk' href='' id='saveTranslate'> @lang('base.finish')</a>
 @stop
