@@ -18,5 +18,6 @@ return array(
     'imported' => 'importé par :imported',
     'lastStrip' => 'Derniers ajouts',
     'noStrip' => 'Actuellement aucunes planche, veuillez en ajouter',
-    'last' => 'Dernière'
+    'last' => 'Dernière',
+    'latestUpdated' => 'Dernières bandes déssinées mises à jour'
 );
