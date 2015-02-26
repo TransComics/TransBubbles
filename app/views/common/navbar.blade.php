@@ -8,11 +8,6 @@
         <li class="list-group-item"><a href="{{URL::route('user.signup')}}" >@lang('login.sign_up_here')</a></li>
         @endif
         <li class="list-group-item"><a href="{{URL::route('comic.index')}}" >@lang('comic.listLink')</a></li>
-        @if(Auth::check())
-            @if (Auth::user()->isSuperAdministrator(Auth::id()))
-            <li class="list-group-item"><a href="{{URL::route('private..roles.index')}}" >@lang('base.role')</a></li>
-            @endif
-        @endif
     </ul>
     <ul class="list-group" >
         <li class="list-group-item"><h4>@lang('social.shareSite')</h4></li>

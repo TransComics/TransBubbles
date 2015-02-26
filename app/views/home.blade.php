@@ -19,3 +19,8 @@
         <p>@lang('base.welcome')</p>
     @endif 
 @stop
+
+@section('master.nav')
+    @include('common.admin_nav')
+    @parent
+@append

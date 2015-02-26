@@ -17,5 +17,5 @@ return array(
     'imported' => 'imported by :imported',
     'lastStrip' => 'Latest addition',
     'noStrip' => 'Currently no strip, please add one.',
-    'pending' => 'Pending comics to meoderate'
+    'pending' => 'Pending comics to moderate'
 );

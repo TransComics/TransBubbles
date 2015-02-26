@@ -14,7 +14,7 @@ class ComicController extends BaseController {
 
         View::share([
             'comics' => Comic::getComicToDisplay()->paginate($paginate),
-            'nb_pending' => Comic::getNbPending()
+            'nb_pending_comics' => Comic::getNbPending()
         ]);
         return View::make('comic.index');
     }
@@ -144,11 +144,66 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
+        /**
+         * Getting pending strip and count
+         */
+        $stripsPending = $comic->getPendingStrips();
+        $nb_pending = $stripsPending->count();
+        if ($nb_pending) {
+            $strip_id = $stripsPending->first()->id;
+        } else {
+            $strip_id = '';
+        }
         
-        return View::make('comic.show', [
-            'comic' => $comic,
-            'strips' => $comic->stripsShowable(3)
+        /**
+         * Getting pending shapes and count
+         */
+        $shapes = $comic->getPendingShapes();
+        $nb_pending_shape = $shapes->count();
+        if ($nb_pending_shape) {
+            $shape_id = $shapes->first()->id;
+        } else {
+            $shape_id = '';
+        }
+        
+        /**
+         * Getting pending import and count
+         */
+        $imports = $comic->getPendingImport();
+        $nb_pending_import = $imports->count();
+        
+        if ($nb_pending_import) {
+            $import_id = $imports->first()->id;
+        } else {
+            $import_id = '';
+        }
+        
+        /**
+         * Getting pending bubbles and count
+         */
+        $bubbles = $comic->getPendingBubbles();
+        $nb_pending_bubble = $bubbles->count();
+        
+        if ($nb_pending_bubble) {
+            $bubble_id = $bubbles->first()->id;
+        } else {
+            $bubble_id = '';
+        }
+        
+        View::share([
+        'comic' => $comic,
+        'nb_pending' => $nb_pending,
+        'nb_pending_shape' => $nb_pending_shape,
+        'nb_pending_import' => $nb_pending_import,
+        'nb_pending_bubble' => $nb_pending_bubble,
+        'shape_id' => $shape_id,
+        'import_id' => $import_id,
+        'bubble_id' => $bubble_id,
+        'strip_id' => $strip_id,
+        'strips' => $comic->stripsShowable(3)
         ]);
+        
+        return View::make('comic.show');
     }
 
     private function prepareForm() {
