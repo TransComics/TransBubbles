@@ -1,7 +1,7 @@
 @extends('layouts.tool')
 
 @section('tool.title')
-Interface de nettoyage
+@lang('strip.cleanInterface')
 @stop
 
 @section('tool.items')

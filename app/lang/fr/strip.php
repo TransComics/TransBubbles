@@ -38,5 +38,8 @@ return array(
     'pendingShape'  => 'Nettoyages en attente',
     'pendingImport' => 'Imports de texte en attente',
     'pendingBubble' => 'Traductions en attente',
+    'translateInterface' => 'Translation interface',
+    'importInterface' => 'Import text interface',
+    'cleanInterface' => 'Clean interface'
     
 );

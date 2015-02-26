@@ -1,7 +1,7 @@
 @extends('layouts.tool')
 
 @section('tool.title')
-	Interface de traduction
+	@lang('strip.translateInterface')
 @stop
 @section('tool.scripts')
     {{HTML::script('js/ajaxTranslateRequest.js') }} 

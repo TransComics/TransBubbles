@@ -9,7 +9,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">@lang('base.cancel')</button>
-                <a href="#" id="submit" class="btn btn-primary">@lang('base.submit')</a>
+                <a id="submit" class="btn btn-primary">@lang('base.submit')</a>
             </div>
         </div>
     </div>

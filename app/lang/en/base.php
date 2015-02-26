@@ -12,7 +12,11 @@ return array(
     'confirm'   => 'Confirm',
     'submit'    => 'Submit',
     'role'      => 'Roles',
-    'confirm_delete' => 'Please confirm the deletion'
+    'confirm_delete' => 'Please confirm the deletion',
+    'home' => 'Home',
+    'about' => 'About',
+    'contactus' => 'Contact Us',
+    'navAdmin' => 'Admin'
 );
 
 ?>

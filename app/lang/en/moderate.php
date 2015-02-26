@@ -17,5 +17,6 @@ return array(
     'deleted_comic_content' => 'For this reason your comics was deleted',
     'undeleted_comic_content' => 'Your comics is still available for editing.',
     'refused_comment' => 'The following comments were mentioned : ":comment"',
-    'quit' => 'Quit'
+    'quit' => 'Quit',
+    'navTitle' => 'Moderation'
 );

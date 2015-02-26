@@ -1,7 +1,7 @@
 @extends('layouts.tool')
 
 @section('tool.title')
-	Interface d'import
+	@lang('strip.importInterface')
 @stop
 @section('tool.scripts')
 @stop 
