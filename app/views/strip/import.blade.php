@@ -8,44 +8,44 @@
 
 @section('tool.items')
     <div class="btn-group pull-right margin-5" role="group">
-        <a class='btn btn-primary fa fa-undo' href="" id="undo"></a>
-        <a class='btn btn-primary fa fa-repeat' href="" id="redo"></a>
+        <a class='btn btn-primary fa fa-undo' href="" id="undo" title="@lang('tool.undo')"></a>
+        <a class='btn btn-primary fa fa-repeat' href="" id="redo" title="@lang('tool.redo')"></a>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut"></span>
-        <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn"></span>
-        <span class='btn btn-primary fa fa-search' id="btnResetZoom"></span>
+        <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut" title="@lang('tool.zoomOut')"></span>
+        <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn" title="@lang('tool.zoomIn')"></span>
+        <span class='btn btn-primary fa fa-search' id="btnResetZoom" title="@lang('tool.zoomReset')"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <a class='btn btn-primary fa fa-eye' href="" id="viewAll"></a>
-        <span class='btn btn-primary fa fa-arrows' href="" id="selectAll"></span>
+        <a class='btn btn-primary fa fa-eye' href="" id="viewAll" title="@lang('tool.showAll')" ></a>
+        <span class='btn btn-primary fa fa-arrows' href="" id="selectAll" title="@lang('tool.selectAll')"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-align-left' id="alignLeft"></span>
-        <span class='btn btn-primary fa fa-align-center' id="alignCenter"></span>
-        <span class='btn btn-primary fa fa-align-right' id="alignRight"></span>
-        <span class='btn btn-primary fa fa-align-justify' id="alignJustify"></span>
+        <span class='btn btn-primary fa fa-align-left' id="alignLeft" title="@lang('tool.alignLeft')"></span>
+        <span class='btn btn-primary fa fa-align-center' id="alignCenter" title="@lang('tool.alignCenter')"></span>
+        <span class='btn btn-primary fa fa-align-right' id="alignRight" title="@lang('tool.alignRight')"></span>
+        <span class='btn btn-primary fa fa-align-justify' id="alignJustify" title="@lang('tool.alignJustify')"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-bold' id="textBold"></span>
-        <span class='btn btn-primary fa fa-italic' id="textItalic"></span>
-        <span class='btn btn-primary fa fa-underline' id="textUnderline"></span>
-        <span class='btn btn-primary fa fa-strikethrough' id="textLineThrough"></span>
+        <span class='btn btn-primary fa fa-bold' id="textBold" title="@lang('tool.bold')"></span>
+        <span class='btn btn-primary fa fa-italic' id="textItalic" title="@lang('tool.italic')"></span>
+        <span class='btn btn-primary fa fa-underline' id="textUnderline" title="@lang('tool.underline')"></span>
+        <span class='btn btn-primary fa fa-strikethrough' id="textLineThrough" title="@lang('tool.lineThrough')"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-	<a class='btn btn-primary fa fa-location-arrow' href="" id="update"></a>
-        <a class='btn btn-primary fa fa-trash' href="" id="del"></a>
-	<a class='btn btn-primary fa fa-text-height' href="" id="text"></a>
-        <input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" />
-	<input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" />
-        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" />
+	<a class='btn btn-primary fa fa-location-arrow' href="" id="update" title="@lang('tool.select')"></a>
+        <a class='btn btn-primary fa fa-trash' href="" id="del" title="@lang('tool.trash')"></a>
+	<a class='btn btn-primary fa fa-text-height' href="" id="text" title="@lang('tool.text')"></a>
+        <input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerText" id="colorPickerText" value="#000000" title="@lang('tool.textColor')" />
+	<input class="btn btn-primary" style="height:37px;" type="color" name="colorPickerBackground" id="colorPickerBackground" value="#ffffff" title="@lang('tool.backgroundColor')"   />
+        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePickerText" id="sizePickerText" value="20" min="1" max="999" title="@lang('tool.fontSize')"  />
         
-        {{ Form::select('fontPicker', $fonts, $font_id,['class'=>'btn btn-primary', 'id'=>'fontPicker', 'style' => 'width:120px;height:37px;padding: 3px;']); }}
+        {{ Form::select('fontPicker', $fonts, $font_id,['title'=>Lang::get('tool.font'),'class'=>'btn btn-primary', 'id'=>'fontPicker', 'style' => 'width:120px;height:37px;padding: 3px;']); }}
     </div>
 @stop
 
