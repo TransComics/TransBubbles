@@ -116,7 +116,7 @@ class ComicController extends BaseController {
         });
 
         $this->removeRightOnComic($id, $comic->created_by);
-        
+
         Comic::dropFile($comic->cover);
         $comic->delete();
 
@@ -131,7 +131,7 @@ class ComicController extends BaseController {
                 ->where('ressource_id', $comic_id)
                 ->where('user_id', $user_id)
                 ->first();
-        
+
         if (empty($role_ressource)) {
             Log::error('Error when removing right of user $user_id on the strip $strip_id after moderation');
         } else {
@@ -144,6 +144,12 @@ class ComicController extends BaseController {
         if ($comic == null) {
             return Redirect::route('home');
         }
+
+        if (!($comic->validated_state == ValidateEnum::VALIDATED ||
+                (Auth::check() && Auth::user()->isComicAdminWithID($id)))) {
+            return Redirect::route('access.denied');
+        }
+
         /**
          * Getting pending strip and count
          */
@@ -154,7 +160,7 @@ class ComicController extends BaseController {
         } else {
             $strip_id = '';
         }
-        
+
         /**
          * Getting pending shapes and count
          */
@@ -165,44 +171,44 @@ class ComicController extends BaseController {
         } else {
             $shape_id = '';
         }
-        
+
         /**
          * Getting pending import and count
          */
         $imports = $comic->getPendingImport();
         $nb_pending_import = $imports->count();
-        
+
         if ($nb_pending_import) {
             $import_id = $imports->first()->id;
         } else {
             $import_id = '';
         }
-        
+
         /**
          * Getting pending bubbles and count
          */
         $bubbles = $comic->getPendingBubbles();
         $nb_pending_bubble = $bubbles->count();
-        
+
         if ($nb_pending_bubble) {
             $bubble_id = $bubbles->first()->id;
         } else {
             $bubble_id = '';
         }
-        
+
         View::share([
-        'comic' => $comic,
-        'nb_pending' => $nb_pending,
-        'nb_pending_shape' => $nb_pending_shape,
-        'nb_pending_import' => $nb_pending_import,
-        'nb_pending_bubble' => $nb_pending_bubble,
-        'shape_id' => $shape_id,
-        'import_id' => $import_id,
-        'bubble_id' => $bubble_id,
-        'strip_id' => $strip_id,
-        'strips' => $comic->stripsShowable(3)
+            'comic' => $comic,
+            'nb_pending' => $nb_pending,
+            'nb_pending_shape' => $nb_pending_shape,
+            'nb_pending_import' => $nb_pending_import,
+            'nb_pending_bubble' => $nb_pending_bubble,
+            'shape_id' => $shape_id,
+            'import_id' => $import_id,
+            'bubble_id' => $bubble_id,
+            'strip_id' => $strip_id,
+            'strips' => $comic->stripsShowable(3)
         ]);
-        
+
         return View::make('comic.show');
     }
 
