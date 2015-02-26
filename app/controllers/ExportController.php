@@ -9,6 +9,7 @@ class ExportController extends BaseController {
         $result .= $this->exportObject(Strip::all()->toArray(), 'Strip');
         $result .= $this->exportObject(Shape::all()->toArray(), 'Shape');
         $result .= $this->exportObject(Bubble::all()->toArray(), 'Bubble');
+        $result .= $this->exportObject(User::all()->toArray(), 'User');
 
         return $result;
     }
