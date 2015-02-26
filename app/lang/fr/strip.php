@@ -40,6 +40,7 @@ return array(
     'pendingBubble' => 'Traductions en attente',
     'translateInterface' => 'Translation interface',
     'importInterface' => 'Import text interface',
-    'cleanInterface' => 'Clean interface'
-    
+    'cleanInterface' => 'Clean interface',
+    'translated_by' => 'traduite par :imported',
+    'viewAll' => 'Voir toutes' 
 );

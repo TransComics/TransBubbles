@@ -39,5 +39,7 @@ return array(
     'pendingBubble' => 'Pending translations',
     'translateInterface' => 'Interface de traduction',
     'importInterface' => 'Interface d\'import',
-    'cleanInterface' => 'Interface de nettoyage'
+    'cleanInterface' => 'Interface de nettoyage',
+    'translated_by' => 'translated by :imported',
+    'viewAll' => 'View All'
 );

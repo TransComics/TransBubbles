@@ -16,7 +16,8 @@ return array(
     'home' => 'Home',
     'about' => 'About',
     'contactus' => 'Contact Us',
-    'navAdmin' => 'Admin'
+    'navAdmin' => 'Admin',
+    'sitemap' => 'Sitemap'
 );
 
 ?>

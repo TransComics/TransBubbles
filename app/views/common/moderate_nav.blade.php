@@ -1,6 +1,6 @@
  @if(Auth::check() && Auth::user()->isComicAdmin(Route::current()))
     <div class="list-group">
-        <h4 class="list-group-item"> @lang('moderation.navTitle') </h4>
+        <h4 class="list-group-item"> @lang('moderate.navTitle') </h4>
         @if($nb_pending)
         <a class="list-group-item" href="{{URL::route('strip.moderate', [$comic->id, $strip_id])}}" >@lang('strip.pendingStrip')<span class="badge">{{ $nb_pending }}</span></a>
         @else
