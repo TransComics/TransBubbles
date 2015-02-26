@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                                 <a href="{{ route('comic.show', [$item->id]) }}">
-                               {{ HTML::image($item->cover, 'cover', array('width' => '846', 'height' => '170', 'class' => 'img-thumbnail')) }}
+                                <img src="{{ Image::path($item->cover, 'resize', 900, 300) }}"  alt="cover" style="min-height:200px;height:300px;" class="img-thumbnail"/>
                                 </a>
                             </div>
                         </div>
