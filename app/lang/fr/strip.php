@@ -17,7 +17,7 @@ return array(
     'updateTitle' => 'Modifier',
     'unvalidFile' => 'Fichier invalide',
     'updateFailure' => 'Erreur de modification de la planche',
-    'editComplete' => 'Modification finie avec succès',
+    'editComplete' => 'Modification effectuée avec succès',
     'deleteSucceded' => 'La planche à été supprimée',
     'createdBy' => 'Créé par ',
     'pendingApprobation' => 'Approuver',
@@ -40,7 +40,7 @@ return array(
     'pendingBubble' => 'Traductions en attente',
     'translateInterface' => 'Translation interface',
     'importInterface' => 'Import text interface',
-    'cleanInterface' => 'Clean interface',
+    'cleanInterface' => 'Cleaning interface',
     'translated_by' => 'traduite par :imported',
     'viewAll' => 'Voir toutes',
     'index' => 'Index des planches'
