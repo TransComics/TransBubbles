@@ -42,5 +42,6 @@ return array(
     'importInterface' => 'Import text interface',
     'cleanInterface' => 'Clean interface',
     'translated_by' => 'traduite par :imported',
-    'viewAll' => 'Voir toutes' 
+    'viewAll' => 'Voir toutes',
+    'index' => 'Index des planches'
 );

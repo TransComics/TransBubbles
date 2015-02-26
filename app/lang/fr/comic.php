@@ -17,5 +17,6 @@ return array(
     'created' => 'créé par :created',
     'imported' => 'importé par :imported',
     'lastStrip' => 'Derniers ajouts',
-    'noStrip' => 'Actuellement aucunes planche, veuillez en ajouter'
+    'noStrip' => 'Actuellement aucunes planche, veuillez en ajouter',
+    'last' => 'Dernière'
 );

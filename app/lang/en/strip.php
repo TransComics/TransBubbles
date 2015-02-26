@@ -41,5 +41,6 @@ return array(
     'importInterface' => 'Interface d\'import',
     'cleanInterface' => 'Interface de nettoyage',
     'translated_by' => 'translated by :imported',
-    'viewAll' => 'View All'
+    'viewAll' => 'View All',
+    'index' => 'Strips index'
 );
