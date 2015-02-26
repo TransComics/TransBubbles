@@ -1,6 +1,5 @@
 <?php
-return array(
-    
+return array(    
     'sign_in' => 'Sign In',
     'sign_up' => 'Sign Up',
     'login' => 'Login',
@@ -12,8 +11,7 @@ return array(
     'rememberme' => 'Remember me',
     'facebook_log' => 'Login with Facebook',
     'no_account' => 'Don\'t you have an account?',
-    'sign_up_here' => 'Sign Up Here',
-    
+    'sign_up_here' => 'Sign Up Here',  
     'error_post_login' => 'Your username/password combination is incorrect',
     'logged_out' => 'Your are now logged out!',
     'logged_in' => 'You are now logged in!',
@@ -25,6 +23,5 @@ return array(
      Please follow the link below to verify your email adress :',
     'registration_to_verify' => 'Thanks for creating an account ! please check your mail to finish your registration.',
     'confirm_not_working' => 'If the token below doesn\'t work, use this link to generate a new one.'
-    
 );
 ?>

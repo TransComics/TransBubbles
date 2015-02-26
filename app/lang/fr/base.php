@@ -7,6 +7,7 @@ return array(
     'add'       => 'Ajouter',
     'update'    => 'Mettre à jour',
     'delete'    => 'Supprimer',
+    'edit'      => 'Éditer',
     'language'  => 'Langue',   
     'confirm'   => 'Confirmer',
     'submit'    => 'Valider',
