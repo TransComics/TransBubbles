@@ -132,7 +132,7 @@ $(document).ready(function () {
 
 
         TBCanvasParam.prototype.activateButton = function (id) {
-            $(id).css('background-color', '#9D2A16');
+            $(id).css('background-color', '#0ce3ac');
         }
         
         /* initialisation variable to zoom and to undo/redo */
@@ -367,6 +367,7 @@ $(document).ready(function () {
 
             $('#colorPicker').val('#'+data[0].toString(16)+data[1].toString(16)+data[2].toString(16));
             param.desactivateButton();
+            $('#colorPicker').change();
         }
 
         /* ********************************************************************************************** *
