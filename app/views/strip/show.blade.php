@@ -8,7 +8,7 @@
 <div class="text-center center-block">
     <small>@lang('strip.dateUpdated') {{ $strips->updated_at }} - 
         @lang('comic.imported',['imported'=> $strips->user->username]) - 
-        @lang('comic.translated_by',['imported'=> $bubble_user])</small>
+        @lang('strip.translated_by',['imported'=> $bubble_user])</small>
 </div>
 <hr>
 <div class="text-center center-block">
@@ -73,7 +73,7 @@
     
     <!--STRIP LIST & TRANSLATIONS-->
     <div class="btn-group" role="group">
-            <a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> View All</a>
+            <a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> @lang('strip.viewAll')</a>
     </div>
     @if(!$isTheOriginal)
         <div class="btn-group" role="group">

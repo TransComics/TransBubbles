@@ -114,10 +114,10 @@ $(document).ready(function () {
             $('#circle').css('background', '#375a7f');
             this.shape = false;
             this.allSelectable(true, canvas);
-            
+
             $('#eyedropper').css('background', '#375a7f');
             this.isEyedropper = false;
-            
+
             $('#viewAll').css('background', '#375a7f');
             this.viewAll = false;
             this.allActive(false, canvas);
@@ -354,7 +354,7 @@ $(document).ready(function () {
        /* ********************************************************************************************** *
          * *********************************** Eyedropper handler ******************************************** *
          * ********************************************************************************************** */
-       
+
        function eyedropper (e) {
             var mouse = canvas.getPointer(e.e); // get the current mouse position
             var x = parseInt(mouse.x);
@@ -707,7 +707,7 @@ $(document).ready(function () {
                 }
             }
         });
-        
+
 // Mousedown
         function mousedown(e) {
             if (!param.shape || param.started)

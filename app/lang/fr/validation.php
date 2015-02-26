@@ -1,5 +1,7 @@
 <?php
+
 return array(
+    
 /*
 |--------------------------------------------------------------------------
 | Validation Language Lines
@@ -10,7 +12,8 @@ return array(
 | such as the size rules. Feel free to tweak each of these messages.
 |
 */
-"accepted" => "Le champ :attribute doit être accepté.",
+    
+    "accepted" => "Le champ :attribute doit être accepté.",
     "active_url" => "Le champ :attribute n'est pas une URL valide.",
     "after" => "Le champ :attribute doit être une date postérieure au :date.",
     "alpha" => "Le champ :attribute doit seulement contenir des lettres.",

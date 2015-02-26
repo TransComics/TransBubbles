@@ -5,9 +5,9 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li @if(Route::currentRouteName() == "home")class="active" @endif><a href="{{URL::route('home')}}" >Accueil</a></li>
-                <li @if(Route::currentRouteName() == "about")class="active" @endif><a href="#about" >À propos</a></li>
-                <li @if(Route::currentRouteName() == "contact")class="active" @endif><a href="#contact" >Nous contacter</a></li>
+                <li @if(Route::currentRouteName() == "home")class="active" @endif><a href="{{URL::route('home')}}" >@lang('base.home')</a></li>
+                <li @if(Route::currentRouteName() == "about")class="active" @endif><a href="#about" >@lang('base.about')</a></li>
+                <li @if(Route::currentRouteName() == "contact")class="active" @endif><a href="#contact" >@lang('base.contactus')</a></li>
             </ul>
              @include('common.lang_selector')
         </div><!-- /.nav-collapse -->

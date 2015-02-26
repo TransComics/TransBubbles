@@ -16,9 +16,9 @@
             <a href="{{ URL::route('comic.show',['id' => $comic->id] )}}">{{$comic->title}} <small>({{$comic->author}})</small></a>
             @if($comic->strips->count() > 0) 
             <span class="btn-group pull-right" role="group">               
-                    <a href="{{URL::route('strip.index', [$comic->id])}}" title="strip.index" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
+                    <a href="{{URL::route('strip.index', [$comic->id])}}" title="@lang('strip.index')" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
                     @if ($comic->getLastShowable() !== null)
-                    <a href="{{URL::route('strip.show', [$comic->id, $comic->getLastShowable()->id])}}" style="margin-top: 1px; margin-right: 2px;" title="strip.show" class='btn btn-sm btn-primary'>Last</a>
+                    <a href="{{URL::route('strip.show', [$comic->id, $comic->getLastShowable()->id])}}" style="margin-top: 1px; margin-right: 2px;" title="@lang('comic.last')" class='btn btn-sm btn-primary'> @lang('comic.last')</a>
                     @endif
             </span>
             @endif

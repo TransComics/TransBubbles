@@ -44,7 +44,7 @@ class ComicController extends BaseController {
     }
 
     public function store() {
-        
+
         $inputs = Input::all();
         foreach (['title', 'description', 'author'] as $field) {
             $inputs[$field] = InputParser::parse($inputs[$field]);

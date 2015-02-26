@@ -19,10 +19,10 @@
                     {{$comic->title}}
                     @if (Auth::check() && Auth::user()->isComicAdminWithID($comic->id))
                     <small>{{ Lang::get('comic.created',['created' => $comic->author]) }}</small>
-                    <a href="{{URL::route('comic.edit', [$comic->id])}}" title="comics.edit" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
+                    <a href="{{URL::route('comic.edit', [$comic->id])}}" title="@lang('base.edit')" class='btn btn-sm btn-primary glyphicon glyphicon-pencil'></a>
                     {{ Form::open(['route' => ['comic.destroy', $comic->id], 'method' => 'delete', 'id' => 'deleteForm', 'style' => 'display : inline;']); }}
                     <a title="@lang('base.delete')" data-toggle="modal" data-target="#confirm-submit" data-href="{{$comic->id}}" class="btn btn-danger btn-sm glyphicon glyphicon-remove"></a>
-                    <a href="{{URL::route('comic.role', [$comic->id])}}" title="comics.role" class='btn btn-sm btn-default glyphicon glyphicon-lock'></a>
+                    <a href="{{URL::route('comic.role', [$comic->id])}}" title="@lang('base.role')" class='btn btn-sm btn-default glyphicon glyphicon-lock'></a>
                     {{ Form::close(); }}
                     @endif
                 </h1>
@@ -48,10 +48,10 @@
         </div>
         <div class="col-xs-2  col-xs-height col-bottom">
             @if (count($strips) > 0)
-            <a href="{{URL::route('strip.index', [$comic->id])}}" title="strip.index" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
+            <a href="{{URL::route('strip.index', [$comic->id])}}" title="@lang('strip.index')" class='btn btn-sm btn-primary glyphicon glyphicon-th'></a>
             @endif
             @if (Auth::check())
-            <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+            <a href="{{URL::route('strip.create', [$comic->id])}}" title="@lang('base.add')" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
             @endif
         </div>
     </div>

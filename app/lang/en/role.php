@@ -9,7 +9,7 @@ return array(
     'update' => 'Update',
     'moderate' => 'Moderate',
     'delete' => 'Delete',
-    'index' => 'Roles page index',
+    'index' => 'Roles management',
     'all' => 'All',
     'username' => 'Username',
     'ressource' => 'Ressource Type',

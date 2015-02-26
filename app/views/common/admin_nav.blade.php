@@ -1,7 +1,7 @@
 @if(Auth::check())
     @if (Auth::user()->isSuperAdministrator(Auth::id()))
     <div class="list-group">
-        <h4 class="list-group-item"> Admin </h4>
+        <h4 class="list-group-item"> @lang('base.navAdmin') </h4>
         <a class="list-group-item" href="{{URL::route('private..roles.index')}}" >@lang('base.role')</a>
         <a class="list-group-item" href="{{URL::route('private.export')}}" >@lang('base.export')</a>
         @if($nb_pending_comics)
