@@ -42,7 +42,7 @@ class Strip extends Eloquent implements Moderable {
             ->where('validated_state', ValidateEnum::VALIDATED)
             ->where('bubbles.lang_id', $lang_id)
             ->groupBy('bubbles.id')
-            ->select(DB::raw('`bubbles`.`id` as id, `bubbles`.`strip_id`, `bubbles`.`lang_id`, `bubbles`.`value`, COUNT(`bubbles`.`id`) as votes'))
+            ->select(DB::raw('`bubbles`.`id` as id, `bubbles`.`user_id`, `bubbles`.`strip_id`, `bubbles`.`lang_id`, `bubbles`.`value`, COUNT(`bubbles`.`id`) as votes'))
             ->orderBy('votes', 'desc')
             ->first();
 
