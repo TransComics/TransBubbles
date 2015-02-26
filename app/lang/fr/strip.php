@@ -38,9 +38,9 @@ return array(
     'pendingShape'  => 'Nettoyages en attente',
     'pendingImport' => 'Imports de texte en attente',
     'pendingBubble' => 'Traductions en attente',
-    'translateInterface' => 'Translation interface',
-    'importInterface' => 'Import text interface',
-    'cleanInterface' => 'Cleaning interface',
+    'translateInterface' => 'Interface de traduction',
+    'importInterface' => 'Interface d\'import',
+    'cleanInterface' => 'Interface de nettoyage',
     'translated_by' => 'traduite par :imported',
     'viewAll' => 'Voir toutes',
     'index' => 'Index des planches'

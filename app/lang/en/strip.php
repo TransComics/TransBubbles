@@ -37,9 +37,9 @@ return array(
     'pendingShape'  => 'Pending cleanings',
     'pendingImport' => 'Pending text imports',
     'pendingBubble' => 'Pending translations',
-    'translateInterface' => 'Interface de traduction',
-    'importInterface' => 'Interface d\'import',
-    'cleanInterface' => 'Interface de nettoyage',
+    'translateInterface' => 'Translation interface',
+    'importInterface' => 'Import text interface',
+    'cleanInterface' => 'Cleaning interface',
     'translated_by' => 'translated by :imported',
     'viewAll' => 'View All',
     'index' => 'Strips index'
