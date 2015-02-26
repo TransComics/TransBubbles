@@ -117,6 +117,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
                 ->whereressource(Transcomics\RoleRessource\RessourceDefinition::Comics)
                 ->whereressource_id($comic_id)
                 ->whereuser_id($this->id)
+                ->where('role_id', 2)
                 ->first();
         return !empty($result);
     }
