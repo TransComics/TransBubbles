@@ -27,6 +27,7 @@ Interface de nettoyage
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
+        <a class='btn btn-primary fa fa-eyedropper' href="" title="@lang('strip.eyedropper')" id="eyedropper"></a>
         <input class="btn btn-primary" style="height:37px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff" />
         <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999" />
         <a class='btn btn-primary fa fa-paint-brush' href="" id="brush"></a>

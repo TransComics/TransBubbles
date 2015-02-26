@@ -41,6 +41,7 @@ $(document).ready(function () {
 
         function TBCanvasParam() {
 // initialisation de nos parametre de canvas
+            this.isEyedropper = false;
             this.started = false;
             this.shape = false;
             this.viewAll = false;
@@ -108,25 +109,30 @@ $(document).ready(function () {
         }
 
         TBCanvasParam.prototype.desactivateButton = function () {
-            $('#rect').css('border', '1px solid #379dbf');
-            $('#circle').css('border', '1px solid #379dbf');
+            canvas.defaultCursor = 'default';
+            $('#rect').css('background', '#375a7f');
+            $('#circle').css('background', '#375a7f');
             this.shape = false;
             this.allSelectable(true, canvas);
-            $('#viewAll').css('border', '1px solid #379dbf');
+            
+            $('#eyedropper').css('background', '#375a7f');
+            this.isEyedropper = false;
+            
+            $('#viewAll').css('background', '#375a7f');
             this.viewAll = false;
             this.allActive(false, canvas);
-            $('#brush').css('border', '1px solid #379dbf');
+            $('#brush').css('background', '#375a7f');
             canvas.isDrawingMode = false;
-            $('#selectAll').css('border', '1px solid #379dbf');
+            $('#selectAll').css('background', '#375a7f');
             this.selectAll = false;
             this.allSelected(false, canvas);
-            $('#update').css('border', '1px solid #379dbf');
+            $('#update').css('background', '#375a7f');
             this.update = false;
         }
 
 
         TBCanvasParam.prototype.activateButton = function (id) {
-            $(id).css('border-color', '#f00');
+            $(id).css('background-color', '#9D2A16');
         }
         
         /* initialisation variable to zoom and to undo/redo */
@@ -272,17 +278,10 @@ $(document).ready(function () {
         function updateModifications() {
             if (updateActivate) {
                 myjson = JSON.stringify(canvas);
-                //myjson = canvas.toJSON();
                 save[save_index] = myjson;
                 scaleSave[save_index] = canvasScale;
                 save_index++;
                 save_max = save_index;
-
-                //console.log("vvvvvvvvvvv save [] vvvvvvvvvvv");
-                for (var i in save) {
-                    //console.log("i : " + i + " => " + save[i]);
-                }
-                //console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
             }
         }
 
@@ -352,6 +351,24 @@ $(document).ready(function () {
 
         var param = new TBCanvasParam();
        
+       /* ********************************************************************************************** *
+         * *********************************** Eyedropper handler ******************************************** *
+         * ********************************************************************************************** */
+       
+       function eyedropper (e) {
+            var mouse = canvas.getPointer(e.e); // get the current mouse position
+            var x = parseInt(mouse.x);
+            var y = parseInt(mouse.y);
+
+
+            var context = canvas.getContext('2d');
+            var imageData = context.getImageData(x, y, 1, 1);
+            var data = imageData.data;
+
+            $('#colorPicker').val('#'+data[0].toString(16)+data[1].toString(16)+data[2].toString(16));
+            param.desactivateButton();
+        }
+
         /* ********************************************************************************************** *
          * *********************************** Event handler ******************************************** *
          * ********************************************************************************************** */
@@ -432,6 +449,19 @@ $(document).ready(function () {
                 param.shape = "circle";
                 param.allSelectable(false, canvas);
                 param.activateButton('#circle');
+            }
+            else {
+                param.desactivateButton();
+            }
+            return false;
+        });
+        $('#eyedropper').click(function () {
+            if (!param.isEyedropper) {
+                param.desactivateButton();
+                param.isEyedropper = true;
+                canvas.defaultCursor = 'url(/images/icons/16/eyedropper.png), auto';
+                param.allSelectable(false, canvas);
+                param.activateButton('#eyedropper');
             }
             else {
                 param.desactivateButton();
@@ -676,19 +706,7 @@ $(document).ready(function () {
                 }
             }
         });
-//shit => 16
-//a => 65
-//ctr => 17
-//pomme ==> 224
-//c ==> 67
-//v ==> 86
-//s ==> 83
-//z ==> 90
-// y ==> 89
-// p ==> 80
-// r ==> 82
-// t ==> 84
-
+        
 // Mousedown
         function mousedown(e) {
             if (!param.shape || param.started)
@@ -777,7 +795,10 @@ $(document).ready(function () {
 
 // Mouseup
         function mouseup(e) {
-            if (param.started) {
+            if(param.isEyedropper){ // eyedropper handler
+                eyedropper(e);
+                return false;
+            }else if (param.started) {
                 param.started = false;
                 param.allSelected(true, canvas);
                 canvas.deactivateAll();
@@ -798,6 +819,13 @@ $(document).ready(function () {
             }
             else {
                 object[styleName] = value;
+                object.styles.forEach(function (word){
+                    word.forEach(function (letter){
+                        if(letter === null)
+                            return;
+                        delete letter[styleName];
+                    });
+                });
             }
         }
         
