@@ -51,14 +51,14 @@
         <br />
         <span onclick="removeParent(this)" style="visibility: hidden" class="remove_strip_inputs btn btn-danger btn-sm glyphicon glyphicon-remove"></span>
         <div class="form-group">
-            {{ Form::label('title', Lang::get('strip.title'), ['class'=>'col-sm-2 control-label', 'id' => 'label']); }}
+            {{ Form::label('titles[]', Lang::get('strip.title'), ['class'=>'col-sm-2 control-label', 'id' => 'label']); }}
             <div class="col-sm-10 ">
                 {{ Form::text('titles[]', $strips->title, ['class'=>'form-control', 'placeholder' => Lang::get('strip.title')]); }}
                 {{ $errors->first('title', '<p class="alert alert-danger">:message</p>'); }}
             </div>
         </div>
         <div class="form-group">
-            {{ Form::label('index', 'Index' , ['class' => 'col-sm-2 control-label']); }}
+            {{ Form::label('indexes[]', 'Index' , ['class' => 'col-sm-2 control-label']); }}
             <div class="col-sm-10">
                 {{ Form::number('indexes[]', $index, ['class' => 'form-control']); }}
                 {{ $errors->first('index', '<p class="alert alert-danger">:message</p>'); }}
@@ -66,7 +66,7 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('strip', Lang::get('strip.stripFileSelector'), ['class'=>'col-sm-2 control-label', 'title' => Lang::get('strip.stripFileSelectorTitle')]); }}
+            {{ Form::label('files[]', Lang::get('strip.stripFileSelector'), ['class'=>'col-sm-2 control-label', 'title' => Lang::get('strip.stripFileSelectorTitle')]); }}
             <div class="col-sm-10 ">
                 {{ Form::file('files[]', array('class'=>'filestyle')) }}
                 {{ $errors->first('strip', '<p class="alert alert-danger">:message</p>'); }}
