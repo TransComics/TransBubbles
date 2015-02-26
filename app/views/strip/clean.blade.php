@@ -6,39 +6,39 @@
 
 @section('tool.items')
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-undo' id="undo"></span>
-        <span class='btn btn-primary fa fa-repeat' id="redo"></span>
+        <span class='btn btn-primary fa fa-undo' id="undo" title="@lang('tool.undo')"></span>
+        <span class='btn btn-primary fa fa-repeat' id="redo"  title="@lang('tool.redo')"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-search-minus' id="btnZoomOut"></span>
-        <span class='btn btn-primary fa fa-search-plus' id="btnZoomIn"></span>
-        <span class='btn btn-primary fa fa-search' id="btnResetZoom"></span>
+        <span class='btn btn-primary fa fa-search-minus' id="btnZoomOut" title="@lang('tool.zoomOut')"></span>
+        <span class='btn btn-primary fa fa-search-plus' id="btnZoomIn" title="@lang('tool.zoomIn')"></span>
+        <span class='btn btn-primary fa fa-search' id="btnResetZoom" title="@lang('tool.zoomReset')"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <a class='btn btn-primary fa fa-eye' href="" id="viewAll"></a>
-        <span class='btn btn-primary fa fa-arrows' href="" id="selectAll"></span>
+        <a class='btn btn-primary fa fa-eye' href="" id="viewAll" title="@lang('tool.showAll')" ></a>
+        <span class='btn btn-primary fa fa-arrows' href="" id="selectAll" title="@lang('tool.selectAll')"></span>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <a class='btn btn-primary fa fa-square-o' href="" id="rect"></a>
-        <a class='btn btn-primary fa fa-circle-thin' href="" id="circle"></a>
+        <a class='btn btn-primary fa fa-square-o' href="" id="rect" title="@lang('tool.rectangle')" ></a>
+        <a class='btn btn-primary fa fa-circle-thin' href="" id="circle" title="@lang('tool.circle')" ></a>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <input class="btn btn-primary" style="height:37px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff" />
-        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999" />
-        <a class='btn btn-primary fa fa-paint-brush' href="" id="brush"></a>
+        <input class="btn btn-primary" style="height:37px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff"  title="@lang('tool.color')" />
+        <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999"  title="@lang('tool.brushSize')" />
+        <a class='btn btn-primary fa fa-paint-brush' href="" id="brush" title="@lang('tool.brush')" ></a>
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <a class='btn btn-primary fa fa-location-arrow' href="" id="update"></a>
-        <a class='btn btn-primary fa fa-trash' href="" id="del"></a>
+        <a class='btn btn-primary fa fa-location-arrow' href="" id="update" title="@lang('tool.select')" ></a>
+        <a class='btn btn-primary fa fa-trash' href="" id="del" title="@lang('tool.trash')" ></a>
     </div>
 
     <div class="btn-group pull margin-5" role="group">
-        <a class='btn btn-primary fa fa-eye' href="" id="hidden-origin"> Cacher</a>
+        <a class='btn btn-primary fa fa-eye' href="" id="hidden-origin"> @lang('tool.hide')</a>
     </div>
 @stop
 
