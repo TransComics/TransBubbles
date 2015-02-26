@@ -13,6 +13,27 @@ class HomeController extends BaseController {
      * |
      */
     public function home() {
+        
+        $strips = Strip::where('validated_state', ValidateEnum::VALIDATED)
+            ->where('isShowable', true)
+            ->orderBy('validated_at')
+//            ->groupBy('comic_id')
+            ->take(12)->get();
+        
+        $comics = Strip::where('validated_state', ValidateEnum::VALIDATED)
+            ->where('isShowable', true)
+            ->orderBy('validated_at')
+            ->groupBy('comic_id')
+            ->take(3)->get()
+            ->map(function ($c) {
+                return $c->comic;
+            });
+        
+        View::share([
+            'strips' => $strips,
+            'comics' => $comics
+        ]);
+        
         return View::make('home');
     }
 }

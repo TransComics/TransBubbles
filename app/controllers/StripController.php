@@ -55,6 +55,7 @@ class StripController extends BaseController {
             'available_languages' => $available_languages,
             'lang_strip' => $lang_strip,
             'bubble_id' => $bubbles->id,
+            'bubble_user' => $bubbles->user->username,
             'canvas' => $this->mergeShapesAndBubblesJSON($shapes, $bubbles),
             'canvas_height' => $this->getHeight($shapes->value),
             'canvas_width' => $this->getWidth($shapes->value)
