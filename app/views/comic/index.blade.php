@@ -39,11 +39,6 @@
 @stop
 
 @section('master.nav')
+    @include('common.admin_nav')
     @parent
-    @if(Auth::check() && Auth::user()->isSuperAdministrator())
-    <li class="list-group-item">
-        <span class="badge">{{ $nb_pending }}</span>
-        <a href="{{URL::route('comic.moderate')}}" >@lang('comic.pending')</a>
-    </li>
-    @endif
 @append

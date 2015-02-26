@@ -31,5 +31,5 @@ return array(
     'dateUpdated' => 'Updated at',
     'other_translation' => 'Vote for the best translation',
     'translate' => 'Translate',
-    'choose' => 'Vote'
+    'choose' => 'Vote',
 );

@@ -1,5 +1,7 @@
 <?php
 
+use Transcomics\RoleRessource\RessourceDefinition;
+
 class Comic extends Eloquent implements Moderable {
     
     use UploadFile;
@@ -25,10 +27,22 @@ class Comic extends Eloquent implements Moderable {
         return $this->validated_state == 'VALIDATED';
     }
 
-    public function stripsValidated($paginate = null) {
+    public function stripsValidatedOrYours($paginate = null, $user_id = null) {
+        $myStrips = null;
+        if(!is_null($user_id)) {
+            $myStrips = RoleRessource::where('ressource', RessourceDefinition::Strips)
+                    ->where('user_id', $user_id)
+                    ->lists('ressource_id');
+        }
+
         $strips = $this->strips()
-            ->where('validated_state', ValidateEnum::VALIDATED);
-        
+                ->where(function($query) use ($myStrips) {
+                    $query->where('validated_state', ValidateEnum::VALIDATED);
+                    if(!is_null($myStrips)) {
+                        $query->orWhereIn('id', $myStrips);
+                    }
+                });
+                
         if (!is_null($paginate)) {
             return $strips->paginate($paginate);
         }

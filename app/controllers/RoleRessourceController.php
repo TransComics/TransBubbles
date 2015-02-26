@@ -24,7 +24,7 @@ class RoleRessourceController extends BaseController {
             return Redirect::route('home');
         }
 
-        $role = $this->getAllRoles();
+        $role = $this->getFilteredRoles();
 
         return View::make('comic.role')->with('rolesR', $rolesR)
                         ->with('comic', $comic)
@@ -57,7 +57,7 @@ class RoleRessourceController extends BaseController {
 
         RoleRessource::addRight($role, RessourceDefinition::Comics, $id, $user_id);
 
-        $role = $this->getAllRoles();
+        $role = $this->getFilteredRoles();
 
         $rolesR = RoleRessource::whereressource(RessourceDefinition::Comics)->whereressource_id($id)->get();
         if ($rolesR == null) {
@@ -67,7 +67,6 @@ class RoleRessourceController extends BaseController {
         return Redirect::route('comic.role', $comic->id)->withMessage(Lang::get('role.added'))->with('rolesR', $rolesR)
                         ->with('comic', $comic)
                         ->with('role', $role);
-        ;
     }
 
     /**
@@ -85,14 +84,13 @@ class RoleRessourceController extends BaseController {
             return Redirect::route('home');
         }
 
-        $role = $this->getAllRoles();
+        $role = $this->getFilteredRoles();
         $rolesR = RoleRessource::whereressource(RessourceDefinition::Comics)->whereressource_id($comic_id)->get();
 
         if ($roleR->user_id == $comic->created_by) {
             return Redirect::route('comic.role', $comic->id)->withMessage(Lang::get('role.cannot_suppress'))->with('rolesR', $rolesR)
                             ->with('comic', $comic)
                             ->with('role', $role);
-            ;
         }
 
         $roleR->delete();
@@ -100,18 +98,33 @@ class RoleRessourceController extends BaseController {
         return Redirect::route('comic.role', $comic->id)->withMessage(Lang::get('role.user_deleted'))->with('rolesR', $rolesR)
                         ->with('comic', $comic)
                         ->with('role', $role);
-        ;
     }
 
-    private function getAllRoles() {
-        return Role::all([
-                    'id',
-                    'name'
-                ])->filter(function ($r) {
+    private function getFilteredRoles() {
+        return Role::all()->filter(function ($r) {
                     if ($r->id == 1 || $r->id == 4) {
                         return false;
                     }
                     return true;
+                })->each(function ($o) {
+
+                    $o->name .=  ' (';
+                    if ($o->C) {
+                        $o->name .= 'C';
+                    }
+                    if ($o->R) {
+                        $o->name .= 'R';
+                    }
+                    if ($o->U) {
+                        $o->name .= 'U';
+                    }
+                    if ($o->M) {
+                        $o->name .= 'M';
+                    }
+                    if ($o->D) {
+                        $o->name .= 'D';
+                    }
+                    $o->name .= ')';
                 })->lists('name', 'id');
     }
 

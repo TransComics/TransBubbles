@@ -34,7 +34,7 @@ class VoteController extends \BaseController {
             return Redirect::route('strip.vote', [$comic_id, $strip_id]);
         }
         
-        $shapes = $strip->shapes()->whereNotNull('validated_at')->first();
+        $shapes = $strip->getBestShapes();
         if ($shapes == null) {
             return Redirect::route('comic.index');
         }

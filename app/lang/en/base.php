@@ -12,7 +12,7 @@ return array(
     'confirm'   => 'Confirm',
     'submit'    => 'Submit',
     'role'      => 'Roles',
-    'confirm_delete' => 'Please confirm the deletion'
+    'confirm_delete' => 'Please confirm the deletion',
+    'yes'       => 'Yes',
+    'no'        => 'No',
 );
-
-?>
