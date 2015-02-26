@@ -77,7 +77,7 @@
     </div>
     @if(!$isTheOriginal)
         <div class="btn-group" role="group">
-            <a href="{{URL::route('strip.vote', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
+            <a href="{{URL::route('strip.vote', array($strips->comic_id, $strips->id, $bubble_id))}}" class="btn btn-primary">
                     <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
             </a>
             <a href="{{URL::route('strip.translate', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
