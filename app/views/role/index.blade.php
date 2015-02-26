@@ -56,14 +56,14 @@ $(document).ready(function() {
 				</thead>
 				<tbody>
 					@foreach($roles as $role)				
-					<tr id="click" class="clickable-row"
+					<tr id="click" class="clickable-row" style="cursor: pointer;"
 						data-href="/private/roles/{{$role->id}}">
 						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->name}}</td>
-						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->C}}</td>
-						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->R}}</td>
-						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->U}}</td>
-						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->M}}</td>
-						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->D}}</td>
+						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->C ? Lang::get('base.yes') : Lang::get('base.no')}}</td>
+						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->R ? Lang::get('base.yes') : Lang::get('base.no')}}</td>
+						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->U ? Lang::get('base.yes') : Lang::get('base.no')}}</td>
+						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->M ? Lang::get('base.yes') : Lang::get('base.no')}}</td>
+						<td class="text-center" data-href="/private/roles/{{$role->id}}">{{$role->D ? Lang::get('base.yes') : Lang::get('base.no')}}</td>
 					    <td class="text-center"> 
 					    {{ Form::open(['route' => ['private..roles.destroy', $role->id], 'method' => 'delete', 'id' =>'form'.$role->id ]); }}
 					           <span class="btn-group" role="group"> 
