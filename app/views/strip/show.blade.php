@@ -8,7 +8,7 @@
 <div class="text-center center-block">
     <small>@lang('strip.dateUpdated') {{ $strips->updated_at }} - 
         @lang('comic.imported',['imported'=> $strips->user->username]) - 
-        @lang('comic.translated_by',['imported'=> $bubble_user])</small>
+        @lang('strip.translated_by',['imported'=> $bubble_user])</small>
 </div>
 <hr>
 <div class="text-center center-block">

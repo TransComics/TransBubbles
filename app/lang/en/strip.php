@@ -31,6 +31,7 @@ return array(
     'dateUpdated' => 'Updated at',
     'other_translation' => 'Vote for the best translation',
     'translate' => 'Translate',
+    'import' => 'Import text', 
     'choose' => 'Vote',
     'pendingStrip'  => 'Pending strips',
     'pendingShape'  => 'Pending cleans',

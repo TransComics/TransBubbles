@@ -22,7 +22,7 @@ $(document).ready(function() {
         </div>
         @if(Auth::check())
         <div class="col-xs-2 col-xs-height col-bottom">
-            <a href="{{URL::route('strip.create', [$comic->id])}}" title="strip.add" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
+            <a href="{{URL::route('strip.create', [$comic->id])}}" title="@lang('strip.importLink')" class='btn btn-sm btn-primary glyphicon glyphicon-plus'></a>
         </div>
         @endif
     </div>
@@ -81,7 +81,7 @@ $(document).ready(function() {
                         @if($strip->isImportable())
                         <li><a
                                 href="{{URL::route('strip.import', [$strip->comic->id, $strip->id])}}">
-                                @lang('strip.pendingImport')</a></li>
+                                @lang('strip.import')</a></li>
                         @endif
                         @if($strip->isTranslateable())
                         <li><a

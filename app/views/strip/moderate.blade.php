@@ -28,7 +28,7 @@ $(document).ready(function() {
 <div class="text-center center-block">
 	<small>@lang('strip.dateCreated') {{ $strip->created_at }} -
 		@lang('strip.dateUpdated') {{ $strip->updated_at }} - 
-                @lang('comic.imported',['imported'=> $strip->user->username])</small>
+                @lang('strip.imported',['imported'=> $strip->user->username])</small>
 </div>
 <hr>
 <div class="text-center center-block">
