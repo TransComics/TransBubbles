@@ -132,7 +132,7 @@ $(document).ready(function () {
 
 
         TBCanvasParam.prototype.activateButton = function (id) {
-            $(id).css('background-color', '#9D2A16');
+            $(id).css('background-color', '#0ce3ac');
         }
         
         /* initialisation variable to zoom and to undo/redo */
