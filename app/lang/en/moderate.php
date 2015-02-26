@@ -10,9 +10,9 @@ return array(
     'missing_comment' => 'The comment field is missing',
     'refused_comic' => 'TransBubbles : Comic validation refused',
     'accepted_comic' => 'TransBubbles : Comic validation accepted!',
-    'refused_comic_content' => 'Hello :username, we\'re sorry to annouce you that your comics 
+    'refused_comic_content' => 'Hello :username, we\'re sorry to annouce you that your comics
      moderation was refused.',
-    'accepted_comic_content' => 'Hello :username, we\'re happy to annouce you that your comics 
+    'accepted_comic_content' => 'Hello :username, we\'re happy to annouce you that your comics
      moderation was accepted. We hope to see you soon on Transbubbles !',
     'deleted_comic_content' => 'For this reason your comics was deleted',
     'undeleted_comic_content' => 'Your comics is still available for editing.',
