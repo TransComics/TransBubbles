@@ -189,7 +189,7 @@ class StripController extends BaseController {
      */
     public function update($comic_id, $id) {
         $valid = Validator::make([
-                    'title' => Input::get('title'),
+                    'title' => InputParser::parse(Input::get('title')),
                     'index' => Input::get('index')
                         ], Strip::$updateRules);
 
@@ -213,7 +213,7 @@ class StripController extends BaseController {
                 $strip->index = $index;
             }
 
-            $strip->title = Input::get('title');
+            $strip->title = InputParser::parse(Input::get('title'));
 
             if (Auth::user()->isComicAdminWithID($comic_id)) {
                 $strip->validated_state = ValidateEnum::VALIDATED;
@@ -237,8 +237,7 @@ class StripController extends BaseController {
      * @return Response
      */
     public function store($comic_id) {
-
-        $titles = Input::get('titles');
+        $titles = InputParser::parseAll(Input::get('titles'));
         $files = Input::file('files');
         $indexes = Input::get('indexes');
 
@@ -364,7 +363,7 @@ class StripController extends BaseController {
                 $strip->updateShowable();
                 break;
             case 'refuse':
-                $comment = Input::get('comment');
+                $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
                     return Redirect::route('strip.moderate')->withcomic($strip)->withMessage(Lang::get('moderate.missing_comment'));
                 }
@@ -462,7 +461,7 @@ class StripController extends BaseController {
                 $strip->updateShowable();
                 break;
             case 'refuse':
-                $comment = Input::get('comment');
+                $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
                     return Redirect::route('strip.moderateShape', $comic_id, $shape_id)->withMessage(Lang::get('moderate.missing_comment'));
                 }
@@ -548,7 +547,7 @@ class StripController extends BaseController {
                 $strip->updateShowable();
                 break;
             case 'refuse':
-                $comment = Input::get('comment');
+                $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
                     return Redirect::route('strip.moderateImport', $comic_id, $import_id)->withMessage(Lang::get('moderate.missing_comment'));
                 }
@@ -637,7 +636,7 @@ class StripController extends BaseController {
                 $strip->updateShowable();
                 break;
             case 'refuse':
-                $comment = Input::get('comment');
+                $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
                     return Redirect::route('strip.moderateBubble', $comic_id, $bubble_id)->withMessage(Lang::get('moderate.missing_comment'));
                 }

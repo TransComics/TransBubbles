@@ -37,7 +37,7 @@
 </br>
 @endif
 <div class="well">
-    <h4>{{$comic->description}}</h4>
+    <h4>{{ $comic->description }}</h4>
 </div>
 </br>
 
@@ -76,9 +76,9 @@
          </div>
     </div>   
     @endforeach
-    @include('common.submit_delete')
 </div>
 @endif
+@include('common.submit_delete')
 @stop
 @section('master.nav')
     @parent
