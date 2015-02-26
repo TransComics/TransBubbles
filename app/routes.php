@@ -26,11 +26,6 @@ Route::get('/', [
     'uses' => 'HomeController@home'
 ]);
 
-Route::get('/export', [
-    'as' => 'export',
-    'uses' => 'ExportController@export'
-]);
-
 /* Languages */
 Route::post('/lang', [
     'as' => 'language.select',
@@ -93,7 +88,10 @@ Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
         'uses' => 'RoleController@storeUserRole'
     ]);
     
-  
+    Route::get('/export', [
+    'as' => 'private.export',
+    'uses' => 'ExportController@export'
+    ]);
 });
 
 Route::group([

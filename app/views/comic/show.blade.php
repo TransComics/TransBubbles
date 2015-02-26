@@ -78,3 +78,7 @@
 </div>
 @endif
 @stop
+@section('master.nav')
+    @parent
+    @include('common.moderate_nav')
+@append
