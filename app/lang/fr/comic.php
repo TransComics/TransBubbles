@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'added' => 'La BD :title a été ajoutée.',
     'updated' => 'La BD :title a été modifiée.',
@@ -16,8 +15,13 @@ return array(
     'listLink' => 'Liste des bandes dessinées',
     'created' => 'créé par :created',
     'imported' => 'importé par :imported',
+    'translated_by' => 'traduite par :imported',
     'lastStrip' => 'Derniers ajouts',
+    'latestUpdated' => 'Dernières bandes déssinées mises à jour',
     'noStrip' => 'Actuellement aucunes planche, veuillez en ajouter',
+    'pending' => 'Bandes déssinées en attente de modération',
     'last' => 'Dernière',
-    'latestUpdated' => 'Dernières bandes déssinées mises à jour'
+   
 );
+
+
