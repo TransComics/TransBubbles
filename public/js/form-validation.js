@@ -1,4 +1,15 @@
 $(document).ready(function () {
+
+    $( "input, textarea , select ").each(function( index ) {
+        if($(this).attr("data-rule-required") == "true"){
+            var id =$(this).attr('id');
+            var label = $('label[for="'+id+'"]');
+            label.text(label.text()+"*");
+            if( $(this).is(':checkbox') ){
+                $(this).before("*");
+            }
+        }
+    });
 	$('#formsign').validate({
 		 highlight: function(element) {
 	        $(element).closest('.input-group').addClass('has-error');

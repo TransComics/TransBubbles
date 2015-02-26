@@ -44,16 +44,21 @@ class ComicController extends BaseController {
     }
 
     public function store() {
-        $v = Validator::make(InputParser::parseAll(Input::all()), ComicController::getRules());
+
+        $inputs = Input::all();
+        foreach (['title', 'description', 'author'] as $field) {
+            $inputs[$field] = InputParser::parse($inputs[$field]);
+        }
+        $v = Validator::make($inputs, ComicController::getRules());
 
         if ($v->passes()) {
             $comic = new Comic();
 
-            $comic->fill(Input::only(
-                            'title', 'author', 'authorApproval', 'font_id', 'lang_id'
-            ));
+            $comic->fill(InputParser::parseAll(Input::only(
+                'title', 'author', 'authorApproval', 'font_id', 'lang_id'
+            )));
 
-            $comic->description = nl2br(Input::get('description'));
+            $comic->description = nl2br($inputs['description']);
             if (Input::hasFile('cover')) {
                 Comic::dropFile($comic->cover);
                 $comic->cover = Comic::uploadFile(Input::file('cover'));
@@ -75,12 +80,16 @@ class ComicController extends BaseController {
     public function update($id) {
 
         $comic = Comic::findOrFail($id);
-        $v = Validator::make(InputParser::parseAll(Input::all()), ComicController::getRules($comic->id));
+        $inputs = Input::all();
+        foreach (['title', 'description', 'author'] as $field) {
+            $inputs[$field] = InputParser::parse($inputs[$field]);
+        }
+        $v = Validator::make($inputs, ComicController::getRules($comic->id));
 
         if ($v->passes()) {
-            $comic->title = Input::get('title');
-            $comic->author = Input::get('author');
-            $comic->description = nl2br(Input::get('description'));
+            $comic->title = $inputs['title'];
+            $comic->author = $inputs['author'];
+            $comic->description = nl2br($inputs['description']);
             $comic->authorApproval = Input::get('authorApproval');
             if (Input::hasFile('cover')) {
                 Comic::dropFile($comic->cover);

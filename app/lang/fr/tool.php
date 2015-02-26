@@ -16,7 +16,8 @@ return array(
     'zoomIn' => 'Zoom avant',
     'zoomReset' => 'Réinitialiser le zoom',
     'undo' => 'Annuler',
-    'redo' => 'Refaire', 
+    'redo' => 'Refaire',
+    'eyedropper' => 'Pipette',
     
     // Section D'import
     'alignLeft' => 'Aligner à gauche',
