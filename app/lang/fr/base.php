@@ -7,5 +7,7 @@ return array(
     'add'       => 'Ajouter',
     'update'    => 'Mettre à Jour',
     'delete'    => 'Supprimer',
-    'language'  => 'Langue'
+    'language'  => 'Langue',
+    'yes'       => 'Oui',
+    'no'        => 'Non',
 );
