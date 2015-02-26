@@ -7,6 +7,7 @@ abstract class RessourceDefinition {
 // Credit : http://stackoverflow.com/questions/254514/php-and-enumerations
     private static $constCacheArray = NULL;
 
+    const All = 0;
     const Comics = 1;
     const Strips = 2;
 

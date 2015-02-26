@@ -47,11 +47,6 @@ Route::post('/strip/lang_to', [
     'uses' => 'LanguageController@selectForStripTo'
 ]);
 
-/* Private */
-Route::group(['prefix' => '/private'], function () {
-    
-});
-
 
 /* Authentification */
 Route::get('/login/', [
@@ -60,17 +55,17 @@ Route::get('/login/', [
 ]);
 
 Route::get('/verify/{confirmation_code}', [
-    'as'=> 'user.verify',
+    'as' => 'user.verify',
     'uses' => 'UsersController@verify'
 ]);
 
 Route::get('/verify', [
-    'as'=> 'user.verify_index',
+    'as' => 'user.verify_index',
     'uses' => 'UsersController@verifyIndex'
 ]);
 
 Route::post('/verify', [
-    'as'=> 'user.verify_index',
+    'as' => 'user.verify_index',
     'uses' => 'UsersController@postVerify'
 ]);
 
@@ -87,6 +82,18 @@ Route::get('/signup/', [
 Route::post('/signup/', 'UsersController@postCreate');
 Route::group(['prefix' => '/private', 'before' => 'super_admin'], function() {
     Route::resource('/roles', 'RoleController');
+        
+    Route::delete('/roles/{role_id}/{roleRessource_id}', [
+        'as' => 'roles.user.destroy',
+        'uses' => 'RoleController@removeUserRole'
+    ]);
+    
+    Route::post('/roles/{role_id}/', [
+        'as' => 'roles.storeUserRole',
+        'uses' => 'RoleController@storeUserRole'
+    ]);
+    
+  
 });
 
 Route::group([
