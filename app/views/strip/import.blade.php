@@ -13,8 +13,8 @@
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut"></span>
-        <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn"></span>
+        <span class='btn btn-primary fa fa-search-minus' id="btnZoomOut"></span>
+        <span class='btn btn-primary fa fa-search-plus' id="btnZoomIn"></span>
         <span class='btn btn-primary fa fa-search' id="btnResetZoom"></span>
     </div>
 
