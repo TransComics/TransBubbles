@@ -16,7 +16,7 @@ return array(
     'about' => 'À propos',
     'contactus' => 'Nous contacter',
     'navAdmin' => 'Admin',
-    'sitemap' => 'Sitemap'
+    'sitemap' => 'Sitemap',
     'yes'       => 'Oui',
     'no'        => 'Non',
 );
