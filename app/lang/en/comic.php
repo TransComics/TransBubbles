@@ -15,7 +15,9 @@ return array(
     'listLink' => 'Comics list',
     'created' => 'created by :created',
     'imported' => 'imported by :imported',
-    'lastStrip' => 'Latest addition',
+    'translated_by' => 'translated by :imported',
+    'lastStrip' => 'Latest strips addition',
+    'latestUpdated' => 'Latest comics updated',
     'noStrip' => 'Currently no strip, please add one.',
     'pending' => 'Pending comics to moderate'
 );
