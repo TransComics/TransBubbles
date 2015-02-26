@@ -32,8 +32,8 @@ return array(
     'other_translation' => 'Vote for the best translation',
     'translate' => 'Translate',
     'choose' => 'Vote',
-    'strip.pendingStrip'  => 'Pending strips',
-    'strip.pendingShape'  => 'Pending cleans',
-    'strip.pendingImport' => 'Pending text import',
-    'strip.pendingBubble' => 'Pending translations',
+    'pendingStrip'  => 'Pending strips',
+    'pendingShape'  => 'Pending cleans',
+    'pendingImport' => 'Pending text import',
+    'pendingBubble' => 'Pending translations',
 );

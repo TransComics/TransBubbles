@@ -327,7 +327,7 @@ class StripController extends BaseController {
         }
 
         $nextPendingStrip = $comic->getPendingStrips()->where('strips.id', '>', $strip_id)->orderBy('strips.id')->first();
-        $previousPendingStrip = $comic->getPendingStrips()->where('strips.id', '<', $strip_id)->orderBy('strips.id')->first();
+        $previousPendingStrip = $comic->getPendingStrips()->where('strips.id', '<', $strip_id)->orderBy('strips.id','desc')->first();
 
         View::share([
             'strip' => $strip,
@@ -365,7 +365,7 @@ class StripController extends BaseController {
             case 'refuse':
                 $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
-                    return Redirect::route('strip.moderate')->withcomic($strip)->withMessage(Lang::get('moderate.missing_comment'));
+                    return Redirect::route('strip.moderate',[$comic_id,$strip_id])->withMessage(Lang::get('moderate.missing_comment'));
                 }
 
                 $strip->validated_state = ValidateEnum::REFUSED;
@@ -416,7 +416,7 @@ class StripController extends BaseController {
         }
 
         $nextPendingShape = $comic->getPendingShapes()->where('shapes.id', '>', $shape_id)->orderBy('shapes.id')->first();
-        $previousPendingShape = $comic->getPendingShapes()->where('shapes.id', '<', $shape_id)->orderBy('shapes.id')->first();
+        $previousPendingShape = $comic->getPendingShapes()->where('shapes.id', '<', $shape_id)->orderBy('shapes.id','desc')->first();
 
         View::share([
             'shape' => $shape,
@@ -463,7 +463,7 @@ class StripController extends BaseController {
             case 'refuse':
                 $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
-                    return Redirect::route('strip.moderateShape', $comic_id, $shape_id)->withMessage(Lang::get('moderate.missing_comment'));
+                    return Redirect::route('strip.moderateShape', [$comic_id, $shape_id])->withMessage(Lang::get('moderate.missing_comment'));
                 }
                 $shape->validated_state = ValidateEnum::REFUSED;
                 $shape->validated_comments = $comment;
@@ -500,7 +500,7 @@ class StripController extends BaseController {
 
 
         $nextPendingImport = $comic->getPendingImport()->where('bubbles.id', '>', $import_id)->orderBy('bubbles.id')->first();
-        $previousPendingImport = $comic->getPendingImport()->where('bubbles.id', '<', $import_id)->orderBy('bubbles.id')->first();
+        $previousPendingImport = $comic->getPendingImport()->where('bubbles.id', '<', $import_id)->orderBy('bubbles.id','desc')->first();
 
         View::share([
             'strip' => $strip,
@@ -549,7 +549,7 @@ class StripController extends BaseController {
             case 'refuse':
                 $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
-                    return Redirect::route('strip.moderateImport', $comic_id, $import_id)->withMessage(Lang::get('moderate.missing_comment'));
+                    return Redirect::route('strip.moderateImport', [$comic_id, $import_id])->withMessage(Lang::get('moderate.missing_comment'));
                 }
                 $bubble->validated_state = ValidateEnum::REFUSED;
                 $bubble->validated_comments = $comment;
@@ -587,7 +587,7 @@ class StripController extends BaseController {
 
 
         $nextPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '>', $bubble_id)->orderBy('bubbles.id')->first();
-        $previousPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '<', $bubble_id)->orderBy('bubbles.id')->first();
+        $previousPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '<', $bubble_id)->orderBy('bubbles.id','desc')->first();
 
         $available_languages = $strip->getLanguagesWithTranslate($strip->user_id)->lists('label', 'id');
         $lang_strip = Session::has('lang_strip') ? Session::get('lang_strip') : $strip->comic->lang_id;
@@ -638,7 +638,7 @@ class StripController extends BaseController {
             case 'refuse':
                 $comment = InputParser::parse(Input::get('comment'));
                 if (empty($comment)) {
-                    return Redirect::route('strip.moderateBubble', $comic_id, $bubble_id)->withMessage(Lang::get('moderate.missing_comment'));
+                    return Redirect::route('strip.moderateBubble', [$comic_id, $bubble_id])->withMessage(Lang::get('moderate.missing_comment'));
                 }
                 $bubble->validated_state = ValidateEnum::REFUSED;
                 $bubble->validated_comments = $comment;
