@@ -252,6 +252,11 @@ class ComicController extends BaseController {
                         $message->to($user->email, $user->username)->subject(Lang::get('moderate.accepted_comic'));
                     });
                 }
+                
+                $comic->strips()->get()->each(function ($strip) {
+                    $strip->updateShowable();
+                });
+                
                 break;
             case 'refuse':
                 $comment = Input::get('comment');
