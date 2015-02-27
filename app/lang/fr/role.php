@@ -18,4 +18,5 @@ return array(
     'user_deleted' => 'Utilisateur supprimé !',
     'cannot_suppress' => 'Vous ne pouvez supprimer ce rôle',
     'created' => 'Role créé avec succès!',
+    'update_role' => 'Modifier le rôle',
 );
