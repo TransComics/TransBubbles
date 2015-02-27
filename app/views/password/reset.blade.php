@@ -3,7 +3,7 @@
 	class="mainbox col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<div class="panel-title">Complete this form to reset your password</div>
+			<div class="panel-title">@lang('login.passwordResetForm')</div>
 		</div>
 		<div style="padding-top: 30px" class="panel-body">
 			@if(Session::has('error'))
@@ -38,7 +38,7 @@
 			<div class="form-group">
 				<!-- Button -->
 				<div class="col-md-offset-3 col-md-9">
-					{{ Form::submit('Reset Password', array('class'=>'btn btn-info'))}}
+					{{ Form::submit(Lang::get('base.submit'), array('class'=>'btn btn-info'))}}
 					<!-- <span style="margin-left: 8px;">or</span> -->
 				</div>
 			</div>
