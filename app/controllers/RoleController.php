@@ -33,7 +33,7 @@ class RoleController extends BaseController {
      */
     public function store() {
         $rules = array(
-            'name' => 'required|unique:roles'
+            'name' => 'required|unique:roles|alpha_num'
         );
 
         $validator = Validator::make(Input::all(), $rules);

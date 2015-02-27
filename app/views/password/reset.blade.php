@@ -3,7 +3,7 @@
 	class="mainbox col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<div class="panel-title">Complete this form to reset your password</div>
+			<div class="panel-title">@lang('login.passwordResetForm')</div>
 		</div>
 		<div style="padding-top: 30px" class="panel-body">
 			@if(Session::has('error'))
@@ -31,14 +31,14 @@
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 				{{ Form::password('password_confirmation',
-				array('class'=>'form-control', 'placeholder'=>'Confirm Password'))
+				array('class'=>'form-control', 'placeholder'=>Lang::get('login.password_confirm')))
 				}}
 			</div>
 			{{ $errors->first("password_confirmation") }}
 			<div class="form-group">
 				<!-- Button -->
 				<div class="col-md-offset-3 col-md-9">
-					{{ Form::submit('Reset Password', array('class'=>'btn btn-info'))}}
+					{{ Form::submit(Lang::get('base.submit'), array('class'=>'btn btn-info'))}}
 					<!-- <span style="margin-left: 8px;">or</span> -->
 				</div>
 			</div>

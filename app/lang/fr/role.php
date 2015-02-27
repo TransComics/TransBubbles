@@ -1,10 +1,10 @@
 <?php
 return array(
     'submit' => 'Soumettre',
-    'create_new_role' => 'Creer un nouveau rôle',
+    'create_new_role' => 'Créer un nouveau rôle',
     'validate' => 'Valider',
     'name' => 'Nom',
-    'create' => 'Creer',
+    'create' => 'Créer',
     'read' => 'Lire',
     'update' => 'Mettre à jour',
     'moderate' => 'Modérer',
@@ -17,5 +17,6 @@ return array(
     'added' => 'Rôle ajouté !',
     'user_deleted' => 'Utilisateur supprimé !',
     'cannot_suppress' => 'Vous ne pouvez supprimer ce rôle',
-    'created' => 'Role créé avec succès!'
+    'created' => 'Role créé avec succès!',
+    'update_role' => 'Modifier le rôle',
 );

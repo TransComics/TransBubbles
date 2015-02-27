@@ -54,8 +54,9 @@
 
 				<div class="col-sm-12 controls">
 					{{ Form::submit(Lang::get('login.sign_in'), array('class'=>'btn
-					btn-success'))}} <a id="btn-fblogin" href="#"
-						class="btn btn-primary">@lang('login.facebook_log')</a>
+					btn-success'))}} 
+					<!--<a id="btn-fblogin" href="#"
+						class="btn btn-primary">@lang('login.facebook_log')</a>-->
 				</div>
 			</div>
 
