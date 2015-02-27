@@ -18,10 +18,10 @@ return array(
     'message_errors' => 'Les erreurs suivantes ont eu lieu',
     'registration_succes' => 'Merci de vous être enregistré!',
     'reset_success' => 'Le mot de passe a été correctement modifié',
-    'verify_mail_subject' => 'TransBubble: Vérifier votre adresse email',
+    'verify_mail_subject' => 'TransBubble: Vérifiez votre adresse email',
     'verify_content' => 'Merci d`\'avoir créé un compte !
      Merci de cliquer sur le lien suivant afin de valider votre adresse email :',
-    'registration_to_verify' => 'Merci d\'avoir créé un compte! Vérifier vos mail pour terminer votre inscription.',
+    'registration_to_verify' => 'Merci d\'avoir créé un compte! Vérifiez vos emails pour terminer votre inscription.',
     'confirm_not_working' => 'Si le lien ci-dessus ne fonctionne pas, utilisez ce lien pour en générer un nouveau.',
     'mail_confirmation_reset' => 'Renvoi du mail de confirmation'
 );
