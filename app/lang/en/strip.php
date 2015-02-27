@@ -41,6 +41,8 @@ return array(
     'importInterface' => 'Import text interface',
     'cleanInterface' => 'Cleaning interface',
     'translated_by' => 'translated by :imported',
+    'imported' => 'imported by :imported',
     'viewAll' => 'View All',
-    'index' => 'Strips index'
+    'index' => 'Strips index',
+    'return' => 'Return'
 );
