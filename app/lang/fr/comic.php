@@ -17,9 +17,9 @@ return array(
     'imported' => 'importé par :imported',
     'translated_by' => 'traduite par :imported',
     'lastStrip' => 'Derniers ajouts',
-    'latestUpdated' => 'Dernières bandes déssinées mises à jour',
+    'latestUpdated' => 'Dernières bandes dessinées mises à jour',
     'noStrip' => 'Actuellement aucunes planche, veuillez en ajouter',
-    'pending' => 'Bandes déssinées en attente de modération',
+    'pending' => 'Bandes dessinées en attente de modération',
     'last' => 'Dernière',
    
 );
