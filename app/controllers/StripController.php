@@ -700,6 +700,7 @@ class StripController extends BaseController {
         $shape->strip_id = $strip_id;
         $shape->value = Input::get('value');
         $shape->user_id = Auth::user()->id;
+        $shape->validated_state = ValidateEnum::PENDING;
         $shape->save();
 
         if (Input::get('action') == "saveClean") {
@@ -764,6 +765,7 @@ class StripController extends BaseController {
         $bubble->strip_id = $strip_id;
         $bubble->value = $this->extractTextsFromJSON(Input::get('value'));
         $bubble->user_id = Auth::id();
+        $bubble->validated_state = ValidateEnum::PENDING;
         $bubble->save();
 
         return Redirect::route('strip.index', [
@@ -835,6 +837,7 @@ class StripController extends BaseController {
         Session::put('lang_strip_to', Input::get('lang_id'));
         $bubble->lang_id = Input::get('lang_id');
         $bubble->strip_id = $strip_id;
+        $bubble->validated_state = ValidateEnum::PENDING;
         $bubble->value = $this->extractTextsFromJSON(Input::get('value'));
 
         if (Auth::check()) {

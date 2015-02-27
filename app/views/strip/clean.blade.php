@@ -27,9 +27,11 @@
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
+        <a class='btn btn-primary fa fa-eyedropper' href="" title="@lang('tool.eyedropper')" id="eyedropper"></a>
         <input class="btn btn-primary" style="height:37px;" type="color" name="colorPicker" id="colorPicker" value="#ffffff"  title="@lang('tool.color')" />
         <input class="btn btn-primary" style="width:65px;height:37px;" type="number" name="sizePicker" id="sizePicker" value="20" min="1" max="999"  title="@lang('tool.brushSize')" />
         <a class='btn btn-primary fa fa-paint-brush' href="" id="brush" title="@lang('tool.brush')" ></a>
+
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">

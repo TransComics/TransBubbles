@@ -21,8 +21,8 @@
     </div>
 
     <div class="btn-group pull-right margin-5" role="group">
-        <span class='btn btn-primary fa fa-search-plus' id="btnZoomOut" title="@lang('tool.zoomOut')"></span>
-        <span class='btn btn-primary fa fa-search-minus' id="btnZoomIn" title="@lang('tool.zoomIn')"></span>
+        <span class='btn btn-primary fa fa-search-minus' id="btnZoomOut" title="@lang('tool.zoomOut')"></span>
+        <span class='btn btn-primary fa fa-search-plus' id="btnZoomIn" title="@lang('tool.zoomIn')"></span>
         <span class='btn btn-primary fa fa-search' id="btnResetZoom" title="@lang('tool.zoomReset')"></span>
     </div>
 

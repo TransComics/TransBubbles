@@ -17,6 +17,7 @@ return array(
     'zoomReset' => 'Zoom reset',
     'undo' => 'Undo',
     'redo' => 'Redo',
+    'eyedropper' => 'Eyedropper',
     
     // Import Section
     'alignLeft' => 'Align left',
