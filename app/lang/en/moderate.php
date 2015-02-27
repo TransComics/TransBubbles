@@ -18,5 +18,8 @@ return array(
     'undeleted_comic_content' => 'Your comics is still available for editing.',
     'refused_comment' => 'The following comments were mentioned : ":comment"',
     'quit' => 'Quit',
-    'navTitle' => 'Moderation'
+    'navTitle' => 'Moderation',
+    'shape_moderation' => 'Cleaning moderation',
+    'import_moderation' => 'Text import moderation',
+    'bubble_moderation' => 'Translation moderation'
 );
