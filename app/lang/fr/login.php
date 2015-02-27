@@ -22,7 +22,8 @@ return array(
     'verify_content' => 'Merci d`\'avoir créé un compte !
      Merci de cliquer sur le lien suivant afin de valider votre adresse email :',
     'registration_to_verify' => 'Merci d\'avoir créé un compte! Vérifier vos mail pour terminer votre inscription.',
-    'confirm_not_working' => 'Si le lien ci-dessus ne fonctionne pas, utilisez ce lien pour en générer un nouveau.'
+    'confirm_not_working' => 'Si le lien ci-dessus ne fonctionne pas, utilisez ce lien pour en générer un nouveau.',
+    'mail_confirmation_reset' => 'Renvoi du mail de confirmation'
 );
 
 

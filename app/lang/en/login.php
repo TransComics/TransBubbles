@@ -22,6 +22,7 @@ return array(
     'verify_content' => 'Thanks for creating an account ! 
      Please follow the link below to verify your email adress :',
     'registration_to_verify' => 'Thanks for creating an account ! please check your mail to finish your registration.',
-    'confirm_not_working' => 'If the token below doesn\'t work, use this link to generate a new one.'
+    'confirm_not_working' => 'If the token below doesn\'t work, use this link to generate a new one.',
+    'mail_confirmation_reset' => 'Mail confirmation reset'
 );
 ?>
