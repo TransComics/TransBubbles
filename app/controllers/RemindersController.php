@@ -65,7 +65,7 @@ class RemindersController extends Controller {
                 return Redirect::back()->with('error', Lang::get($response))->withInput();
             
             case Password::PASSWORD_RESET:
-                return Redirect::route('home')->with('success', Lang::get('login.reset_success'));
+                return Redirect::route('user.signin')->with('success', Lang::get('login.reset_success'));
         }
     }
 }

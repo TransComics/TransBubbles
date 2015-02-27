@@ -31,7 +31,7 @@
 			<div style="margin-bottom: 25px" class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 				{{ Form::password('password_confirmation',
-				array('class'=>'form-control', 'placeholder'=>'Confirm Password'))
+				array('class'=>'form-control', 'placeholder'=>Lang::get('login.password_confirm')))
 				}}
 			</div>
 			{{ $errors->first("password_confirmation") }}
