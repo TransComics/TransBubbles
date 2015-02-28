@@ -223,11 +223,11 @@ class StripController extends BaseController {
 
             $strip->save();
         } else {
-            return Redirect::back()->with('message', Lang::get('strips.updateFailure'))
+            return Redirect::back()->with('message', Lang::get('strip.updateFailure'))
                             ->withErrors($valid)
                             ->withInput();
         }
-        return Redirect::back()->with('message', Lang::get('strips.editComplete'));
+        return Redirect::back()->with('message', Lang::get('strip.editComplete'));
     }
 
     /**
@@ -314,7 +314,7 @@ class StripController extends BaseController {
 
         $this->removeRightOnStrip($id, $strip->user_id);
 
-        return Redirect::back()->with('message', Lang::get('strips.deleteSucceded'));
+        return Redirect::back()->with('message', Lang::get('strip.deleteSucceded'));
     }
 
     public function indexModerate($comic_id, $strip_id) {
