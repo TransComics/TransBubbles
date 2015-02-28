@@ -77,7 +77,7 @@
     <span class="btn btn-danger danger" data-toggle="modal"
 		data-target="#confirm-submit" id="refuse">@lang('base.delete')</span>
     @endif
-    <a href="{{ URL::route('home') }}" class="btn btn-primary"> @lang('base.cancel') </a>
+    <a href="{{ URL::route('comic.show', $comic->id) }}" class="btn btn-primary"> @lang('base.cancel') </a>
     {{ Form::submit(Lang::get($isAdd ? 'base.add' : 'base.update'),['class'=>'btn btn-primary']); }}
 </div>
 {{ Form::close(); }}
