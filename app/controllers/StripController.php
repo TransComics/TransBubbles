@@ -499,7 +499,10 @@ class StripController extends BaseController {
         $shape = $strip->shapes()->where(function ($q) {
                     $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::id());
                 })->first();
-
+                
+        if (empty($shape)) {
+            return Redirect::route('strip.index', $comic_id)->withMessage(Lang::get('moderate.novalidShape'));
+        }
 
         $nextPendingImport = $comic->getPendingImport()->where('bubbles.id', '>', $import_id)->orderBy('bubbles.id')->first();
         $previousPendingImport = $comic->getPendingImport()->where('bubbles.id', '<', $import_id)->orderBy('bubbles.id','desc')->first();
@@ -586,6 +589,10 @@ class StripController extends BaseController {
         $shape = $strip->shapes()->where(function ($q) {
                     $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::id());
                 })->first();
+                
+       if (empty($shape)) {
+            return Redirect::route('strip.index', $comic_id)->withMessage(Lang::get('moderate.novalidShape'));
+       }
 
 
         $nextPendingBubble = $comic->getPendingBubbles()->where('bubbles.id', '>', $bubble_id)->orderBy('bubbles.id')->first();

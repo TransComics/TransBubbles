@@ -21,5 +21,6 @@ return array(
     'navTitle' => 'Modération',
     'shape_moderation' => 'Modération du nettoyage',
     'import_moderation' => 'Modération de l\'import de texte',
-    'bubble_moderation' => 'Modération de la traduction'
+    'bubble_moderation' => 'Modération de la traduction',
+    'novalidShape' => 'Aucun nettoyage validé n\'a été trouvé.'
 );
