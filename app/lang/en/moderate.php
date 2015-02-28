@@ -22,5 +22,5 @@ return array(
     'shape_moderation' => 'Cleaning moderation',
     'import_moderation' => 'Text import moderation',
     'bubble_moderation' => 'Translation moderation',
-    'novalidShape' => 'No valid clean where found'
+    'novalidShape' => 'No valid clean were found'
 );
