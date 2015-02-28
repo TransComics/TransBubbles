@@ -375,6 +375,12 @@ class StripController extends BaseController {
                 $strip->save();
 
                 if (Input::has('delete')) {
+                    $popularity = Popularities::where('strip_id', $strip_id)->first();
+                    if ($popularity != null) {
+                        $popularity->delete();
+                    } else {
+                        Log::error("Popularity not found");
+                    }
                     UploadFile::dropFile($strip->path);
                     $strip->delete();
                 }
