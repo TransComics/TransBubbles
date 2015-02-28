@@ -265,6 +265,8 @@ class StripController extends BaseController {
             
             if (Auth::user()->isComicAdminWithID($comic_id)) {
                 $strip->validated_state = ValidateEnum::VALIDATED;
+                $strip->validated_at = new DateTime();
+                $strip->validated_by = Auth::id();
             } else {
                 $strip->validated_state = ValidateEnum::PENDING;
             }
