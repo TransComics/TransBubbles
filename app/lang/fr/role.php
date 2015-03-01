@@ -19,4 +19,8 @@ return array(
     'cannot_suppress' => 'Vous ne pouvez supprimer ce rôle',
     'created' => 'Role créé avec succès!',
     'update_role' => 'Modifier le rôle',
+    'edit' => 'Éditer',
+    'comic' => 'Comic',
+    'strip' => 'Strip',
+    'ressource_id' => 'Ressource ID',
 );

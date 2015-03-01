@@ -17,13 +17,13 @@ class HomeController extends BaseController {
         
         $strips = Strip::where('validated_state', ValidateEnum::VALIDATED)
             ->where('isShowable', true)
-            ->orderBy('validated_at')
+            ->orderBy('validated_at','desc')
 //            ->groupBy('comic_id')
             ->take(12)->get();
         
         $comics = Strip::where('validated_state', ValidateEnum::VALIDATED)
             ->where('isShowable', true)
-            ->orderBy('validated_at')
+            ->orderBy('validated_at','desc')
             ->groupBy('comic_id')
             ->take(3)->get()
             ->map(function ($c) {

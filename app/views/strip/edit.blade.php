@@ -47,7 +47,7 @@ $(document).ready(function() {
     <div class="btn-group pull-right" role="group">
         <span class="btn btn-danger danger" data-toggle="modal"
 		data-target="#confirm-submit" id="refuse"> @lang('base.delete') </span>
-        <a href="{{ URL::route('home') }}" class="btn btn-primary"> @lang('base.cancel') </a>
+        <a href="{{ URL::route('strip.index', $strips->comic_id) }}" class="btn btn-primary"> @lang('base.cancel') </a>
         {{ Form::submit(Lang::get('base.update'),['class'=>'btn btn-primary']); }}
     </div>
     {{ Form::close(); }}

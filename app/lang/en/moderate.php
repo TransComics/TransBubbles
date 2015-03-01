@@ -21,5 +21,6 @@ return array(
     'navTitle' => 'Moderation',
     'shape_moderation' => 'Cleaning moderation',
     'import_moderation' => 'Text import moderation',
-    'bubble_moderation' => 'Translation moderation'
+    'bubble_moderation' => 'Translation moderation',
+    'novalidShape' => 'No valid clean were found'
 );

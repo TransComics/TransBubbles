@@ -9,7 +9,7 @@ return array(
     'addTitle' => 'Add comics',
     'updateTitle' => 'Update comics',
     'cover' => 'Cover image',
-    'helpCover' => 'Recommended size 846x170',
+    'helpCover' => 'Recommended size 900x300',
     'font' => 'Default font',
     'authorApproval' => 'I certified to be the comics author, or to own the rights to publish it.',
     'listLink' => 'Comics list',
