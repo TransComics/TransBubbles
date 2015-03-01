@@ -45,5 +45,5 @@ return array(
     'viewAll' => 'Voir toutes',
     'index' => 'Index des planches',
     'return' => 'Retour',
-    'signin_action' => 'Connectez vous pour effectuer ces actions'
+    'signin_action' => 'Connectez-vous pour effectuer cette action'
 );
