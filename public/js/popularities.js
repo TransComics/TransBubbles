@@ -1,4 +1,5 @@
 $(document).ready(function () {
+	$('.helper').tooltip({'placement': 'top'})
     //add the function to modify the vote
     $(".popularities").click(function (e) {
 

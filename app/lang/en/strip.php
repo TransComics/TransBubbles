@@ -44,5 +44,6 @@ return array(
     'imported' => 'imported by :imported',
     'viewAll' => 'View All',
     'index' => 'Strips index',
-    'return' => 'Return'
+    'return' => 'Return',
+    'signin_action' => 'Sign in to do this action'
 );

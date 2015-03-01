@@ -44,5 +44,6 @@ return array(
     'translated_by' => 'traduite par :imported',
     'viewAll' => 'Voir toutes',
     'index' => 'Index des planches',
-    'return' => 'Retour'
+    'return' => 'Retour',
+    'signin_action' => 'Connectez vous pour effectuer ces actions'
 );

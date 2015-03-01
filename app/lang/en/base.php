@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'welcome'   => 'Welcome',
+    'welcome'   => 'Welcome to TransBubbles',
     'title'     => 'Title',
     'cancel'    => 'Cancel',
     'add'       => 'Add',
@@ -24,4 +24,5 @@ return array(
     'next'      => 'Next',
     'save'      => 'Save',
     'finish'    => 'Finish',
+    'presentation' => 'TransBubbles is a platform that allows artists from many countries to share their comics so that they will be read and translated into many languages!'
 );
