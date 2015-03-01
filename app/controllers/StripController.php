@@ -121,7 +121,7 @@ class StripController extends BaseController {
         } else {
             $import_id = '';
         }
-
+        
         /**
          * Getting pending bubbles and count
          */
@@ -501,10 +501,7 @@ class StripController extends BaseController {
             return Redirect::route('strip.index', $comic_id);
         }
         $strip = $bubble->strip;
-        //$shape = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
-        $shape = $strip->shapes()->where(function ($q) {
-                    $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::id());
-                })->first();
+        $shape = $strip->getBestShapes($bubble->user_id);
                 
         if (empty($shape)) {
             return Redirect::route('strip.index', $comic_id)->withMessage(Lang::get('moderate.novalidShape'));
@@ -591,10 +588,7 @@ class StripController extends BaseController {
             return Redirect::route('strip.index', $comic_id);
         }
         $strip = $bubble->strip;
-        //$shape = $strip->shapes()->where('validated_state', ValidateEnum::VALIDATED)->first();
-        $shape = $strip->shapes()->where(function ($q) {
-                    $q->where('validated_state', ValidateEnum::VALIDATED)->orWhere('user_id', Auth::id());
-                })->first();
+        $shape = $strip->getBestShapes($bubble->user_id);
                 
        if (empty($shape)) {
             return Redirect::route('strip.index', $comic_id)->withMessage(Lang::get('moderate.novalidShape'));
