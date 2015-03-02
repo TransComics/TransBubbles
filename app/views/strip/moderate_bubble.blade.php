@@ -84,10 +84,10 @@ $(document).ready(function() {
 	</div>
 	<div class="btn-group" role="group">
 	 @if($previousPendingBubble)
-		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.moderateImport', ['comic_id' => $strip->comic_id, 'bubble_id' => $previousPendingBubble->id])}}"></a>
+		<a class='btn btn-primary glyphicon glyphicon-chevron-left' href="{{URL::route('strip.moderateBubble', ['comic_id' => $strip->comic_id, 'bubble_id' => $previousPendingBubble->id])}}"></a>
     @endif
 	@if($nextPendingBubble)
-	   <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.moderateImport',['comic_id' => $strip->comic_id, 'bubble_id' => $nextPendingBubble->id] )}}"></a>
+	   <a class='btn btn-primary glyphicon glyphicon-chevron-right' href="{{URL::route('strip.moderateBubble',['comic_id' => $strip->comic_id, 'bubble_id' => $nextPendingBubble->id] )}}"></a>
 	@endif
 	</div>
 	<br/>
