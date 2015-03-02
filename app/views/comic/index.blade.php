@@ -39,6 +39,6 @@
 @stop
 
 @section('master.nav')
-    @include('common.admin_nav')
     @parent
+    @include('common.admin_nav')
 @append

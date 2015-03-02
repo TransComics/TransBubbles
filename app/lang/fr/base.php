@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    'welcome'   => 'Bienvenue',
+    'welcome'   => 'Bienvenue sur TransBubbles',
     'title'     => 'Titre',
     'cancel'    => 'Annuler',
     'add'       => 'Ajouter',
@@ -24,4 +24,5 @@ return array(
     'next'      => 'Suivant',
     'save'      => 'Sauver',
     'finish'    => 'Finir',
+    'presentation' => 'TransBubbles est une plateforme qui permet aux artistes de divers pays de partager leurs bandes dessinées afin que celles ci soient lues et traduites dans de nombreuses langues !'
 );
