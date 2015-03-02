@@ -53,7 +53,7 @@
             {{ HTML::linkRoute('private..roles.edit', Lang::get('role.edit'), array($role->id), array('class' => 'btn btn-primary')) }}
         </div>
         <div class="col-xs-1 col-xs-height col-bottom">
-            {{ HTML::linkRoute('private..roles.destroy',Lang::get('role.destroy'), array($role->id), array('class' => 'btn btn-danger')) }}
+            {{ HTML::linkRoute('private..roles.destroy',Lang::get('role.delete'), array($role->id), array('class' => 'btn btn-danger')) }}
         </div>
     </div>
 </div>
@@ -64,18 +64,20 @@
             <table id="tableData" class="display table table-hover" width="100%">
                 <thead>
                     <tr>
-                        <th>base username</th>
-                        <th>base ressource</th>
-                        <th>Ressource ID</th>
-                        <th>Supprimer</th>
+                        <th>@lang('login.login')</th>
+                        <th>@lang('role.ressource')</th>
+                        <th>@lang('role.ressource_id')</th>
+                        <th>@lang('base.delete')</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($role_ressources as $role_r)
                     <tr>
                         <td>{{ User::find($role_r->user_id)->username }}</td>
-                        @if($role_r->ressource)
-                        <td>{{$role_r->ressource}}</td>
+                        @if($role_r->ressource == 1)
+                        <td>@lang('role.comic')</td>
+                        @elseif($role_r->ressource == 2)
+                        <td>@lang('role.strip')</td>
                         @else
                         <td>@lang('role.all')</td> 
                         @endif 

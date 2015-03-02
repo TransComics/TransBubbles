@@ -3,16 +3,9 @@
 @section('master.content')
 
 <div class="row jumbotron">
-    <h1>Transbubbles</h1>
-    <p>Welcome to Transbubbles website !</p>
-
+    <h2>@lang('base.welcome')</h2>
+    <p>@lang('base.presentation')</p>
 </div>
-
-@if(Auth::check())
-    {{ Session::get('message') }} 
-@endif 
-
-
 
 <div class="row well">
     <div class="col-md-12">
@@ -47,10 +40,10 @@
                     @endif
                     @endforeach
                 </div>
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <a class="left carousel-control" href="#myCarousel"  style="background-image: none;" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <a class="right carousel-control" href="#myCarousel" style="background-image: none;" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             </div>
@@ -87,10 +80,10 @@
                     @endif
                     @endforeach
                 </div>
-                <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
+                <a class="left carousel-control" href="#myCarousel2" style="background-image: none;" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="right carousel-control" href="#myCarousel2" data-slide="next">
+                <a class="right carousel-control" href="#myCarousel2" style="background-image: none;" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             </div>
@@ -103,6 +96,6 @@
 @stop
 
 @section('master.nav')
-    @include('common.admin_nav')
     @parent
+    @include('common.admin_nav')  
 @append

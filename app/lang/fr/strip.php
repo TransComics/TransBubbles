@@ -43,5 +43,7 @@ return array(
     'cleanInterface' => 'Interface de nettoyage',
     'translated_by' => 'traduite par :imported',
     'viewAll' => 'Voir toutes',
-    'index' => 'Index des planches'
+    'index' => 'Index des planches',
+    'return' => 'Retour',
+    'signin_action' => 'Connectez-vous pour effectuer cette action'
 );

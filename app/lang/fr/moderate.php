@@ -18,5 +18,9 @@ return array(
     'undeleted_comic_content' => 'Votre bande déssinée est cepenfant toujours disponible pour édition.',
     'refused_comment' => 'Les commentaires suivants ont été mentionnés : ":comment"',
     'quit' => 'Quitter',
-    'navTitle' => 'Modération'
+    'navTitle' => 'Modération',
+    'shape_moderation' => 'Modération du nettoyage',
+    'import_moderation' => 'Modération de l\'import de texte',
+    'bubble_moderation' => 'Modération de la traduction',
+    'novalidShape' => 'Aucun nettoyage validé n\'a été trouvé.'
 );

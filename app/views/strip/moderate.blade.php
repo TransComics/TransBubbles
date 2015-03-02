@@ -33,7 +33,7 @@ $(document).ready(function() {
 <hr>
 <div class="text-center center-block">
 <div class="img-responsive">
-{{ HTML::image($strip->path, $strip->title, ['class' => '']); }}
+{{ HTML::image($strip->path, $strip->title, ['class' => 'img-responsive']); }}
 </div>
 </div>
 </br>

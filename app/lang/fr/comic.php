@@ -9,7 +9,7 @@ return array(
     'addTitle' => 'Ajouter une bande dessinée',
     'updateTitle' => 'Modifier une bande dessinée',
     'cover' => 'Image de couverture',
-    'helpCover' => 'taille recommandée 846x170',
+    'helpCover' => 'taille recommandée 900x300',
     'font' => 'Police par défaut',
     'authorApproval' => 'Je certifie être l\'auteur de cette bande dessinée, ou à défaut de posséder l\'accord de son auteur.',
     'listLink' => 'Liste des bandes dessinées',
@@ -17,9 +17,9 @@ return array(
     'imported' => 'importé par :imported',
     'translated_by' => 'traduite par :imported',
     'lastStrip' => 'Derniers ajouts',
-    'latestUpdated' => 'Dernières bandes déssinées mises à jour',
-    'noStrip' => 'Actuellement aucunes planche, veuillez en ajouter',
-    'pending' => 'Bandes déssinées en attente de modération',
+    'latestUpdated' => 'Dernières bandes dessinées mises à jour',
+    'noStrip' => 'Actuellement aucune planche, veuillez en ajouter',
+    'pending' => 'Bandes dessinées en attente de modération',
     'last' => 'Dernière',
    
 );

@@ -17,5 +17,10 @@ return array(
     'added' => 'Role added !',
     'user_deleted' => 'User Deleted !',
     'cannot_suppress' => 'You cannot suppress this role.',
-    'created' => 'Role created with success!'
+    'created' => 'Role created with success!',
+    'update_role' => 'Update role',
+    'edit' => 'Edit',
+    'comic' => 'Comic',
+    'strip' => 'Strip',
+    'ressource_id' => 'Ressource ID',
 );

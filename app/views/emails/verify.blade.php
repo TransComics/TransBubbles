@@ -29,7 +29,7 @@
 			<div style="margin-top: 10px" class="form-group">
 				<!-- Button -->
 
-				<div class="col-sm-12 controls">{{ Form::submit('Submit',
+				<div class="col-sm-12 controls">{{ Form::submit(Lang::get('base.submit'),
 					array('class'=>'btn btn-success'))}}</div>
 			</div>
 

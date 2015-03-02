@@ -7,8 +7,10 @@
 <h1>{{ $strips->title }}</h1>
 <div class="text-center center-block">
     <small>@lang('strip.dateUpdated') {{ $strips->updated_at }} - 
-        @lang('comic.imported',['imported'=> $strips->user->username]) - 
-        @lang('strip.translated_by',['imported'=> $bubble_user])</small>
+        @lang('comic.imported',['imported'=> $strips->user->username]) 
+        @if(!$isTheOriginal)
+            - @lang('strip.translated_by',['imported'=> $bubble_user])
+        @endif</small>
 </div>
 <hr>
 <div class="text-center center-block">
@@ -75,16 +77,34 @@
     <div class="btn-group" role="group">
             <a href="{{URL::route('strip.index', array('comic_id' => $strips->comic_id))}}" class="btn btn-primary"><i class="glyphicon glyphicon-th"></i> @lang('strip.viewAll')</a>
     </div>
-    @if(!$isTheOriginal)
+    
         <div class="btn-group" role="group">
-            <a href="{{URL::route('strip.vote', array($strips->comic_id, $strips->id, $bubble_id))}}" class="btn btn-primary">
-                    <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
-            </a>
+            @if(!$isTheOriginal)
+                @if(Auth::check())
+                <a href="{{URL::route('strip.vote', array($strips->comic_id, $strips->id, $bubble_id))}}" class="btn btn-primary">
+                        <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
+                </a>
+                @else
+                <span class="helper" data-toggle="tooltip" title="@lang('strip.signin_action')">
+                <a disabled="disabled"  class="btn btn-primary">
+                        <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.other_translation')
+                </a>
+                </span>
+                @endif
+            @endif
+            @if(Auth::check())
             <a href="{{URL::route('strip.translate', array('comic_id' => $strips->comic_id, 'strip_id' => $strips->id))}}" class="btn btn-primary">
                     <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.translate')
             </a>
+            @else
+            <span class="helper" data-toggle="tooltip" title="@lang('strip.signin_action')">
+            <a disabled="disabled"  class="btn btn-primary">
+                    <i class="fa fa-comments-o fa-lg" style="padding-right: 5px;"></i> @lang('strip.translate')
+            </a>
+            </span>
+            @endif
         </div>
-    @endif
+    
     <div class="btn-group" role="group">
             {{ Form::open(['route' => ['strip.lang'], 'method' => 'post', 'id' => 'langStripForm', 'style' => 'display : inline;']) }}
         {{ Form::select('lang_id', $available_languages, $lang_strip,['class'=>'btn btn-primary','data-width'=>'auto', 'onChange' => '$("#langStripForm").submit();'])}}
