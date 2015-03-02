@@ -87,6 +87,7 @@ class OcrImport {
         $bubble->strip_id = $data['strip_id'];
         $bubble->user_id = $data['user_id'];
         $bubble->value = $bubbles;
+        $bubble->validated_state = ValidateEnum::REFUSED;
         $bubble->save();
         
         $job->delete(); // delete jobs from the queue
