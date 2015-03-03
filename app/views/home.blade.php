@@ -28,7 +28,7 @@
                                                 {{ $item->comic->title }} 
                                             </h3>
                                         </div>
-                                        <img src="{{ Image::path($item->path, 'resizeCrop', 250, 250)->responsive('max-width=400', 'resize', 100) }}"  alt="{{$item->title}}" 
+                                        <img src="{{ Image::path($item->path, 'resizeCrop', 250, 250) }}"  alt="{{$item->title}}" 
                                              class="img-responsive img-rounded" style="overflow:hidden; width:250px;
                                              height:250px; display:block; margin:0 auto;"/>
                                     </a>
