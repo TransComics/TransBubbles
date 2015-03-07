@@ -16,7 +16,7 @@ return array(
     'ressource_ID' => 'ID Ressource',
     'added' => 'Rôle ajouté !',
     'user_deleted' => 'Utilisateur supprimé !',
-    'cannot_suppress' => 'Vous ne pouvez supprimer ce rôle',
+    'cannot_suppress' => 'Vous ne pouvez supprimer ou modifier ce rôle',
     'created' => 'Role créé avec succès!',
     'update_role' => 'Modifier le rôle',
     'edit' => 'Éditer',
