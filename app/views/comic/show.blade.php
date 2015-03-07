@@ -69,7 +69,7 @@
                     {{ $strip->title }} 
                 </h3>
              </div>
-             <img src="{{ Image::path($strip->path, 'resizeCrop', 250, 350)->responsive('max-width=250', 'resize', 100) }}"  
+             <img src="{{ Image::path($strip->path, 'resizeCrop', 250, 350) }}"  
              alt="{{$strip->title}}" class="img-responsive img-rounded" style="overflow:hidden; width:250px;
              height:250px; display:block; margin:0 auto;"/>
             </a>
